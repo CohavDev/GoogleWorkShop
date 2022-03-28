@@ -1,11 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
 import HomeScreen from "./app/screens/HomeScreen";
+import ProfileMatching from "./app/screens/ProfileMatching";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <HomeScreen />
+      {/* <HomeScreen /> */}
+      <ProfileMatching />
     </View>
   );
 }
