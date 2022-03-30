@@ -56,11 +56,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   matchCountContainer: {
-    marginVertical: 15,
+    // marginVertical: 15,
     paddingHorizontal: 15,
     alignItems: "center",
+    marginLeft: "auto",
     justifyContent: "center",
-    backgroundColor: "gray",
+    // backgroundColor: "gray",
   },
   shadowProp: {
     shadowColor: "#171717",

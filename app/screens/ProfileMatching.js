@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     height: 300,
   },
   container: {
-    marginTop: 100,
     width: "100%",
     height: "100%",
   },
@@ -120,7 +119,7 @@ const styles = StyleSheet.create({
   profilePicContainer: {
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: myColors.circle,
+    paddingTop: "10%",
     marginBottom: "10%",
   },
   interstContainer: {
