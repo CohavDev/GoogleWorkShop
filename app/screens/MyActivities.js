@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import ActivityItem from "../components/ActivityItem";
+import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
-export default function MyActivities() {
+export default function MyActivities({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -18,6 +19,13 @@ export default function MyActivities() {
         />
         <ActivityItem {...{ activityIcon: "drink", activityName: "Drink" }} />
       </View>
+      <Pressable
+        android_ripple={{ color: "white" }}
+        style={myColors.circularImage}
+        onPress={() => navigation.navigate("profileMatching")}
+      >
+        <Entypo name="plus" size={32} color="black"></Entypo>
+      </Pressable>
     </View>
   );
 }
