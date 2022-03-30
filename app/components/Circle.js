@@ -14,7 +14,7 @@ function Circle(props) {
 
 const styles = StyleSheet.create({
     circle:{
-        backgroundColor: colors.circle,
+        backgroundColor: colors.shapeBackground, //colors.circle,
         width: 100,
         height: 100,
         borderRadius: 50,

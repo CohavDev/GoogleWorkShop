@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Button, Pressable } from 'react-native';
 import colors from '../config/colors';
 import Circle  from '../components/Circle';
-import CirclesBackground from '../components/CirclesBackground';
+//import CirclesBackground from '../components/CirclesBackground';
 
 function ChooseActivity(props) {
     return (

@@ -20,10 +20,10 @@ const styles = StyleSheet.create({
         //fontFamily: 'Palette Mosaic'
     },
     ovalButton:{
-        backgroundColor: colors.circle,
+        backgroundColor: colors.shapeBackground, //colors.circle,
         width: 320,
         height: 90,
-        borderRadius: 45,
+        borderRadius: 40,
         //top: 50,
         bottom: 20,
         //margin: -10,
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         //alignContent: 'center',
         alignItems: "center",
         justifyContent: 'center',
+        // position: 'absolute',
     },
 })
 
