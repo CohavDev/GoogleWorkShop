@@ -27,12 +27,8 @@ export default function ProfileMatching() {
       {/* <View> */}
       <LinearGradient
         // Background Linear Gradient
-        colors={[
-          myColors.circle,
-          myColors.background,
-          "rgba(238, 218, 203, 0.7)",
-        ]}
-        locations={[0.3, 0.9, 1]}
+        colors={[myColors.primary, myColors.secondary]}
+        locations={[0.3, 0.9]}
         style={styles.profilePicContainer}
       >
         <Image
@@ -87,7 +83,6 @@ const styles = StyleSheet.create({
     height: 300,
   },
   container: {
-    marginTop: 100,
     width: "100%",
     height: "100%",
   },
@@ -124,13 +119,13 @@ const styles = StyleSheet.create({
   profilePicContainer: {
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: myColors.circle,
+    paddingTop: "10%",
     marginBottom: "10%",
   },
   interstContainer: {
     borderRadius: 10,
     // shadowColor: "black",
-    backgroundColor: "#6f74dd",
+    backgroundColor: myColors.primary,
     marginLeft: 15,
     marginRight: 15,
     marginBottom: 15,
@@ -142,7 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#3949ab",
+    backgroundColor: myColors.buttonColor,
   },
   buttonContainer: {
     display: "flex",
