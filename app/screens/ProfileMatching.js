@@ -24,19 +24,25 @@ export default function ProfileMatching() {
   return (
     <View style={styles.container}>
       {/* style={styles.profilePicContainer} */}
-      <View style={styles.profilePicContainer}>
-        {/* <LinearGradient
-          // Background Linear Gradient
-          colors={[myColors.background, myColors.circle]}
-          style={styles.testingdeltelater}
-        /> */}
+      {/* <View> */}
+      <LinearGradient
+        // Background Linear Gradient
+        colors={[
+          myColors.circle,
+          myColors.background,
+          "rgba(238, 218, 203, 0.7)",
+        ]}
+        locations={[0.3, 0.9, 1]}
+        style={styles.profilePicContainer}
+      >
         <Image
           source={require("../assets/userPic.png")}
           style={styles.profilePic}
         ></Image>
         <Text style={styles.title}>Emma Davis</Text>
         <Text style={styles.smallTitle}>Tel Aviv, 25</Text>
-      </View>
+      </LinearGradient>
+      {/* </View> */}
 
       <Text style={styles.subTitle}>About me</Text>
       <Text style={styles.subText}>
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
   profilePicContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: myColors.circle,
+    // backgroundColor: myColors.circle,
     marginBottom: "10%",
   },
   interstContainer: {
