@@ -24,19 +24,25 @@ export default function ProfileMatching() {
   return (
     <View style={styles.container}>
       {/* style={styles.profilePicContainer} */}
-      <View style={styles.profilePicContainer}>
-        {/* <LinearGradient
-          // Background Linear Gradient
-          colors={[myColors.background, myColors.circle]}
-          style={styles.testingdeltelater}
-        /> */}
+      {/* <View> */}
+      <LinearGradient
+        // Background Linear Gradient
+        colors={[
+          myColors.circle,
+          myColors.background,
+          "rgba(238, 218, 203, 0.7)",
+        ]}
+        locations={[0.3, 0.9, 1]}
+        style={styles.profilePicContainer}
+      >
         <Image
           source={require("../assets/userPic.png")}
           style={styles.profilePic}
         ></Image>
         <Text style={styles.title}>Emma Davis</Text>
         <Text style={styles.smallTitle}>Tel Aviv, 25</Text>
-      </View>
+      </LinearGradient>
+      {/* </View> */}
 
       <Text style={styles.subTitle}>About me</Text>
       <Text style={styles.subText}>
@@ -49,8 +55,12 @@ export default function ProfileMatching() {
       <Text style={styles.subTitle}>I'm From</Text>
       <Text style={styles.subText}>New York, US</Text>
       <View style={[styles.interstContainer, styles.shadowProp]}>
-        <Text style={styles.subTitle}>What I'm looking for?</Text>
-        <Text style={styles.subText}>Bar, Tomorrow night at Tel-Aviv</Text>
+        <Text style={[styles.subTitle, { color: "white" }]}>
+          What I'm looking for?
+        </Text>
+        <Text style={[styles.subText, { color: "white" }]}>
+          Bar, Tomorrow night at Tel-Aviv
+        </Text>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -114,13 +124,13 @@ const styles = StyleSheet.create({
   profilePicContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: myColors.circle,
+    // backgroundColor: myColors.circle,
     marginBottom: "10%",
   },
   interstContainer: {
     borderRadius: 10,
     // shadowColor: "black",
-    backgroundColor: myColors.background,
+    backgroundColor: "#6f74dd",
     marginLeft: 15,
     marginRight: 15,
     marginBottom: 15,
@@ -132,7 +142,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: myColors.circle,
+    backgroundColor: "#3949ab",
   },
   buttonContainer: {
     display: "flex",
