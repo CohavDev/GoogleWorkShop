@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
 import HomeScreen from "./app/screens/HomeScreen";
+import MyActivities from "./app/screens/MyActivities";
 import ProfileMatching from "./app/screens/ProfileMatching";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 
@@ -8,7 +9,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* <HomeScreen /> */}
-      <ProfileMatching />
+      <MyActivities />
     </View>
   );
 }
@@ -18,6 +19,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
   },
 });
