@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import colors from '../config/colors';
+import colors from '../app/config/colors';
 
 function MatchDesription(props) {
     return (

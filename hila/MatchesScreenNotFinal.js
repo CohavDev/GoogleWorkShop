@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import Match from '../components/Match';
-import colors from '../config/colors';
+import Match from '../app/components/Match';
+import colors from '../app/config/colors';
 
 function MatchesScreen(props) {
     return (
