@@ -19,8 +19,10 @@ export default function App() {
 
     // <NavigationContainer>
     //   <Stack.Navigator>
-    //     <Stack.Screen name="ChooseActivity" component={MyActivities} />
+    //     <Stack.Screen name="HomeScreen" component={WelcomeBackScreen} />
+    //     <Stack.Screen name="RecentActivities" component={MyActivities} />
     //     <Stack.Screen name="profileMatching" component={ProfileMatching} />
+    //     <Stack.Screen name="newActivity" component={ChooseActivity} />
     //   </Stack.Navigator>
     // </NavigationContainer>
   );
