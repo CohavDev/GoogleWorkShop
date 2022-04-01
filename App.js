@@ -14,9 +14,9 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <View>
-      <ChooseActivity />
+      <MyActivities />
     </View>
-  
+
     // <NavigationContainer>
     //   <Stack.Navigator>
     //     <Stack.Screen name="ChooseActivity" component={MyActivities} />
