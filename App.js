@@ -13,16 +13,16 @@ import MatchesScreen from "./app/screens/MatchesScreen";
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <View>
-      <ChooseActivity />
-    </View>
+    // <View>
+    //   <ChooseActivity />
+    // </View>
   
-    // <NavigationContainer>
-    //   <Stack.Navigator>
-    //     <Stack.Screen name="ChooseActivity" component={MyActivities} />
-    //     <Stack.Screen name="profileMatching" component={ProfileMatching} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="ChooseActivity" component={MyActivities} />
+        <Stack.Screen name="profileMatching" component={ProfileMatching} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
