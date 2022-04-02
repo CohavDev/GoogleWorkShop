@@ -18,7 +18,7 @@ export default function App() {
     // </View>
 
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="HomeScreen" component={WelcomeBackScreen} />
         <Stack.Screen name="RecentActivities" component={MyActivities} />
         <Stack.Screen name="profileMatching" component={ProfileMatching} />
