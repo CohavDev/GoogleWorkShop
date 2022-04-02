@@ -1,12 +1,14 @@
 import React from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import colors from "../config/colors";
 
 function Oval(props) {
+  const navigation = useNavigation();
   return (
     <Pressable
       style={styles.ovalButton}
-      onPress={() => alert("click")}
+      onPress={() => navigation.navigate(props.screenName)}
       android_ripple={{ color: "white" }}
     >
       <Text style={styles.textStyle}>{props.text}</Text>
