@@ -5,6 +5,7 @@ import Oval from "../components/Oval";
 import BackgroundImage from "../components/BackgroungImage";
 
 function WelcomeBackScreen(props) {
+   
    const pressNewActivityHandler = () => {
       props.navigation.navigate('ChooseActivity')
    }
@@ -16,6 +17,17 @@ function WelcomeBackScreen(props) {
    return (
       <View style={styles.mainBackground}>
          {/* <Image
+      const pressNewActivityHandler = () => {
+         props.navigation.navigate("ChooseActivity");
+      };
+
+  const viewRecentActivitiesHandler = () => {
+    props.navigation.navigate("MyActivities");
+  };
+
+  return (
+    <View style={styles.mainBackground}>
+      {/* <Image
             // source={require("../assets/OriginVan.jpg")}
             source={require("../assets/RoadTrip.jpg")}
             style={colors.backgroundImage}
@@ -96,6 +108,7 @@ const styles = StyleSheet.create({
       //alignContent: 'center',
       // position: 'absolute',
    },
+
 });
 
 export default WelcomeBackScreen;
@@ -103,6 +116,7 @@ export default WelcomeBackScreen;
 
    /* <View style={styles.ovalButton}>
 
+{
   /* <View style={styles.ovalButton}>
        <Pressable onPress={() => alert('New Activity')}>
            <Text style={styles.textStyle}>Create a New Activity</Text>

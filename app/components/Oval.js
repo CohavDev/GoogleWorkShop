@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         // position: 'absolute',
     },
-})
+});
 
 export default Oval;
