@@ -1,22 +1,40 @@
 import React from "react";
-import { StyleSheet, Pressable, View, Text, Image } from "react-native";
+import { StyleSheet, Pressable, View, Text, Image, Button } from "react-native";
 import colors from "../config/colors";
 import Oval from "../components/Oval";
+import BackgroundImage from "../components/BackgroungImage";
 
 function WelcomeBackScreen(props) {
+  const pressNewActivityHandler = () => {
+    props.navigation.navigate("ChooseActivity");
+  };
+
+  const viewRecentActivitiesHandler = () => {
+    props.navigation.navigate("MyActivities");
+  };
+
   return (
     <View style={styles.mainBackground}>
-      <Image
-        source={require("../assets/RoadTrip.jpg")}
-        style={styles.backgroundImage}
-        blurRadius={0}
-      />
+      {/* <Image
+            // source={require("../assets/OriginVan.jpg")}
+            source={require("../assets/RoadTrip.jpg")}
+            style={colors.backgroundImage}
+            blurRadius={0}
+         /> */}
+      <BackgroundImage />
 
       <View style={styles.viewButtons}>
-        <Oval text="New Activity" screenName="ChooseActivity" />
-        <Oval text="View Recent Activities" screenName="RecentActivities" />
-        <Oval text="Settings" screenName="" />
-        <Oval text="La La La" screenName="" />
+        <Pressable
+          onPress={pressNewActivityHandler}
+          // android_ripple={{ color: "white" }}
+        >
+          <Oval text="New Activity" />
+        </Pressable>
+        <Pressable onPress={viewRecentActivitiesHandler}>
+          <Oval text="View Recent Activities" />
+        </Pressable>
+        <Oval text="My Profile" />
+        <Oval text="Settings" />
       </View>
     </View>
   );
@@ -27,8 +45,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: "cover",
-    shadowColor: "white",
-    opacity: 0.5,
+    //shadowColor: "white",
+    opacity: 0.9,
   },
   textStyle: {
     color: "white",
@@ -37,7 +55,7 @@ const styles = StyleSheet.create({
     //fontFamily: 'Palette Mosaic'
   },
   mainBackground: {
-    backgroundColor: colors.background,
+    //backgroundColor: colors.background,
     //flexDirection: 'column',
     //alignItems: 'center',
     //justifyContent: 'space-around',
@@ -49,21 +67,25 @@ const styles = StyleSheet.create({
     height: "70%",
     flexDirection: "column",
     alignItems: "center",
-    top: "20%",
+    top: "15%",
     //bottom: '50%',
     //alignContent: 'space-between',
     justifyContent: "space-evenly",
     position: "absolute",
   },
-  ovalButton: {
+  ovalPressButton: {
     backgroundColor: colors.circle,
     width: 320,
     height: 90,
     borderRadius: 45,
     //top: 50,
-    bottom: 20,
+    //bottom: 20,
     //margin: -10,
-    flexDirection: "row",
+    //flexDirection: "row",
+
+    backgroundColor: colors.shapeBackground,
+    //alignItems: "center",
+    //justifyContent: "center",
     //alignContent: 'center',
     //alignItems: "center",
     //justifyContent: 'center',

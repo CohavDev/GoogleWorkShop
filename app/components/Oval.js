@@ -4,20 +4,18 @@ import colors from "../config/colors";
 
 function Oval(props) {
   return (
-    <Pressable
-      style={styles.ovalButton}
-      onPress={() => alert("click")}
-      android_ripple={{ color: "white" }}
-    >
+    <View style={styles.ovalButton}>
+      {/* <Pressable onPress={() => alert(props.text)}> */}
       <Text style={styles.textStyle}>{props.text}</Text>
-    </Pressable>
+      {/* </Pressable> */}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   textStyle: {
-    color: "white",
-    fontSize: 20,
+    color: "black",
+    fontSize: 18,
     fontWeight: "bold",
     //fontFamily: 'Palette Mosaic'
   },
