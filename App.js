@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <View>
-      <MyActivities />
+      <MatchesScreen />
     </View>
 
     // <NavigationContainer>

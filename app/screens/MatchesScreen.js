@@ -89,7 +89,7 @@ export default () => {
                keyExtractor={(item) => item.key}
                renderItem={({ item, index }) => {
                   return (
-                     <View style={styles.matchBackground}>
+                     <View style={[styles.shadowProp,styles.matchBackground]}>
                         <Image
                            source={{ uri: item.profilePic }}
                            //source={require(item.profilePic)}
@@ -137,6 +137,13 @@ const styles = StyleSheet.create({
 //       shadowColor: "white",
 //       opacity: 0.45,
 //    },
+   shadowProp: {
+      shadowColor: "#171717",
+      shadowOffset: { width: -5, height: 5 },
+      shadowOpacity: 0.2,
+      shadowRadius: 3,
+      elevation: 5,
+   },
    background: {
       //flex: 1,
       //marginTop: '15%',
