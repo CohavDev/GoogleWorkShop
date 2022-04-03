@@ -10,7 +10,8 @@ function ChooseActivity(props) {
          <View style={styles.mainBackground}>
             <Image
                source={require("../assets/RoadTrip.jpg")}
-               style={styles.backgroundImage}
+               // source={require("../assets/OriginVan.jpg")}
+               style={colors.backgroundImage}
             />
 
             <View style={styles.leftBackground}>
@@ -117,8 +118,8 @@ const styles = StyleSheet.create({
       width: "100%",
       height: "100%",
       resizeMode: "cover",
-      shadowColor: "white",
-      opacity: 0.6,
+      //shadowColor: "white",
+      opacity: 0.9,
    },
    viewTitleText: {
       flex: 1,
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
       //justifyContent: 'center',
    },
    mainBackground: {
-      backgroundColor: colors.background,
+      //backgroundColor: colors.background,
       flexDirection: "row",
       //alignContent: 'space-around',
       justifyContent: "center",

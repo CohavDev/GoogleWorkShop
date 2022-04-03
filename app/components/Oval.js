@@ -5,9 +5,9 @@ import colors from '../config/colors';
 function Oval(props) {
     return (
         <View style={styles.ovalButton}>
-            <Pressable onPress={() => alert(props.text)}>
+            {/* <Pressable onPress={() => alert(props.text)}> */}
                 <Text style={styles.textStyle}>{props.text}</Text>
-            </Pressable>
+            {/* </Pressable> */}
         </View>
 );
 }
