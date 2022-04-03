@@ -14,8 +14,8 @@ function Oval(props) {
 
 const styles = StyleSheet.create({
     textStyle:{
-        color:"white",
-        fontSize: 20,
+        color:"black",
+        fontSize: 18,
         fontWeight: 'bold',
         //fontFamily: 'Palette Mosaic'
     },

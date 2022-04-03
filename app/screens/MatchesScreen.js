@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
    },
 
    titleText: {
-      color: "white",
+      color: "black",
       fontSize: 30,
       fontWeight: "bold",
       top: 80,

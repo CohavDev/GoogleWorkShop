@@ -13,9 +13,9 @@ import MatchesScreen from "./app/screens/MatchesScreen";
 const Stack = createNativeStackNavigator();
 export default function App() {
    return (
-      // <View>
-      //   <ChooseActivity />
-      // </View>
+      <View>
+        <MatchesScreen />
+      </View>
 
       // <NavigationContainer>
       //    <Stack.Navigator>
@@ -24,7 +24,7 @@ export default function App() {
       //    </Stack.Navigator>
       // </NavigationContainer>
       
-      <Navigator />
+      //<Navigator />
    );
 }
 

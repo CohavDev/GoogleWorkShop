@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Pressable, View, Text, Image, Button } from "react-native";
 import colors from "../config/colors";
 import Oval from "../components/Oval";
-
+import BackgroundImage from "../components/BackgroungImage";
 
 function WelcomeBackScreen(props) {
    const pressNewActivityHandler = () => {
@@ -15,12 +15,13 @@ function WelcomeBackScreen(props) {
    
    return (
       <View style={styles.mainBackground}>
-         <Image
+         {/* <Image
             // source={require("../assets/OriginVan.jpg")}
             source={require("../assets/RoadTrip.jpg")}
             style={colors.backgroundImage}
             blurRadius={0}
-         />
+         /> */}
+         <BackgroundImage />
 
          <View style={styles.viewButtons}>
             <Pressable 
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
       height: "70%",
       flexDirection: "column",
       alignItems: "center",
-      top: "20%",
+      top: "15%",
       //bottom: '50%',
       //alignContent: 'space-between',
       justifyContent: "space-evenly",

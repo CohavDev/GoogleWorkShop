@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'       
     },
     pressableText:{
-        color:"white",
+        color:"black",
         fontSize: 16,
         fontWeight: 'bold',
         //borderRadius: 50

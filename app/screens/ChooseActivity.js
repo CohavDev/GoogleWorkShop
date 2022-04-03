@@ -2,17 +2,19 @@ import React from "react";
 import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
 import colors from "../config/colors";
 import Circle from "../components/Circle";
+import BackgroundImage from "../components/BackgroungImage";
 //import CirclesBackground from '../components/CirclesBackground';
 
 function ChooseActivity(props) {
    return (
       <View>
          <View style={styles.mainBackground}>
-            <Image
+            {/* <Image
                source={require("../assets/RoadTrip.jpg")}
                // source={require("../assets/OriginVan.jpg")}
                style={colors.backgroundImage}
-            />
+            /> */}
+            <BackgroundImage />
 
             <View style={styles.leftBackground}>
                <Circle
@@ -134,10 +136,10 @@ const styles = StyleSheet.create({
    },
 
    titleText: {
-      color: "white",
+      color: "black",
       fontSize: 20,
       fontWeight: "bold",
-      top: 115,
+      top: 60,
       alignSelf: "center",
       //left: 50,
       //position: 'absolute',
@@ -174,12 +176,12 @@ const styles = StyleSheet.create({
       //flex: 1,
       //width: "50%",
       height: "60%",
-      top: "28%",
+      top: "20%",
       left: "12%",
    },
    rightBackground: {
       height: "60%",
-      top: "28%",
+      top: "20%",
       right: "12%",
       flexDirection: "column",
       justifyContent: "space-between",
