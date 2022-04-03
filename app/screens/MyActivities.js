@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import React from "react";
 import ActivityItem from "../components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
@@ -9,19 +9,21 @@ export default function MyActivities({ navigation }) {
       <View style={styles.header}>
         <Text style={styles.title}>My Current Activities</Text>
       </View>
-      <View style={[styles.container, { paddingHorizontal: 15 }]}>
-        <ActivityItem {...{ activityIcon: "drink", activityName: "Drink" }} />
-        <ActivityItem
-          {...{ activityIcon: "bowl", activityName: "Restaurant" }}
-        />
-        <ActivityItem
-          {...{ activityIcon: "moon", activityName: "Place to Sleep" }}
-        />
-        <ActivityItem {...{ activityIcon: "drink", activityName: "Drink" }} />
-      </View>
+      <ScrollView>
+        <View style={[styles.container, { paddingHorizontal: 15 }]}>
+          <ActivityItem {...{ activityIcon: "drink", activityName: "Drink" }} />
+          <ActivityItem
+            {...{ activityIcon: "bowl", activityName: "Restaurant" }}
+          />
+          <ActivityItem
+            {...{ activityIcon: "moon", activityName: "Place to Sleep" }}
+          />
+          <ActivityItem {...{ activityIcon: "drink", activityName: "Drink" }} />
+        </View>
+      </ScrollView>
       <Pressable
         android_ripple={{ color: "white" }}
-        style={myColors.circularImage}
+        style={[myColors.circularImage, { marginHorizontal: 15 }]}
         onPress={() => navigation.navigate("profileMatching")}
       >
         <Entypo name="plus" size={32} color="black"></Entypo>

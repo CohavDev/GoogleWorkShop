@@ -100,8 +100,10 @@ const styles = StyleSheet.create({
 
 export default WelcomeBackScreen;
 
-{
+
    /* <View style={styles.ovalButton}>
+
+  /* <View style={styles.ovalButton}>
        <Pressable onPress={() => alert('New Activity')}>
            <Text style={styles.textStyle}>Create a New Activity</Text>
        </Pressable>
@@ -122,4 +124,4 @@ export default WelcomeBackScreen;
        </Pressable>
    </View>
     */
-}
+
