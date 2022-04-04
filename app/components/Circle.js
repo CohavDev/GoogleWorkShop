@@ -1,34 +1,32 @@
-import React from 'react';
-import { StyleSheet, Text, Pressable } from "react-native";
-import colors from '../config/colors';
+import React from "react";
+import { StyleSheet, View, Text, Pressable } from "react-native";
+import colors from "../config/colors";
 
 function Circle(props) {
-    return (
-        <Pressable 
-            style={styles.circle}
-            onPress={() => alert(props.text)}>
-            <Text style={styles.pressableText}>{props.text}</Text>
-        </Pressable>
-);
+   return (
+      <View style={styles.circle}>
+         <Text style={styles.pressableText}>{props.text}</Text>
+      </View>
+   );
 }
 
 const styles = StyleSheet.create({
-    circle:{
-        backgroundColor: colors.shapeBackground, //colors.circle,
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        alignItems: "center",
-        justifyContent: 'center'       
-    },
-    pressableText:{
-        color:"black",
-        fontSize: 16,
-        fontWeight: 'bold',
-        //borderRadius: 50
-        //alignContent:'center',
-        //justifyContent: 'center',
-    },
-})
+   circle: {
+      backgroundColor: colors.shapeBackground,
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      alignItems: "center",
+      justifyContent: "center",
+   },
+   pressableText: {
+      color: "black",
+      fontSize: 16,
+      fontWeight: "bold",
+      //borderRadius: 50
+      //alignContent:'center',
+      //justifyContent: 'center',
+   },
+});
 
 export default Circle;

@@ -6,64 +6,64 @@ import BackgroundImage from "../components/BackgroungImage";
 //import CirclesBackground from '../components/CirclesBackground';
 
 function ChooseActivity(props) {
+   const pressActivityHandler = () => {
+      props.navigation.navigate('NewActivity')
+   }
    return (
       <View>
          <View style={styles.mainBackground}>
-            {/* <Image
-               source={require("../assets/RoadTrip.jpg")}
-               // source={require("../assets/OriginVan.jpg")}
-               style={colors.backgroundImage}
-            /> */}
             <BackgroundImage />
 
             <View style={styles.leftBackground}>
-               <Circle
-                  style={styles.circleButtonTop}
-                  text="Drinks"
-                  // onPress={() => alert('Drinks')}
-               >
-                  {/* <Text style={styles.pressableText}>Drinks</Text> */}
-               </Circle>
+               <Pressable onPress={pressActivityHandler}>
+                  <Circle
+                     style={styles.circleButtonTop}
+                     text="Drinks"
+                  >
+                  </Circle>
+               </Pressable>
+               <Pressable onPress={pressActivityHandler}>
+                  <Circle
+                     style={styles.circleButtonMiddle}
+                     text="Backpacking"
+                  >
+                  </Circle>
+               </Pressable>
 
-               <Circle
-                  style={styles.circleButtonMiddle}
-                  text="Backpacking"
-                  // onPress={() => alert('Travel')}
-               >
-                  {/* <Text style={styles.pressableText}>Travel</Text> */}
-               </Circle>
+               <Pressable onPress={pressActivityHandler}>
 
-               <Circle
-                  style={styles.circleButtonBottom}
-                  text="Restaurant"
-                  // onPress={() => alert('Restaurant')}
-               >
-                  {/* <Text style={styles.pressableText}>Restaurant</Text> */}
-               </Circle>
+               </Pressable>
+                  <Circle
+                     style={styles.circleButtonBottom}
+                     text="Restaurant"
+                  >
+                  </Circle>
             </View>
 
             <View style={styles.rightBackground}>
+            <Pressable onPress={pressActivityHandler}>
                <Circle
                   style={styles.circleButtonTop}
                   text="Party"
-                  // onPress={() => alert('Party')}
                >
-                  {/* <Text style={styles.pressableText}>Party</Text> */}
                </Circle>
+            </Pressable>
+            <Pressable onPress={pressActivityHandler}>
+
                <Circle
                   text="Driving"
                   View
                   style={styles.circleButtonMiddle}
-                  // onPress={() => alert('Driving')}
                >
-                  {/* <Text style={styles.pressableText}>Driving</Text> */}
                </Circle>
+            </Pressable>
+            <Pressable onPress={pressActivityHandler}>
+
+            </Pressable>
                <Circle
                   text="A place to sleep"
                   style={styles.circleButtonBottom}
-                  // onPress={() => alert('A Place to Sleep')}
                >
-                  {/* <Text style={styles.pressableText}>A Place to Sleep</Text> */}
                </Circle>
             </View>
          </View>
@@ -73,45 +73,6 @@ function ChooseActivity(props) {
             </Text>
          </View>
       </View>
-      // <View style={styles.mainBackground}>
-      //     <Text style={styles.titleText}>What activity are you looking for today?</Text>
-
-      //     <View style = {styles.leftBackground}>
-      //         <Pressable
-      //             style={styles.circleButtonTop}
-      //             onPress={() => alert('clicked top left successfully')}>
-      //             <Text style={styles.pressableText}>Drinks</Text>
-      //         </Pressable>
-      //         <Pressable
-      //             style={styles.circleButtonMiddle}
-      //             onPress={() => alert('clicked top left successfully')}>
-      //             <Text style={styles.pressableText}>Travel</Text>
-      //         </Pressable>
-      //         <Pressable
-      //             style={styles.circleButtonBottom}
-      //             onPress={() => alert('clicked top left successfully')}>
-      //             <Text style={styles.pressableText}>Restaurant</Text>
-      //         </Pressable>
-      //     </View>
-
-      //     <View style = {styles.rightBackground}>
-      //         <Pressable
-      //             style={styles.circleButtonTop}
-      //             onPress={() => alert('clicked top left successfully')}>
-      //             <Text style={styles.pressableText}>Party</Text>
-      //         </Pressable>
-      //         <Pressable
-      //             style={styles.circleButtonMiddle}
-      //             onPress={() => alert('clicked top left successfully')}>
-      //             <Text style={styles.pressableText}>Driving</Text>
-      //         </Pressable>
-      //         <Pressable
-      //             style={styles.circleButtonBottom}
-      //             onPress={() => alert('clicked top left successfully')}>
-      //             <Text style={styles.pressableText}>Place to Sleep</Text>
-      //         </Pressable>
-      //     </View>
-      // </View>
    );
 }
 
@@ -120,19 +81,15 @@ const styles = StyleSheet.create({
       width: "100%",
       height: "100%",
       resizeMode: "cover",
-      //shadowColor: "white",
       opacity: 0.9,
    },
    viewTitleText: {
       flex: 1,
-      //flexDirection: 'row',
-      //backgroundColor: "blue",
       position: "absolute",
       justifyContent: "center",
       alignItems: "center",
       left: 20,
       right: 20,
-      //textAlign: 'center',
    },
 
    titleText: {
@@ -141,12 +98,6 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       top: 60,
       alignSelf: "center",
-      //left: 50,
-      //position: 'absolute',
-      //marginLeft: 150,
-      //textAlign: 'center',
-      //borderRadius: 100
-      //alignContent: 'center',
       justifyContent: "space-evenly",
    },
 
@@ -154,27 +105,16 @@ const styles = StyleSheet.create({
       color: "white",
       fontSize: 16,
       fontWeight: "bold",
-      //borderRadius: 50
-      //alignContent:'center',
-      //justifyContent: 'center',
    },
    mainBackground: {
-      //backgroundColor: colors.background,
       flexDirection: "row",
-      //alignContent: 'space-around',
       justifyContent: "center",
       height: "100%",
    },
    leftBackground: {
-      //backgroundColor: "#EEDACB",
-      //backgroundColor: "pink",
       flexDirection: "column",
-      //alignItems: 'center',
       justifyContent: "space-between",
-      //alignContent: 'space-between',
       position: "absolute",
-      //flex: 1,
-      //width: "50%",
       height: "60%",
       top: "20%",
       left: "12%",
@@ -186,46 +126,17 @@ const styles = StyleSheet.create({
       flexDirection: "column",
       justifyContent: "space-between",
       position: "absolute",
-
-      //backgroundColor: "#EEDACB",
-      //backgroundColor: "pink",
-      //alignItems: 'center',
-      //alignContent: 'space-between',
-      //alignContent: 'space-between',
-      //flex: 1,
-      //width: "50%",
-      //height: "85%"
    },
    circleButtonTop: {
-      // backgroundColor: colors.circle,
-      // width: 100,
-      // height: 100,
-      // borderRadius: 50,
-      // alignItems: "center",
-      // justifyContent: 'center',
-
       marginTop: 225,
-      marginBottom: 50,
+      marginBottom: 50,   
    },
 
    circleButtonMiddle: {
-      // backgroundColor: colors.circle,
-      // width: 100,
-      // height: 100,
-      // borderRadius: 50,
-      // alignItems: "center",
-      // justifyContent: 'center',
       margin: 40,
    },
    circleButtonBottom: {
-      // backgroundColor: colors.circle,
-      // width: 100,
-      // height: 100,
-      // borderRadius: 50,
-      // alignItems: "center",
-      // justifyContent: 'center',
       marginTop: 40,
-      //marginBottom: 80
    },
 });
 

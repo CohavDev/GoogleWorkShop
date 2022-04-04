@@ -3,6 +3,7 @@ import React from "react";
 import ActivityItem from "../components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
+
 export default function MyActivities({ navigation }) {
   return (
     <View style={styles.container}>

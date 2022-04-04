@@ -2,21 +2,30 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import React, { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
+import colors from "../config/colors";
 
 export default function NewActivity() {
   const [ActivityTime, setActivityTime] = useState("Unknown");
   return (
     <View style={styles.container}>
       <Text style={styles.header}> Set your Activity</Text>
-      <Text style={styles.subtitle}>Enter your destination</Text>
-      <View style={styles.box}>
-        <TextInput style={styles.input}>Put your destination here</TextInput>
+      <View style={styles.ovalShape}>
+        <Text style={styles.subtitle}>Enter your destination</Text>
+        <View style={styles.box}>
+          <TextInput style={styles.input}>Put your destination here</TextInput>
+        </View>
+        <StatusBar style="auto" />
+
       </View>
-      <StatusBar style="auto" />
-      <Text style={styles.subtitle}>Activity date </Text>
-      <View style={styles.box}>
-        <TextInput style={styles.input}>Implement here</TextInput>
+      <View style={styles.ovalShape}>
+
+        <Text style={styles.subtitle}>Activity date </Text>
+        <View style={styles.box}>
+          <TextInput style={styles.input}>Implement here</TextInput>
+        </View>
       </View>
+      <View style={styles.ovalShape}>
+
       <Text style={styles.subtitle}>Activity Time</Text>
       <View style={styles.box}>
         <Picker
@@ -31,6 +40,7 @@ export default function NewActivity() {
           <Picker.Item label="Evening/Night" value="eve" />
         </Picker>
       </View>
+      </View>
       <View style={styles.buttonContainer}>
         <Button title="Next" color="lightgreen"></Button>
       </View>
@@ -40,12 +50,14 @@ export default function NewActivity() {
 
 const styles = StyleSheet.create({
   container: {
+    //color: colors.primary,
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-evenly",
     backgroundColor: "#fff",
-    alignItems: "flex-end",
-    paddingRight: 20,
+    alignItems: "center",
+    alignContent: "space-between",
+    //paddingRight: 20,
     paddingTop: 40,
   },
   header: {
@@ -100,4 +112,18 @@ const styles = StyleSheet.create({
     padding: 20,
     flexGrow: 1,
   },
+  ovalShape: {
+    backgroundColor: colors.secondary, 
+    width: 320,
+    height: 120,
+    borderRadius: 40,
+    bottom: 60,
+    //flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    //top: 50,
+    //margin: -10,
+    //alignContent: 'center',
+    // position: 'absolute',
+ },
 });

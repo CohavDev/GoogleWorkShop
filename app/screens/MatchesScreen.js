@@ -69,19 +69,11 @@ export default () => {
    return (
       <View
          style={{
-            //flex: 1,
             backgroundColor: colors.secondary,
-            // flexDirection:'column',
-            // justifyContent: 'center',
             height: "100%",
             width: "100%",
          }}
       >
-         {/* <Image
-            source={require("../assets/RoadTrip.jpg")}
-            style={styles.backgroundImage}
-            blurRadius={0}
-         /> */}
 
          <View style={styles.background}>
             <FlatList
@@ -92,7 +84,6 @@ export default () => {
                      <View style={[styles.shadowProp,styles.matchBackground]}>
                         <Image
                            source={{ uri: item.profilePic }}
-                           //source={require(item.profilePic)}
                            style={styles.profilePicture}
                         />
                         <View
@@ -130,13 +121,6 @@ export default () => {
 };
 
 const styles = StyleSheet.create({
-//    backgroundImage: {
-//       width: "100%",
-//       height: "100%",
-//       resizeMode: "cover",
-//       shadowColor: "white",
-//       opacity: 0.45,
-//    },
    shadowProp: {
       shadowColor: "#171717",
       shadowOffset: { width: -5, height: 5 },
@@ -145,60 +129,58 @@ const styles = StyleSheet.create({
       elevation: 5,
    },
    background: {
-      //flex: 1,
-      //marginTop: '15%',
-      //marginBottom: '15%',
       backgroundColor: 'rgba(255,255,255,0.8)',
       height: "100%",
       width: "100%",
       top: 150,
       flexDirection: "column",
-      //alignSelf: "center",
-      //alignItems: "center",
       alignContent: "center",
-      //top: '10%',
       justifyContent: "center",
       position: "absolute",
+      //flex: 1,
+      //alignSelf: "center",
+      //alignItems: "center",
+      //top: '10%',
+      //marginTop: '15%',
+      //marginBottom: '15%',
    },
    matchBackground: {
       backgroundColor: "rgba(255,255,255,0.9)", //colors.matchBackground,
       height: 90,
       width: "90%",
       borderRadius: 10,
-    //   borderBottomColor: "black",
-    //   borderBottomWidth: 0.5,
-    //   borderColor: "black",
-    //   borderWidth: 1,
-      
       flexDirection: "row",
-      //paddingTop: 35,
-      // padding: 15,
-
       paddingLeft: 20,
-      // marginBottom: 10,
-      marginTop: 20,
-      // marginLeft: -20,
-      // marginRight: 5,
       alignSelf: "center",
-      // justifyContent: 'center',
+      marginTop: 20,
       alignItems: "center",
-      //alignContent: "center",
+      // borderBottomColor: "black",
+      // justifyContent: 'center',
+      // marginRight: 5,
+      // marginLeft: -20,
+      // paddingTop: 35,
+      // padding: 15,
+      // marginBottom: 10,
+      // borderBottomWidth: 0.5,
+      // borderColor: "black",
+      // borderWidth: 1,
+      // alignContent: "center",
       // position: 'absolute',
-    //   shadowColor: "black",
-    //   shadowOffset: { height: 10, width: 0 },
-    //   shadowOpacity: 0.9,
-    //   shadowRadius: 15,
-    //   elevation:1,
+      // shadowColor: "black",
+      // shadowOffset: { height: 10, width: 0 },
+      // shadowOpacity: 0.9,
+      // shadowRadius: 15,
+      // elevation:1,
    },
    profilePicture: {
       height: 70,
       width: 70,
       borderRadius: 35,
-      // marginTop: -40,
       marginRight: 10,
       marginLeft: -10,
-      //padding: 20,
       backgroundColor: "white",
+      //padding: 20,
+      // marginTop: -40,
       //right: 10,
       // alignSelf: 'center',
       // alignItems: 'stretch',
@@ -217,9 +199,9 @@ const styles = StyleSheet.create({
       width: "80%",
       backgroundColor: "transparent",
       textAlign: "left",
+      marginRight: 50,
       // alignSelf: 'flex-start',
       // alignItems: 'center',
-      marginRight: 50,
       //marginTop: 20,
       // bottom: 15,
       // alignContent: 'flex-start',
@@ -231,30 +213,29 @@ const styles = StyleSheet.create({
       //padding: 50,
    },
    viewTitleText: {
-      //flex: 1,
-      //flexDirection: 'row',
-      //backgroundColor: "blue",
-      position: "absolute",
       justifyContent: "center",
       alignItems: "center",
       left: 20,
       right: 20,
+      position: "absolute",
       // top: 10,
       //textAlign: 'center',
+      //flex: 1,
+      //flexDirection: 'row',
+      //backgroundColor: "blue",
    },
-
    titleText: {
       color: "black",
       fontSize: 30,
       fontWeight: "bold",
       top: 80,
       alignSelf: "center",
+      justifyContent: "space-evenly",
       //left: 50,
       //position: 'absolute',
       //marginLeft: 150,
       //textAlign: 'center',
       //borderRadius: 100
       //alignContent: 'center',
-      justifyContent: "space-evenly",
    },
 });
