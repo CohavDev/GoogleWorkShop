@@ -14,7 +14,9 @@ export default {
   shapeBackground: 'rgba(256,256,256,0.7)',
   secondary: "#E0FAF1",//"#96DCD4", //"#84DCE0", //"#B0EBEA", // "#9DDBD0", //
   primary: "#5ABFBF", //"#9DDBD0",//"#23A89F", //#AFCFC2
-  buttonColor: "#F7D08A",
+  buttonColor: "rgba(0,131,143,0.6)",
+  checkButtonColor: "rgba(0,255,140,0.6)",
+
 
   /* Green theme */
   // background: "#6BF0D2", //"#EEDACB",

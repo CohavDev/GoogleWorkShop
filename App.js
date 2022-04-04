@@ -9,7 +9,8 @@ import ProfileMatching from "./app/screens/ProfileMatching";
 import ChooseActivity from "./app/screens/ChooseActivity";
 import WelcomeBackScreen from "./app/screens/WelcomeBackScreen";
 import MatchesScreen from "./app/screens/MatchesScreen";
-import NewActivity from "./app/screens/NewActivity";
+import NewActivity from "./app/screens/NewActivity.js";
+import ApproveActivity from "./app/screens/ApproveActivity";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -22,8 +23,6 @@ export default function App() {
     //       <Stack.Screen name="profileMatching" component={ProfileMatching} />
     //    </Stack.Navigator>
     // </NavigationContainer>
-
-    //<Navigator />
   );
  }
 
