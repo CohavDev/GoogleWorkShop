@@ -27,7 +27,7 @@ function ChooseActivity(props) {
 
                <Circle
                   style={styles.circleButtonMiddle}
-                  text="Travel"
+                  text="Backpacking"
                   // onPress={() => alert('Travel')}
                >
                   {/* <Text style={styles.pressableText}>Travel</Text> */}
