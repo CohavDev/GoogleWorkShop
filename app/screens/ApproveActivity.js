@@ -30,7 +30,6 @@ export default function ApproveActivity({ navigation }) {
           style={styles.approveButton}
           onLongPress={() => alert("clicked 'approve'")}
           android_ripple={{ color: "white" }}
-          onPressIn={() => Vibration.vibrate(PATTERN)}
           onPress={() => navigation.navigate("MyActivities")}
         >
           <AntDesign name="check" size={30} color="white" />
@@ -44,7 +43,6 @@ export default function ApproveActivity({ navigation }) {
           style={styles.editButton}
           onLongPress={() => alert("clicked 'edit'")}
           android_ripple={{ color: "white" }}
-          onPressIn={() => Vibration.vibrate(PATTERN)}
           onPress={() => navigation.navigate("WelcomeBackScreen")}
         >
           <AntDesign name="edit" size={30} color="white" />
