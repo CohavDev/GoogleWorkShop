@@ -1,13 +1,22 @@
 if you want to import this code, copy only the 'app' folder into your working Expo project(blank)
 
 installed a libraray for gradients using the following command:
- - expo install expo-linear-gradient
-used it at ProfileMatching.js
+
+- expo install expo-linear-gradient
+  used it at ProfileMatching.js
 
 installed a libraray for navigation called ReactNavigation using the following commands:
+
 - npm install @react-navigation/native @react-navigation/native-stack
 - expo install react-native-screens react-native-safe-area-context
 
 installed for navigation:
-- expo install react-native-gesture-handler react-native-reanimated react-native-screens        react-native-safe-area-context @react-native-community/masked-view
+
+- expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
 - npm install react-navigation-stack
+
+installed for NewActivity time picking:
+
+- expo install @react-native-picker/picker
+- npm install @react-native-picker/picker --save
+- npm audit fix --force
