@@ -1,24 +1,27 @@
-import { createNativeStackNavigator, createStackNavigator } from "react-navigation-stack";
+import {
+  createNativeStackNavigator,
+  createStackNavigator,
+} from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
-import WelcomeBackScreen from "../screens/WelcomeBackScreen";
-import ChooseActivity from "../screens/ChooseActivity";
+import MainMenu from "../screens/MainMenu";
+import ChooseActivityBubbles from "../screens/ChooseActivityBubbles";
 import MyActivities from "../screens/MyActivities";
-import NewActivity from "../screens/NewActivity";
+import NewActivityForm from "../screens/NewActivityForm";
 
 const screens = {
-   WelcomeBackScreen:{
-      screen: WelcomeBackScreen
-   },
-   ChooseActivity:{
-      screen: ChooseActivity
-   },
-   MyActivities: {
-      screen: MyActivities
-   },
-   NewActivity:{
-      screen: NewActivity
-   }
-}
+  MainMenu: {
+    screen: MainMenu,
+  },
+  ChooseActivityBubbles: {
+    screen: ChooseActivityBubbles,
+  },
+  MyActivities: {
+    screen: MyActivities,
+  },
+  NewActivityForm: {
+    screen: NewActivityForm,
+  },
+};
 
 const WelcomeBackScreenStack = createStackNavigator(screens);
 

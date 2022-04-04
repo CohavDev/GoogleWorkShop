@@ -3,13 +3,13 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Navigator from "./app/routes/WelcomeBackScreenStack";
-import HomeScreen from "./app/screens/HomeScreen";
+import HomeScreen from "./hila/HomeScreen";
 import MyActivities from "./app/screens/MyActivities";
 import ProfileMatching from "./app/screens/ProfileMatching";
-import ChooseActivity from "./app/screens/ChooseActivity";
-import WelcomeBackScreen from "./app/screens/WelcomeBackScreen";
+import ChooseActivityBubbles from "./app/screens/ChooseActivityBubbles";
+import MainMenu from "./app/screens/MainMenu";
 import MatchesScreen from "./app/screens/MatchesScreen";
-import NewActivity from "./app/screens/NewActivity.js";
+import NewActivityForm from "./app/screens/NewActivityForm.js";
 import ApproveActivity from "./app/screens/ApproveActivity";
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +24,7 @@ export default function App() {
     //    </Stack.Navigator>
     // </NavigationContainer>
   );
- }
+}
 
 // const styles = StyleSheet.create({
 //   container: {

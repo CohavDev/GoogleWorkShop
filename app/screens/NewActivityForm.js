@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import colors from "../config/colors";
 
-export default function NewActivity() {
+export default function NewActivityForm() {
   const [ActivityTime, setActivityTime] = useState("Unknown");
   return (
     <View style={styles.container}>
