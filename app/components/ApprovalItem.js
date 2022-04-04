@@ -17,7 +17,7 @@ export default function ActivityItem(props) {
             style={styles.circularImage}
             // source={require("../assets/mountain_track_small.jpg")}
           >
-            <Entypo name={props.activityIcon} size={32} color="white" />
+            <Entypo name={props.activityIcon} size={32} color="black" />
           </View>
         </View>
         <View style={styles.dataContainer}>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: "auto",
     justifyContent: "center",
-    backgroundColor: myColors.third,
+    backgroundColor: myColors.secondary,
   },
   data: {
     // marginVertical: 15,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   
   semiTitle: {
-    color: "white",
+    color: "black",
     fontSize: 18,
     fontWeight: "bold",
     paddingTop: "5%",

@@ -43,7 +43,7 @@ export default function ApproveActivity({ navigation }) {
           style={styles.editButton}
           onLongPress={() => alert("clicked 'edit'")}
           android_ripple={{ color: "white" }}
-          onPress={() => navigation.navigate("WelcomeBackScreen")}
+          onPress={() => navigation.navigate("NewActivity")}
         >
           <AntDesign name="edit" size={30} color="white" />
           <Text style={styles.ButtonText}>Edit</Text>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   title: {
-    color: "white",
+    color: "black",
     fontSize: 24,
     fontWeight: "bold",
     paddingTop: "20%",
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     bottom: -75,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: myColors.secondButtonColor,
+    backgroundColor: myColors.checkButtonColor,
   },
   editButton: {
     width: 60,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     bottom: -75,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: myColors.thirdButtonColor,
+    backgroundColor: myColors.buttonColor,
   },
   ButtonText: {
     fontSize: 16,
