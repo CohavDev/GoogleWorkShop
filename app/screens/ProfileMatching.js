@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: myColors.buttonColor,
+    backgroundColor: myColors.secondButtonColor,
   },
   buttonContainer: {
     display: "flex",

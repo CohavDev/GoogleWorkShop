@@ -9,7 +9,10 @@ export default {
 
   primary: "#F79F79",
   secondary: "#F7D08A",
+  third:"rgba( 255, 155, 0, 0.5)",
   buttonColor: "#F7D08A",
+  secondButtonColor: "rgba( 0, 155, 0, 0.5)",
+  thirdButtonColor: "rgba( 255, 105, 50, 0.7)",
   deviceWidth: Dimensions.get("window").width,
   // delete later , doesnt belong to colors:
   circularImage: {
