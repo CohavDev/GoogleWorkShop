@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import React, { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 
-export default function NewActivityForm() {
+export default function NewActivity() {
   const [ActivityTime, setActivityTime] = useState("Unknown");
   return (
     <View style={styles.container}>

@@ -4,8 +4,8 @@ import {
 } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import MainMenu from "../screens/MainMenu";
-import ChooseActivityBubbles from "../screens/ChooseActivityBubbles";
-import NewActivityForm from "../screens/NewActivityForm";
+import ChooseActivity from "../screens/ChooseActivity";
+import NewActivity from "../screens/NewActivity";
 import MyActivities from "../screens/MyActivities";
 import ProfileMatching from "../screens/ProfileMatching";
 import MatchesScreen from "../screens/MatchesScreen";
@@ -16,7 +16,7 @@ const screens = {
     screen: MainMenu,
   },
   ChooseActivity: {
-    screen: ChooseActivityBubbles,
+    screen: ChooseActivity,
   },
   MyActivities: {
     screen: MyActivities,
@@ -28,7 +28,7 @@ const screens = {
     screen: MatchesScreen,
   },
   NewActivityForm: {
-    screen: NewActivityForm,
+    screen: NewActivity,
   },
   ApproveActivity: {
     screen: ApproveActivity,
