@@ -55,15 +55,17 @@ const DATA = [
   //   date: "12/04/2022",
   // },
 ];
-const renderItem = ({ item }) => (
-  <ActivityItem
-    activityIcon={item.activityIcon}
-    activityName={item.activityName}
-    date={item.date}
-    location={item.location}
-  />
-);
+
 export default function MyActivities({ navigation }) {
+  const renderItem = ({ item }) => (
+    <ActivityItem
+      activityIcon={item.activityIcon}
+      activityName={item.activityName}
+      date={item.date}
+      location={item.location}
+      navigation={navigation}
+    />
+  );
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -77,18 +79,6 @@ export default function MyActivities({ navigation }) {
           renderItem={renderItem}
         />
       </View>
-
-      {/* <View style={[styles.container, { paddingHorizontal: 15 }]}>
-          <ActivityItem {...{ activityIcon: "drink", activityName: "Drink" }} />
-          <ActivityItem
-            {...{ activityIcon: "bowl", activityName: "Restaurant" }}
-          />
-          <ActivityItem
-            {...{ activityIcon: "moon", activityName: "Place to Sleep" }}
-          />
-          <ActivityItem {...{ activityIcon: "drink", activityName: "Drink" }} />
-        </View> */}
-      {/* </ScrollView> */}
       <Pressable
         android_ripple={{ color: "white" }}
         style={[myColors.circularImage, { marginHorizontal: 15 }]}

@@ -7,6 +7,9 @@ import MainMenu from "../screens/MainMenu";
 import ChooseActivityBubbles from "../screens/ChooseActivityBubbles";
 import MyActivities from "../screens/MyActivities";
 import NewActivityForm from "../screens/NewActivityForm";
+import ApproveActivity from "../screens/ApproveActivity";
+import MatchesScreen from "../screens/MatchesScreen";
+import ProfileMatching from "../screens/ProfileMatching";
 
 const screens = {
   MainMenu: {
@@ -20,6 +23,15 @@ const screens = {
   },
   NewActivityForm: {
     screen: NewActivityForm,
+  },
+  ApproveActivity: {
+    screen: ApproveActivity,
+  },
+  MatchesScreen: {
+    screen: MatchesScreen,
+  },
+  ProfileMatching: {
+    screen: ProfileMatching,
   },
 };
 
