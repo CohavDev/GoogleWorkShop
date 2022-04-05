@@ -1,72 +1,91 @@
 [
-    {
+  {
+    "key": 1,
     "name": "Owen Harris",
     "age": 22,
-    "city":"London",
-    "desc": "Music, watching movies"
-    },
+    "city": "London",
+    "desc": "Music, watching movies",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/male/10.jpg"
+  },
 
-    {
+  {
+    "key": 2,
     "name": "John Bradley",
     "age": 22,
-    "city":"New-York",
-    "desc": "Playing Tennis, going to the theatre"
-    },
+    "city": "New-York",
+    "desc": "Playing Tennis, going to the theatre",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/male/35.jpg"
+  },
 
-    {
+  {
+    "key": 3,
     "name": "Laina Heikkinen",
     "age": 26,
-    "city":"Berlin",
-    "desc": "Reading, watching movies"
-    },
+    "city": "Berlin",
+    "desc": "Reading, watching movies",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/female/10.jpg"
+  },
 
-    {
+  {
+    "key": 4,
     "name": "Jacques Futrelle",
     "age": 35,
-    "city":"Paris",
-    "desc": "Cooking and playing music"
-    },
+    "city": "Paris",
+    "desc": "Cooking and playing music",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/male/12.jpg"
+  },
 
-    {
+  {
+    "key": 5,
     "name": "William Hellen",
     "age": 33,
-    "city":"Manchester",
-    "desc": "Yoga and reading books"
-    },
+    "city": "Manchester",
+    "desc": "Yoga and reading books",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/male/11.jpg"
+  },
 
-    {
+  {
+    "key": 6,
     "name": "James Moran",
     "age": 31,
-    "city":"Rome",
-    "desc": "Swimming and playing chess"
-    },
+    "city": "Rome",
+    "desc": "Swimming and playing chess",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/male/1.jpg"
+  },
 
-    {
+  {
+    "key": 7,
     "name": "Elizabeth Bonnel",
     "age": 42,
-    "city":"London",
-    "desc": "Playing a guitar and watching movies"
-    },
+    "city": "London",
+    "desc": "Playing a guitar and watching movies",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/female/52.jpg"
+  },
 
-    {
+  {
+    "key": 8,
     "name": "Marguerite Sandstrom",
     "age": 29,
-    "city":"Amsterdam",
-    "desc": "Hanging out in bars and listening to music"
-    },
+    "city": "Amsterdam",
+    "desc": "Hanging out in bars and listening to music",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/female/11.jpg"
+  },
 
-    {
+  {
+    "key": 9,
     "name": "Nicholas Nasser",
     "age": 23,
-    "city":"Athens",
-    "desc": "Baking and playing basketball"
-    },
+    "city": "Athens",
+    "desc": "Baking and playing basketball",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/male/14.jpg"
+  },
 
-    { 
+  {
+    "key": 10,
     "name": "Gosta Johns",
     "age": 33,
-    "city":"Paris",
-    "desc": "Painting and theate"     
-    }
-
+    "city": "Paris",
+    "desc": "Painting and theate",
+    "profilePic": "https://minimaltoolkit.com/images/randomdata/male/22.jpg"
+  }
 ]

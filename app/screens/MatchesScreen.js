@@ -93,7 +93,7 @@ export default () => {
                 >
                   <View style={styles.nameTag}>
                     <Text style={styles.text}>
-                      {item.name} {" , "}
+                      {item.name} {"  "}
                       {item.age} {"\n"}
                     </Text>
                   </View>
