@@ -72,6 +72,12 @@ const DATA = [
   },
 ];
 export default (props) => {
+  const titleData = {
+    activityName: props.navigation.getParam("activityName", "Matches"),
+    location: props.navigation.getParam("location", "??"),
+    date: props.navigation.getParam("date", "??"),
+  };
+
   return (
     <View
       style={{
@@ -136,11 +142,11 @@ export default (props) => {
       <View style={styles.viewTitleText}>
         <Text style={styles.titleText}>Matches</Text>
         <Text style={[styles.titleText, { fontSize: 14 }]}>
-          {props.navigation.getParam("activityName", "Matches") +
+          {titleData.activityName +
             " at " +
-            props.navigation.getParam("location", "??") +
+            titleData.location +
             " on " +
-            props.navigation.getParam("date", "??")}
+            titleData.date}
         </Text>
       </View>
     </View>
