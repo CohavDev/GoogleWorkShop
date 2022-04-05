@@ -5,6 +5,15 @@ import ApprovalItem from "../components/ApprovalItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 export default function ApproveActivity({ navigation }) {
+  
+/*  <ApprovalItem
+            {...{
+              activityIcon: "users",
+              approvedInfo: "How\nmany",
+              data: "2-4",
+            }}
+          />
+ */ 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -39,13 +48,6 @@ export default function ApproveActivity({ navigation }) {
               activityIcon: "location",
               approvedInfo: "Location",
               data: "Florentin,\nTel-Aviv",
-            }}
-          />
-          <ApprovalItem
-            {...{
-              activityIcon: "users",
-              approvedInfo: "How\nmany",
-              data: "2-4",
             }}
           />
         </View>
