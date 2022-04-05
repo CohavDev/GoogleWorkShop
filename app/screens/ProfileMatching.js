@@ -38,7 +38,7 @@ export default function ProfileMatching(props) {
       <LinearGradient
         // Background Linear Gradient
         colors={[myColors.primary, myColors.secondary]}
-        locations={[0.3, 0.9]}
+        locations={[0.05, 0.9]}
         style={styles.profilePicContainer}
       >
         <Image
@@ -104,12 +104,12 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   title: {
-    color: "white",
-    fontWeight: "bold",
+    color: "black",
+    // fontWeight: "bold",
     fontSize: 24,
   },
   smallTitle: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
     fontSize: 14,
     marginBottom: 10,
