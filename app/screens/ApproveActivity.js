@@ -16,8 +16,8 @@ export default function ApproveActivity({ navigation }) {
  */ 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerContainer}>Approve Activity</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>Approve Activity</Text>
       </View>
 
       <ScrollView>
