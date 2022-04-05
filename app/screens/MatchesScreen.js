@@ -64,7 +64,7 @@ const DATA = [
     descriptionText: "It's not 'levi-oooo-sa', it's 'levi-o-saaaa'",
   },
 ];
-export default () => {
+export default (props) => {
   return (
     <View
       style={{
@@ -114,6 +114,13 @@ export default () => {
       </View>
       <View style={styles.viewTitleText}>
         <Text style={styles.titleText}>Matches</Text>
+        <Text style={[styles.titleText, { fontSize: 14 }]}>
+          {props.navigation.getParam("activityName", "Matches") +
+            " at " +
+            props.navigation.getParam("location", "??") +
+            " on " +
+            props.navigation.getParam("date", "??")}
+        </Text>
       </View>
     </View>
   );

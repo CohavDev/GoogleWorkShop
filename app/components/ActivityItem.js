@@ -10,7 +10,14 @@ export default function ActivityItem(props) {
         { backgroundColor: "white", marginBottom: 15, width: "100%" },
       ]}
       android_ripple={{ color: "#C9CBD7" }}
-      onPress={() => props.navigation.navigate("MatchesScreen")}
+      onPress={() =>
+        props.navigation.navigate("MatchesScreen", {
+          navigation: props.navigation,
+          activityName: props.activityName,
+          location: props.location,
+          date: props.date,
+        })
+      }
     >
       <View style={styles.container}>
         <View style={styles.imageContainer}>
