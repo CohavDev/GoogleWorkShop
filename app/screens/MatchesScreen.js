@@ -147,7 +147,7 @@ export default (props) => {
         <Text style={styles.titleText}>Matches</Text>
         <Text style={[styles.titleText, { fontSize: 14 }]}>
           {titleData.activityName +
-            " at " +
+            " in " +
             titleData.location +
             " on " +
             titleData.date}
@@ -265,9 +265,9 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 30,
     //  fontWeight: "bold",
-    top: 80,
+    top: 40,
     alignSelf: "center",
-    justifyContent: "space-evenly",
+    //justifyContent: "space-evenly",
     //left: 50,
     //position: 'absolute',
     //marginLeft: 150,

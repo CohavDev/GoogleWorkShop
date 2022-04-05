@@ -4,8 +4,13 @@ import React, { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import colors from "../config/colors";
 
-export default function NewActivityForm() {
+export default function NewActivityForm(props) {
+  const pressConfirm = () => {
+    props.navigation.navigate("ApproveActivity");
+  };
+
    const [ActivityTime, setActivityTime] = useState("Unknown");
+   
    return (
       <View style={styles.container}>
          <View
@@ -53,8 +58,10 @@ export default function NewActivityForm() {
             //    //height: '100%',
             //    color: 'white',}}
           >
-              <Pressable style={styles.buttonContainer} >
-                <Text style={{fontWeight: "bold",}}>Next</Text>
+              <Pressable 
+                onPress={pressConfirm}
+                style={styles.buttonContainer} >
+                <Text style={{fontWeight: "bold",}}>Confirm</Text>
               </Pressable>
           </View>
          </View>
@@ -105,6 +112,7 @@ const styles = StyleSheet.create({
    },
    header: {
       color: "black",
+      top: 0,
       //fontWeight: "bold",
       fontSize: 30,
       // justifyContent: 'center',

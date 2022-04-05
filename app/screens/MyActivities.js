@@ -99,16 +99,22 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
+    height: "20%",    
     backgroundColor: myColors.secondary,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 15,
+
   },
   title: {
+    
     color: "black",
-    fontSize: 24,
+    fontSize: 30,
     // fontWeight: "bold",
-    paddingTop: "20%",
-    paddingBottom: 15,
+    //paddingTop: "20%",
+    //paddingBottom: 15,
+    //top: 20,
+
+    
   },
 });
