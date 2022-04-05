@@ -12,7 +12,7 @@ import myColors from "../config/colors";
 import { Pressable, Vibration } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function ProfileMatching() {
+export default function ProfileMatching(props) {
   const ONE_SEC_IN_MS = 1000;
   const PATTERN = [
     0.1 * ONE_SEC_IN_MS,
@@ -21,6 +21,13 @@ export default function ProfileMatching() {
     0.1 * ONE_SEC_IN_MS,
     0.1 * ONE_SEC_IN_MS,
   ];
+  const data = {
+    userName: props.navigation.getParam("userName", "user-name"),
+    age: props.navigation.getParam("age", "120"),
+    desc: props.navigation.getParam("desc", "about me text"),
+    location: props.navigation.getParam("location", "somewhere"),
+    thumbnail: props.navigation.getParam("thumbnail", "../assets/userPic.png"),
+  };
   return (
     <View style={styles.container}>
       {/* style={styles.profilePicContainer} */}
@@ -32,17 +39,19 @@ export default function ProfileMatching() {
         style={styles.profilePicContainer}
       >
         <Image
-          source={require("../assets/userPic.png")}
+          source={{ uri: data.thumbnail }}
           style={styles.profilePic}
         ></Image>
-        <Text style={styles.title}>{props.userName}</Text>
-        <Text style={styles.smallTitle}>Tel Aviv, 25</Text>
+        <Text style={styles.title}>{data.userName}</Text>
+        <Text style={styles.smallTitle}>
+          {data.location + " , " + data.age}
+        </Text>
       </LinearGradient>
       {/* </View> */}
 
       <Text style={styles.subTitle}>About me</Text>
       <Text style={styles.subText}>
-        {props.description}
+        {data.desc}
         {/* Ryan Adams, whose new album Prisoner is out this Friday, was the latest
         guest on Marc Maron’s podcast “WTF.” Adams discussed encountering the
         Rolling Stones early in his career (and talking penny loafers with
@@ -50,7 +59,7 @@ export default function ProfileMatching() {
         era */}
       </Text>
       <Text style={styles.subTitle}>I'm From</Text>
-      <Text style={styles.subText}>{props.city}</Text>
+      <Text style={styles.subText}>{data.location}</Text>
       <View style={[styles.interstContainer, styles.shadowProp]}>
         <Text style={[styles.subTitle, { color: "white" }]}>
           What I'm looking for?
@@ -69,7 +78,7 @@ export default function ProfileMatching() {
         >
           <AntDesign name="check" size={30} color="white" />
         </Pressable>
-        <Text>Match with Emma Davis</Text>
+        <Text>Match with {data.userName}</Text>
       </View>
     </View>
   );

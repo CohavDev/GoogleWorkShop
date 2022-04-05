@@ -82,7 +82,7 @@ export default function MyActivities({ navigation }) {
       <Pressable
         android_ripple={{ color: "white" }}
         style={[myColors.circularImage, { marginHorizontal: 15 }]}
-        onPress={() => navigation.navigate("profileMatching")}
+        onPress={() => navigation.navigate("ChooseActivityBubbles")}
       >
         <Entypo name="plus" size={32} color="black"></Entypo>
       </Pressable>

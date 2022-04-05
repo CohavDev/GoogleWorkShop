@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text, FlatList, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  Image,
+  Pressable,
+} from "react-native";
 import colors from "../config/colors";
 import DATATWO from "../usersData.json";
 const DATA = [
@@ -79,35 +86,49 @@ export default (props) => {
           keyExtractor={(item) => item.key}
           renderItem={({ item, index }) => {
             return (
-              <View style={[styles.shadowProp, styles.matchBackground]}>
-                <Image
-                  source={{ uri: item.profilePic }}
-                  style={styles.profilePicture}
-                />
-                <View
-                  style={{
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    height: 30,
-                  }}
-                >
-                  <View style={styles.nameTag}>
-                    <Text style={styles.text}>
-                      {item.name} {"  "}
-                      {item.age} {"\n"}
-                    </Text>
-                  </View>
-                  <View style={styles.textBox}>
-                    <Text
-                      style={{
-                        alignSelf: "flex-start",
-                      }}
-                    >
-                      {item.desc}
-                    </Text>
+              <Pressable
+                // style={[styles.shadowProp, styles.matchBackground]}
+                // android_ripple={{ color: "gray" }}
+                onPress={() =>
+                  props.navigation.navigate("ProfileMatching", {
+                    userName: item.name,
+                    age: item.age,
+                    desc: item.desc,
+                    location: item.location,
+                    thumbnail: item.profilePic,
+                  })
+                }
+              >
+                <View style={[styles.shadowProp, styles.matchBackground]}>
+                  <Image
+                    source={{ uri: item.profilePic }}
+                    style={styles.profilePicture}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      height: 30,
+                    }}
+                  >
+                    <View style={styles.nameTag}>
+                      <Text style={styles.text}>
+                        {item.name} {"  "}
+                        {item.age} {"\n"}
+                      </Text>
+                    </View>
+                    <View style={styles.textBox}>
+                      <Text
+                        style={{
+                          alignSelf: "flex-start",
+                        }}
+                      >
+                        {item.desc}
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
+              </Pressable>
             );
           }}
         />

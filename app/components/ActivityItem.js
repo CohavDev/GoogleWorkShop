@@ -35,7 +35,7 @@ export default function ActivityItem(props) {
         </View>
         <View style={styles.matchCountContainer}>
           <Text>Matches</Text>
-          <Text>0</Text>
+          <Text>10</Text>
         </View>
       </View>
     </Pressable>
