@@ -22,8 +22,8 @@ export default function ActivityItem(props) {
         </View>
         <View style={styles.dataContainer}>
           <Text>{props.activityName}</Text>
-          <Text>Date</Text>
-          <Text>Place</Text>
+          <Text>{props.date}</Text>
+          <Text>{props.location}</Text>
         </View>
         <View style={styles.matchCountContainer}>
           <Text>Matches</Text>

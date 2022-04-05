@@ -4,6 +4,32 @@ import ActivityItem from "../components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 
+const DATA = [
+  {
+    activityIcon: "drink",
+    activityName: "Drink",
+    location: "Tel- Aviv",
+    date: "07/05/2022",
+  },
+  {
+    activityIcon: "bowl",
+    activityName: "Restaurant",
+    location: "Paris",
+    date: "01/08/2022",
+  },
+  {
+    activityIcon: "moon",
+    activityName: "Place To Sleep",
+    location: "Tel- Aviv",
+    date: "02/06/2022",
+  },
+  {
+    activityIcon: "drink",
+    activityName: "Drink",
+    location: "New York",
+    date: "12/04/2022",
+  },
+];
 export default function MyActivities({ navigation }) {
   return (
     <View style={styles.container}>
