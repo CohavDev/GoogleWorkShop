@@ -4,6 +4,7 @@
     "name": "Owen Harris",
     "age": 22,
     "city": "London",
+    "currentLocation": "Tel-Aviv",
     "desc": "Music, watching movies",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/male/10.jpg"
   },
@@ -13,6 +14,7 @@
     "name": "John Bradley",
     "age": 22,
     "city": "New-York",
+    "currentLocation": "Tel-Aviv",
     "desc": "Playing Tennis, going to the theatre",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/male/35.jpg"
   },
@@ -22,6 +24,7 @@
     "name": "Laina Heikkinen",
     "age": 26,
     "city": "Berlin",
+    "currentLocation": "Tel-Aviv",
     "desc": "Reading, watching movies",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/female/10.jpg"
   },
@@ -31,6 +34,7 @@
     "name": "Jacques Futrelle",
     "age": 35,
     "city": "Paris",
+    "currentLocation": "Tel-Aviv",
     "desc": "Cooking and playing music",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/male/12.jpg"
   },
@@ -40,6 +44,7 @@
     "name": "William Hellen",
     "age": 33,
     "city": "Manchester",
+    "currentLocation": "Tel-Aviv",
     "desc": "Yoga and reading books",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/male/11.jpg"
   },
@@ -49,6 +54,7 @@
     "name": "James Moran",
     "age": 31,
     "city": "Rome",
+    "currentLocation": "Tel-Aviv",
     "desc": "Swimming and playing chess",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/male/1.jpg"
   },
@@ -58,6 +64,7 @@
     "name": "Elizabeth Bonnel",
     "age": 42,
     "city": "London",
+    "currentLocation": "Tel-Aviv",
     "desc": "Playing a guitar and watching movies",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/female/52.jpg"
   },
@@ -67,6 +74,7 @@
     "name": "Marguerite Sandstrom",
     "age": 29,
     "city": "Amsterdam",
+    "currentLocation": "Tel-Aviv",
     "desc": "Hanging out in bars and listening to music",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/female/11.jpg"
   },
@@ -76,6 +84,7 @@
     "name": "Nicholas Nasser",
     "age": 23,
     "city": "Athens",
+    "currentLocation": "Tel-Aviv",
     "desc": "Baking and playing basketball",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/male/14.jpg"
   },
@@ -85,6 +94,7 @@
     "name": "Gosta Johns",
     "age": 33,
     "city": "Paris",
+    "currentLocation": "Tel-Aviv",
     "desc": "Painting and theate",
     "profilePic": "https://minimaltoolkit.com/images/randomdata/male/22.jpg"
   }

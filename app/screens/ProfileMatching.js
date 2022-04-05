@@ -25,7 +25,8 @@ export default function ProfileMatching(props) {
     userName: props.navigation.getParam("userName", "user-name"),
     age: props.navigation.getParam("age", "120"),
     desc: props.navigation.getParam("desc", "about me text"),
-    location: props.navigation.getParam("location", "somewhere"),
+    city: props.navigation.getParam("city", "somewhere"),
+    currentLocation: props.navigation.getParam("currentLocation", "somewhere"),
     thumbnail: props.navigation.getParam("thumbnail", "../assets/userPic.png"),
     activityName: props.navigation.getParam("activityName", "Matches"),
     activityLocation: props.navigation.getParam("activityLocation", "??"),
@@ -47,12 +48,12 @@ export default function ProfileMatching(props) {
         ></Image>
         <Text style={styles.title}>{data.userName}</Text>
         <Text style={styles.smallTitle}>
-          {data.location + " , " + data.age}
+          {data.currentLocation + " , " + data.age}
         </Text>
       </LinearGradient>
       {/* </View> */}
 
-      <Text style={styles.subTitle}>About me</Text>
+      <Text style={styles.subTitle}>I Like</Text>
       <Text style={styles.subText}>
         {data.desc}
         {/* Ryan Adams, whose new album Prisoner is out this Friday, was the latest
@@ -62,7 +63,7 @@ export default function ProfileMatching(props) {
         era */}
       </Text>
       <Text style={styles.subTitle}>I'm From</Text>
-      <Text style={styles.subText}>{data.location}</Text>
+      <Text style={styles.subText}>{data.city}</Text>
       <View style={[styles.interstContainer, styles.shadowProp]}>
         <Text style={[styles.subTitle, { color: "white" }]}>
           What I'm looking for?
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: myColors.secondButtonColor,
+    backgroundColor: myColors.primary,
   },
   buttonContainer: {
     display: "flex",
