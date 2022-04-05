@@ -25,8 +25,9 @@ function ChooseActivityBubbles(props) {
             ></Circle>
           </Pressable>
 
-          <Pressable onPress={pressActivityHandler}></Pressable>
-          <Circle style={styles.circleButtonBottom} text="Restaurant"></Circle>
+          <Pressable onPress={pressActivityHandler}>
+            <Circle style={styles.circleButtonBottom} text="Restaurant"></Circle>
+          </Pressable>
         </View>
 
         <View style={styles.rightBackground}>
@@ -40,11 +41,12 @@ function ChooseActivityBubbles(props) {
               style={styles.circleButtonMiddle}
             ></Circle>
           </Pressable>
-          <Pressable onPress={pressActivityHandler}></Pressable>
-          <Circle
-            text="A place to sleep"
-            style={styles.circleButtonBottom}
-          ></Circle>
+          <Pressable onPress={pressActivityHandler}>
+            <Circle
+              text="A place to sleep"
+              style={styles.circleButtonBottom}
+            ></Circle>
+          </Pressable>
         </View>
       </View>
       <View style={styles.viewTitleText}>
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
   },
   circleButtonTop: {
     marginTop: 225,
-    marginBottom: 50,
+    marginBottom: 40,
   },
 
   circleButtonMiddle: {
