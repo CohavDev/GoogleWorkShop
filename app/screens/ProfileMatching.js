@@ -35,21 +35,22 @@ export default function ProfileMatching() {
           source={require("../assets/userPic.png")}
           style={styles.profilePic}
         ></Image>
-        <Text style={styles.title}>Emma Davis</Text>
+        <Text style={styles.title}>{props.userName}</Text>
         <Text style={styles.smallTitle}>Tel Aviv, 25</Text>
       </LinearGradient>
       {/* </View> */}
 
       <Text style={styles.subTitle}>About me</Text>
       <Text style={styles.subText}>
-        Ryan Adams, whose new album Prisoner is out this Friday, was the latest
+        {props.description}
+        {/* Ryan Adams, whose new album Prisoner is out this Friday, was the latest
         guest on Marc Maron’s podcast “WTF.” Adams discussed encountering the
         Rolling Stones early in his career (and talking penny loafers with
         drummer Charlie Watts), his struggles with addiction in the Easy Tiger
-        era
+        era */}
       </Text>
       <Text style={styles.subTitle}>I'm From</Text>
-      <Text style={styles.subText}>New York, US</Text>
+      <Text style={styles.subText}>{props.city}</Text>
       <View style={[styles.interstContainer, styles.shadowProp]}>
         <Text style={[styles.subTitle, { color: "white" }]}>
           What I'm looking for?
