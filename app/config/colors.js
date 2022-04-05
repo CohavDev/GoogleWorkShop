@@ -11,7 +11,8 @@ export default {
   secondary: "#D4FFEA", //"#96DCD4", //"#84DCE0", //"#B0EBEA", // "#9DDBD0", //
   primary: "#336C51", //"#9DDBD0",//"#23A89F", //#AFCFC2
   buttonColor: "#E0FBFC",
-  checkButtonColor: "#E0FBFC",
+  checkButtonColor: "rgba(0,255,140,0.6)",
+  editButtonColor: "rgba(100,255,200,0.7)",
   /* Original theme(brown-ish)*/
   // background: "#EEDACB",
   // shapeBackground: 'rgba(243,224,212,0.8)',
