@@ -31,7 +31,8 @@ export default function NewActivityForm(props) {
             <View style={styles.ovalShape}>
                <Text style={styles.subtitle}>Activity date </Text>
                <View style={styles.box}>
-                  <TextInput style={styles.input}>Implement here</TextInput>
+                  <TextInput style={styles.input} placeholder= 'DD-MM-YYYY'
+                   maxLength ={10} ></TextInput>
                </View>
             </View>
 
