@@ -1,0 +1,72 @@
+[
+    {
+    "name": "Owen Harris",
+    "age": 22,
+    "city":"London",
+    "desc": "Music, watching movies"
+    },
+
+    {
+    "name": "John Bradley",
+    "age": 22,
+    "city":"New-York",
+    "desc": "Playing Tennis, going to the theatre"
+    },
+
+    {
+    "name": "Laina Heikkinen",
+    "age": 26,
+    "city":"Berlin",
+    "desc": "Reading, watching movies"
+    },
+
+    {
+    "name": "Jacques Futrelle",
+    "age": 35,
+    "city":"Paris",
+    "desc": "Cooking and playing music"
+    },
+
+    {
+    "name": "William Hellen",
+    "age": 33,
+    "city":"Manchester",
+    "desc": "Yoga and reading books"
+    },
+
+    {
+    "name": "James Moran",
+    "age": 31,
+    "city":"Rome",
+    "desc": "Swimming and playing chess"
+    },
+
+    {
+    "name": "Elizabeth Bonnel",
+    "age": 42,
+    "city":"London",
+    "desc": "Playing a guitar and watching movies"
+    },
+
+    {
+    "name": "Marguerite Sandstrom",
+    "age": 29,
+    "city":"Amsterdam",
+    "desc": "Hanging out in bars and listening to music"
+    },
+
+    {
+    "name": "Nicholas Nasser",
+    "age": 23,
+    "city":"Athens",
+    "desc": "Baking and playing basketball"
+    },
+
+    { 
+    "name": "Gosta Johns",
+    "age": 33,
+    "city":"Paris",
+    "desc": "Painting and theate"     
+    }
+
+]
