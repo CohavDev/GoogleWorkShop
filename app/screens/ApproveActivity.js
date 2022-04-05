@@ -17,7 +17,7 @@ export default function ApproveActivity({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Approve Activity</Text>
+        <Text style={styles.headerContainer}>Approve Activity</Text>
       </View>
 
       <ScrollView>
@@ -86,12 +86,26 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     width: myColors.deviceWidth,
   },
-  header: {
+  headerContainer: {
     width: "100%",
-    backgroundColor: myColors.secondary,
-    alignItems: "center",
+    height: "20%",
+
+    backgroundColor: "transparent",
+    //alignSelf: "center",
     justifyContent: "center",
-    marginBottom: 15,
+    alignItems: "center",
+    //height: 70,
+    //left: 20,
+    //right: 20,
+    //position: "absolute",
+  },
+  header: {
+    color: "black",
+    top: 0,
+    //fontWeight: "bold",
+    fontSize: 28,
+    // justifyContent: 'center',
+    //padding: 40,
   },
   title: {
     color: "black",
@@ -112,7 +126,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     position: "absolute",
     left: 60,
-    bottom: -100,
+    bottom: -115,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: myColors.checkButtonColor,
@@ -123,7 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     position: "absolute",
     right: 60,
-    bottom: -100,
+    bottom: -115,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: myColors.editButtonColor,
