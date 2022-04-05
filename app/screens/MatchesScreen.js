@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, FlatList, Image } from "react-native";
 import colors from "../config/colors";
-
+import DATATWO from "../usersData.json";
 const DATA = [
   {
     key: "0",
@@ -64,7 +64,6 @@ const DATA = [
     descriptionText: "It's not 'levi-oooo-sa', it's 'levi-o-saaaa'",
   },
 ];
-
 export default () => {
   return (
     <View
@@ -76,7 +75,7 @@ export default () => {
     >
       <View style={styles.background}>
         <FlatList
-          data={DATA}
+          data={DATATWO}
           keyExtractor={(item) => item.key}
           renderItem={({ item, index }) => {
             return (
@@ -94,7 +93,8 @@ export default () => {
                 >
                   <View style={styles.nameTag}>
                     <Text style={styles.text}>
-                      {item.name} {"\n"}
+                      {item.name} {" , "}
+                      {item.age} {"\n"}
                     </Text>
                   </View>
                   <View style={styles.textBox}>
@@ -103,7 +103,7 @@ export default () => {
                         alignSelf: "flex-start",
                       }}
                     >
-                      {item.descriptionText}
+                      {item.desc}
                     </Text>
                   </View>
                 </View>

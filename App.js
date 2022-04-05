@@ -15,8 +15,8 @@ import ApproveActivity from "./app/screens/ApproveActivity";
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <Navigator />
-    // <MatchesScreen />
+    // <Navigator />
+    <MatchesScreen />
 
     // <NavigationContainer>
     //    <Stack.Navigator>
