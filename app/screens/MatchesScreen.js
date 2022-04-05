@@ -100,8 +100,11 @@ export default (props) => {
                     userName: item.name,
                     age: item.age,
                     desc: item.desc,
-                    location: item.location,
+                    location: item.city,
                     thumbnail: item.profilePic,
+                    activityName: titleData.activityName,
+                    activityDate: titleData.date,
+                    activityLocation: titleData.location,
                   })
                 }
               >

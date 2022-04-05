@@ -27,6 +27,9 @@ export default function ProfileMatching(props) {
     desc: props.navigation.getParam("desc", "about me text"),
     location: props.navigation.getParam("location", "somewhere"),
     thumbnail: props.navigation.getParam("thumbnail", "../assets/userPic.png"),
+    activityName: props.navigation.getParam("activityName", "Matches"),
+    activityLocation: props.navigation.getParam("activityLocation", "??"),
+    activityDate: props.navigation.getParam("activityDate", "??"),
   };
   return (
     <View style={styles.container}>
@@ -65,7 +68,11 @@ export default function ProfileMatching(props) {
           What I'm looking for?
         </Text>
         <Text style={[styles.subText, { color: "white" }]}>
-          Bar, Tomorrow night at Tel-Aviv
+          {data.activityName +
+            " on " +
+            data.activityDate +
+            " at " +
+            data.activityLocation}
         </Text>
       </View>
 
