@@ -66,7 +66,7 @@ export default function ProfileMatching(props) {
       <Text style={styles.subText}>{data.city}</Text>
       <View style={[styles.interstContainer, styles.shadowProp]}>
         <Text style={[styles.subTitle, { color: "white" }]}>
-          What I'm looking for?
+          What I'm looking for
         </Text>
         <Text style={[styles.subText, { color: "white" }]}>
           {data.activityName +
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 15,
+    top: 4,
   },
   profilePic: {
     width: 128,

@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   title: {
     
     color: "black",
-    fontSize: 30,
+    fontSize: 28,
     // fontWeight: "bold",
     //paddingTop: "20%",
     //paddingBottom: 15,

@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: "black",
-    fontSize: 30,
+    fontSize: 28,
     //  fontWeight: "bold",
     top: 40,
     alignSelf: "center",
