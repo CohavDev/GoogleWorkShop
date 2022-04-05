@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: "100%",
     height: "20%",
-
     backgroundColor: "transparent",
     //alignSelf: "center",
     justifyContent: "center",
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     position: "absolute",
     left: 60,
-    bottom: -115,
+    bottom: -105,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: myColors.checkButtonColor,
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     position: "absolute",
     right: 60,
-    bottom: -115,
+    bottom: -95,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: myColors.editButtonColor,
