@@ -16,8 +16,8 @@ export default function ApproveActivity({ navigation }) {
  */ 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.header}>Approve Activity</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Approve Activity</Text>
       </View>
 
       <ScrollView>
@@ -48,6 +48,13 @@ export default function ApproveActivity({ navigation }) {
               activityIcon: "location",
               approvedInfo: "Location",
               data: "Florentin,\nTel-Aviv",
+            }}
+          />
+          <ApprovalItem
+            {...{
+              activityIcon: "language",
+              approvedInfo: "Languages",
+              data: "English,\n Spanish",
             }}
           />
         </View>
@@ -99,19 +106,25 @@ const styles = StyleSheet.create({
     //position: "absolute",
   },
   header: {
-    color: "black",
-    top: 0,
-    //fontWeight: "bold",
-    fontSize: 28,
-    // justifyContent: 'center',
-    //padding: 40,
+    //color: "black",
+    //top: 0,
+    ////fontWeight: "bold",
+    //fontSize: 28,
+    //// justifyContent: 'center',
+    ////padding: 40,
+    width: "100%",
+    height: "20%",    
+    backgroundColor: myColors.secondary,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 15,
   },
   title: {
     color: "black",
-    fontSize: 24,
-    fontWeight: "bold",
-    paddingTop: "20%",
-    paddingBottom: 15,
+    fontSize: 28,
+    //fontWeight: "bold",
+    //paddingTop: "20%",
+    //paddingBottom: 15,
   },
   buttonContainer: {
     display: "flex",
@@ -125,7 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     position: "absolute",
     left: 60,
-    bottom: -105,
+    bottom: -125,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: myColors.checkButtonColor,
@@ -136,7 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     position: "absolute",
     right: 60,
-    bottom: -95,
+    bottom: -115,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: myColors.editButtonColor,
