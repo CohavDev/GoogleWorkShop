@@ -20,3 +20,6 @@ installed for NewActivity time picking:
 - expo install @react-native-picker/picker
 - npm install @react-native-picker/picker --save
 - npm audit fix --force
+
+installed:
+- npm install react-native-paper

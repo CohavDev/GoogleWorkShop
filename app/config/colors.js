@@ -66,4 +66,5 @@ export default {
     // opacity: 0.8, //blue theme
     opacity: 0.6, //green theme
   },
+  
 };

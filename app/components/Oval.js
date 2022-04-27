@@ -14,11 +14,11 @@ const styles = StyleSheet.create({
    textStyle: {
       color: "black",
       fontSize: 18,
-      fontWeight: "bold",
+      // fontWeight: "bold",
    },
    ovalShape: {
       backgroundColor: colors.shapeBackground, 
-      width: 320,
+      width: 300,
       height: 90,
       borderRadius: 40,
       bottom: 20,
