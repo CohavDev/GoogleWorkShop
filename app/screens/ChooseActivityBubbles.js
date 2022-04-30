@@ -34,7 +34,7 @@ function ChooseActivityBubbles(props) {
             <Circle style={styles.circleButtonBottom} 
             text="Restaurant" 
             iconName="silverware">
-            // iconName="noodles">
+            // iconName="noodles"
             </Circle>
           </Pressable>
         </View>
