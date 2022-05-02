@@ -4,16 +4,23 @@ import { AntDesign } from "@expo/vector-icons";
 import ApprovalItem from "../components/ApprovalItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
-export default function ApproveActivity({ navigation }) {
-  
-/*  <ApprovalItem
+export default function ApproveActivity(props) {
+  /*  <ApprovalItem
             {...{
               activityIcon: "users",
               approvedInfo: "How\nmany",
               data: "2-4",
             }}
           />
- */ 
+ */
+  const DATA = {
+    type: props.navigation.getParam("type"),
+    icon: props.navigation.getParam("icon"),
+    location: props.navigation.getParam("location"),
+    date: props.navigation.getParam("date"),
+    time: props.navigation.getParam("time"),
+    languages: props.navigation.getParam("languages", "english"),
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -24,37 +31,37 @@ export default function ApproveActivity({ navigation }) {
         <View style={[styles.container, { paddingHorizontal: 15 }]}>
           <ApprovalItem
             {...{
-              activityIcon: "drink",
+              activityIcon: DATA.icon,
               approvedInfo: "Activity\nType",
-              data: "Drink",
+              data: DATA.type,
             }}
           />
           <ApprovalItem
             {...{
               activityIcon: "calendar",
               approvedInfo: "Date",
-              data: "7/7/2022",
+              data: DATA.date,
             }}
           />
           <ApprovalItem
             {...{
               activityIcon: "clock",
               approvedInfo: "Time",
-              data: "20:00 - 23:59",
+              data: DATA.time,
             }}
           />
           <ApprovalItem
             {...{
               activityIcon: "location",
               approvedInfo: "Location",
-              data: "Florentin,\nTel-Aviv",
+              data: DATA.location,
             }}
           />
           <ApprovalItem
             {...{
               activityIcon: "language",
               approvedInfo: "Languages",
-              data: "English,\n Spanish",
+              data: DATA.languages,
             }}
           />
         </View>
@@ -64,7 +71,7 @@ export default function ApproveActivity({ navigation }) {
           style={styles.approveButton}
           onLongPress={() => alert("clicked 'approve'")}
           android_ripple={{ color: "white" }}
-          onPress={() => navigation.navigate("MyActivities")}
+          onPress={() => props.navigation.navigate("MyActivities")}
         >
           <AntDesign name="check" size={30} color="white" />
           <Text style={styles.ButtonText}>Approve</Text>
@@ -76,7 +83,7 @@ export default function ApproveActivity({ navigation }) {
           style={styles.editButton}
           onLongPress={() => alert("clicked 'edit'")}
           android_ripple={{ color: "white" }}
-          onPress={() => navigation.navigate("NewActivityForm")}
+          onPress={() => props.navigation.navigate("NewActivityForm")}
         >
           <AntDesign name="edit" size={30} color="white" />
           <Text style={styles.ButtonText}>Edit</Text>
@@ -113,7 +120,7 @@ const styles = StyleSheet.create({
     //// justifyContent: 'center',
     ////padding: 40,
     width: "100%",
-    height: "20%",    
+    height: "20%",
     backgroundColor: myColors.secondary,
     alignItems: "center",
     justifyContent: "center",
