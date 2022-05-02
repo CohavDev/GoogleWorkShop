@@ -52,14 +52,14 @@ export default function ApproveActivity(props) {
           />
           <ApprovalItem
             {...{
-              activityIcon: "location",
+              activityIcon: "map-marker",
               approvedInfo: "Location",
               data: DATA.location,
             }}
           />
           <ApprovalItem
             {...{
-              activityIcon: "language",
+              activityIcon: "translate",
               approvedInfo: "Languages",
               data: DATA.languages,
             }}
