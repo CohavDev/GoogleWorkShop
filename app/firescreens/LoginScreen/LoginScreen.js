@@ -9,7 +9,7 @@ export default function LoginScreen({navigation}) {
     const [password, setPassword] = useState('')
 
     const onFooterLinkPress = () => {
-        navigation.navigate('Registration')
+        navigation.navigate('RegistrationScreen')
     }
 
     const onLoginPress = () => {
@@ -28,7 +28,7 @@ export default function LoginScreen({navigation}) {
                             return;
                         }
                         const user = firestoreDocument.data()
-                        navigation.navigate('Home', {user})
+                        navigation.navigate('MainMenu', {user})
                     })
                     .catch(error => {
                         alert(error)
