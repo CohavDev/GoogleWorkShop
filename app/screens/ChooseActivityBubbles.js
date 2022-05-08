@@ -4,31 +4,25 @@ import colors from "../config/colors";
 import Circle from "../components/Circle";
 import BackgroundImage from "../components/BackgroungImage";
 //import CirclesBackground from '../components/CirclesBackground';
-import { IconButton, Colors } from "react-native-paper";
+import { IconButton, Colors } from 'react-native-paper';
 
 function ChooseActivityBubbles(props) {
-  const pressActivityHandler = (type, icon) => {
-    props.navigation.navigate("NewActivityForm", {
-      activityType: type,
-      activityIcon: icon,
-    });
+  const pressActivityHandler = () => {
+    props.navigation.navigate("NewActivityForm");
   };
   return (
     <View>
       <View style={styles.mainBackground}>
+        
         <BackgroundImage />
 
         <View style={styles.leftBackground}>
-          <Pressable
-            onPress={() => pressActivityHandler("Drink", "glass-wine")}
-          >
-            <Circle
-              style={styles.circleButtonTop}
-              text="Drinks"
-              iconName="glass-wine"
-            ></Circle>
+          <Pressable onPress={pressActivityHandler}>
+            <Circle style={styles.circleButtonTop} 
+            text="Drinks" 
+            iconName="glass-wine"></Circle>
           </Pressable>
-          <Pressable onPress={() => pressActivityHandler("Hiking", "hiking")}>
+          <Pressable onPress={pressActivityHandler}>
             <Circle
               style={styles.circleButtonMiddle}
               text="Backpacking"
@@ -36,44 +30,31 @@ function ChooseActivityBubbles(props) {
             ></Circle>
           </Pressable>
 
-          <Pressable
-            onPress={() => pressActivityHandler("Restaurant", "silverware")}
-          >
-            <Circle
-              style={styles.circleButtonBottom}
-              text="Restaurant"
-              iconName="silverware"
-            >
-              {/* // iconName="noodles"> */}
+          <Pressable onPress={pressActivityHandler}>
+            <Circle style={styles.circleButtonBottom} 
+            text="Restaurant" 
+            iconName="silverware">
+            // iconName="noodles"
             </Circle>
           </Pressable>
         </View>
 
         <View style={styles.rightBackground}>
-          <Pressable
-            onPress={() => pressActivityHandler("Party", "party-popper")}
-          >
-            <Circle
-              style={styles.circleButtonTop}
-              text="Party"
-              iconName="party-popper"
-            ></Circle>
+          <Pressable onPress={pressActivityHandler}>
+            <Circle style={styles.circleButtonTop} 
+            text="Party"
+            iconName="party-popper"></Circle> 
           </Pressable>
-          <Pressable
-            onPress={() => pressActivityHandler("Driving", "car-hatchback")}
-          >
+          <Pressable onPress={pressActivityHandler}>
             <Circle
               text="Driving"
               iconName="car-hatchback"
               style={styles.circleButtonMiddle}
             ></Circle>
           </Pressable>
-          <Pressable
-            onPress={() =>
-              pressActivityHandler("Place to sleep", "bunk-bed-outline")
-            }
-          >
-            <Circle
+          <Pressable onPress={pressActivityHandler}>
+          
+            <Circle 
               text="Place to sleep"
               iconName="bunk-bed-outline"
               style={styles.circleButtonBottom}
@@ -85,6 +66,7 @@ function ChooseActivityBubbles(props) {
         {/* <Text style={styles.titleText}>What activity are you looking for?</Text> */}
         <Text style={styles.titleText}>Choose the activity you</Text>
         <Text style={styles.titleText}>are looking for</Text>
+
       </View>
     </View>
   );

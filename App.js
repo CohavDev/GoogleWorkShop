@@ -1,14 +1,9 @@
-import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react'
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
-import { createStackNavigator } from '@react-navigation/stack';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Navigator from "./app/routes/WelcomeBackScreenStack";
-import {decode, encode} from 'base-64';
-import { LoginScreen, HomeScreen, RegistrationScreen } from './app/firescreens'
-//import HomeScreen from "./hila/HomeScreen";
+import HomeScreen from "./hila/HomeScreen";
 import MyActivities from "./app/screens/MyActivities";
 import ProfileMatching from "./app/screens/ProfileMatching";
 import ChooseActivityBubbles from "./app/screens/ChooseActivityBubbles";
@@ -19,20 +14,10 @@ import ApproveActivity from "./app/screens/ApproveActivity";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={user ? 'MainMenu' : 'LoginScreen'}>
-          <Stack.Screen name="MainMenu">
-            {(props) => <MainMenu {...props} extraData={user} />}
-          </Stack.Screen>
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
-            <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
-
-      </Stack.Navigator>
+      <Navigator />
     </NavigationContainer>
-
 
     // <MatchesScreen />
 
@@ -43,33 +28,6 @@ export default function App() {
     //    </Stack.Navigator>
     // </NavigationContainer>
   );
-  if (loading) {	
-    return (	
-      <></>	
-    )	
-  }
-
-  useEffect(() => {
-    const usersRef = firebase.firestore().collection('users');
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        usersRef
-          .doc(user.uid)
-          .get()
-          .then((document) => {
-            const userData = document.data()
-            setLoading(false)
-            setUser(userData)
-          })
-          .catch((error) => {
-            setLoading(false)
-          });
-      } else {
-        setLoading(false)
-      }
-    });
-  }, []);
-
 }
 
 // const styles = StyleSheet.create({
