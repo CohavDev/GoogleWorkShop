@@ -52,7 +52,7 @@ export default function RegistrationScreen({navigation}) {
                 keyboardShouldPersistTaps="always">
                 <Image
                     style={styles.logo}
-                    source={require('../../../app/assets/icon.png')}
+                    source={require('../../../app/assets/TravelPartnerLogo1.jpg')}
                 />
                 <TextInput
                     style={styles.input}
