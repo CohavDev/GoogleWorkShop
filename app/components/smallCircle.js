@@ -6,7 +6,7 @@ import colors from "../config/colors";
 
 var SIZE = 40
 var RADIUS = SIZE/2
-ICONSIZE=SIZE-5
+var ICONSIZE=SIZE-5
 function SmallCircle(props) {
    return (
       <View style={styles.smallCircle}>
