@@ -73,9 +73,12 @@ const DATA = [
 ];
 export default (props) => {
   const titleData = {
-    activityName: props.navigation.getParam("activityName", "Matches"),
-    location: props.navigation.getParam("location", "??"),
-    date: props.navigation.getParam("date", "??"),
+    // activityName: props.navigation.getParam("activityName", "Matches"),
+    activityName: props.route.params.activityName,
+    // location: props.navigation.getParam("location", "??"),
+    location: props.route.params.location,
+    // date: props.navigation.getParam("date", "??"),
+    location: props.route.params.location,
   };
 
   return (

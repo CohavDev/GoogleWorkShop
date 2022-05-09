@@ -14,12 +14,18 @@ export default function ApproveActivity(props) {
           />
  */
   const DATA = {
-    type: props.navigation.getParam("type"),
-    icon: props.navigation.getParam("icon"),
-    location: props.navigation.getParam("location"),
-    date: props.navigation.getParam("date"),
-    time: props.navigation.getParam("time"),
-    languages: props.navigation.getParam("languages", "english"),
+    // type: props.navigation.getParam("type"),
+    type: props.route.params.type,
+    // icon: props.navigation.getParam("icon"),
+    icon: props.route.params.icon,
+    // location: props.navigation.getParam("location"),
+    location: props.route.params.location,
+    // date: props.navigation.getParam("date"),
+    date: props.route.params.date,
+    // time: props.navigation.getParam("time"),
+    time: props.route.params.time,
+    // languages: props.navigation.getParam("languages", "english"),
+    languages: props.route.params.languages,
   };
   return (
     <View style={styles.container}>

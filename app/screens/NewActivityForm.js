@@ -17,8 +17,10 @@ export default function NewActivityForm(props) {
   const [location, setLocation] = useState("UnKnown");
   const pressConfirm = () => {
     props.navigation.navigate("ApproveActivity", {
-      type: props.navigation.getParam("activityType"),
-      icon: props.navigation.getParam("activityIcon"),
+      // type: props.navigation.getParam("activityType"),
+      type: props.route.params.activityType,
+      // icon: props.navigation.getParam("activityIcon"),
+      icon: props.route.params.activityIcon,
       location: location,
       date: date,
       time: activityTime,
