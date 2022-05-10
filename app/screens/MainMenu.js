@@ -7,7 +7,7 @@ import BackgroundImage from "../components/BackgroungImage";
 
 function MainMenu(props) {
   const pressNewActivityHandler = () => {
-    props.navigation.navigate("ChooseActivityBubbles");
+    props.navigation.navigate("BubblesCategories");
   };
 
   const viewRecentActivitiesHandler = () => {

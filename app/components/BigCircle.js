@@ -4,7 +4,7 @@ import { Entypo } from "@expo/vector-icons";
 import { IconButton, Colors } from 'react-native-paper';
 import colors from "../config/colors";
 
-var SIZE=100
+var SIZE=120
 var RADIUS=SIZE/2
 var ICONSIZE=SIZE/2
 

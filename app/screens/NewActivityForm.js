@@ -15,6 +15,7 @@ export default function NewActivityForm(props) {
   const [activityTime, setActivityTime] = useState("Unknown");
   const [date, setDate] = useState("UnKnown");
   const [location, setLocation] = useState("UnKnown");
+  const [language, setLanguage] = useState("primary");
   const pressConfirm = () => {
     props.navigation.navigate("ApproveActivity", {
       // type: props.navigation.getParam("activityType"),
@@ -24,7 +25,7 @@ export default function NewActivityForm(props) {
       location: location,
       date: date,
       time: activityTime,
-      languages: "--not added yet",
+      languages: language,
     });
   };
   return (
@@ -71,6 +72,22 @@ export default function NewActivityForm(props) {
               <Picker.Item label="Morning" value="Morning" />
               <Picker.Item label="Noon" value="Noon" />
               <Picker.Item label="Evening/Night" value="Evening/Night" />
+            </Picker>
+          </View>
+        </View>
+
+        <View style={styles.ovalShape}>
+          <Text style={styles.subtitle}>Language Preferences</Text>
+          <View style={styles.box}>
+            <Picker
+              selectedValue={language}
+              onValueChange={(value, index) => setLanguage(value)}
+              mode="dropdown"
+              style={styles.picker}
+            >
+              <Picker.Item label="Native" value="Native" />
+              <Picker.Item label="Secondary" value="Secondary" />
+              <Picker.Item label="Any Language" value="Any" />
             </Picker>
           </View>
         </View>
