@@ -34,7 +34,7 @@ function BubblesCategories(props) {
             <BigCircle
               style={styles.circleButtonMiddle}
               text="Outdoors"
-              iconName="hiking"
+              iconName="tent"
             ></BigCircle>
           </Pressable>
 
