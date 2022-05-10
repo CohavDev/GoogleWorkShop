@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: myColors.editButtonColor,
   },
   ButtonText: {
-    fontSize: 16,
+    fontSize: 14,
     color: "black",
     fontWeight: "bold",
     alignSelf: "center",
