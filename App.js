@@ -23,7 +23,37 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  // this commented out code should guerentee that a loged in user
+  // wont need to login each time he/she enters the app. it still doesnt work
+  // properly, and thus its commented out
+  // if (loading) {
+  //   return <></>;
+  // }
+
+  // useEffect(() => {
+  //   const usersRef = firebase.firestore().collection("users");
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //       usersRef
+  //         .doc(user.uid)
+  //         .get()
+  //         .then((document) => {
+  //           const userData = document.data();
+  //           setLoading(false);
+  //           setUser(userData);
+  //         })
+  //         .catch((error) => {
+  //           setLoading(false);
+  //         });
+  //     } else {
+  //       setLoading(false);
+  //     }
+  //   });
+  // }, []);
+  
   return (
+   
+    // former code that workes well. its here just in case we will need it in the future
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName={user ? "MainMenu" : "LoginScreen"}>
     //     <Stack.Screen name="MainMenu">
@@ -48,7 +78,7 @@ export default function App() {
 
 
     <NavigationContainer>
-       <Stack.Navigator initialRouteName={user ? "MainMenu" : "MainMenu"}>
+       <Stack.Navigator initialRouteName={user ? "MainMenu" : "LoginScreen"}>
         <Stack.Screen name="MainMenu">
           {(props) => <MainMenu {...props} extraData={user} />}
         </Stack.Screen>
@@ -71,31 +101,6 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-
-  if (loading) {
-    return <></>;
-  }
-
-  useEffect(() => {
-    const usersRef = firebase.firestore().collection("users");
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        usersRef
-          .doc(user.uid)
-          .get()
-          .then((document) => {
-            const userData = document.data();
-            setLoading(false);
-            setUser(userData);
-          })
-          .catch((error) => {
-            setLoading(false);
-          });
-      } else {
-        setLoading(false);
-      }
-    });
-  }, []);
 }
 
 // const styles = StyleSheet.create({
