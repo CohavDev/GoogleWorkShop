@@ -48,7 +48,7 @@ export default function App() {
 
 
     <NavigationContainer>
-       <Stack.Navigator initialRouteName={user ? "MainMenu" : "LoginScreen"}>
+       <Stack.Navigator initialRouteName={user ? "MainMenu" : "MainMenu"}>
         <Stack.Screen name="MainMenu">
           {(props) => <MainMenu {...props} extraData={user} />}
         </Stack.Screen>

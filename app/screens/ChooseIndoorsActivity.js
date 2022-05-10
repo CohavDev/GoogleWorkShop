@@ -61,11 +61,11 @@ function ChooseIndoorsActivity(props) {
 
         <View style={styles.rightBackground}>
           <Pressable
-            onPress={() => pressActivityHandler("Concert", "bank")}
+            onPress={() => pressActivityHandler("Concert", "music-clef-treble")}
           >
             <Circle
               text="Concert"
-              iconName="instrument-triangle"
+              iconName="music-clef-treble"
               style={styles.circleButtonMiddle}
             ></Circle>
           </Pressable>
