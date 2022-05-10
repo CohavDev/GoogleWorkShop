@@ -26,14 +26,14 @@ function BubblesCategories(props) {
           >
             <BigCircle
               style={styles.circleButtonTop}
-              text="Indoors"
+              text="Indoor"
               iconName="domain"
             ></BigCircle>
           </Pressable>
           <Pressable onPress={pressOutdoorsHandler}>
             <BigCircle
               style={styles.circleButtonMiddle}
-              text="Outdoors"
+              text="Outdoor"
               iconName="tent"
             ></BigCircle>
           </Pressable>
