@@ -3,6 +3,9 @@ import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase/config.js'
+// import { initializeApp } from 'firebase/app';
+// import { getDatabase } from "firebase/database"
+// import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
@@ -14,35 +17,35 @@ export default function RegistrationScreen({navigation}) {
         navigation.navigate('LoginScreen')
     }
 
-    const onRegisterPress = () => {
-    if (password !== confirmPassword) {
-                alert("Passwords don't match.")
-                return
-            }
-            firebase
-                .auth()
-                .createUserWithEmailAndPassword(email, password)
-                .then((response) => {
-                    const uid = response.user.uid
-                    const data = {
-                        id: uid,
-                        email,
-                        fullName,
-                    };
-                    const usersRef = firebase.firestore().collection('users')
-                    usersRef
-                        .doc(uid)
-                        .set(data)
-                        .then(() => {
-                            navigation.navigate('LoginScreen')
-                        })
-                        .catch((error) => {
-                            alert(error)
-                        });
-                })
-                .catch((error) => {
-                    alert(error)
-            });
+    const onRegisterPress = async () => {
+      if (password !== confirmPassword) {
+        alert("Passwords don't match")
+        return
+      }
+      firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((response) => {
+              const uid = response.user.uid
+              const data = {
+                  id: uid,
+                  email,
+                  fullName,
+              };
+              const usersRef = firebase.firestore().collection('users')
+              usersRef
+                  .doc(uid)
+                  .set(data)
+                  .then(() => {
+                      navigation.navigate('LoginScreen')
+                  })
+                  .catch((error) => {
+                      alert(error)
+                  });
+          })
+          .catch((error) => {
+              alert(error)
+      });
     }
 
     return (
@@ -58,8 +61,8 @@ export default function RegistrationScreen({navigation}) {
                     style={styles.input}
                     placeholder='Full Name'
                     placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setFullName(text)}
                     value={fullName}
+                    onChangeText={(text) => setFullName(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -67,8 +70,8 @@ export default function RegistrationScreen({navigation}) {
                     style={styles.input}
                     placeholder='E-mail'
                     placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEmail(text)}
                     value={email}
+                    onChangeText={(text) => setEmail(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -77,8 +80,8 @@ export default function RegistrationScreen({navigation}) {
                     placeholderTextColor="#aaaaaa"
                     secureTextEntry
                     placeholder='Password'
-                    onChangeText={(text) => setPassword(text)}
                     value={password}
+                    onChangeText={(text) => setPassword(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -87,8 +90,8 @@ export default function RegistrationScreen({navigation}) {
                     placeholderTextColor="#aaaaaa"
                     secureTextEntry
                     placeholder='Confirm Password'
-                    onChangeText={(text) => setConfirmPassword(text)}
                     value={confirmPassword}
+                    onChangeText={(text) => setConfirmPassword(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -103,4 +106,8 @@ export default function RegistrationScreen({navigation}) {
             </KeyboardAwareScrollView>
         </View>
     )
-}
+};
+
+// const app = initializeApp(firebaseConfig);
+// const database = getDatabase(app);
+// const auth = getAuth();
