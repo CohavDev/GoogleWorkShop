@@ -7,7 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Navigator from "./app/routes/WelcomeBackScreenStack";
 import { decode, encode } from "base-64";
-import { LoginScreen, HomeScreen, RegistrationScreen } from "./app/firescreens";
+import { LoginScreen, HomeScreen, RegistrationScreen, MoreInfo1Screen, MoreInfo2Screen} from "./app/firescreens";
 import MyActivities from "./app/screens/MyActivities";
 import ProfileMatching from "./app/screens/ProfileMatching";
 import ChooseActivityBubbles from "./app/screens/ChooseActivityBubbles";
@@ -83,14 +83,10 @@ export default function App() {
           {(props) => <MainMenu {...props} extraData={user} />}
         </Stack.Screen>
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen
-          name="RegistrationScreen"
-          component={RegistrationScreen}
-        />
-        <Stack.Screen
-          name="BubblesCategories"
-          component={BubblesCategories}
-        />
+        <Stack.Screen name="RegistrationScreen" component={RegistrationScreen}/>
+        <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen}/>
+        <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen}/>
+        <Stack.Screen name="BubblesCategories" component={BubblesCategories}/>
         <Stack.Screen name="MyActivities" component={MyActivities} />
         <Stack.Screen name="NewActivityForm" component={NewActivityForm} />
         <Stack.Screen name="ApproveActivity" component={ApproveActivity} />

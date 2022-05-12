@@ -37,7 +37,7 @@ export default function RegistrationScreen({navigation}) {
                   .doc(uid)
                   .set(data)
                   .then(() => {
-                      navigation.navigate('LoginScreen')
+                      navigation.navigate('MoreInfo1Screen')
                   })
                   .catch((error) => {
                       alert(error)
@@ -98,7 +98,7 @@ export default function RegistrationScreen({navigation}) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onRegisterPress()}>
-                    <Text style={styles.buttonTitle}>Create account</Text>
+                    <Text style={styles.buttonTitle}>Lets move on!</Text>
                 </TouchableOpacity>
                 <View style={styles.footerView}>
                     <Text style={styles.footerText}>Already got an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
