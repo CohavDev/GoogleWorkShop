@@ -47,10 +47,16 @@ export default function LoginScreen({navigation}) {
                         if (!firestoreDocument.exists) {
                             alert("User does not exist")
                             return;
-                          }
-                          const user = firestoreDocument.data()
-                          navigation.navigate('MainMenu', {user})
-                          console.log("here 3");
+                            }
+                            const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+                            const data = {
+                                lastLogin: timestamp,
+                            };
+                            const userRef = usersRef.doc(uid)
+                            userRef.update(data)
+                            const user = firestoreDocument.data()
+                            navigation.navigate('MainMenu', {user})
+                            console.log("here 3");
                         })
                         .catch(error => {
                           alert(error)

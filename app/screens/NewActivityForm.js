@@ -13,9 +13,10 @@ import colors from "../config/colors";
 
 export default function NewActivityForm(props) {
   const [activityTime, setActivityTime] = useState("Unknown");
-  const [date, setDate] = useState("UnKnown");
+  const [startDate, setStartDate] = useState("UnKnown");
+  const [endDate, setEndDate] = useState("UnKnown");
   const [location, setLocation] = useState("UnKnown");
-  const [language, setLanguage] = useState("primary");
+  const [languages, setLanguages] = useState("primary");
   const pressConfirm = () => {
     props.navigation.navigate("ApproveActivity", {
       // type: props.navigation.getParam("activityType"),
@@ -23,9 +24,14 @@ export default function NewActivityForm(props) {
       // icon: props.navigation.getParam("activityIcon"),
       icon: props.route.params.activityIcon,
       location: location,
-      date: date,
+      startDate: startDate,
+      endDate: endDate,
       time: activityTime,
-      languages: language,
+      languages: languages,
+      // please make sure that the language feild is returned as an array
+      // for example, if the user wants to hang out with people that speak
+      // hebrew or language, so the returned languages is: [English, French]. namely,
+      // an array of the desired languages
     });
   };
   return (
@@ -48,13 +54,25 @@ export default function NewActivityForm(props) {
         </View>
 
         <View style={styles.ovalShape}>
-          <Text style={styles.subtitle}>Activity date </Text>
+          <Text style={styles.subtitle}>Activity start date</Text>
           <View style={styles.box}>
             <TextInput
               style={styles.input}
               placeholder="DD/MM/YYYY"
               maxLength={10}
-              onChangeText={(newText) => setDate(newText)}
+              onChangeText={(newText) => setStartDate(newText)}
+            ></TextInput>
+          </View>
+        </View>
+
+        <View style={styles.ovalShape}>
+          <Text style={styles.subtitle}>Activity End date</Text>
+          <View style={styles.box}>
+            <TextInput
+              style={styles.input}
+              placeholder="DD/MM/YYYY"
+              maxLength={10}
+              onChangeText={(newText) => setEndDate(newText)}
             ></TextInput>
           </View>
         </View>
@@ -77,11 +95,11 @@ export default function NewActivityForm(props) {
         </View>
 
         <View style={styles.ovalShape}>
-          <Text style={styles.subtitle}>Language Preferences</Text>
+          <Text style={styles.subtitle}>Languages Preferences</Text>
           <View style={styles.box}>
             <Picker
-              selectedValue={language}
-              onValueChange={(value, index) => setLanguage(value)}
+              selectedValue={languages}
+              onValueChange={(value, index) => setLanguages(value)}
               mode="dropdown"
               style={styles.picker}
             >

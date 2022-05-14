@@ -1,20 +1,27 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View, SafeAreaView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase/config.js'
 // import { initializeApp } from 'firebase/app';
 // import { getDatabase } from "firebase/database"
 // import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+// import DatePicker from 'react-native-datepicker' it seems like this import doesnt work on web
+// thus i have to comment it out until i manage to fix my emulator
 
 export default function MoreInfo1Screen({navigation}) {
     const [dateOfBirth, setDateOfBirth] = useState('')
     const [nationality, setNationality] = useState('')
     const [motherTongue, setMotherTongue] = useState('')
     const [secondSpokenLanguage, setSecondSpokenLanguage] = useState('')
+
     
     const userID=firebase.auth().currentUser.uid;
-    const entityRef = firebase.firestore().collection('users').doc(userID)
+    const userRef = firebase.firestore().collection('users').doc(userID)
+    var day=''
+    var month=''
+    var year=''
+    var formattedDateOfBirth=''
     
     // const onFooterLinkPress = () => {
     //     navigation.navigate('LoginScreen')
@@ -24,6 +31,13 @@ export default function MoreInfo1Screen({navigation}) {
         if (dateOfBirth.length === 0) {
             alert("please fill in your date of birth :)")
             return
+        }
+        else{
+            month=dateOfBirth.slice(0,2)
+            day=dateOfBirth.slice(3,5)
+            year=dateOfBirth.slice(6,10)
+            formattedDateOfBirth=''.concat(year,month,day)
+            setDateOfBirth(formattedDateOfBirth)
         }
         if (nationality.length === 0) {
             alert("please fill in your nationality (;")
@@ -35,11 +49,12 @@ export default function MoreInfo1Screen({navigation}) {
         }
         const data = {
             dateOfBirth: dateOfBirth,
+            formattedDateOfBirth: formattedDateOfBirth,
             nationality: nationality,
             motherTongue: motherTongue,
             secondSpokenLanguage: secondSpokenLanguage,
         };
-        entityRef
+        userRef
             .update(data)
             .then(() => {
                 navigation.navigate('MoreInfo2Screen')
@@ -76,6 +91,7 @@ export default function MoreInfo1Screen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+                
                 <TextInput
                     style={styles.input}
                     placeholder='Nationality'
@@ -116,3 +132,52 @@ export default function MoreInfo1Screen({navigation}) {
 // const app = initializeApp(firebaseConfig);
 // const database = getDatabase(app);
 // const auth = getAuth();
+
+// the next code should open a calander for choosing date of birth
+// it doesnt work on the web apperantly (only on android emulator or real android)
+// and thus for noe i comment it out until i manage to fix my emulator, so ican keep
+// on working on the web
+/*
+                <SafeAreaView
+                    style={styles.input}
+                    placeholder='Date Of Birth'
+                    placeholderTextColor="#aaaaaa"
+                    
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                >
+                    <View style={styles.containerDate}>
+                        <Text style={styles.titleDate}>
+                            React Native Date Picker – 
+                            To Pick the Date using Native Calendar
+                        </Text>
+                        <DatePicker
+                            style={styles.datePickerStyle}
+                            date={dateOfBirth} // Initial date from state
+                            mode="date" // The enum of date, datetime and time
+                            placeholder="select date"
+                            format="DD-MM-YYYY"
+                            minDate="01-01-2016"
+                            maxDate="01-01-2019"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                                dateIcon: {
+                                //display: 'none',
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0,
+                                },
+                                dateInput: {
+                                marginLeft: 36,
+                                },
+                            }}
+                            onDateChange={(date) => {
+                                setDateOfBirth(date);
+                            }}
+                        />
+                    </View>
+                </SafeAreaView>
+
+                */

@@ -57,5 +57,21 @@ export default StyleSheet.create({
         color: "rgb(52, 175, 183)",
         fontWeight: "bold",
         fontSize: 16
-    }
+    },
+    containerDate: {
+        flex: 1,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+      titleDate: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        padding: 20,
+    },
+      datePickerStyle: {
+        width: 200,
+        marginTop: 20,
+    },
 })

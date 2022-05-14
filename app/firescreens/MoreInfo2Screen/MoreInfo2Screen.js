@@ -11,7 +11,7 @@ export default function MoreInfo2Screen({navigation}) {
     const [aboutMe, setAboutMe] = useState('')
     
     const userID=firebase.auth().currentUser.uid;
-    const entityRef = firebase.firestore().collection('users').doc(userID)
+    const userRef = firebase.firestore().collection('users').doc(userID)
     
     // const onFooterLinkPress = () => {
     //     navigation.navigate('LoginScreen')
@@ -22,10 +22,13 @@ export default function MoreInfo2Screen({navigation}) {
             alert("please fill in 'about me' field :)")
             return
         }
+        const timestamp = firebase.firestore.FieldValue.serverTimestamp();
         const data = {
             aboutMe: aboutMe,
+            lastLogin: timestamp,
+            createdAt: timestamp
         };
-        entityRef
+        userRef
             .update(data)
             .then(() => {
                 navigation.navigate('MainMenu')
