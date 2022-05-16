@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+import { firebase } from '../firebase/config.js';
 import {
   StyleSheet,
   Text,
@@ -5,11 +7,16 @@ import {
   ScrollView,
   Pressable,
   FlatList,
+  Keyboard,
+  TextInput,
 } from "react-native";
-import React from "react";
 import ActivityItem from "../components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
+
+const allActivitiesRef = firebase.firestore().collection('allActivities')
+const userID=firebase.auth().currentUser.uid;
+const userRef = firebase.firestore().collection('users').doc(userID)
 
 const DATA = [
   {

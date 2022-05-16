@@ -23,9 +23,13 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  // the basic code to connect the firebase to the app was taken from: https://www.freecodecamp.org/news/react-native-firebase-tutorial/
+  
+  
   // this commented out code should guerentee that a loged in user
   // wont need to login each time he/she enters the app. it still doesnt work
   // properly, and thus its commented out
+  // the code was taken from the tutotrial at: https://www.freecodecamp.org/news/react-native-firebase-tutorial/
   // if (loading) {
   //   return <></>;
   // }
