@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
-import React from "react";
+import { FlatList, Keyboard, TextInput, StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import ApprovalItem from "../components/ApprovalItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
+import { firebase } from '../firebase/config.js';
 export default function ApproveActivity(props) {
   /*  <ApprovalItem
             {...{
@@ -20,13 +21,57 @@ export default function ApproveActivity(props) {
     icon: props.route.params.icon,
     // location: props.navigation.getParam("location"),
     location: props.route.params.location,
-    // date: props.navigation.getParam("date"),
-    date: props.route.params.date,
+    // startDate: props.navigation.getParam("startDate"),
+    startDate: props.route.params.startDate,
+    // endDate: props.navigation.getParam("startDate"),
+    endDate: props.route.params.endDate,
     // time: props.navigation.getParam("time"),
     time: props.route.params.time,
     // languages: props.navigation.getParam("languages", "english"),
     languages: props.route.params.languages,
   };
+  
+  //const [userFormattedDateOfBirth, setUserFormattedDateOfBirth] = useState('')
+  //const [entities, setEntities] = useState([])
+  const allActivitiesRef = firebase.firestore().collection('allActivities')
+  const userID=firebase.auth().currentUser.uid;
+  const userRef = firebase.firestore().collection('users').doc(userID)
+  
+  // useEffect(() => {
+  //   userRef
+  //       .where("id", "==", userID)
+  //       .orderBy('createdAt', 'desc')
+  //       .onSnapshot(
+  //           querySnapshot => {
+  //               const newEntities = []
+  //               querySnapshot.forEach(doc => {
+  //                   const user = doc.data()
+  //                   user.formattedDateOfBirth = doc.formattedDateOfBirth
+  //                   console.log(user.formattedDateOfBirth)
+  //                   newEntities.push(user)
+  //               });
+  //               setEntities(newEntities)
+  //           },
+  //           error => {
+  //               console.log(error)
+  //           }
+  //       )
+  //   }, [])
+
+  
+  //failed tries to read the field 'formattedDateOfBirth':
+
+  // try number 1: tempUserFormattedDateOfBirth = userRef.get("formattedDateOfBirth")
+  // try number 2:
+  // const tempUserFormattedDateOfBirth = userRef.get()
+  //   .then(doc => {
+  //     return doc.data().formattedDateOfBirth;
+  //   })
+  //   .catch(err => {
+  //     console.log('Error getting document', err);
+  //   });  
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -77,7 +122,34 @@ export default function ApproveActivity(props) {
           style={styles.approveButton}
           onLongPress={() => alert("clicked 'approve'")}
           android_ripple={{ color: "white" }}
-          onPress={() => props.navigation.navigate("MyActivities")}
+          onPress={() => {
+            userRef.get().then(result => {
+              //setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
+              const userFormattedDateOfBirth = result.data().formattedDateOfBirth
+              const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+              const activityData = {
+                userID: userID,
+                createdAt: timestamp,
+                type: DATA.type,
+                startDate: DATA.startDate,
+                endDate: DATA.endDate,
+                time: DATA.time,
+                userFormattedDateOfBirth: userFormattedDateOfBirth,
+                location: DATA.location,
+                languages: DATA.languages,
+              };
+              allActivitiesRef
+              .add(activityData)
+              .then(() => {
+                  props.navigation.navigate("MyActivities")    
+              })
+              .catch((error) => {
+                  alert(error)
+              });
+            })
+            // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))          
+          }
+        }
         >
           <AntDesign name="check" size={30} color="white" />
           <Text style={styles.ButtonText}>Approve</Text>

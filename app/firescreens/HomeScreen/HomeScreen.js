@@ -8,7 +8,17 @@ export default function HomeScreen(props) {
     const [entities, setEntities] = useState([])
 
     const entityRef = firebase.firestore().collection('entities')
-    const userID = props.extraData.id
+    // for now the next code line works, but im not sure if it works correctly when there are a few
+    // users using the app at the same time !
+    // in the used tutorial it used other syntax, that didnt work for some reaseon,
+    // which is: userID=props.extraData.id
+    const userID=firebase.auth().currentUser.uid;
+    // if (props===null){
+    //      userID={};
+    // }
+    // else{
+    //     userID = props.extraData.id
+    // }
 
     useEffect(() => {
         entityRef
