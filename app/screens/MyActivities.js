@@ -14,9 +14,7 @@ import ActivityItem from "../components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 
-const allActivitiesRef = firebase.firestore().collection('allActivities')
-const userID=firebase.auth().currentUser.uid;
-const userRef = firebase.firestore().collection('users').doc(userID)
+
 
 const DATA = [
   {
@@ -64,6 +62,9 @@ const DATA = [
 ];
 
 export default function MyActivities({ navigation }) {
+  const allActivitiesRef = firebase.firestore().collection('allActivities')
+  const userID=firebase.auth().currentUser.uid;
+  const userRef = firebase.firestore().collection('users').doc(userID)
   const renderItem = ({ item }) => (
     <ActivityItem
       activityIcon={item.activityIcon}
