@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+import { firebase } from '../firebase/config.js';
 import {
   StyleSheet,
   Text,
@@ -5,11 +7,14 @@ import {
   ScrollView,
   Pressable,
   FlatList,
+  Keyboard,
+  TextInput,
 } from "react-native";
-import React from "react";
 import ActivityItem from "../components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
+
+
 
 const DATA = [
   {
@@ -57,12 +62,46 @@ const DATA = [
 ];
 
 export default function MyActivities({ navigation }) {
+  
+  const [myActivities, setMyActivities] = useState([])
+  const allActivitiesRef = firebase.firestore().collection('allActivities')
+  const userID=firebase.auth().currentUser.uid;
+  const userRef = firebase.firestore().collection('users').doc(userID)
+
+  useEffect(() => {
+    allActivitiesRef
+        .where("userID", "==", userID)
+        .orderBy('createdAt', 'desc')
+        .onSnapshot(
+            querySnapshot => {
+                const newMyActivities = []
+                querySnapshot.forEach(doc => {
+                    const activity = doc.data()
+                    activity.id = doc.id
+                    newMyActivities.push(entity)
+                });
+                setEntities(newMyActivities)
+            },
+            error => {
+                console.log(error)
+            }
+        )
+}, [])
+
+
+
+
+
+
+
   const renderItem = ({ item }) => (
     <ActivityItem
-      activityIcon={item.activityIcon}
-      activityName={item.activityName}
-      date={item.date}
+      activityIcon={item.type}
+      activityType={item.type}
+      startDate={item.startDate}
+      endDate={item.endDate}
       location={item.location}
+      time={item.time}
       navigation={navigation}
     />
   );
@@ -74,8 +113,8 @@ export default function MyActivities({ navigation }) {
       {/* <ScrollView> */}
       <View style={[styles.container, { paddingHorizontal: 15 }]}>
         <FlatList
-          data={DATA}
-          keyExtractor={(item) => item.key}
+          data={myActivities}
+          keyExtractor={(item) => item.id}
           renderItem={renderItem}
         />
       </View>

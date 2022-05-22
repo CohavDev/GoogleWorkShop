@@ -24,6 +24,7 @@ export default function MoreInfo1Screen({navigation}) {
     var year=''
     var formattedDateOfBirth=''
     
+    
     // const onFooterLinkPress = () => {
     //     navigation.navigate('LoginScreen')
     // }
@@ -37,6 +38,7 @@ export default function MoreInfo1Screen({navigation}) {
             month=dateOfBirth.slice(0,2)
             day=dateOfBirth.slice(3,5)
             year=dateOfBirth.slice(6,10)
+            // i assume the format of the date of birth is : MM/DD/YYYY
             formattedDateOfBirth=''.concat(year,month,day)
             setDateOfBirth(formattedDateOfBirth)
         }
