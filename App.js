@@ -18,11 +18,13 @@ import ApproveActivity from "./app/screens/ApproveActivity";
 import BubblesCategories from "./app/screens/BubblesCategories";
 import ChooseOutdoorsActivity from "./app/screens/ChooseOutdoorsActivity";
 import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
+import MyPageHila from "./hila/MyPageHila";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  
   // this commented out code should guerentee that a loged in user
   // wont need to login each time he/she enters the app. it still doesnt work
   // properly, and thus its commented out
@@ -52,7 +54,26 @@ export default function App() {
   // }, []);
   
   return (
-   
+    <NavigationContainer>
+    <Stack.Navigator initialRouteName={user ? "BubblesCategories" : "LoginScreen"}>
+     <Stack.Screen name="MainMenu">
+       {(props) => <MainMenu {...props} extraData={user} />}
+     </Stack.Screen>
+     <Stack.Screen name="MyPageHila" component={MyPageHila} />
+     <Stack.Screen name="LoginScreen" component={LoginScreen} />
+     <Stack.Screen name="RegistrationScreen" component={RegistrationScreen}/>
+     <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen}/>
+     <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen}/>
+     <Stack.Screen name="BubblesCategories" component={BubblesCategories}/>
+     <Stack.Screen name="MyActivities" component={MyActivities} />
+     <Stack.Screen name="NewActivityForm" component={NewActivityForm} />
+     <Stack.Screen name="ApproveActivity" component={ApproveActivity} />
+     <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
+     <Stack.Screen name="ProfileMatching" component={ProfileMatching} />
+     <Stack.Screen name="ChooseOutdoorsActivity" component={ChooseOutdoorsActivity} />
+     <Stack.Screen name="ChooseIndoorsActivity" component={ChooseIndoorsActivity} />
+   </Stack.Navigator>
+ </NavigationContainer>
     // former code that workes well. its here just in case we will need it in the future
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName={user ? "MainMenu" : "LoginScreen"}>
@@ -76,26 +97,7 @@ export default function App() {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-
-    <NavigationContainer>
-       <Stack.Navigator initialRouteName={user ? "MainMenu" : "LoginScreen"}>
-        <Stack.Screen name="MainMenu">
-          {(props) => <MainMenu {...props} extraData={user} />}
-        </Stack.Screen>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="RegistrationScreen" component={RegistrationScreen}/>
-        <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen}/>
-        <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen}/>
-        <Stack.Screen name="BubblesCategories" component={BubblesCategories}/>
-        <Stack.Screen name="MyActivities" component={MyActivities} />
-        <Stack.Screen name="NewActivityForm" component={NewActivityForm} />
-        <Stack.Screen name="ApproveActivity" component={ApproveActivity} />
-        <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
-        <Stack.Screen name="ProfileMatching" component={ProfileMatching} />
-        <Stack.Screen name="ChooseOutdoorsActivity" component={ChooseOutdoorsActivity} />
-        <Stack.Screen name="ChooseIndoorsActivity" component={ChooseIndoorsActivity} />
-      </Stack.Navigator>
-    </NavigationContainer>
+  
   );
 }
 
