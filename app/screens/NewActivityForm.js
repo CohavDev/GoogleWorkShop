@@ -211,7 +211,7 @@ export default function NewActivityForm(props) {
 					</View>
 				</View>
 
-				<View style={[styles.ovalShape, {paddingTop: 30}]}>
+				<View style={[styles.ovalShape, {paddingBottom: 15}]}>
 					{/* <Text style={styles.subtitle}>Languages Preferences</Text>
 					<View style={styles.box}>
 						<Picker
@@ -253,10 +253,10 @@ export default function NewActivityForm(props) {
                             onMultiSelect={addLanguage()}
                             onTapClose={addLanguage()}
                             isMulti
-                            // arrowIconColor = "blue"
-                            // searchIconColor = "blue"
-                            // toggleIconColor = "blue"
-                            width = "60%"
+                            arrowIconColor = "black"
+                            searchIconColor = "black"
+                            toggleIconColor = "black"
+                            width = "70%"
                             // height = "80%"
                         />
                                 {/* <SelectMultiple
@@ -271,10 +271,12 @@ export default function NewActivityForm(props) {
                         {/* </View> */}
                                             
                     {/* </View> */}
-                    <Pressable onPress={pressConfirm} style={styles.buttonContainer}>
-						<Text style={{ fontWeight: "bold" }}>Confirm</Text>
-					</Pressable>
 				</View>
+                <View style={styles.buttonContainer}>
+                    <Pressable onPress={pressConfirm} >
+                        <Text style={{ fontWeight: "bold" }}>Confirm</Text>
+                    </Pressable>
+                </View>
 
 				{/* <View
 				//  style={{
@@ -295,19 +297,22 @@ export default function NewActivityForm(props) {
 
 const styles = StyleSheet.create({
 	ovalsContainer: {
+        // borderWidth: 1,
+        // borderColor: "blue",
 		backgroundColor: "rgba(255,255,255,0.8)",
 		height: "90%",
 		width: "100%",
 		flexDirection: "column",
-		justifyContent: "space-between",
+		justifyContent: "center",
 		alignItems: "center",
-		alignContent: "space-between",
+        paddingBottom: 30,
+		// alignContent: "space-between",
 		//paddingRight: 20,
 		//paddingTop: 50,
 		//top: 0,
         // bottom: 50,
-        borderWidth: 1,
-        borderColor: "blue",
+        marginBottom: 0,
+        // 
 	},
 	headerContainer: {
 		width: "100%",
@@ -322,10 +327,11 @@ const styles = StyleSheet.create({
 		//position: "absolute",
 	},
 	container: {
-        borderWidth: 1,
-        borderColor: "yellow",
+        // borderWidth: 1,
+        // borderColor: "yellow",
 		backgroundColor: colors.secondary,
-		height: "90%",
+        
+		height: "100%",
 		width: "100%",
 		//flex: 1,
 		flexDirection: "column",
@@ -334,7 +340,8 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		//alignContent: "space-between",
 		//paddingRight: 20,
-		paddingTop: 20,
+		paddingTop: 40,
+        // paddingBottom: 30,
 		// bottom: 50,
 	},
 	header: {
@@ -346,8 +353,8 @@ const styles = StyleSheet.create({
 		//padding: 40,
 	},
 	ovalShape: {
-        borderWidth: 1,
-        borderColor: "pink",
+        // borderWidth: 1,
+        // borderColor: "pink",
 		shadowColor: "#171717",
 		shadowOffset: { width: -5, height: 5 },
 		shadowOpacity: 0.9,
@@ -356,7 +363,7 @@ const styles = StyleSheet.create({
 
 		// backgroundColor: "rgba(255,255,255,0.9)",
 		width: 300,
-		height: 70,
+		height: "15%",
         marginTop: 5,
 		borderRadius: 10,
 		// bottom: 20,
@@ -396,7 +403,6 @@ const styles = StyleSheet.create({
 		direction: "ltr",
 	},
 	box: {
-        
 		//frame shape
         height: 35,
 		borderTopStartRadius: 10,
@@ -408,7 +414,7 @@ const styles = StyleSheet.create({
 		borderColor: "black",
 		marginLeft: 15,
 		marginRight: 15,
-		marginBottom: 30,
+		marginBottom: 45,
 		paddingRight: 10,
 		top: 20,
 		bottom: 20,
@@ -421,8 +427,8 @@ const styles = StyleSheet.create({
 		width: 80,
 		top: 40,
 		borderRadius: 20,
-		backgroundColor: colors.primary,
-
+		// backgroundColor: colors.primary,
+        backgroundColor: "rgb(52, 175, 183)",
 		//borderBottomLeftRadius: 10,
 		justifyContent: "center",
 		alignItems: "center",
