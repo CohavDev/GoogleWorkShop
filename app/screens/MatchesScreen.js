@@ -9,78 +9,14 @@ import {
 } from "react-native";
 import colors from "../config/colors";
 import DATATWO from "../usersData.json";
-const DATA = [
-  {
-    key: "0",
-    name: "Lucy Hutton",
-    profilePic:
-      "https://64.media.tumblr.com/2f3ae3016833a99f2f4f27300894c761/16601d9d5d326f3b-1d/s540x810/e5763bf4c25566a848231ea1e016ecdeb80bd690.png",
-    descriptionText:
-      "I'm Lucy, I work at a publishing company. I would like to travel with someone who is NOT Josh.",
-  },
-  {
-    key: "1",
-    name: "Joshua Templeman",
-    profilePic:
-      "https://i.pinimg.com/736x/b4/0e/62/b40e62085aae3e3defd8a070b3a918ff.jpg",
-    descriptionText:
-      "Hey i'm Josh. Stop staring, shortcake. I can feel your eyes on me.",
-  },
-  {
-    key: "2",
-    name: "Harry Potter",
-    profilePic:
-      "https://www.irishtimes.com/polopoly_fs/1.3170107.1501253408!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg",
-    descriptionText: "Anything but Slytherin, anything but Slytherin",
-  },
-  {
-    key: "3",
-    name: "Hermione Granger",
-    profilePic:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLCaNlNk8XUfpCpda0ZMJ0Juk1v2twMk70A&usqp=CAU",
-    descriptionText: "It's not 'levi-oooo-sa', it's 'levi-o-saaaa'",
-  },
-  {
-    key: "4",
-    name: "Lucy Hutton",
-    profilePic:
-      "https://64.media.tumblr.com/2f3ae3016833a99f2f4f27300894c761/16601d9d5d326f3b-1d/s540x810/e5763bf4c25566a848231ea1e016ecdeb80bd690.png",
-    descriptionText:
-      "I'm Lucy, I work at a publishing company. I would like to travel with someone who is NOT Josh.",
-  },
-  {
-    key: "5",
-    name: "Joshua Templeman",
-    profilePic:
-      "https://i.pinimg.com/736x/b4/0e/62/b40e62085aae3e3defd8a070b3a918ff.jpg",
-    descriptionText:
-      "Hey i'm Josh. Stop staring, shortcake. I can feel your eyes on me.",
-  },
-  {
-    key: "6",
-    name: "Harry Potter",
-    profilePic:
-      "https://www.irishtimes.com/polopoly_fs/1.3170107.1501253408!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg",
-    descriptionText: "Anything but Slytherin, anything but Slytherin",
-  },
-  {
-    key: "7",
-    name: "Hermione Granger",
-    profilePic:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLCaNlNk8XUfpCpda0ZMJ0Juk1v2twMk70A&usqp=CAU",
-    descriptionText: "It's not 'levi-oooo-sa', it's 'levi-o-saaaa'",
-  },
-];
 export default (props) => {
-  const titleData = {
-    // activityName: props.navigation.getParam("activityName", "Matches"),
-    activityName: props.route.params.activityName,
-    // location: props.navigation.getParam("location", "??"),
+  const activityData = {
+    activityName: props.route.params.activityType,
     location: props.route.params.location,
-    // date: props.navigation.getParam("date", "??"),
-    location: props.route.params.location,
+    startDate: props.route.params.startDate,
+    endDate: props.route.params.endDate,
+    time: props.route.params.time,
   };
-
   return (
     <View
       style={{
@@ -106,9 +42,9 @@ export default (props) => {
                     currentLocation: item.currentLocation,
                     city: item.city,
                     thumbnail: item.profilePic,
-                    activityName: titleData.activityName,
-                    activityDate: titleData.date,
-                    activityLocation: titleData.location,
+                    activityName: activityData.activityName,
+                    activityDate: activityData.startDate, //TODO: add endDate
+                    activityLocation: activityData.location,
                   })
                 }
               >

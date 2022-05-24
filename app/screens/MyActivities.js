@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { firebase } from '../firebase/config.js';
+import { firebase } from "../firebase/config.js";
 import {
   StyleSheet,
   Text,
@@ -13,8 +13,6 @@ import {
 import ActivityItem from "../components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
-
-
 
 const DATA = [
   {
@@ -62,37 +60,30 @@ const DATA = [
 ];
 
 export default function MyActivities({ navigation }) {
-  
-  const [myActivities, setMyActivities] = useState([])
-  const allActivitiesRef = firebase.firestore().collection('allActivities')
-  const userID=firebase.auth().currentUser.uid;
-  const userRef = firebase.firestore().collection('users').doc(userID)
+  const [myActivities, setMyActivities] = useState([]);
+  const allActivitiesRef = firebase.firestore().collection("allActivities");
+  const userID = firebase.auth().currentUser.uid;
+  const userRef = firebase.firestore().collection("users").doc(userID);
 
   useEffect(() => {
     allActivitiesRef
-        .where("userID", "==", userID)
-        .orderBy('createdAt', 'desc')
-        .onSnapshot(
-            querySnapshot => {
-                const newMyActivities = []
-                querySnapshot.forEach(doc => {
-                    const activity = doc.data()
-                    activity.id = doc.id
-                    newMyActivities.push(entity)
-                });
-                setEntities(newMyActivities)
-            },
-            error => {
-                console.log(error)
-            }
-        )
-}, [])
-
-
-
-
-
-
+      .where("userID", "==", userID)
+      .orderBy("createdAt", "desc")
+      .onSnapshot(
+        (querySnapshot) => {
+          const newMyActivities = [];
+          querySnapshot.forEach((doc) => {
+            const activity = doc.data();
+            activity.id = doc.id;
+            newMyActivities.push(entity);
+          });
+          setEntities(newMyActivities);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
 
   const renderItem = ({ item }) => (
     <ActivityItem
@@ -113,7 +104,7 @@ export default function MyActivities({ navigation }) {
       {/* <ScrollView> */}
       <View style={[styles.container, { paddingHorizontal: 15 }]}>
         <FlatList
-          data={myActivities}
+          data={myActivities} //TODO: change it to actual fetched data from firebase
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
         />
@@ -138,22 +129,18 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    height: "20%",    
+    height: "20%",
     backgroundColor: myColors.secondary,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 15,
-
   },
   title: {
-    
     color: "black",
     fontSize: 28,
     // fontWeight: "bold",
     //paddingTop: "20%",
     //paddingBottom: 15,
     //top: 20,
-
-    
   },
 });

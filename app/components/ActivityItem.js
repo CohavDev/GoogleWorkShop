@@ -13,9 +13,11 @@ export default function ActivityItem(props) {
       onPress={() =>
         props.navigation.navigate("MatchesScreen", {
           navigation: props.navigation,
-          activityName: props.activityName,
+          activityName: props.activityType,
           location: props.location,
-          date: props.date,
+          startDate: props.startDate,
+          endDate: props.endDate,
+          time: props.time,
         })
       }
     >
