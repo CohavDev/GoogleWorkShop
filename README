@@ -21,5 +21,9 @@ installed for NewActivity time picking:
 - npm install @react-native-picker/picker --save
 - npm audit fix --force
 
-installed:
+installed for icons:
 - npm install react-native-paper
+
+installed for multiple select: (16/05)
+- npm install react-native-multiple-select
+- npm install react-native-select-multiple

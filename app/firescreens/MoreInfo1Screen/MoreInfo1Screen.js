@@ -3,6 +3,7 @@ import { Image, Text, TextInput, TouchableOpacity, View, SafeAreaView } from 're
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase/config.js'
+import { Picker } from '@react-native-picker/picker';
 // import { initializeApp } from 'firebase/app';
 // import { getDatabase } from "firebase/database"
 // import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
@@ -12,8 +13,8 @@ import { firebase } from '../../firebase/config.js'
 export default function MoreInfo1Screen({navigation}) {
     const [dateOfBirth, setDateOfBirth] = useState('')
     const [nationality, setNationality] = useState('')
-    const [motherTongue, setMotherTongue] = useState('')
-    const [secondSpokenLanguage, setSecondSpokenLanguage] = useState('')
+    const [nativeLanguage, setNativeLanguage] = useState('')
+    const [secondLanguage, setSecondLanguage] = useState('')
 
     
     const userID=firebase.auth().currentUser.uid;
@@ -45,16 +46,16 @@ export default function MoreInfo1Screen({navigation}) {
             alert("please fill in your nationality (;")
             return
         }
-        if (motherTongue.length === 0) {
-            alert("please fill in your mother tongue :D")
+        if (nativeLanguage.length === 0) {
+            alert("please fill in your native language :D")
             return
         }
         const data = {
             dateOfBirth: dateOfBirth,
             formattedDateOfBirth: formattedDateOfBirth,
             nationality: nationality,
-            motherTongue: motherTongue,
-            secondSpokenLanguage: secondSpokenLanguage,
+            nativeLanguage: nativeLanguage,
+            secondLanguage: secondLanguage,
         };
         userRef
             .update(data)
@@ -93,7 +94,6 @@ export default function MoreInfo1Screen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                
                 <TextInput
                     style={styles.input}
                     placeholder='Nationality'
@@ -103,16 +103,62 @@ export default function MoreInfo1Screen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    placeholder='Mother Tongue'
-                    value={motherTongue}
-                    onChangeText={(text) => setMotherTongue(text)}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TextInput
+                <View style = {styles.languageConStyle}>
+                    {/* <TextInput
+                        style={styles.input}
+                        placeholderTextColor="#aaaaaa"
+                        placeholder='Native Language'
+                        // value={nativeLanguage}
+                        // onChangeText={(text) => setNativeLanguage(text)}
+                        underlineColorAndroid="transparent"
+                        autoCapitalize="none"
+                    /> */}
+                    {/* <Text>Select your native language</Text> */}
+                    <Picker 
+                        // mode = "dropdown"
+                        selectedValue = {nativeLanguage}
+                        onValueChange = {(value, index) => setNativeLanguage(value)}
+                        style = {styles.picker}
+                    >
+                        <Picker.Item label="Select your native language" 
+                                        value="Unknown" 
+                                        style={{color: "#aaaaaa", fontSize: 15, textAlign: "left"}}/>
+                        <Picker.Item label="Hebrew" value="Hebrew" />
+                        <Picker.Item label="English" value="English" />
+                        <Picker.Item label="Spanish" value="Spanish" />
+                        <Picker.Item label="French" value="French" />
+                        <Picker.Item label="Arabic" value="Arabic" />
+                    </Picker>
+                </View>
+                <View style = {styles.languageConStyle}>
+                    {/* <TextInput
+                        style={styles.input}
+                        placeholderTextColor="#aaaaaa"
+                        placeholder='Native Language'
+                        // value={nativeLanguage}
+                        // onChangeText={(text) => setNativeLanguage(text)}
+                        underlineColorAndroid="transparent"
+                        autoCapitalize="none"
+                    /> */}
+                    {/* <Text>Select your native language</Text> */}
+                    <Picker 
+                        // mode = "dropdown"
+                        selectedValue = {secondLanguage}
+                        onValueChange = {(value, index) => setSecondLanguage(value)}
+                        style = {styles.picker}
+                    >
+                        <Picker.Item label="Select your second language (optional)" 
+                                        value="Unknown" 
+                                        style={{color: "#aaaaaa", fontSize: 15, textAlign: "left"}}/>
+                        <Picker.Item label="None" value="None" />
+                        <Picker.Item label="Hebrew" value="Hebrew" />
+                        <Picker.Item label="English" value="English" />
+                        <Picker.Item label="Spanish" value="Spanish" />
+                        <Picker.Item label="French" value="French" />
+                        <Picker.Item label="Arabic" value="Arabic" />
+                    </Picker>
+                </View>
+                {/* <TextInput
                     style={styles.input}
                     placeholderTextColor="#aaaaaa"
                     placeholder='Second Language'
@@ -120,7 +166,7 @@ export default function MoreInfo1Screen({navigation}) {
                     onChangeText={(text) => setSecondSpokenLanguage(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
-                />
+                /> */}
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onMoveOnPress()}>
@@ -183,3 +229,5 @@ export default function MoreInfo1Screen({navigation}) {
                 </SafeAreaView>
 
                 */
+
+

@@ -57,6 +57,7 @@ export default function RegistrationScreen({navigation}) {
                     style={styles.logo}
                     source={require('../../../app/assets/TravelPartnerLogo1.jpg')}
                 />
+                
                 <TextInput
                     style={styles.input}
                     placeholder='Full Name'

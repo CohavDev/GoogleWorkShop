@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { LogBox } from 'react-native';
 import _ from 'lodash';
 
+
 LogBox.ignoreLogs(['Warning:...']); // ignore specific logs
 LogBox.ignoreAllLogs(); // ignore all logs
 const _console = _.clone(console);
@@ -21,23 +22,15 @@ export default function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    /* Hila's changes*/
-    // const [user, setUser] = useState({});
-    // onAuthStateChanged(auth, (currentUser) =>{
-    //   setUser(currentUser);
-    // });
-
     const onFooterLinkPress = () => {
         navigation.navigate('RegistrationScreen')
     }
 
     const onLoginPress = async () => {
-      console.log("here 1");
       firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-                console.log("here 2");
                 const uid = response.user.uid
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
@@ -56,7 +49,6 @@ export default function LoginScreen({navigation}) {
                             userRef.update(data)
                             const user = firestoreDocument.data()
                             navigation.navigate('MainMenu', {user})
-                            console.log("here 3");
                         })
                         .catch(error => {
                           alert(error)
@@ -76,6 +68,7 @@ export default function LoginScreen({navigation}) {
                     style={styles.logo}
                     source={require('../../../app/assets/TravelPartnerLogo1.jpg')}
                 />
+
                 <TextInput
                     style={styles.input}
                     placeholder='E-mail'
