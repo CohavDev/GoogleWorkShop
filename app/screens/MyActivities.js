@@ -75,9 +75,10 @@ export default function MyActivities({ navigation }) {
           querySnapshot.forEach((doc) => {
             const activity = doc.data();
             activity.id = doc.id;
-            newMyActivities.push(entity);
+            newMyActivities.push(activity);
+            console.log("activity");
           });
-          setEntities(newMyActivities);
+          setMyActivities(newMyActivities);
         },
         (error) => {
           console.log(error);
@@ -104,7 +105,7 @@ export default function MyActivities({ navigation }) {
       {/* <ScrollView> */}
       <View style={[styles.container, { paddingHorizontal: 15 }]}>
         <FlatList
-          data={myActivities} //TODO: change it to actual fetched data from firebase
+          data={myActivities}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
         />

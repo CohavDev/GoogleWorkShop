@@ -85,11 +85,11 @@ export default (props) => {
       <View style={styles.viewTitleText}>
         <Text style={styles.titleText}>Matches</Text>
         <Text style={[styles.titleText, { fontSize: 14 }]}>
-          {titleData.activityName +
+          {activityData.activityName +
             " in " +
-            titleData.location +
+            activityData.location +
             " on " +
-            titleData.date}
+            activityData.startDate}
         </Text>
       </View>
     </View>
