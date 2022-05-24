@@ -19,7 +19,7 @@ function ChooseIndoorsActivity(props) {
         <BackgroundImage />
 
         <View style={styles.leftBackground}>
-        <Pressable
+          <Pressable
             onPress={() => pressActivityHandler("Drink", "glass-wine")}
           >
             <Circle
@@ -35,17 +35,16 @@ function ChooseIndoorsActivity(props) {
               iconName="hiking"
             ></Circle>
           </Pressable> */}
-                    <Pressable
+          <Pressable
             onPress={() => pressActivityHandler("Restaurant", "silverware")}
           >
             <Circle
               style={styles.circleButtonBottom}
               text="Restaurant"
               iconName="silverware"
-            >
-            </Circle>
+            ></Circle>
           </Pressable>
-              {/* // iconName="noodles"> */}
+          {/* // iconName="noodles"> */}
 
           <Pressable
             onPress={() => pressActivityHandler("Party", "party-popper")}
@@ -56,7 +55,6 @@ function ChooseIndoorsActivity(props) {
               iconName="party-popper"
             ></Circle>
           </Pressable>
-
         </View>
 
         <View style={styles.rightBackground}>
@@ -70,9 +68,7 @@ function ChooseIndoorsActivity(props) {
             ></Circle>
           </Pressable>
 
-          <Pressable
-            onPress={() => pressActivityHandler("Museum", "bank")}
-          >
+          <Pressable onPress={() => pressActivityHandler("Museum", "bank")}>
             <Circle
               text="Museum"
               iconName="bank"
@@ -81,7 +77,7 @@ function ChooseIndoorsActivity(props) {
           </Pressable>
           <Pressable
             onPress={() =>
-              pressActivityHandler("Place to sleep", "bunk-bed-outline")
+              pressActivityHandler("Place_to_sleep", "bunk-bed-outline")
             }
           >
             <Circle
@@ -153,7 +149,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     position: "absolute",
   },
-  
 });
 
 export default ChooseIndoorsActivity;
