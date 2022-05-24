@@ -78,9 +78,9 @@ export default function MyActivities({ navigation }) {
                 querySnapshot.forEach(doc => {
                     const activity = doc.data()
                     activity.id = doc.id
-                    newMyActivities.push(entity)
+                    newMyActivities.push(activity)
                 });
-                setEntities(newMyActivities)
+                setMyActivities(newMyActivities)
             },
             error => {
                 console.log(error)
