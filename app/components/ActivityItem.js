@@ -1,8 +1,21 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
+import { IconButton } from "react-native-paper";
 import myColors from "../config/colors";
 export default function ActivityItem(props) {
+  const iconsMap = {
+    Drink: "glass-wine",
+    Backpacking: "hiking",
+    Restaurant: "silverware",
+    Party: "party-popper",
+    Driving: "car-hatchback",
+    Place_to_sleep: "bunk-bed-outline",
+    Concert: "music-clef-treble",
+    Museum: "bank",
+    Beach: "beach",
+    Extreme: "airballon",
+  };
   return (
     <Pressable
       style={[
@@ -27,12 +40,20 @@ export default function ActivityItem(props) {
             style={styles.circularImage}
             // source={require("../assets/mountain_track_small.jpg")}
           >
-            <Entypo name={props.activityIcon} size={32} color="white" />
+            {/* <Entypo name={iconsMap.hiking} size={32} color="white" /> */}
+            <IconButton
+              icon={iconsMap[props.activityType]}
+              color="white"
+              size={32}
+            />
           </View>
         </View>
         <View style={styles.dataContainer}>
           <Text>{props.activityName}</Text>
-          <Text>{props.date}</Text>
+          <Text>
+            {"Begin: " + props.startDate + "\nEnds: " + props.endDate}
+          </Text>
+          <Text>{props.time}</Text>
           <Text>{props.location}</Text>
         </View>
         <View style={styles.matchCountContainer}>
