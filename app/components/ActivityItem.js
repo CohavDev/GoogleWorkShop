@@ -33,7 +33,8 @@ export default function ActivityItem(props) {
           time: props.time,
           languages: props.languages,
           userFormattedDateOfBirth: props.userFormattedDateOfBirth,
-          userName: props.userName
+          userName: props.userName,
+          activityID: props.activityID
         })
       }
     >

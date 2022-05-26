@@ -157,7 +157,7 @@ export default function ApproveActivity(props) {
 						userRef.get().then((result) => {
 							//setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
 							const userFormattedDateOfBirth =
-								result.data().formattedDateOfBirth;
+								parseInt(result.data().formattedDateOfBirth);
 							const userName =
 								result.data().fullName;
 							const timestamp =

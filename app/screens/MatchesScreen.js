@@ -18,24 +18,27 @@ export default (props) => {
     endDate: props.route.params.endDate,
     time: props.route.params.time,
     languages: props.route.params.languages,
-    userFormattedDateOfBirth: parseInt(props.route.params.userFormattedDateOfBirth),
+    userFormattedDateOfBirth: props.route.params.userFormattedDateOfBirth,
     userName: props.route.params.userName,
+    activityID: props.route.params.activityID,
   };
 
   const [myMatahces, setMyMatches] = useState([]);
+  const [matchingUsers, setMatchingUsers] = useState([]);
+
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
   const userRef = firebase.firestore().collection("users").doc(userID);
 
   useEffect(() => {
     allActivitiesRef
-        .where("activityType", "==", activityData.activityType)
+        .where("type", "==", activityData.activityType)
         .where("time", "==" , activityData.time)
         .where("location" , "==" , activityData.location)
         .where("startDate" , "==" , activityData.startDate)
         .where("endDate" , "==" , activityData.endDate)
         .where("userFormattedDateOfBirth" , "<=" , activityData.userFormattedDateOfBirth+50000)
-        .where("userFormattedDateOfBirth" , ">=" , activityData.userFormattedDateOfBirth-50000)
+        .where("userFormattedDateOfBirth" , ">=", activityData.userFormattedDateOfBirth-50000)
         .where("languages" , "array-contains-any" , activityData.languages)
         .onSnapshot(
             querySnapshot => {
@@ -43,7 +46,7 @@ export default (props) => {
                 querySnapshot.forEach(doc => {
                     const match = doc.data()
                     match.id = doc.id
-                    newMyActivities.push(match)
+                    newMyMatches.push(match)
                 });
                 setMyMatches(newMyMatches)
             },
@@ -53,7 +56,13 @@ export default (props) => {
         )
 }, [])
 
-
+// 
+// 
+// 
+// 
+// 
+// 
+// 
 
 
   return (
@@ -94,8 +103,8 @@ export default (props) => {
                   >
                     <View style={styles.nameTag}>
                       <Text style={styles.text}>
-                        {item.name} {"  "}
-                        {item.age} {"\n"}
+                        {item.userName} {"\n"}
+                        
                       </Text>
                     </View>
                     <View style={styles.textBox}>
@@ -121,9 +130,7 @@ export default (props) => {
             " in " +
             activityData.location +
             " on " +
-            activityData.startDate +
-            " with " + 
-            activityData.userName}
+            activityData.startDate}
         </Text>
       </View>
     </View>
@@ -249,3 +256,8 @@ const styles = StyleSheet.create({
     //alignContent: 'center',
   },
 });
+
+
+
+//{item.age} {"\n"}
+
