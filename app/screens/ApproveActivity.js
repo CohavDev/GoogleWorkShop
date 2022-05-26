@@ -59,6 +59,13 @@ export default function ApproveActivity(props) {
 	const allActivitiesRef = firebase.firestore().collection("allActivities");
 	const userID = firebase.auth().currentUser.uid;
 	const userRef = firebase.firestore().collection("users").doc(userID);
+	const tmpArray = JSON.parse(DATA.languages)
+	const languagesArray = []
+	for(const element of tmpArray){
+		languagesArray.push(element.item)
+	}
+	const languagesString = languagesArray.join(', ')
+
 
 	// useEffect(() => {
 	//   userRef
@@ -135,7 +142,7 @@ export default function ApproveActivity(props) {
 							approvedInfo: "Languages",
 							//   data: Array(DATA.languages).forEach((item)=>{item})
 							//   data: DATA.languages
-                            data: JSON.parse(JSON.stringify(DATA.languages))
+                            data: languagesString
 						}}
 					/>
 				</View>
@@ -161,7 +168,7 @@ export default function ApproveActivity(props) {
 								time: DATA.time,
 								userFormattedDateOfBirth: userFormattedDateOfBirth,
 								location: DATA.location,
-								languages: DATA.languages,
+								languages: languagesArray,
 							};
 							allActivitiesRef
 								.add(activityData)

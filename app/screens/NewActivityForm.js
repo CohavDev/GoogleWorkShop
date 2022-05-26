@@ -121,8 +121,13 @@ export default function NewActivityForm(props) {
     function addLanguage() {
         // console.log(LANGUAGES[1].item);
         // return (item) =>setSelectedLanguages(selectedLanguages.push(JSON.stringify(item)))
-        return (item) => setSelectedLanguages(xorBy(selectedLanguages, [item], 'item'))
-    }
+        //return (item) => setSelectedLanguages(xorBy(selectedLanguages, [item], 'item'))
+		return (item) => {
+			setSelectedLanguages(oldArray => [...oldArray, item])
+		}
+
+	}
+
     
     // function onChange() {
     //     return (val) => setSelectedTeam(val)
@@ -130,6 +135,7 @@ export default function NewActivityForm(props) {
 
 	const pressConfirm = () => {
         // console.log(SelectMultiLanguages.selectedItems)
+		console.log(JSON.stringify(selectedLanguages, ['item']))
 		props.navigation.navigate("ApproveActivity", {
 			// type: props.navigation.getParam("activityType"),
 			type: props.route.params.activityType,
