@@ -23,12 +23,12 @@ export default (props) => {
     activityID: props.route.params.activityID,
   };
 
-  const [myMatahces, setMyMatches] = useState([]);
+  const [myMatches, setMyMatches] = useState([]);
   const [matchingUsers, setMatchingUsers] = useState([]);
 
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
-  const userRef = firebase.firestore().collection("users").doc(userID);
+  const usersRef = firebase.firestore().collection("users");
 
   useEffect(() => {
     allActivitiesRef
@@ -46,7 +46,9 @@ export default (props) => {
                 querySnapshot.forEach(doc => {
                     const match = doc.data()
                     match.id = doc.id
-                    newMyMatches.push(match)
+                    if(match.userID!=userID){
+                      newMyMatches.push(match)
+                    }
                 });
                 setMyMatches(newMyMatches)
             },
@@ -55,6 +57,30 @@ export default (props) => {
             }
         )
 }, [])
+
+
+// const newMatchingUsers = []
+// for (const element of myMatches){
+  
+//   useEffect(() => {
+//     usersRef
+//         .where("id", "==", element)
+//         .onSnapshot(
+//             querySnapshot => {
+//                 querySnapshot.forEach(doc => {
+//                     const matchingUser = doc.data()
+//                     newMatchingUsers.push(matchingUser)
+//                 });
+                
+//             },
+//             error => {
+//                 console.log(error)
+//             }
+//         )
+//   }, [])
+// }
+// setMyMatches(newMatchingUsers)
+
 
 // 
 // 
@@ -75,7 +101,7 @@ export default (props) => {
     >
       <View style={styles.background}>
         <FlatList
-          data={myMatahces}
+          data={myMatches}
           keyExtractor={(item) => item.key}
           renderItem={({ item, index }) => {
             return (

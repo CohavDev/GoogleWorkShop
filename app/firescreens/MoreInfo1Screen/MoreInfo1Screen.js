@@ -52,7 +52,7 @@ export default function MoreInfo1Screen({navigation}) {
         }
         const data = {
             dateOfBirth: dateOfBirth,
-            formattedDateOfBirth: formattedDateOfBirth,
+            formattedDateOfBirth: parseInt(formattedDateOfBirth),
             nationality: nationality,
             nativeLanguage: nativeLanguage,
             secondLanguage: secondLanguage,
