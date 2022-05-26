@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { firebase } from "../firebase/config.js";
 import {
   StyleSheet,
   View,
@@ -18,6 +19,7 @@ export default (props) => {
     time: props.route.params.time,
     languages: props.route.params.languages,
     userFormattedDateOfBirth: parseInt(props.route.params.userFormattedDateOfBirth),
+    userName: props.route.params.userName,
   };
 
   const [myMatahces, setMyMatches] = useState([]);
@@ -35,7 +37,6 @@ export default (props) => {
         .where("userFormattedDateOfBirth" , "<=" , activityData.userFormattedDateOfBirth+50000)
         .where("userFormattedDateOfBirth" , ">=" , activityData.userFormattedDateOfBirth-50000)
         .where("languages" , "array-contains-any" , activityData.languages)
-        .orderBy('createdAt', 'desc')
         .onSnapshot(
             querySnapshot => {
                 const newMyMatches = []
@@ -120,7 +121,9 @@ export default (props) => {
             " in " +
             activityData.location +
             " on " +
-            activityData.startDate}
+            activityData.startDate +
+            " with " + 
+            activityData.userName}
         </Text>
       </View>
     </View>

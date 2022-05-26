@@ -101,6 +101,7 @@ export default function MyActivities({ navigation }) {
       time={item.time}
       languages={item.languages}
       userFormattedDateOfBirth={item.userFormattedDateOfBirth}
+      userName = {item.userName}
       navigation={navigation}
     />
   );

@@ -26,13 +26,14 @@ export default function ActivityItem(props) {
       onPress={() =>
         props.navigation.navigate("MatchesScreen", {
           navigation: props.navigation,
-          activityName: props.activityType,
+          activityType: props.activityType,
           location: props.location,
           startDate: props.startDate,
           endDate: props.endDate,
           time: props.time,
           languages: props.languages,
           userFormattedDateOfBirth: props.userFormattedDateOfBirth,
+          userName: props.userName
         })
       }
     >
@@ -51,7 +52,7 @@ export default function ActivityItem(props) {
           </View>
         </View>
         <View style={styles.dataContainer}>
-          <Text>{props.activityName}</Text>
+          <Text>{props.activityType}</Text>
           <Text>
             {"Begin: " + props.startDate + "\nEnds: " + props.endDate}
           </Text>
