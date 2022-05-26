@@ -99,6 +99,8 @@ export default function MyActivities({ navigation }) {
       endDate={item.endDate}
       location={item.location}
       time={item.time}
+      languages={item.languages}
+      userFormattedDateOfBirth={item.userFormattedDateOfBirth}
       navigation={navigation}
     />
   );

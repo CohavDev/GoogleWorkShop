@@ -107,7 +107,7 @@ export default function NewActivityForm(props) {
 	const [startDate, setStartDate] = useState("UnKnown");
 	const [endDate, setEndDate] = useState("UnKnown");
 	const [location, setLocation] = useState("UnKnown");
-	const [languages, setLanguages] = useState("native");
+	const [languages, setLanguages] = useState([]);
 	// const [selectedTeam, setSelectedTeam] = useState({})
     const [selectedLanguages, setSelectedLanguages] = useState([])
     // state = { selectedLanguages: [] }

@@ -31,6 +31,8 @@ export default function ActivityItem(props) {
           startDate: props.startDate,
           endDate: props.endDate,
           time: props.time,
+          languages: props.languages,
+          userFormattedDateOfBirth: props.userFormattedDateOfBirth,
         })
       }
     >

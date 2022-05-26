@@ -11,12 +11,50 @@ import colors from "../config/colors";
 import DATATWO from "../usersData.json";
 export default (props) => {
   const activityData = {
-    activityName: props.route.params.activityType,
+    activityType: props.route.params.activityType,
     location: props.route.params.location,
     startDate: props.route.params.startDate,
     endDate: props.route.params.endDate,
     time: props.route.params.time,
+    languages: props.route.params.languages,
+    userFormattedDateOfBirth: parseInt(props.route.params.userFormattedDateOfBirth),
   };
+
+  const [myMatahces, setMyMatches] = useState([]);
+  const allActivitiesRef = firebase.firestore().collection("allActivities");
+  const userID = firebase.auth().currentUser.uid;
+  const userRef = firebase.firestore().collection("users").doc(userID);
+
+  useEffect(() => {
+    allActivitiesRef
+        .where("activityType", "==", activityData.activityType)
+        .where("time", "==" , activityData.time)
+        .where("location" , "==" , activityData.location)
+        .where("startDate" , "==" , activityData.startDate)
+        .where("endDate" , "==" , activityData.endDate)
+        .where("userFormattedDateOfBirth" , "<=" , activityData.userFormattedDateOfBirth+50000)
+        .where("userFormattedDateOfBirth" , ">=" , activityData.userFormattedDateOfBirth-50000)
+        .where("languages" , "array-contains-any" , activityData.languages)
+        .orderBy('createdAt', 'desc')
+        .onSnapshot(
+            querySnapshot => {
+                const newMyMatches = []
+                querySnapshot.forEach(doc => {
+                    const match = doc.data()
+                    match.id = doc.id
+                    newMyActivities.push(match)
+                });
+                setMyMatches(newMyMatches)
+            },
+            error => {
+                console.log(error)
+            }
+        )
+}, [])
+
+
+
+
   return (
     <View
       style={{
@@ -27,7 +65,7 @@ export default (props) => {
     >
       <View style={styles.background}>
         <FlatList
-          data={DATATWO}
+          data={myMatahces}
           keyExtractor={(item) => item.key}
           renderItem={({ item, index }) => {
             return (
@@ -36,15 +74,8 @@ export default (props) => {
                 // android_ripple={{ color: "gray" }}
                 onPress={() =>
                   props.navigation.navigate("ProfileMatching", {
-                    userName: item.name,
-                    age: item.age,
-                    desc: item.desc,
-                    currentLocation: item.currentLocation,
-                    city: item.city,
-                    thumbnail: item.profilePic,
-                    activityName: activityData.activityName,
-                    activityDate: activityData.startDate, //TODO: add endDate
-                    activityLocation: activityData.location,
+                    //userIDOfTheMatch: item.userIDOfTheMatch, //needs to be done
+                    
                   })
                 }
               >
@@ -85,7 +116,7 @@ export default (props) => {
       <View style={styles.viewTitleText}>
         <Text style={styles.titleText}>Matches</Text>
         <Text style={[styles.titleText, { fontSize: 14 }]}>
-          {activityData.activityName +
+          {activityData.activityType +
             " in " +
             activityData.location +
             " on " +
