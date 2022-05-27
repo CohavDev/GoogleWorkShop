@@ -29,7 +29,7 @@ export default (props) => {
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
   const usersRef = firebase.firestore().collection("users");
-
+  console.log("hi")
   useEffect(() => {
     allActivitiesRef
         .where("type", "==", activityData.activityType)
@@ -45,9 +45,10 @@ export default (props) => {
                 const newMyMatches = []
                 querySnapshot.forEach(doc => {
                     const match = doc.data()
-                    match.id = doc.id
                     if(match.userID!=userID){
-                      newMyMatches.push(match)
+                      match.id = doc.id
+                      match.userRef = usersRef.doc(match.userID)
+                      newMyMatches.push(match)                      
                     }
                 });
                 setMyMatches(newMyMatches)
@@ -104,48 +105,58 @@ export default (props) => {
           data={myMatches}
           keyExtractor={(item) => item.key}
           renderItem={({ item, index }) => {
-            return (
-              <Pressable
-                // style={[styles.shadowProp, styles.matchBackground]}
-                // android_ripple={{ color: "gray" }}
-                onPress={() =>
-                  props.navigation.navigate("ProfileMatching", {
-                    //userIDOfTheMatch: item.userIDOfTheMatch, //needs to be done
-                    
-                  })
-                }
-              >
-                <View style={[styles.shadowProp, styles.matchBackground]}>
-                  <Image
-                    source={{ uri: item.profilePic }}
-                    style={styles.profilePicture}
-                  />
-                  <View
-                    style={{
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      height: 30,
-                    }}
-                  >
-                    <View style={styles.nameTag}>
-                      <Text style={styles.text}>
-                        {item.userName} {"\n"}
-                        
-                      </Text>
-                    </View>
-                    <View style={styles.textBox}>
-                      <Text
-                        style={{
-                          alignSelf: "flex-start",
-                        }}
-                      >
-                        {item.desc}
-                      </Text>
+
+            item.userRef.get().then((result) => {
+              const fullName = result.data().fullName;
+							const dateOfBirth = result.data().dateOfBirth;
+							const aboutMe = result.data().aboutMe;
+              return (
+                <Pressable
+                  // style={[styles.shadowProp, styles.matchBackground]}
+                  // android_ripple={{ color: "gray" }}
+                  onPress={() =>
+                    props.navigation.navigate("ProfileMatching", {
+                      //userIDOfTheMatch: item.userIDOfTheMatch, //needs to be done
+                      
+                    })
+                  }
+                  
+                >
+                  <View style={[styles.shadowProp, styles.matchBackground]}>
+                    <Image
+                      source={{ uri: item.profilePic }}
+                      style={styles.profilePicture}
+                    />
+                    <View
+                      style={{
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        height: 30,
+                      }}
+                    >
+                      <View style={styles.nameTag}>
+                        <Text style={styles.text}>
+                          {fullName} {"\n"}
+                          {dateOfBirth} {"\n"}
+                          {aboutMe} {"\n"}
+                          
+                        </Text>
+                      </View>
+                      <View style={styles.textBox}>
+                        <Text
+                          style={{
+                            alignSelf: "flex-start",
+                          }}
+                        >
+                          {item.desc}
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-              </Pressable>
-            );
+                </Pressable>
+              );
+            })
+            
           }}
         />
       </View>
