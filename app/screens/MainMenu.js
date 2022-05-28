@@ -2,11 +2,12 @@ import React from "react";
 import { StyleSheet, Pressable, View, Text, Image, Button } from "react-native";
 import colors from "../config/colors";
 import Oval from "../components/Oval";
+import SmallCircle from "../components/smallCircle";
 import BackgroundImage from "../components/BackgroungImage";
 
 function MainMenu(props) {
   const pressNewActivityHandler = () => {
-    props.navigation.navigate("ChooseActivityBubbles");
+    props.navigation.navigate("BubblesCategories");
   };
 
   const viewRecentActivitiesHandler = () => {
@@ -26,8 +27,14 @@ function MainMenu(props) {
         <Pressable onPress={viewRecentActivitiesHandler}>
           <Oval text="View Recent Activities" />
         </Pressable>
-        <Oval text="My Profile" />
-        <Oval text="Settings" />
+      </View>
+      <View style={styles.smallCircles}>
+      <Pressable>
+        <SmallCircle iconName="account-outline"/>
+      </Pressable>
+      <Pressable>
+        <SmallCircle iconName="cog-outline" />
+      </Pressable>
       </View>
     </View>
   );
@@ -60,6 +67,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     top: "15%",
     justifyContent: "space-evenly",
+    position: "absolute",
+  },
+  smallCircles: {
+    width: "80%",
+    // height: "70%",
+    flexDirection: "row",
+    // alignItems: "flex-start",
+    top: "85%",
+    right: "10%",
+    // left: "5%",
+    justifyContent: "space-between",
     position: "absolute",
   },
   ovalPressButton: {

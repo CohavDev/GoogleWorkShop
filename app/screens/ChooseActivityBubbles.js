@@ -4,10 +4,14 @@ import colors from "../config/colors";
 import Circle from "../components/Circle";
 import BackgroundImage from "../components/BackgroungImage";
 //import CirclesBackground from '../components/CirclesBackground';
+import { IconButton, Colors } from "react-native-paper";
 
 function ChooseActivityBubbles(props) {
-  const pressActivityHandler = () => {
-    props.navigation.navigate("NewActivityForm");
+  const pressActivityHandler = (type, icon) => {
+    props.navigation.navigate("NewActivityForm", {
+      activityType: type,
+      activityIcon: icon,
+    });
   };
   return (
     <View>
@@ -15,40 +19,72 @@ function ChooseActivityBubbles(props) {
         <BackgroundImage />
 
         <View style={styles.leftBackground}>
-          <Pressable onPress={pressActivityHandler}>
-            <Circle style={styles.circleButtonTop} text="Drinks"></Circle>
+          <Pressable
+            onPress={() => pressActivityHandler("Drink", "glass-wine")}
+          >
+            <Circle
+              style={styles.circleButtonTop}
+              text="Drinks"
+              iconName="glass-wine"
+            ></Circle>
           </Pressable>
-          <Pressable onPress={pressActivityHandler}>
+          <Pressable onPress={() => pressActivityHandler("Hiking", "hiking")}>
             <Circle
               style={styles.circleButtonMiddle}
               text="Backpacking"
+              iconName="hiking"
             ></Circle>
           </Pressable>
 
-          <Pressable onPress={pressActivityHandler}></Pressable>
-          <Circle style={styles.circleButtonBottom} text="Restaurant"></Circle>
+          <Pressable
+            onPress={() => pressActivityHandler("Restaurant", "silverware")}
+          >
+            <Circle
+              style={styles.circleButtonBottom}
+              text="Restaurant"
+              iconName="silverware"
+            >
+              {/* // iconName="noodles"> */}
+            </Circle>
+          </Pressable>
         </View>
 
         <View style={styles.rightBackground}>
-          <Pressable onPress={pressActivityHandler}>
-            <Circle style={styles.circleButtonTop} text="Party"></Circle>
+          <Pressable
+            onPress={() => pressActivityHandler("Party", "party-popper")}
+          >
+            <Circle
+              style={styles.circleButtonTop}
+              text="Party"
+              iconName="party-popper"
+            ></Circle>
           </Pressable>
-          <Pressable onPress={pressActivityHandler}>
+          <Pressable
+            onPress={() => pressActivityHandler("Driving", "car-hatchback")}
+          >
             <Circle
               text="Driving"
-              View
+              iconName="car-hatchback"
               style={styles.circleButtonMiddle}
             ></Circle>
           </Pressable>
-          <Pressable onPress={pressActivityHandler}></Pressable>
-          <Circle
-            text="A place to sleep"
-            style={styles.circleButtonBottom}
-          ></Circle>
+          <Pressable
+            onPress={() =>
+              pressActivityHandler("Place to sleep", "bunk-bed-outline")
+            }
+          >
+            <Circle
+              text="Place to sleep"
+              iconName="bunk-bed-outline"
+              style={styles.circleButtonBottom}
+            ></Circle>
+          </Pressable>
         </View>
       </View>
       <View style={styles.viewTitleText}>
-        <Text style={styles.titleText}>What activity are you looking for?</Text>
+        {/* <Text style={styles.titleText}>What activity are you looking for?</Text> */}
+        <Text style={styles.titleText}>Choose the activity you</Text>
+        <Text style={styles.titleText}>are looking for</Text>
       </View>
     </View>
   );
@@ -63,17 +99,18 @@ const styles = StyleSheet.create({
   },
   viewTitleText: {
     flex: 1,
+    // textAlign: "center",
     position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-    left: 20,
-    right: 20,
+    // justifyContent: "center",
+    // alignItems: "center",
+    left: 10,
+    right: 10,
   },
 
   titleText: {
     color: "black",
     fontSize: 20,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     top: 60,
     alignSelf: "center",
     justifyContent: "space-evenly",
@@ -94,12 +131,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     position: "absolute",
     height: "60%",
-    top: "20%",
+    top: "25%",
     left: "12%",
   },
   rightBackground: {
     height: "60%",
-    top: "20%",
+    top: "25%",
     right: "12%",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -107,7 +144,7 @@ const styles = StyleSheet.create({
   },
   circleButtonTop: {
     marginTop: 225,
-    marginBottom: 50,
+    marginBottom: 40,
   },
 
   circleButtonMiddle: {

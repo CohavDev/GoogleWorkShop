@@ -21,16 +21,26 @@ export default function ProfileMatching(props) {
     0.1 * ONE_SEC_IN_MS,
     0.1 * ONE_SEC_IN_MS,
   ];
+  const params = props.route.params;
   const data = {
-    userName: props.navigation.getParam("userName", "user-name"),
-    age: props.navigation.getParam("age", "120"),
-    desc: props.navigation.getParam("desc", "about me text"),
-    city: props.navigation.getParam("city", "somewhere"),
-    currentLocation: props.navigation.getParam("currentLocation", "somewhere"),
-    thumbnail: props.navigation.getParam("thumbnail", "../assets/userPic.png"),
-    activityName: props.navigation.getParam("activityName", "Matches"),
-    activityLocation: props.navigation.getParam("activityLocation", "??"),
-    activityDate: props.navigation.getParam("activityDate", "??"),
+    // userName: props.navigation.getParam("userName", "user-name"),
+    userName: params.userName,
+    // age: props.navigation.getParam("age", "120"),
+    age: params.age,
+    // desc: props.navigation.getParam("desc", "about me text"),
+    desc: params.desc,
+    // city: props.navigation.getParam("city", "somewhere"),
+    city: params.city,
+    // currentLocation: props.navigation.getParam("currentLocation", "somewhere"),
+    currentLocation: params.currentLocation,
+    // thumbnail: props.navigation.getParam("thumbnail", "../assets/userPic.png"),
+    thumbnail: params.thumbnail,
+    // activityName: props.navigation.getParam("activityName", "Matches"),
+    activityName: params.activityName,
+    // activityLocation: props.navigation.getParam("activityLocation", "??"),
+    activityLocation: params.activityLocation,
+    // activityDate: props.navigation.getParam("activityDate", "??"),
+    activityDate: params.activityDate,
   };
   return (
     <View style={styles.container}>

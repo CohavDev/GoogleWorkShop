@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { firebase } from "../firebase/config.js";
 import {
   StyleSheet,
   View,
@@ -9,74 +10,87 @@ import {
 } from "react-native";
 import colors from "../config/colors";
 import DATATWO from "../usersData.json";
-const DATA = [
-  {
-    key: "0",
-    name: "Lucy Hutton",
-    profilePic:
-      "https://64.media.tumblr.com/2f3ae3016833a99f2f4f27300894c761/16601d9d5d326f3b-1d/s540x810/e5763bf4c25566a848231ea1e016ecdeb80bd690.png",
-    descriptionText:
-      "I'm Lucy, I work at a publishing company. I would like to travel with someone who is NOT Josh.",
-  },
-  {
-    key: "1",
-    name: "Joshua Templeman",
-    profilePic:
-      "https://i.pinimg.com/736x/b4/0e/62/b40e62085aae3e3defd8a070b3a918ff.jpg",
-    descriptionText:
-      "Hey i'm Josh. Stop staring, shortcake. I can feel your eyes on me.",
-  },
-  {
-    key: "2",
-    name: "Harry Potter",
-    profilePic:
-      "https://www.irishtimes.com/polopoly_fs/1.3170107.1501253408!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg",
-    descriptionText: "Anything but Slytherin, anything but Slytherin",
-  },
-  {
-    key: "3",
-    name: "Hermione Granger",
-    profilePic:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLCaNlNk8XUfpCpda0ZMJ0Juk1v2twMk70A&usqp=CAU",
-    descriptionText: "It's not 'levi-oooo-sa', it's 'levi-o-saaaa'",
-  },
-  {
-    key: "4",
-    name: "Lucy Hutton",
-    profilePic:
-      "https://64.media.tumblr.com/2f3ae3016833a99f2f4f27300894c761/16601d9d5d326f3b-1d/s540x810/e5763bf4c25566a848231ea1e016ecdeb80bd690.png",
-    descriptionText:
-      "I'm Lucy, I work at a publishing company. I would like to travel with someone who is NOT Josh.",
-  },
-  {
-    key: "5",
-    name: "Joshua Templeman",
-    profilePic:
-      "https://i.pinimg.com/736x/b4/0e/62/b40e62085aae3e3defd8a070b3a918ff.jpg",
-    descriptionText:
-      "Hey i'm Josh. Stop staring, shortcake. I can feel your eyes on me.",
-  },
-  {
-    key: "6",
-    name: "Harry Potter",
-    profilePic:
-      "https://www.irishtimes.com/polopoly_fs/1.3170107.1501253408!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg",
-    descriptionText: "Anything but Slytherin, anything but Slytherin",
-  },
-  {
-    key: "7",
-    name: "Hermione Granger",
-    profilePic:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLCaNlNk8XUfpCpda0ZMJ0Juk1v2twMk70A&usqp=CAU",
-    descriptionText: "It's not 'levi-oooo-sa', it's 'levi-o-saaaa'",
-  },
-];
 export default (props) => {
-  const titleData = {
-    activityName: props.navigation.getParam("activityName", "Matches"),
-    location: props.navigation.getParam("location", "??"),
-    date: props.navigation.getParam("date", "??"),
+  const activityData = {
+    activityType: props.route.params.activityType,
+    location: props.route.params.location,
+    startDate: props.route.params.startDate,
+    endDate: props.route.params.endDate,
+    time: props.route.params.time,
+    languages: props.route.params.languages,
+    userFormattedDateOfBirth: props.route.params.userFormattedDateOfBirth,
+    userName: props.route.params.userName,
+    activityID: props.route.params.activityID,
   };
+
+  const [myMatches, setMyMatches] = useState([]);
+  const [matchingUsers, setMatchingUsers] = useState([]);
+
+  const allActivitiesRef = firebase.firestore().collection("allActivities");
+  const userID = firebase.auth().currentUser.uid;
+  const usersRef = firebase.firestore().collection("users");
+  console.log("hi")
+  useEffect(() => {
+    allActivitiesRef
+        .where("type", "==", activityData.activityType)
+        .where("time", "==" , activityData.time)
+        .where("location" , "==" , activityData.location)
+        .where("startDate" , "==" , activityData.startDate)
+        .where("endDate" , "==" , activityData.endDate)
+        .where("userFormattedDateOfBirth" , "<=" , activityData.userFormattedDateOfBirth+50000)
+        .where("userFormattedDateOfBirth" , ">=", activityData.userFormattedDateOfBirth-50000)
+        .where("languages" , "array-contains-any" , activityData.languages)
+        .onSnapshot(
+            querySnapshot => {
+                const newMyMatches = []
+                querySnapshot.forEach(doc => {
+                    const match = doc.data()
+                    if(match.userID!=userID){
+                      match.id = doc.id
+                      match.userRef = usersRef.doc(match.userID)
+                      newMyMatches.push(match)                      
+                    }
+                });
+                setMyMatches(newMyMatches)
+            },
+            error => {
+                console.log(error)
+            }
+        )
+}, [])
+
+
+// const newMatchingUsers = []
+// for (const element of myMatches){
+  
+//   useEffect(() => {
+//     usersRef
+//         .where("id", "==", element)
+//         .onSnapshot(
+//             querySnapshot => {
+//                 querySnapshot.forEach(doc => {
+//                     const matchingUser = doc.data()
+//                     newMatchingUsers.push(matchingUser)
+//                 });
+                
+//             },
+//             error => {
+//                 console.log(error)
+//             }
+//         )
+//   }, [])
+// }
+// setMyMatches(newMatchingUsers)
+
+
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+
 
   return (
     <View
@@ -88,69 +102,72 @@ export default (props) => {
     >
       <View style={styles.background}>
         <FlatList
-          data={DATATWO}
+          data={myMatches}
           keyExtractor={(item) => item.key}
           renderItem={({ item, index }) => {
-            return (
-              <Pressable
-                // style={[styles.shadowProp, styles.matchBackground]}
-                // android_ripple={{ color: "gray" }}
-                onPress={() =>
-                  props.navigation.navigate("ProfileMatching", {
-                    userName: item.name,
-                    age: item.age,
-                    desc: item.desc,
-                    currentLocation: item.currentLocation,
-                    city: item.city,
-                    thumbnail: item.profilePic,
-                    activityName: titleData.activityName,
-                    activityDate: titleData.date,
-                    activityLocation: titleData.location,
-                  })
-                }
-              >
-                <View style={[styles.shadowProp, styles.matchBackground]}>
-                  <Image
-                    source={{ uri: item.profilePic }}
-                    style={styles.profilePicture}
-                  />
-                  <View
-                    style={{
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      height: 30,
-                    }}
-                  >
-                    <View style={styles.nameTag}>
-                      <Text style={styles.text}>
-                        {item.name} {"  "}
-                        {item.age} {"\n"}
-                      </Text>
-                    </View>
-                    <View style={styles.textBox}>
-                      <Text
-                        style={{
-                          alignSelf: "flex-start",
-                        }}
-                      >
-                        {item.desc}
-                      </Text>
+
+            item.userRef.get().then((result) => {
+              const fullName = result.data().fullName;
+							const dateOfBirth = result.data().dateOfBirth;
+							const aboutMe = result.data().aboutMe;
+              return (
+                <Pressable
+                  // style={[styles.shadowProp, styles.matchBackground]}
+                  // android_ripple={{ color: "gray" }}
+                  onPress={() =>
+                    props.navigation.navigate("ProfileMatching", {
+                      //userIDOfTheMatch: item.userIDOfTheMatch, //needs to be done
+                      
+                    })
+                  }
+                  
+                >
+                  <View style={[styles.shadowProp, styles.matchBackground]}>
+                    <Image
+                      source={{ uri: item.profilePic }}
+                      style={styles.profilePicture}
+                    />
+                    <View
+                      style={{
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        height: 30,
+                      }}
+                    >
+                      <View style={styles.nameTag}>
+                        <Text style={styles.text}>
+                          {fullName} {"\n"}
+                          {dateOfBirth} {"\n"}
+                          {aboutMe} {"\n"}
+                          
+                        </Text>
+                      </View>
+                      <View style={styles.textBox}>
+                        <Text
+                          style={{
+                            alignSelf: "flex-start",
+                          }}
+                        >
+                          {item.desc}
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-              </Pressable>
-            );
+                </Pressable>
+              );
+            })
+            
           }}
         />
       </View>
       <View style={styles.viewTitleText}>
         <Text style={styles.titleText}>Matches</Text>
         <Text style={[styles.titleText, { fontSize: 14 }]}>
-          {titleData.activityName +
+          {activityData.activityType +
             " in " +
-            titleData.location +
+            activityData.location +
             " on " +
-            titleData.date}
+            activityData.startDate}
         </Text>
       </View>
     </View>
@@ -276,3 +293,8 @@ const styles = StyleSheet.create({
     //alignContent: 'center',
   },
 });
+
+
+
+//{item.age} {"\n"}
+

@@ -1,13 +1,17 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
+import { IconButton, Colors } from "react-native-paper";
 import myColors from "../config/colors";
+var SIZE = 70;
+var RADIUS = SIZE / 2;
+var ICONSIZE = SIZE / 2;
 export default function ActivityItem(props) {
   return (
     <Pressable
       style={[
         styles.shadowProp,
-        { backgroundColor: "white", marginBottom: 25, width: "100%" },
+        { backgroundColor: "white", marginBottom: 10, width: "100%" },
       ]}
       android_ripple={{ color: "#C9CBD7" }}
     >
@@ -17,11 +21,15 @@ export default function ActivityItem(props) {
             style={styles.circularImage}
             // source={require("../assets/mountain_track_small.jpg")}
           >
-            <Entypo name={props.activityIcon} size={32} color="black" />
+            {/* <Entypo name={props.activityIcon} size={32} color="black" /> */}
+            <IconButton
+              icon={props.activityIcon}
+              color="black"
+              size={ICONSIZE}
+            />
           </View>
         </View>
-        <View style={styles.dataContainer}>
-        </View>
+        <View style={styles.dataContainer}></View>
         <View style={styles.data}>
           <Text style={styles.infoText}>{props.data}</Text>
         </View>
@@ -36,6 +44,7 @@ export default function ActivityItem(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row-reverse",
+    height: 60,
   },
   imageContainer: {
     alignItems: "center",
@@ -43,27 +52,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   circularImage: {
-    height: 55,
-    width: 55,
+    height: 50,
+    width: 50,
     borderRadius: 37,
     backgroundColor: myColors.primary,
     alignItems: "center",
     justifyContent: "center",
   },
   dataContainer: {
-    marginVertical: 35,
+    marginVertical: 30,
     paddingHorizontal: 15,
   },
   ApproveActivityInfo: {
     // marginVertical: 15,
-    paddingHorizontal: 30,
+    width: 130,
     alignItems: "center",
     marginLeft: "auto",
     justifyContent: "center",
     backgroundColor: myColors.secondary,
   },
   data: {
-    // marginVertical: 15,
+    //marginVertical: 15,
+    //height: 30,
     paddingHorizontal: 0,
     alignItems: "center",
     marginLeft: 50,
@@ -77,19 +87,19 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 5,
   },
-  
+
   semiTitle: {
     color: "black",
     fontSize: 18,
     fontWeight: "bold",
-    paddingTop: "5%",
-    paddingBottom: 15,
+    paddingTop: "0%",
+    paddingBottom: 0,
   },
   infoText: {
     color: "black",
     fontSize: 15,
     fontWeight: "bold",
-    paddingTop: "5%",
-    paddingBottom: 15,
+    paddingTop: "0%",
+    paddingBottom: 0,
   },
 });
