@@ -23,6 +23,7 @@ export default function ProfileMatching(props) {
   ];
   const params = props.route.params;
   const data = {
+    matcheUserId: params.matcheUserId,
     // userName: props.navigation.getParam("userName", "user-name"),
     userName: params.userName,
     // age: props.navigation.getParam("age", "120"),
@@ -42,6 +43,7 @@ export default function ProfileMatching(props) {
     // activityDate: props.navigation.getParam("activityDate", "??"),
     activityDate: params.activityDate,
   };
+  console.log("userID = " + data.matcheUserId); //TODO:delete later
   return (
     <View style={styles.container}>
       {/* style={styles.profilePicContainer} */}

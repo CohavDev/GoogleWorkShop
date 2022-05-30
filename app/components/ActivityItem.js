@@ -25,7 +25,7 @@ export default function ActivityItem(props) {
       android_ripple={{ color: "#C9CBD7" }}
       onPress={() =>
         props.navigation.navigate("MatchesScreen", {
-          navigation: props.navigation,
+          navigation: props.navigation, // TODO: pass navigation in a differnent way(setOptions)
           activityType: props.activityType,
           location: props.location,
           startDate: props.startDate,
@@ -34,7 +34,7 @@ export default function ActivityItem(props) {
           languages: props.languages,
           userFormattedDateOfBirth: props.userFormattedDateOfBirth,
           userName: props.userName,
-          activityID: props.activityID
+          activityID: props.activityID,
         })
       }
     >

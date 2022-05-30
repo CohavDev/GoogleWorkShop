@@ -17,81 +17,110 @@ export default (props) => {
     startDate: props.route.params.startDate,
     endDate: props.route.params.endDate,
     time: props.route.params.time,
-    languages: props.route.params.languages,
+    // languages: props.route.params.languages,
     userFormattedDateOfBirth: props.route.params.userFormattedDateOfBirth,
     userName: props.route.params.userName,
     activityID: props.route.params.activityID,
   };
-
   const [myMatches, setMyMatches] = useState([]);
   const [matchingUsers, setMatchingUsers] = useState([]);
 
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
   const usersRef = firebase.firestore().collection("users");
-  console.log("hi")
+
   useEffect(() => {
     allActivitiesRef
-        .where("type", "==", activityData.activityType)
-        .where("time", "==" , activityData.time)
-        .where("location" , "==" , activityData.location)
-        .where("startDate" , "==" , activityData.startDate)
-        .where("endDate" , "==" , activityData.endDate)
-        .where("userFormattedDateOfBirth" , "<=" , activityData.userFormattedDateOfBirth+50000)
-        .where("userFormattedDateOfBirth" , ">=", activityData.userFormattedDateOfBirth-50000)
-        .where("languages" , "array-contains-any" , activityData.languages)
-        .onSnapshot(
-            querySnapshot => {
-                const newMyMatches = []
-                querySnapshot.forEach(doc => {
-                    const match = doc.data()
-                    if(match.userID!=userID){
-                      match.id = doc.id
-                      match.userRef = usersRef.doc(match.userID)
-                      newMyMatches.push(match)                      
-                    }
+      .where("type", "==", activityData.activityType)
+      .where("time", "==", activityData.time)
+      .where("location", "==", activityData.location)
+      .where("startDate", "==", activityData.startDate)
+      .where("endDate", "==", activityData.endDate)
+      .where(
+        "userFormattedDateOfBirth",
+        "<=",
+        activityData.userFormattedDateOfBirth + 50000
+      )
+      .where(
+        "userFormattedDateOfBirth",
+        ">=",
+        activityData.userFormattedDateOfBirth - 50000
+      )
+      // .where("languages", "array-contains-any", activityData.languages)
+      .onSnapshot(
+        (querySnapshot) => {
+          const newMyMatches = []; //array for matched activites
+          const newMatchedUsers = []; //array for matched users
+          // var key = 0; // assigning key for flatlist to render matches
+          function fetchData() {
+            querySnapshot.forEach((doc) => {
+              console.log("inside foreach loop");
+              const match = doc.data();
+              if (match.userID != userID) {
+                match.id = doc.id;
+                match.userRef = usersRef.doc(match.userID);
+                newMyMatches.push(match);
+                setMyMatches(newMyMatches);
+                // matched users
+                const user = {};
+                console.log("before await");
+                match.userRef.get().then((result) => {
+                  // key++;
+                  // user.key = key;
+                  user.userID = result.data().id;
+                  user.fullName = result.data().fullName;
+                  console.log("name = " + user.fullName);
+                  user.dateOfBirth = result.data().dateOfBirth;
+                  user.aboutMe = result.data().aboutMe;
+                  user.profilePic = result.data().profilePic;
+                  newMatchedUsers.push(user);
+                  setMatchingUsers(newMatchedUsers);
+                  // });
                 });
-                setMyMatches(newMyMatches)
-            },
-            error => {
-                console.log(error)
-            }
-        )
-}, [])
+                console.log("after await");
+              }
+            });
+          }
+          fetchData();
+          // setMyMatches(newMyMatches);
+          // setMatchingUsers(newMatchedUsers);
+          // console.log("updated state = " + matchingUsers);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
 
+  // const newMatchingUsers = []
+  // for (const element of myMatches){
 
-// const newMatchingUsers = []
-// for (const element of myMatches){
-  
-//   useEffect(() => {
-//     usersRef
-//         .where("id", "==", element)
-//         .onSnapshot(
-//             querySnapshot => {
-//                 querySnapshot.forEach(doc => {
-//                     const matchingUser = doc.data()
-//                     newMatchingUsers.push(matchingUser)
-//                 });
-                
-//             },
-//             error => {
-//                 console.log(error)
-//             }
-//         )
-//   }, [])
-// }
-// setMyMatches(newMatchingUsers)
+  //   useEffect(() => {
+  //     usersRef
+  //         .where("id", "==", element)
+  //         .onSnapshot(
+  //             querySnapshot => {
+  //                 querySnapshot.forEach(doc => {
+  //                     const matchingUser = doc.data()
+  //                     newMatchingUsers.push(matchingUser)
+  //                 });
 
+  //             },
+  //             error => {
+  //                 console.log(error)
+  //             }
+  //         )
+  //   }, [])
+  // }
+  // setMyMatches(newMatchingUsers)
 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-
-
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   return (
     <View
       style={{
@@ -102,61 +131,60 @@ export default (props) => {
     >
       <View style={styles.background}>
         <FlatList
-          data={myMatches}
-          keyExtractor={(item) => item.key}
+          data={matchingUsers}
+          keyExtractor={(item) => item.userID}
           renderItem={({ item, index }) => {
-
-            item.userRef.get().then((result) => {
-              const fullName = result.data().fullName;
-							const dateOfBirth = result.data().dateOfBirth;
-							const aboutMe = result.data().aboutMe;
-              return (
-                <Pressable
-                  // style={[styles.shadowProp, styles.matchBackground]}
-                  // android_ripple={{ color: "gray" }}
-                  onPress={() =>
-                    props.navigation.navigate("ProfileMatching", {
-                      //userIDOfTheMatch: item.userIDOfTheMatch, //needs to be done
-                      
-                    })
-                  }
-                  
-                >
-                  <View style={[styles.shadowProp, styles.matchBackground]}>
-                    <Image
-                      source={{ uri: item.profilePic }}
-                      style={styles.profilePicture}
-                    />
-                    <View
-                      style={{
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        height: 30,
-                      }}
-                    >
-                      <View style={styles.nameTag}>
-                        <Text style={styles.text}>
-                          {fullName} {"\n"}
-                          {dateOfBirth} {"\n"}
-                          {aboutMe} {"\n"}
-                          
-                        </Text>
-                      </View>
-                      <View style={styles.textBox}>
-                        <Text
-                          style={{
-                            alignSelf: "flex-start",
-                          }}
-                        >
-                          {item.desc}
-                        </Text>
-                      </View>
+            // item.userRef.get().then((result) => {
+            // console.log(result.data());
+            var profilePic = item.profilePic;
+            // });
+            //render UI only after data came from server
+            // });
+            if (profilePic == undefined) {
+              profilePic = "../assets/genericProfilePicture.jpg";
+            }
+            return (
+              <Pressable
+                // style={[styles.shadowProp, styles.matchBackground]}
+                // android_ripple={{ color: "gray" }}
+                onPress={() =>
+                  props.navigation.navigate("ProfileMatching", {
+                    matcheUserId: item.userID,
+                  })
+                }
+              >
+                <View style={[styles.shadowProp, styles.matchBackground]}>
+                  <Image
+                    source={{ uri: profilePic }}
+                    style={styles.profilePicture}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      height: 30,
+                    }}
+                  >
+                    <View style={styles.nameTag}>
+                      <Text style={styles.text}>
+                        {item.fullName} {"\n"}
+                        {item.dateOfBirth} {"\n"}
+                        {item.aboutMe} {"\n"}
+                      </Text>
+                    </View>
+                    <View style={styles.textBox}>
+                      <Text
+                        style={{
+                          alignSelf: "flex-start",
+                        }}
+                      >
+                        {item.aboutMe}
+                      </Text>
                     </View>
                   </View>
-                </Pressable>
-              );
-            })
-            
+                </View>
+              </Pressable>
+            );
           }}
         />
       </View>
@@ -294,7 +322,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
 //{item.age} {"\n"}
-

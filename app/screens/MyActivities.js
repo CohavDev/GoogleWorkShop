@@ -67,29 +67,26 @@ export default function MyActivities({ navigation }) {
 
   useEffect(() => {
     allActivitiesRef
-        .where("userID", "==", userID)
-        .orderBy('createdAt', 'desc')
-        .onSnapshot(
-            querySnapshot => {
-                const newMyActivities = []
-                querySnapshot.forEach(doc => {
-                    const activity = doc.data()
-                    activity.id = doc.id
-                    newMyActivities.push(activity)
-                });
-                setMyActivities(newMyActivities)
-            },
-            error => {
-                console.log(error)
-            }
-        )
-}, [])
-
-
-
-
-
-
+      .where("userID", "==", userID)
+      .orderBy("createdAt", "desc")
+      .onSnapshot(
+        (querySnapshot) => {
+          const newMyActivities = [];
+          // console.log("------------------myactivity before foreach");
+          querySnapshot.forEach((doc) => {
+            // console.log("my activity inside foreach");
+            const activity = doc.data();
+            activity.id = doc.id;
+            newMyActivities.push(activity);
+          });
+          // console.log("updated state my activiy");
+          setMyActivities(newMyActivities);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
 
   const renderItem = ({ item }) => (
     <ActivityItem
@@ -99,10 +96,10 @@ export default function MyActivities({ navigation }) {
       endDate={item.endDate}
       location={item.location}
       time={item.time}
-      languages={item.languages}
+      // languages={item.languages}
       userFormattedDateOfBirth={item.userFormattedDateOfBirth}
-      userName = {item.userName}
-      activityID = {item.id}
+      userName={item.userName}
+      activityID={item.id}
       navigation={navigation}
     />
   );
