@@ -54,7 +54,6 @@ export default (props) => {
           // var key = 0; // assigning key for flatlist to render matches
           function fetchData() {
             querySnapshot.forEach((doc) => {
-              console.log("inside foreach loop");
               const match = doc.data();
               if (match.userID != userID) {
                 match.id = doc.id;
@@ -63,13 +62,11 @@ export default (props) => {
                 setMyMatches(newMyMatches);
                 // matched users
                 const user = {};
-                console.log("before await");
                 match.userRef.get().then((result) => {
                   // key++;
                   // user.key = key;
                   user.userID = result.data().id;
                   user.fullName = result.data().fullName;
-                  console.log("name = " + user.fullName);
                   user.dateOfBirth = result.data().dateOfBirth;
                   user.aboutMe = result.data().aboutMe;
                   user.profilePic = result.data().profilePic;
@@ -77,7 +74,6 @@ export default (props) => {
                   setMatchingUsers(newMatchedUsers);
                   // });
                 });
-                console.log("after await");
               }
             });
           }
