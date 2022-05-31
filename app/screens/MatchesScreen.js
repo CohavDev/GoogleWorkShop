@@ -17,17 +17,27 @@ export default (props) => {
     startDate: props.route.params.startDate,
     endDate: props.route.params.endDate,
     time: props.route.params.time,
-    // languages: props.route.params.languages,
+    languages: props.route.params.languages,
     userFormattedDateOfBirth: props.route.params.userFormattedDateOfBirth,
-    userName: props.route.params.userName,
+    travelPartnersIDs: props.route.params.travelPartnersIDs,
     activityID: props.route.params.activityID,
   };
   const [myMatches, setMyMatches] = useState([]);
-  const [matchingUsers, setMatchingUsers] = useState([]);
-
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
   const usersRef = firebase.firestore().collection("users");
+
+  function getAge(formattedDateOfBirth) {
+    let dateOfBirth = formattedDateOfBirth.toString()
+
+    var day=dateOfBirth.slice(6,8)
+    var month=dateOfBirth.slice(4,6)
+    var year=dateOfBirth.slice(0,4)
+    // i assume the format of the date of birth is : DD/MM/YYYY
+    dateOfBirth=''.concat(year,'-',month,'-',day)
+    var ageInMilliseconds = new Date() - new Date(dateOfBirth);
+    return Math.floor(ageInMilliseconds/1000/60/60/24/365); // convert to years
+ }
 
   useEffect(() => {
     allActivitiesRef
@@ -36,48 +46,49 @@ export default (props) => {
       .where("location", "==", activityData.location)
       .where("startDate", "==", activityData.startDate)
       .where("endDate", "==", activityData.endDate)
-      .where(
-        "userFormattedDateOfBirth",
-        "<=",
-        activityData.userFormattedDateOfBirth + 50000
-      )
-      .where(
-        "userFormattedDateOfBirth",
-        ">=",
-        activityData.userFormattedDateOfBirth - 50000
-      )
-      // .where("languages", "array-contains-any", activityData.languages)
+      .where("status" , "==" , "waiting")
+      .where("userFormattedDateOfBirth" , "<=" , activityData.userFormattedDateOfBirth + 50000)
+      .where("userFormattedDateOfBirth" , ">=" , activityData.userFormattedDateOfBirth - 50000)
+      .where("languages", "array-contains-any", activityData.languages)
       .onSnapshot(
         (querySnapshot) => {
-          const newMyMatches = []; //array for matched activites
-          const newMatchedUsers = []; //array for matched users
+          const newMyMatches = [] //array for matched activites
           // var key = 0; // assigning key for flatlist to render matches
           function fetchData() {
             querySnapshot.forEach((doc) => {
-              console.log("inside foreach loop");
-              const match = doc.data();
+              const match = doc.data()
+              if(match.travelPartnersIDs.indexOf(userID)>-1
+              && activityData.travelPartnersIDs.indexOf(match.userID)>-1){
+                match.status = "accepted by both"
+              }
+              if(match.travelPartnersIDs.indexOf(userID)==-1
+              && activityData.travelPartnersIDs.indexOf(match.userID)>-1){
+                match.status = "accepted only by other user"
+              }
+              if(match.travelPartnersIDs.indexOf(userID)>-1
+              && activityData.travelPartnersIDs.indexOf(match.userID)==-1){
+                match.status = "accepted only by me"
+              }
+              if(match.travelPartnersIDs.indexOf(userID)==-1
+              && activityData.travelPartnersIDs.indexOf(match.userID)==-1){
+                match.status = "accepted by non of us"
+              }
               if (match.userID != userID) {
-                match.id = doc.id;
-                match.userRef = usersRef.doc(match.userID);
-                newMyMatches.push(match);
-                setMyMatches(newMyMatches);
-                // matched users
-                const user = {};
-                console.log("before await");
+                match.id = doc.id
+                match.userRef = usersRef.doc(match.userID)
                 match.userRef.get().then((result) => {
-                  // key++;
-                  // user.key = key;
-                  user.userID = result.data().id;
-                  user.fullName = result.data().fullName;
-                  console.log("name = " + user.fullName);
-                  user.dateOfBirth = result.data().dateOfBirth;
-                  user.aboutMe = result.data().aboutMe;
-                  user.profilePic = result.data().profilePic;
-                  newMatchedUsers.push(user);
-                  setMatchingUsers(newMatchedUsers);
-                  // });
+                  match.fullName = result.data().fullName
+                  match.dateOfBirth = result.data().dateOfBirth
+                  match.aboutMe = result.data().aboutMe
+                  match.profilePic = result.data().profilePic
+                  match.nativeLanguage = result.data().nativeLanguage
+                  match.secondLanguage = result.data().secondLanguage
+                  match.age = getAge(match.userFormattedDateOfBirth)
+                  match.phoneNumber = result.data().phoneNumber
+                  match.nationality = result.data().nationality
+                  newMyMatches.push(match)
+                  setMyMatches(newMyMatches)
                 });
-                console.log("after await");
               }
             });
           }
@@ -131,15 +142,11 @@ export default (props) => {
     >
       <View style={styles.background}>
         <FlatList
-          data={matchingUsers}
-          keyExtractor={(item) => item.userID}
+          data={myMatches}
+          keyExtractor={(item) => item.id}
           renderItem={({ item, index }) => {
-            // item.userRef.get().then((result) => {
-            // console.log(result.data());
             var profilePic = item.profilePic;
-            // });
             //render UI only after data came from server
-            // });
             if (profilePic == undefined) {
               profilePic = "../assets/genericProfilePicture.jpg";
             }
@@ -149,7 +156,28 @@ export default (props) => {
                 // android_ripple={{ color: "gray" }}
                 onPress={() =>
                   props.navigation.navigate("ProfileMatching", {
-                    matcheUserId: item.userID,
+                    //matched activity data
+                    startDate: item.startDate,
+                    endDate: item.endDate,
+                    type: item.type,
+                    location: item.location,
+                    matchedActivityStatus: item.status,
+                    
+                    //other user's data:
+                    matchedActivityDocID: item.id,
+                    userID: item.userID,
+                    fullName: item.fullName,
+                    dateOfBirth: item.dateOfBirth,
+                    aboutMe: item.aboutMe,
+                    profilePic: item.profilePic,
+                    nativeLanguage: item.nativeLanguage,
+                    secondLanguage: item.secondLanguage,
+                    age: item.age,
+                    phoneNumber: item.phoneNumber,
+                    nationality: item.nationality,
+                    
+                    //this user's data:
+                    myActivityDocID: activityData.activityID,
                   })
                 }
               >
@@ -169,7 +197,9 @@ export default (props) => {
                       <Text style={styles.text}>
                         {item.fullName} {"\n"}
                         {item.dateOfBirth} {"\n"}
-                        {item.aboutMe} {"\n"}
+                        {item.age} {"\n"}
+                        {item.nativeLanguage} {"\n"}
+                        {item.secondLanguage} {"\n"}
                       </Text>
                     </View>
                     <View style={styles.textBox}>
@@ -178,7 +208,7 @@ export default (props) => {
                           alignSelf: "flex-start",
                         }}
                       >
-                        {item.aboutMe}
+                        {}
                       </Text>
                     </View>
                   </View>
@@ -323,3 +353,15 @@ const styles = StyleSheet.create({
 });
 
 //{item.age} {"\n"}
+
+
+
+
+//       
+//       
+//       .where(
+//         "userFormattedDateOfBirth",
+//         ">=",
+//         activityData.userFormattedDateOfBirth - 50000
+//       )
+//       

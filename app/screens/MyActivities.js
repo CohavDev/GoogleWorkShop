@@ -90,16 +90,16 @@ export default function MyActivities({ navigation }) {
 
   const renderItem = ({ item }) => (
     <ActivityItem
+      activityID={item.id}
       activityIcon={item.type}
       activityType={item.type}
       startDate={item.startDate}
       endDate={item.endDate}
       location={item.location}
       time={item.time}
-      // languages={item.languages}
+      languages={item.languages}
       userFormattedDateOfBirth={item.userFormattedDateOfBirth}
-      userName={item.userName}
-      activityID={item.id}
+      travelPartnersIDs={item.travelPartnersIDs}
       navigation={navigation}
     />
   );

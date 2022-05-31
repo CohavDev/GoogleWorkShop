@@ -15,6 +15,8 @@ export default function MoreInfo1Screen({navigation}) {
     const [nationality, setNationality] = useState('')
     const [nativeLanguage, setNativeLanguage] = useState('')
     const [secondLanguage, setSecondLanguage] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+
 
     
     const userID=firebase.auth().currentUser.uid;
@@ -35,10 +37,10 @@ export default function MoreInfo1Screen({navigation}) {
             return
         }
         else{
-            month=dateOfBirth.slice(0,2)
-            day=dateOfBirth.slice(3,5)
+            day=dateOfBirth.slice(0,2)
+            month=dateOfBirth.slice(3,5)
             year=dateOfBirth.slice(6,10)
-            // i assume the format of the date of birth is : MM/DD/YYYY
+            // i assume the format of the date of birth is : DD/MM/YYYY
             formattedDateOfBirth=''.concat(year,month,day)
             setDateOfBirth(formattedDateOfBirth)
         }
@@ -50,12 +52,18 @@ export default function MoreInfo1Screen({navigation}) {
             alert("please fill in your native language :D")
             return
         }
+        if (phoneNumber.length === 0) {
+            alert("please fill in 'phone numebr' field :)")
+            return
+        }
         const data = {
             dateOfBirth: dateOfBirth,
             formattedDateOfBirth: parseInt(formattedDateOfBirth),
             nationality: nationality,
             nativeLanguage: nativeLanguage,
             secondLanguage: secondLanguage,
+            phoneNumber: phoneNumber,
+            
         };
         userRef
             .update(data)
@@ -167,6 +175,15 @@ export default function MoreInfo1Screen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 /> */}
+                <TextInput
+                    style={styles.input}
+                    placeholder='Phone number'
+                    placeholderTextColor="#aaaaaa"
+                    value={phoneNumber}
+                    onChangeText={(text) => setPhoneNumber(text)}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onMoveOnPress()}>
