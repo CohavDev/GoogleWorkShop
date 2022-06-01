@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { firebase } from "../firebase/config.js";
 import myColors from "../config/colors";
 import { Pressable, Vibration } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -22,84 +23,264 @@ export default function ProfileMatching(props) {
     0.1 * ONE_SEC_IN_MS,
   ];
   const params = props.route.params;
-  const data = {
-    // userName: props.navigation.getParam("userName", "user-name"),
-    userName: params.userName,
-    // age: props.navigation.getParam("age", "120"),
-    age: params.age,
-    // desc: props.navigation.getParam("desc", "about me text"),
-    desc: params.desc,
-    // city: props.navigation.getParam("city", "somewhere"),
-    city: params.city,
-    // currentLocation: props.navigation.getParam("currentLocation", "somewhere"),
-    currentLocation: params.currentLocation,
-    // thumbnail: props.navigation.getParam("thumbnail", "../assets/userPic.png"),
-    thumbnail: params.thumbnail,
-    // activityName: props.navigation.getParam("activityName", "Matches"),
-    activityName: params.activityName,
-    // activityLocation: props.navigation.getParam("activityLocation", "??"),
-    activityLocation: params.activityLocation,
-    // activityDate: props.navigation.getParam("activityDate", "??"),
-    activityDate: params.activityDate,
+  const activityData = {
+    startDate: params.startDate,
+    endDate: params.endDate,
+    type: params.type,
+    location: params.location,
+    matchedActivityStatus: params.matchedActivityStatus,
+    // matchedActivityStatus = "accepted by both"
+    // or "accepted only by me"
+    // or "accepted only by other user"
+    // or "accepted by non of us"
   };
-  return (
-    <View style={styles.container}>
-      {/* style={styles.profilePicContainer} */}
-      {/* <View> */}
-      <LinearGradient
-        // Background Linear Gradient
-        colors={[myColors.primary, myColors.secondary]}
-        locations={[0.05, 0.9]}
-        style={styles.profilePicContainer}
-      >
-        <Image
-          source={{ uri: data.thumbnail }}
-          style={styles.profilePic}
-        ></Image>
-        <Text style={styles.title}>{data.userName}</Text>
-        <Text style={styles.smallTitle}>
-          {data.currentLocation + " , " + data.age}
-        </Text>
-      </LinearGradient>
-      {/* </View> */}
+  const otherUserData = {
+    activityDocID: params.matchedActivityDocID,
+    userID: params.userID,
+    fullName: params.fullName,
+    dateOfBirth: params.dateOfBirth,
+    aboutMe: params.aboutMe,
+    profilePic: params.profilePic,
+    nativeLanguage: params.nativeLanguage,
+    secondLanguage: params.secondLanguage,
+    age: params.age,
+    phoneNumber: params.phoneNumber,
+    nationality: params.nationality,
 
-      <Text style={styles.subTitle}>I Like</Text>
-      <Text style={styles.subText}>
-        {data.desc}
-        {/* Ryan Adams, whose new album Prisoner is out this Friday, was the latest
-        guest on Marc Maron’s podcast “WTF.” Adams discussed encountering the
-        Rolling Stones early in his career (and talking penny loafers with
-        drummer Charlie Watts), his struggles with addiction in the Easy Tiger
-        era */}
-      </Text>
-      <Text style={styles.subTitle}>I'm From</Text>
-      <Text style={styles.subText}>{data.city}</Text>
-      <View style={[styles.interstContainer, styles.shadowProp]}>
-        <Text style={[styles.subTitle, { color: "white" }]}>
-          What I'm looking for
-        </Text>
-        <Text style={[styles.subText, { color: "white" }]}>
-          {data.activityName +
-            " on " +
-            data.activityDate +
-            " at " +
-            data.activityLocation}
-        </Text>
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <Pressable
-          style={styles.button}
-          onLongPress={() => alert("clicked 'match'!")}
-          android_ripple={{ color: "white" }}
-          onPressIn={() => Vibration.vibrate(PATTERN)}
+  };
+  const thisUserData = {
+    activityDocID: params.myActivityDocID,
+  };
+  const userID = firebase.auth().currentUser.uid;
+  const allActivitiesRef = firebase.firestore().collection("allActivities");
+  if(activityData.matchedActivityStatus.localeCompare("accepted by both")==0){
+    // edit it to look like we want
+    return (
+      <View style={styles.container}>
+        {/* style={styles.profilePicContainer} */}
+        {/* <View> */}
+        <LinearGradient
+          // Background Linear Gradient
+          colors={[myColors.primary, myColors.secondary]}
+          locations={[0.05, 0.9]}
+          style={styles.profilePicContainer}
         >
-          <AntDesign name="check" size={30} color="white" />
-        </Pressable>
-        <Text>Match with {data.userName}</Text>
+          <Image
+            source={{ uri: otherUserData.profilePic }}
+            style={styles.profilePic}
+          ></Image>
+          <Text style={styles.title}>{otherUserData.fullName}</Text>
+          <Text style={styles.smallTitle}>
+            {otherUserData.nationality + " , " + otherUserData.age}
+          </Text>
+        </LinearGradient>
+        {/* </View> */}
+  
+        <Text style={styles.subTitle}>About me</Text>
+        <Text style={styles.subText}>
+          {otherUserData.aboutMe}
+        </Text>
+        <Text style={styles.subTitle}>I'm From</Text>
+        <Text style={styles.subText}>{otherUserData.nationality}</Text>
+        <View style={[styles.interstContainer, styles.shadowProp]}>
+          <Text style={[styles.subTitle, { color: "white" }]}>
+            What I'm looking for
+          </Text>
+          <Text style={[styles.subText, { color: "white" }]}>
+            {activityData.type +
+              " on " +
+              activityData.startDate +
+              " at " +
+              activityData.location}
+          </Text>
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
+  else if(activityData.matchedActivityStatus.localeCompare("accepted only by me")==0){
+    return (
+      <View style={styles.container}>
+        {/* style={styles.profilePicContainer} */}
+        {/* <View> */}
+        <LinearGradient
+          // Background Linear Gradient
+          colors={[myColors.primary, myColors.secondary]}
+          locations={[0.05, 0.9]}
+          style={styles.profilePicContainer}
+        >
+          <Image
+            source={{ uri: otherUserData.profilePic }}
+            style={styles.profilePic}
+          ></Image>
+          <Text style={styles.title}>{otherUserData.fullName}</Text>
+          <Text style={styles.smallTitle}>
+            {otherUserData.nationality + " , " + otherUserData.age}
+          </Text>
+        </LinearGradient>
+        {/* </View> */}
+  
+        <Text style={styles.subTitle}>About me</Text>
+        <Text style={styles.subText}>
+          {otherUserData.aboutMe}
+        </Text>
+        <Text style={styles.subTitle}>I'm From</Text>
+        <Text style={styles.subText}>{otherUserData.nationality}</Text>
+        <View style={[styles.interstContainer, styles.shadowProp]}>
+          <Text style={[styles.subTitle, { color: "white" }]}>
+            What I'm looking for
+          </Text>
+          <Text style={[styles.subText, { color: "white" }]}>
+            {activityData.type +
+              " on " +
+              activityData.startDate +
+              " at " +
+              activityData.location}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+  else if(activityData.matchedActivityStatus.localeCompare("accepted only by other user")==0){
+    return (
+      <View style={styles.container}>
+        {/* style={styles.profilePicContainer} */}
+        {/* <View> */}
+        <LinearGradient
+          // Background Linear Gradient
+          colors={[myColors.primary, myColors.secondary]}
+          locations={[0.05, 0.9]}
+          style={styles.profilePicContainer}
+        >
+          <Image
+            source={{ uri: otherUserData.profilePic }}
+            style={styles.profilePic}
+          ></Image>
+          <Text style={styles.title}>{otherUserData.fullName}</Text>
+          <Text style={styles.smallTitle}>
+            {otherUserData.nationality + " , " + otherUserData.age}
+          </Text>
+        </LinearGradient>
+        {/* </View> */}
+  
+        <Text style={styles.subTitle}>About me</Text>
+        <Text style={styles.subText}>
+          {otherUserData.aboutMe}
+        </Text>
+        <Text style={styles.subTitle}>I'm From</Text>
+        <Text style={styles.subText}>{otherUserData.nationality}</Text>
+        <View style={[styles.interstContainer, styles.shadowProp]}>
+          <Text style={[styles.subTitle, { color: "white" }]}>
+            What I'm looking for
+          </Text>
+          <Text style={[styles.subText, { color: "white" }]}>
+            {activityData.type +
+              " on " +
+              activityData.startDate +
+              " at " +
+              activityData.location}
+          </Text>
+        </View>
+  
+        <View style={styles.buttonContainer}>
+          <Pressable
+            style={styles.button}
+            onLongPress={() => alert("clicked 'match'!")}
+            android_ripple={{ color: "white" }}
+            onPressIn={() => {
+              Vibration.vibrate(PATTERN)
+              console.log("pressed")
+              allActivitiesRef.doc(otherUserData.activityDocID).update({
+                travelPartnersIDs: userID
+              })
+              allActivitiesRef.doc(otherUserData.activityDocID).update({
+                matchedActivityID: thisUserData.activityDocID
+              })
+              allActivitiesRef.doc(otherUserData.activityDocID).update({
+                status: "paired"
+              })
+              
+              allActivitiesRef.doc(thisUserData.activityDocID).update({
+                travelPartnersIDs: otherUserData.userID
+              })
+              allActivitiesRef.doc(thisUserData.activityDocID).update({
+                matchedActivityID: otherUserData.activityDocID
+              })
+              allActivitiesRef.doc(thisUserData.activityDocID).update({
+                status: "paired"
+              })
+            }
+          }
+          >
+            <AntDesign name="check" size={30} color="white" />
+          </Pressable>
+          <Text>Match with {otherUserData.fullName}</Text>
+        </View>
+      </View>
+    );
+  }
+  else{
+    return (
+      <View style={styles.container}>
+        {/* style={styles.profilePicContainer} */}
+        {/* <View> */}
+        <LinearGradient
+          // Background Linear Gradient
+          colors={[myColors.primary, myColors.secondary]}
+          locations={[0.05, 0.9]}
+          style={styles.profilePicContainer}
+        >
+          <Image
+            source={{ uri: otherUserData.profilePic }}
+            style={styles.profilePic}
+          ></Image>
+          <Text style={styles.title}>{otherUserData.fullName}</Text>
+          <Text style={styles.smallTitle}>
+            {otherUserData.nationality + " , " + otherUserData.age}
+          </Text>
+        </LinearGradient>
+        {/* </View> */}
+  
+        <Text style={styles.subTitle}>About me</Text>
+        <Text style={styles.subText}>
+          {otherUserData.aboutMe}
+        </Text>
+        <Text style={styles.subTitle}>I'm From</Text>
+        <Text style={styles.subText}>{otherUserData.nationality}</Text>
+        <View style={[styles.interstContainer, styles.shadowProp]}>
+          <Text style={[styles.subTitle, { color: "white" }]}>
+            What I'm looking for
+          </Text>
+          <Text style={[styles.subText, { color: "white" }]}>
+            {activityData.type +
+              " on " +
+              activityData.startDate +
+              " at " +
+              activityData.location}
+          </Text>
+        </View>
+  
+        <View style={styles.buttonContainer}>
+          <Pressable
+            style={styles.button}
+            onLongPress={() => alert("clicked 'match'!")}
+            android_ripple={{ color: "white" }}
+            onPressIn={() => {
+              Vibration.vibrate(PATTERN)
+              console.log("pressed")
+              allActivitiesRef.doc(otherUserData.activityDocID).update({
+                travelPartnersIDs: firebase.firestore.FieldValue.arrayUnion(userID)
+              })
+            }
+          }
+          >
+            <AntDesign name="check" size={30} color="white" />
+          </Pressable>
+          <Text>Match with {otherUserData.fullName}</Text>
+        </View>
+      </View>
+    );
+  }
+  
 }
 
 const styles = StyleSheet.create({

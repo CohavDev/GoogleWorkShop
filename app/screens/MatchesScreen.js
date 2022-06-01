@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { firebase } from "../firebase/config.js";
 import {
   StyleSheet,
   View,
@@ -9,78 +10,128 @@ import {
 } from "react-native";
 import colors from "../config/colors";
 import DATATWO from "../usersData.json";
-const DATA = [
-  {
-    key: "0",
-    name: "Lucy Hutton",
-    profilePic:
-      "https://64.media.tumblr.com/2f3ae3016833a99f2f4f27300894c761/16601d9d5d326f3b-1d/s540x810/e5763bf4c25566a848231ea1e016ecdeb80bd690.png",
-    descriptionText:
-      "I'm Lucy, I work at a publishing company. I would like to travel with someone who is NOT Josh.",
-  },
-  {
-    key: "1",
-    name: "Joshua Templeman",
-    profilePic:
-      "https://i.pinimg.com/736x/b4/0e/62/b40e62085aae3e3defd8a070b3a918ff.jpg",
-    descriptionText:
-      "Hey i'm Josh. Stop staring, shortcake. I can feel your eyes on me.",
-  },
-  {
-    key: "2",
-    name: "Harry Potter",
-    profilePic:
-      "https://www.irishtimes.com/polopoly_fs/1.3170107.1501253408!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg",
-    descriptionText: "Anything but Slytherin, anything but Slytherin",
-  },
-  {
-    key: "3",
-    name: "Hermione Granger",
-    profilePic:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLCaNlNk8XUfpCpda0ZMJ0Juk1v2twMk70A&usqp=CAU",
-    descriptionText: "It's not 'levi-oooo-sa', it's 'levi-o-saaaa'",
-  },
-  {
-    key: "4",
-    name: "Lucy Hutton",
-    profilePic:
-      "https://64.media.tumblr.com/2f3ae3016833a99f2f4f27300894c761/16601d9d5d326f3b-1d/s540x810/e5763bf4c25566a848231ea1e016ecdeb80bd690.png",
-    descriptionText:
-      "I'm Lucy, I work at a publishing company. I would like to travel with someone who is NOT Josh.",
-  },
-  {
-    key: "5",
-    name: "Joshua Templeman",
-    profilePic:
-      "https://i.pinimg.com/736x/b4/0e/62/b40e62085aae3e3defd8a070b3a918ff.jpg",
-    descriptionText:
-      "Hey i'm Josh. Stop staring, shortcake. I can feel your eyes on me.",
-  },
-  {
-    key: "6",
-    name: "Harry Potter",
-    profilePic:
-      "https://www.irishtimes.com/polopoly_fs/1.3170107.1501253408!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg",
-    descriptionText: "Anything but Slytherin, anything but Slytherin",
-  },
-  {
-    key: "7",
-    name: "Hermione Granger",
-    profilePic:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLCaNlNk8XUfpCpda0ZMJ0Juk1v2twMk70A&usqp=CAU",
-    descriptionText: "It's not 'levi-oooo-sa', it's 'levi-o-saaaa'",
-  },
-];
 export default (props) => {
-  const titleData = {
-    // activityName: props.navigation.getParam("activityName", "Matches"),
-    activityName: props.route.params.activityName,
-    // location: props.navigation.getParam("location", "??"),
+  const activityData = {
+    activityType: props.route.params.activityType,
     location: props.route.params.location,
-    // date: props.navigation.getParam("date", "??"),
-    location: props.route.params.location,
+    startDate: props.route.params.startDate,
+    endDate: props.route.params.endDate,
+    time: props.route.params.time,
+    languages: props.route.params.languages,
+    userFormattedDateOfBirth: props.route.params.userFormattedDateOfBirth,
+    travelPartnersIDs: props.route.params.travelPartnersIDs,
+    activityID: props.route.params.activityID,
   };
+  const [myMatches, setMyMatches] = useState([]);
+  const allActivitiesRef = firebase.firestore().collection("allActivities");
+  const userID = firebase.auth().currentUser.uid;
+  const usersRef = firebase.firestore().collection("users");
 
+  function getAge(formattedDateOfBirth) {
+    let dateOfBirth = formattedDateOfBirth.toString()
+
+    var day=dateOfBirth.slice(6,8)
+    var month=dateOfBirth.slice(4,6)
+    var year=dateOfBirth.slice(0,4)
+    // i assume the format of the date of birth is : DD/MM/YYYY
+    dateOfBirth=''.concat(year,'-',month,'-',day)
+    var ageInMilliseconds = new Date() - new Date(dateOfBirth);
+    return Math.floor(ageInMilliseconds/1000/60/60/24/365); // convert to years
+ }
+
+  useEffect(() => {
+    allActivitiesRef
+      .where("type", "==", activityData.activityType)
+      .where("time", "==", activityData.time)
+      .where("location", "==", activityData.location)
+      .where("startDate", "==", activityData.startDate)
+      .where("endDate", "==", activityData.endDate)
+      .where("status" , "==" , "waiting")
+      .where("userFormattedDateOfBirth" , "<=" , activityData.userFormattedDateOfBirth + 50000)
+      .where("userFormattedDateOfBirth" , ">=" , activityData.userFormattedDateOfBirth - 50000)
+      .where("languages", "array-contains-any", activityData.languages)
+      .onSnapshot(
+        (querySnapshot) => {
+          const newMyMatches = [] //array for matched activites
+          // var key = 0; // assigning key for flatlist to render matches
+          function fetchData() {
+            querySnapshot.forEach((doc) => {
+              const match = doc.data()
+              if(match.travelPartnersIDs.indexOf(userID)>-1
+              && activityData.travelPartnersIDs.indexOf(match.userID)>-1){
+                match.status = "accepted by both"
+              }
+              if(match.travelPartnersIDs.indexOf(userID)==-1
+              && activityData.travelPartnersIDs.indexOf(match.userID)>-1){
+                match.status = "accepted only by other user"
+              }
+              if(match.travelPartnersIDs.indexOf(userID)>-1
+              && activityData.travelPartnersIDs.indexOf(match.userID)==-1){
+                match.status = "accepted only by me"
+              }
+              if(match.travelPartnersIDs.indexOf(userID)==-1
+              && activityData.travelPartnersIDs.indexOf(match.userID)==-1){
+                match.status = "accepted by non of us"
+              }
+              if (match.userID != userID) {
+                match.id = doc.id
+                match.userRef = usersRef.doc(match.userID)
+                match.userRef.get().then((result) => {
+                  match.fullName = result.data().fullName
+                  match.dateOfBirth = result.data().dateOfBirth
+                  match.aboutMe = result.data().aboutMe
+                  match.profilePic = result.data().profilePic
+                  match.nativeLanguage = result.data().nativeLanguage
+                  match.secondLanguage = result.data().secondLanguage
+                  match.age = getAge(match.userFormattedDateOfBirth)
+                  match.phoneNumber = result.data().phoneNumber
+                  match.nationality = result.data().nationality
+                  newMyMatches.push(match)
+                  setMyMatches(newMyMatches)
+                });
+              }
+            });
+          }
+          fetchData();
+          // setMyMatches(newMyMatches);
+          // setMatchingUsers(newMatchedUsers);
+          // console.log("updated state = " + matchingUsers);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
+
+  // const newMatchingUsers = []
+  // for (const element of myMatches){
+
+  //   useEffect(() => {
+  //     usersRef
+  //         .where("id", "==", element)
+  //         .onSnapshot(
+  //             querySnapshot => {
+  //                 querySnapshot.forEach(doc => {
+  //                     const matchingUser = doc.data()
+  //                     newMatchingUsers.push(matchingUser)
+  //                 });
+
+  //             },
+  //             error => {
+  //                 console.log(error)
+  //             }
+  //         )
+  //   }, [])
+  // }
+  // setMyMatches(newMatchingUsers)
+
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   return (
     <View
       style={{
@@ -91,30 +142,48 @@ export default (props) => {
     >
       <View style={styles.background}>
         <FlatList
-          data={DATATWO}
-          keyExtractor={(item) => item.key}
+          data={myMatches}
+          keyExtractor={(item) => item.id}
           renderItem={({ item, index }) => {
+            var profilePic = item.profilePic;
+            //render UI only after data came from server
+            if (profilePic == undefined) {
+              profilePic = "../assets/genericProfilePicture.jpg";
+            }
             return (
               <Pressable
                 // style={[styles.shadowProp, styles.matchBackground]}
                 // android_ripple={{ color: "gray" }}
                 onPress={() =>
                   props.navigation.navigate("ProfileMatching", {
-                    userName: item.name,
+                    //matched activity data
+                    startDate: item.startDate,
+                    endDate: item.endDate,
+                    type: item.type,
+                    location: item.location,
+                    matchedActivityStatus: item.status,
+                    
+                    //other user's data:
+                    matchedActivityDocID: item.id,
+                    userID: item.userID,
+                    fullName: item.fullName,
+                    dateOfBirth: item.dateOfBirth,
+                    aboutMe: item.aboutMe,
+                    profilePic: item.profilePic,
+                    nativeLanguage: item.nativeLanguage,
+                    secondLanguage: item.secondLanguage,
                     age: item.age,
-                    desc: item.desc,
-                    currentLocation: item.currentLocation,
-                    city: item.city,
-                    thumbnail: item.profilePic,
-                    activityName: titleData.activityName,
-                    activityDate: titleData.date,
-                    activityLocation: titleData.location,
+                    phoneNumber: item.phoneNumber,
+                    nationality: item.nationality,
+                    
+                    //this user's data:
+                    myActivityDocID: activityData.activityID,
                   })
                 }
               >
                 <View style={[styles.shadowProp, styles.matchBackground]}>
                   <Image
-                    source={{ uri: item.profilePic }}
+                    source={{ uri: profilePic }}
                     style={styles.profilePicture}
                   />
                   <View
@@ -126,8 +195,11 @@ export default (props) => {
                   >
                     <View style={styles.nameTag}>
                       <Text style={styles.text}>
-                        {item.name} {"  "}
+                        {item.fullName} {"\n"}
+                        {item.dateOfBirth} {"\n"}
                         {item.age} {"\n"}
+                        {item.nativeLanguage} {"\n"}
+                        {item.secondLanguage} {"\n"}
                       </Text>
                     </View>
                     <View style={styles.textBox}>
@@ -136,7 +208,7 @@ export default (props) => {
                           alignSelf: "flex-start",
                         }}
                       >
-                        {item.desc}
+                        {}
                       </Text>
                     </View>
                   </View>
@@ -149,11 +221,11 @@ export default (props) => {
       <View style={styles.viewTitleText}>
         <Text style={styles.titleText}>Matches</Text>
         <Text style={[styles.titleText, { fontSize: 14 }]}>
-          {titleData.activityName +
+          {activityData.activityType +
             " in " +
-            titleData.location +
+            activityData.location +
             " on " +
-            titleData.date}
+            activityData.startDate}
         </Text>
       </View>
     </View>
@@ -279,3 +351,17 @@ const styles = StyleSheet.create({
     //alignContent: 'center',
   },
 });
+
+//{item.age} {"\n"}
+
+
+
+
+//       
+//       
+//       .where(
+//         "userFormattedDateOfBirth",
+//         ">=",
+//         activityData.userFormattedDateOfBirth - 50000
+//       )
+//       

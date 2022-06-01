@@ -25,7 +25,7 @@ import BubblesCategories from "./app/screens/BubblesCategories";
 import ChooseOutdoorsActivity from "./app/screens/ChooseOutdoorsActivity";
 import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
 import MyPageHila from "./hila/MyPageHila";
-// import LandPage from "./app/screens/LandPage";
+import LandPage from "./app/screens/LandPage";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -93,7 +93,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        {/* <Stack.Screen name="MainMenu" component={MainMenu} /> */}
+        <Stack.Screen name="LandPage" component={LandPage} />
         <Stack.Screen name="MainMenu">
           {(props) => <MainMenu {...props} extraData={user} />}
         </Stack.Screen>

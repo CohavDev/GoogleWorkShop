@@ -107,7 +107,7 @@ export default function NewActivityForm(props) {
 	const [startDate, setStartDate] = useState("UnKnown");
 	const [endDate, setEndDate] = useState("UnKnown");
 	const [location, setLocation] = useState("UnKnown");
-	const [languages, setLanguages] = useState("native");
+	const [languages, setLanguages] = useState([]);
 	// const [selectedTeam, setSelectedTeam] = useState({})
 	const [selectedLanguages, setSelectedLanguages] = useState([]);
 	// state = { selectedLanguages: [] }
@@ -118,20 +118,24 @@ export default function NewActivityForm(props) {
 	//     this.setState({ selectedLanguages })
 	// }
 
-	function addLanguage() {
-		// console.log(LANGUAGES[1].item);
-		// return (item) =>setSelectedLanguages(selectedLanguages.push(JSON.stringify(item)))
-		return (item) =>
-			setSelectedLanguages(xorBy(selectedLanguages, [item], "item"));
+    function addLanguage() {
+        // console.log(LANGUAGES[1].item);
+        // return (item) =>setSelectedLanguages(selectedLanguages.push(JSON.stringify(item)))
+        //return (item) => setSelectedLanguages(xorBy(selectedLanguages, [item], 'item'))
+		return (item) => {
+			setSelectedLanguages(oldArray => [...oldArray, item])
+		}
+
 	}
 
-	// function onChange() {
-	//     return (val) => setSelectedTeam(val)
-	// }
+    
+    // function onChange() {
+    //     return (val) => setSelectedTeam(val)
+    // }
 
 	const pressConfirm = () => {
-		// console.log(SelectMultiLanguages.selectedItems)
-		// console.log(typeOf(JSON.stringify(selectedLanguages, ['item'])))
+        // console.log(SelectMultiLanguages.selectedItems)
+		console.log(JSON.stringify(selectedLanguages, ['item']))
 		props.navigation.navigate("ApproveActivity", {
 			// type: props.navigation.getParam("activityType"),
 			type: props.route.params.activityType,

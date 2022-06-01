@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { firebase } from '../firebase/config.js';
+import { firebase } from "../firebase/config.js";
 import {
   StyleSheet,
   Text,
@@ -13,8 +13,6 @@ import {
 import ActivityItem from "../components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
-
-
 
 const DATA = [
   {
@@ -62,46 +60,46 @@ const DATA = [
 ];
 
 export default function MyActivities({ navigation }) {
-  
-  const [myActivities, setMyActivities] = useState([])
-  const allActivitiesRef = firebase.firestore().collection('allActivities')
-  const userID=firebase.auth().currentUser.uid;
-  const userRef = firebase.firestore().collection('users').doc(userID)
+  const [myActivities, setMyActivities] = useState([]);
+  const allActivitiesRef = firebase.firestore().collection("allActivities");
+  const userID = firebase.auth().currentUser.uid;
+  const userRef = firebase.firestore().collection("users").doc(userID);
 
   useEffect(() => {
     allActivitiesRef
-        .where("userID", "==", userID)
-        .orderBy('createdAt', 'desc')
-        .onSnapshot(
-            querySnapshot => {
-                const newMyActivities = []
-                querySnapshot.forEach(doc => {
-                    const activity = doc.data()
-                    activity.id = doc.id
-                    newMyActivities.push(entity)
-                });
-                setEntities(newMyActivities)
-            },
-            error => {
-                console.log(error)
-            }
-        )
-}, [])
-
-
-
-
-
-
+      .where("userID", "==", userID)
+      .orderBy("createdAt", "desc")
+      .onSnapshot(
+        (querySnapshot) => {
+          const newMyActivities = [];
+          // console.log("------------------myactivity before foreach");
+          querySnapshot.forEach((doc) => {
+            // console.log("my activity inside foreach");
+            const activity = doc.data();
+            activity.id = doc.id;
+            newMyActivities.push(activity);
+          });
+          // console.log("updated state my activiy");
+          setMyActivities(newMyActivities);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
 
   const renderItem = ({ item }) => (
     <ActivityItem
+      activityID={item.id}
       activityIcon={item.type}
       activityType={item.type}
       startDate={item.startDate}
       endDate={item.endDate}
       location={item.location}
       time={item.time}
+      languages={item.languages}
+      userFormattedDateOfBirth={item.userFormattedDateOfBirth}
+      travelPartnersIDs={item.travelPartnersIDs}
       navigation={navigation}
     />
   );
@@ -138,22 +136,18 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    height: "20%",    
+    height: "20%",
     backgroundColor: myColors.secondary,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 15,
-
   },
   title: {
-    
     color: "black",
     fontSize: 28,
     // fontWeight: "bold",
     //paddingTop: "20%",
     //paddingBottom: 15,
     //top: 20,
-
-    
   },
 });
