@@ -20,14 +20,14 @@ export default function ActivityItem(props) {
       }
     >
       <View style={styles.container}>
-        <View style={styles.imageContainer}>
+        {/* <View style={styles.imageContainer}> */}
           <View
             style={styles.circularImage}
             // source={require("../assets/mountain_track_small.jpg")}
           >
-            <Entypo name={props.activityIcon} size={32} color="white" />
+            <Entypo name={props.activityIcon} size={32} color="black" />
           </View>
-        </View>
+        {/* </View> */}
         <View style={styles.dataContainer}>
           <Text>{props.activityName}</Text>
           <Text>{props.date}</Text>
@@ -44,38 +44,44 @@ export default function ActivityItem(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
+    alignItems: "center",
+    // justifyContent: "center",
+    height: 90,
+    // direction: "rtl",
   },
   imageContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
     paddingHorizontal: 15,
   },
   circularImage: {
-    height: 74,
-    width: 74,
-    borderRadius: 37,
-    backgroundColor: myColors.primary,
-    alignItems: "center",
+    height: 70,
+    width: 70,
+    borderRadius: 35,
+    backgroundColor: "white",
+    // alignItems: "center",
     justifyContent: "center",
   },
   dataContainer: {
-    marginVertical: 15,
-    paddingHorizontal: 15,
+    // marginVertical: 15,
+    paddingHorizontal: 25,
+    bottom: 10,
+    // justifyContent: "center",
   },
   matchCountContainer: {
     // marginVertical: 15,
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
     alignItems: "center",
-    marginLeft: "auto",
+    // marginLeft: "auto",
     justifyContent: "center",
     // backgroundColor: "gray",
   },
   shadowProp: {
     shadowColor: "#171717",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    // shadowOffset: { width: -2, height: 4 },
+    // shadowOpacity: 0.2,
+    // shadowRadius: 3,
     elevation: 5,
   },
 });

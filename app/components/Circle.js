@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
       borderRadius: RADIUS,
       alignItems: "center",
       justifyContent: "center",
+      elevation: 10,
    },
    pressableText: {
       color: "black",
