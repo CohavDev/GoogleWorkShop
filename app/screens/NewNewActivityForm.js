@@ -134,7 +134,11 @@ export default function NewNewActivityForm(props) {
 							mode="dropdown"
 							style={styles.picker}
 						>
-							<Picker.Item label="Select" value="-" color="rgba(60, 60, 67, 0.5)"/>
+							<Picker.Item
+								label="Select"
+								value="-"
+								color="rgba(60, 60, 67, 0.5)"
+							/>
 							<Picker.Item label="Morning" value="Morning" />
 							<Picker.Item label="Noon" value="Noon" />
 							<Picker.Item label="Evening/Night" value="Evening/Night" />
@@ -144,7 +148,7 @@ export default function NewNewActivityForm(props) {
 
 				<View>
 					<Text style={styles.subtitle}>Languages:</Text>
-					<View style={{left: 15}} >
+					<View style={{ left: 15 }}>
 						<SelectBox
 							// selectedItemStyle = {backgroundColor = "blue"}
 							label=""
@@ -163,7 +167,9 @@ export default function NewNewActivityForm(props) {
 				</View>
 				<View style={styles.buttonContainer}>
 					<Pressable onPress={pressConfirm}>
-						<Text style={{ fontWeight: "bold", alignItems: "center" }}>Confirm</Text>
+						<Text style={{ fontWeight: "bold", alignItems: "center" }}>
+							Confirm
+						</Text>
 					</Pressable>
 				</View>
 			</View>
@@ -209,10 +215,10 @@ const styles = StyleSheet.create({
 		// borderColor: "yellow",
 		// backgroundColor: colors.secondary,
 		top: "12%",
-        // bottom: "15%",
+		// bottom: "15%",
 		// height: "40%",
 		width: "100%",
-        // left: "3%",
+		// left: "3%",
 		//flex: 1,
 		flexDirection: "column",
 		// justifyContent: "space-between",
@@ -232,10 +238,10 @@ const styles = StyleSheet.create({
 		// alignSelf: "stretch",
 	},
 	languagesContainer: {
-        backgroundColor: "white",
+		backgroundColor: "white",
 		// left: 10,
-        height: 40,
-        width: "100%",
+		height: 40,
+		width: "100%",
 		bottom: 0,
 		// alignItems: "center",
 		// padding: 10,
@@ -244,7 +250,7 @@ const styles = StyleSheet.create({
 		// alignSelf: "stretch",
 		textAlign: "left",
 		direction: "ltr",
-        height: 35,
+		height: 35,
 		width: "90%",
 		// borderTopStartRadius: 10,
 		// borderTopEndRadius: 10,
@@ -269,7 +275,7 @@ const styles = StyleSheet.create({
 		top: -20,
 		//fontWeight: "bold",
 		fontSize: 18,
-        // left: 10,
+		// left: 10,
 		// justifyContent: 'center',
 		// padding: 40,
 	},
@@ -294,7 +300,7 @@ const styles = StyleSheet.create({
 		// backgroundColor: "rgba(255,255,255,0.9)",
 		// bottom: 20,
 		// top: 20,
-        // justifyContent: "space-between",
+		// justifyContent: "space-between",
 		//marginTop: 50,
 		//margin: -10,
 		// alignContent: "space-between",
@@ -356,8 +362,8 @@ const styles = StyleSheet.create({
 		width: 80,
 		top: 40,
 		borderRadius: 20,
-        // borderWidth: 1,
-        elevation: 3,
+		// borderWidth: 1,
+		elevation: 3,
 		// backgroundColor: colors.primary,
 		// borderBottomLeftRadius: 10,
 		// backgroundColor: "rgb(52, 175, 183)",

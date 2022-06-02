@@ -13,6 +13,7 @@ import {
 import ActivityItem from "../app/components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../app/config/colors";
+import ActivitiesList from "./ActivitiesList.js";
 
 const DATA = [
 	{
@@ -59,7 +60,7 @@ const DATA = [
 	// },
 ];
 
-export default function MyActivities({ navigation }) {
+export default function NewActivitiesScreen({ navigation }) {
 	const [myActivities, setMyActivities] = useState([]);
 	//   const allActivitiesRef = firebase.firestore().collection('allActivities')
 	//   const userID=firebase.auth().currentUser.uid;
@@ -109,13 +110,13 @@ export default function MyActivities({ navigation }) {
 					renderItem={renderItem}
 				/>
 			</View>
-			<Pressable
-				android_ripple={{ color: "white" }}
-				style={[myColors.circularImage, { marginHorizontal: 15 }]}
-				onPress={() => navigation.navigate("ChooseActivityBubbles")}
-			>
-				{/* <Entypo name="plus" size={32} color="black"></Entypo> */}
-			</Pressable>
+			<View>
+				<Pressable
+					android_ripple={{ color: "white" }}
+					style={[myColors.circularImage, { marginHorizontal: 15 }]}
+					onPress={() => navigation.navigate("ChooseActivityBubbles")}
+				></Pressable>
+			</View>
 		</View>
 	);
 }

@@ -2,13 +2,14 @@ import React from "react";
 import { StyleSheet, Pressable, View, Text, Image, Button } from "react-native";
 import colors from "../app/config/colors";
 import OvalSquare from "../app/components/OvalSquare";
-import Activities from "./Activities";
+import ActivitiesList from "./ActivitiesList";
+// import NewBubblesCategories from "./NewBubblesCategories";
 // import SmallCircle from "../components/smallCircle";
 // import BackgroundImage from "../components/BackgroungImage";
 
 export default function NewHomeScreen(props) {
 	const pressNewActivityHandler = () => {
-		props.navigation.navigate("BubblesCategories");
+		props.navigation.navigate("NewBubblesCategories");
 	};
 
 	const viewRecentActivitiesHandler = () => {
@@ -33,7 +34,7 @@ export default function NewHomeScreen(props) {
                 <View style={{ alignSelf: "flex-start", left: 40}}>
                     <Text style={styles.textStyle}>Upcoming activities</Text>
                 </View>
-                <Activities/>
+                <ActivitiesList/>
             </View>
 		</View>
 	);

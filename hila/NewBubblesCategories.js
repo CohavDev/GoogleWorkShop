@@ -59,12 +59,8 @@ export default function NewBubblesCategories(props) {
 				/>
 			}
 		>
-			<View>
-				<ChooseIndoorsActivity />
-			</View>
-			<View>
-				<ChooseOutdoorsActivity />
-			</View>
+			<ChooseIndoorsActivity />
+			<ChooseOutdoorsActivity />
 		</Swiper>
 	);
 }

@@ -26,6 +26,8 @@ import BubblesCategories from "./app/screens/BubblesCategories";
 import ChooseOutdoorsActivity from "./app/screens/ChooseOutdoorsActivity";
 import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
 import NewHomeScreen from "./hila/NewHomeScreen";
+
+import NewActivitiesScreen from "./hila/NewActivitiesScreen";
 import NewNewActivityForm from "./app/screens/NewNewActivityForm";
 import NewBubblesCategories from "./hila/NewBubblesCategories"
 import NewApproveActivity from "./hila/NewApproveActivity"
@@ -105,7 +107,7 @@ export default function App() {
 				<Tab.Screen
 					name="Home"
 					// style={{ color: "black" }}
-					component={NewHomeScreen}
+					component={StackNav}
 					props={user}
 					options={{
 						tabBarOptions: {
@@ -181,7 +183,7 @@ function StackNav(user) {
 	console.log("user in stackNav:", user.showLabel);
 	return (
 		<Stack.Navigator
-			initialRouteName={user ? "MainMenu" : "MainMenu"}
+			initialRouteName={user ? "NewHomeScreen" : "LoginScreen"}
 			screenOptions={{
 				headerShown: false,
 			}}
@@ -191,8 +193,8 @@ function StackNav(user) {
 					component={Tabs}
 					options={{ headerShown: false }}
 				/> */}
-			<Stack.Screen name="MainMenu">
-				{(props) => <MainMenu {...props} extraData={user} />}
+			<Stack.Screen name="NewHomeScreen">
+				{(props) => <NewHomeScreen {...props} extraData={user} />}
 			</Stack.Screen>
 			<Stack.Screen name="LoginScreen" component={LoginScreen} />
 			<Stack.Screen
@@ -217,9 +219,11 @@ function StackNav(user) {
 				component={ChooseIndoorsActivity}
 			/>
 
-			<Stack.Screen name="NewHomeScreen" component={NewHomeScreen} />
+			{/* <Stack.Screen name="NewHomeScreen" component={NewHomeScreen} /> */}
             <Stack.Screen name="NewBubblesCategories" component={NewBubblesCategories} />
             <Stack.Screen name="NewApproveActivity" component={NewApproveActivity} />
+            <Stack.Screen name="NewActivitiesScreen" component={NewActivitiesScreen} />
+            <Stack.Screen name="NewNewActivityForm" component={NewNewActivityForm} />
 		
         </Stack.Navigator>
 	);
