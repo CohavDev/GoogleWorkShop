@@ -14,6 +14,7 @@ import ApprovalItem from "../components/ApprovalItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 import { firebase } from "../firebase/config.js";
+import ActivityDetailsComponent from "../components/ActivityDetailsComponent";
 
 function getLang(languagesObj){
 
