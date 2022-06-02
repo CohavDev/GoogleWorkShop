@@ -43,6 +43,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   console.log("hello app2.js");
+  // Left to right layout force
   I18nManager.forceRTL(false);
   I18nManager.allowRTL(false);
   // the basic code to connect the firebase to the app was taken from: https://www.freecodecamp.org/news/react-native-firebase-tutorial/

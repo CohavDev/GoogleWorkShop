@@ -8,8 +8,6 @@ import { IconButton, Colors } from "react-native-paper";
 
 function ChooseIndoorsActivity(props) {
   const pressActivityHandler = (type, icon) => {
-    console.log("logging navigation from new bubbles: ");
-    console.log(props.navigation);
     props.navigation.navigate("NewNewActivityForm", {
       activityType: type,
       activityIcon: icon,
