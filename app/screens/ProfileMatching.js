@@ -12,6 +12,7 @@ import { firebase } from "../firebase/config.js";
 import myColors from "../config/colors";
 import { Pressable, Vibration } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { IconButton } from "react-native-paper";
 
 export default function ProfileMatching(props) {
   const ONE_SEC_IN_MS = 1000;
@@ -79,7 +80,7 @@ export default function ProfileMatching(props) {
             <AntDesign name="check" size={30} color="white" />
           </Pressable>
           <Text>Match with {otherUserData.fullName}</Text>
-          {status_other ? <Text> He is already In!</Text> : ""}
+          {status_other ? <Text> He is already In!</Text> : <Text></Text>}
         </View>
       );
     }
@@ -96,7 +97,7 @@ export default function ProfileMatching(props) {
       return (
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button} android_ripple={{ color: "white" }}>
-            <AntDesign name="WhatsAppOutlined " size={30} color="white" />
+            <IconButton icon="whatsapp" color="white" size={32} />
           </Pressable>
           <Text>{otherUserData.fullName} is your Travel Partner!</Text>
         </View>

@@ -28,7 +28,7 @@ import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
 import NewHomeScreen from "./hila/NewHomeScreen";
 
 import NewActivitiesScreen from "./hila/NewActivitiesScreen";
-import NewNewActivityForm from "./app/screens/NewNewActivityForm";
+import NewNewActivityForm from "./hila/NewNewActivityForm";
 import NewBubblesCategories from "./hila/NewBubblesCategories";
 import NewApproveActivity from "./hila/NewApproveActivity";
 import Tabs from "./app/navigation/Tabs";
@@ -78,101 +78,101 @@ export default function App() {
   // }, []);
   console.log("newHomeScreen : ");
   console.log(user);
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: "rgb(52, 175, 183)",
-          tabBarInactiveTintColor: "gray",
-          showLabel: false,
-          style: {
-            position: "absolute",
-            bottom: 25,
-            left: 20,
-            right: 20,
-            elevation: 0,
-            // backgroundColor: "red",
-            height: 90,
-          },
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          // style={{ color: "black" }}
-          component={StackNav}
-          props={user}
-          options={{
-            tabBarOptions: {
-              activeTintColor: "rgb(52, 175, 183)",
-              inactiveTintColor: "#fff",
-              // Colors: "red",
-            },
-            tabBarIcon: ({ focused }) => (
-              <IconButton
-                icon="home-outline"
-                // color="#BFD9CD"
-                // color="rgb(52, 175, 183)"
-                // size={12}
-              />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="activities"
-          component={MyActivities}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <IconButton
-                icon="format-list-checkbox"
-                // color="#BFD9CD"
-                color="black"
-                // size={12}
-              />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="profile"
-          component={ProfileMatching}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <IconButton
-                icon="account-outline"
-                // color="#BFD9CD"
-                color="black"
-                // size={12}
-              />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="settings"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <IconButton
-                icon="cog-outline"
-                // color="#BFD9CD"
-                color="black"
-                // size={12}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+  return <NavigationContainer>{InitialNavigation(user)}</NavigationContainer>;
 }
 
-function StackNav(props) {
+function TabsNav(props) {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "rgb(52, 175, 183)",
+        tabBarInactiveTintColor: "gray",
+        showLabel: false,
+        style: {
+          position: "absolute",
+          bottom: 25,
+          left: 20,
+          right: 20,
+          elevation: 0,
+          // backgroundColor: "red",
+          height: 90,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        // style={{ color: "black" }}
+        component={MainNavigation}
+        props={props.user}
+        options={{
+          tabBarOptions: {
+            activeTintColor: "rgb(52, 175, 183)",
+            inactiveTintColor: "#fff",
+            // Colors: "red",
+          },
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="home-outline"
+              // color="#BFD9CD"
+              // color="rgb(52, 175, 183)"
+              // size={12}
+            />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="activities"
+        component={MyActivities}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="format-list-checkbox"
+              // color="#BFD9CD"
+              color="black"
+              // size={12}
+            />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="profile"
+        component={ProfileMatching}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="account-outline"
+              // color="#BFD9CD"
+              color="black"
+              // size={12}
+            />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="settings"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="cog-outline"
+              // color="#BFD9CD"
+              color="black"
+              // size={12}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+function MainNavigation(props) {
   // const StackNav = () => {
   return (
     <Stack.Navigator
-      initialRouteName={props.user ? "NewHomeScreen" : "LoginScreen"}
       screenOptions={{
         headerShown: false,
       }}
@@ -182,18 +182,18 @@ function StackNav(props) {
 					component={Tabs}
 					options={{ headerShown: false }}
 				/> */}
-      <Stack.Screen name="NewHomeScreen">
-        {(props) => <NewHomeScreen {...props} extraData={user} />}
+      <Stack.Screen name="MainMenu">
+        {(props) => <NewHomeScreen {...props} extraData={props.user} />}
       </Stack.Screen>
-      <Stack.Screen name="LoginScreen" component={LoginScreen} />
-      <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
+      {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
+      {/* <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} /> */}
       <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
       <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
 
-      <Stack.Screen name="BubblesCategories" component={BubblesCategories} />
+      {/* <Stack.Screen name="BubblesCategories" component={BubblesCategories} /> */}
       <Stack.Screen name="MyActivities" component={MyActivities} />
-      <Stack.Screen name="NewActivityForm" component={NewActivityForm} />
-      <Stack.Screen name="ApproveActivity" component={ApproveActivity} />
+      {/* <Stack.Screen name="NewActivityForm" component={NewActivityForm} /> */}
+      {/* <Stack.Screen name="NewApproveActivity" component={NewApproveActivity} /> */}
       <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
       <Stack.Screen name="ProfileMatching" component={ProfileMatching} />
       <Stack.Screen
@@ -219,7 +219,20 @@ function StackNav(props) {
     </Stack.Navigator>
   );
 }
-
+function InitialNavigation(user) {
+  return (
+    <Stack.Navigator
+      initialRouteName={user ? "Tabs" : "LoginScreen"}
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
+      <Stack.Screen name="Tabs" component={TabsNav} props={user} />
+    </Stack.Navigator>
+  );
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
