@@ -109,7 +109,6 @@ export default function ApproveActivity(props) {
 			<View style={styles.header}>
 				<Text style={styles.title}>Approve Activity</Text>
 			</View>
-
 			<ScrollView>
 				<View style={[styles.container, { paddingHorizontal: 15 }]}>
 					<ApprovalItem

@@ -136,7 +136,7 @@ export default function NewActivityForm(props) {
 	const pressConfirm = () => {
         // console.log(SelectMultiLanguages.selectedItems)
 		console.log(JSON.stringify(selectedLanguages, ['item']))
-		props.navigation.navigate("ApproveActivity", {
+		props.navigation.navigate("NewApproveActivity", {
 			// type: props.navigation.getParam("activityType"),
 			type: props.route.params.activityType,
 			// icon: props.navigation.getParam("activityIcon"),
@@ -217,7 +217,7 @@ export default function NewActivityForm(props) {
 					</View>
 				</View>
 
-				<View 
+				<View style={{left: 20, width:"50%"}}
                 // style={[styles.ovalShape, { paddingBottom: 15 }]}
                 >
 					{/* <Text style={styles.subtitle}>Languages Preferences</Text>

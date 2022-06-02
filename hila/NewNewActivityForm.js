@@ -9,14 +9,14 @@ import {
 } from "react-native";
 import React, { useState, Component } from "react";
 import { Picker } from "@react-native-picker/picker";
-import colors from "../config/colors";
+import colors from "../app/config/colors";
 // import MultiSelect from "react-native-multiple-select";
 import SelectMultiple from "react-native-select-multiple";
 
 import SelectBox from "react-native-multi-selectbox";
 import { xorBy } from "lodash";
 import style from "react-native-datepicker/style";
-import SelectMultiLanguages from "../../hila/SelectMultiLanguages";
+import SelectMultiLanguages from "./SelectMultiLanguages";
 
 const LANGUAGES = [
 	{
