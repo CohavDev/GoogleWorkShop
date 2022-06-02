@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MainMenu from "C:/Users/hilai/OneDrive/מסמכים/GitHub/GoogleWorkShop/app/screens/MainMenu.js";
-import ProfileMatching from "C:/Users/hilai/OneDrive/מסמכים/GitHub/GoogleWorkShop/app/screens/ProfileMatching";
-import MyActivities from "C:/Users/hilai/OneDrive/מסמכים/GitHub/GoogleWorkShop/app/screens/MyActivities";
-import LoginScreen from "C:/Users/hilai/OneDrive/מסמכים/GitHub/GoogleWorkShop/app/firescreens/LoginScreen/LoginScreen";
+import MainMenu from "../screens/MainMenu";
+import ProfileMatching from "../screens/ProfileMatching";
+import MyActivities from "../screens/MyActivities";
+import LoginScreen from "../firescreens/LoginScreen/LoginScreen";
 
 import { View, Text } from "react-native";
 import { IconButton, Colors } from "react-native-paper";
@@ -12,96 +12,96 @@ import { HomeScreen } from "../firescreens";
 
 const Tab = createBottomTabNavigator();
 function Tabs(props) {
-	console.log("reached here");
-	return (
-		// <View>
-		//     <Text>
-		//         hello
-		//     </Text>
-		// </View>
-		<Tab.Navigator
-			tabBarOptions={{
-				showLabel: false,
-				style: {
-					position: "absolute",
-					bottom: 25,
-					left: 20,
-					right: 20,
-					elevation: 0,
-					backgroundColor: "red",
-					height: 90,
-				},
-			}}
-		>
-			<Tab.Screen
-				name="Home"
-				component={HomeScreen}
-				options={{
-					tabBarIcon: ({ focused }) => (
-						<IconButton
-							icon="home-outline"
-							// color="#BFD9CD"
-							color="black"
-							// size={12}
-						/>
-					),
-				}}
-			/>
-            <Tab.Screen
-				name="profile"
-				component={ProfileMatching}
-				options={{
-					tabBarIcon: ({ focused }) => (
-						<IconButton
-							icon="account-circle-outline"
-							// color="#BFD9CD"
-							color="black"
-							// size={12}
-						/>
-					),
-				}}
-			/>
-            <Tab.Screen
-				name="activities"
-				component={MyActivities}
-				options={{
-					tabBarIcon: ({ focused }) => (
-						<IconButton
-							icon="format-list-checkbox"
-							// color="#BFD9CD"
-							color="black"
-							// size={12}
-						/>
-					),
-				}}
-			/>
-             <Tab.Screen
-				name="notifications"
-				component={HomeScreen}
-				options={{
-					tabBarIcon: ({ focused }) => (
-						<IconButton
-							icon="bell-outline"
-							// color="#BFD9CD"
-							color="black"
-							// size={12}
-						/>
-					),
-				}}
-			/>
-		</Tab.Navigator>
-	);
+  console.log("reached here");
+  return (
+    // <View>
+    //     <Text>
+    //         hello
+    //     </Text>
+    // </View>
+    <Tab.Navigator
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          position: "absolute",
+          bottom: 25,
+          left: 20,
+          right: 20,
+          elevation: 0,
+          backgroundColor: "red",
+          height: 90,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="home-outline"
+              // color="#BFD9CD"
+              color="black"
+              // size={12}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="profile"
+        component={ProfileMatching}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="account-circle-outline"
+              // color="#BFD9CD"
+              color="black"
+              // size={12}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="activities"
+        component={MyActivities}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="format-list-checkbox"
+              // color="#BFD9CD"
+              color="black"
+              // size={12}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="notifications"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="bell-outline"
+              // color="#BFD9CD"
+              color="black"
+              // size={12}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
 }
 
 const styles = StyleSheet.create({
-	tabBar: {
-		position: "absolute",
-		bottom: 25,
-		left: 20,
-		right: 20,
-		elevation: 0,
-		backgroundColor: "red",
-	},
+  tabBar: {
+    position: "absolute",
+    bottom: 25,
+    left: 20,
+    right: 20,
+    elevation: 0,
+    backgroundColor: "red",
+  },
 });
 
 export default Tabs;

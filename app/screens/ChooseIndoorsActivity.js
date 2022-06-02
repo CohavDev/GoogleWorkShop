@@ -8,6 +8,8 @@ import { IconButton, Colors } from "react-native-paper";
 
 function ChooseIndoorsActivity(props) {
   const pressActivityHandler = (type, icon) => {
+    console.log("logging navigation from new bubbles: ");
+    console.log(props.navigation);
     props.navigation.navigate("NewNewActivityForm", {
       activityType: type,
       activityIcon: icon,
@@ -98,30 +100,30 @@ function ChooseIndoorsActivity(props) {
 }
 
 const styles = StyleSheet.create({
-	backgroundImage: {
-		width: "100%",
-		height: "100%",
-		resizeMode: "cover",
-		opacity: 0.9,
-	},
-	viewTitleText: {
-		flex: 1,
-		// textAlign: "center",
-		position: "absolute",
-		// justifyContent: "center",
-		// alignItems: "center",
-		left: 10,
-		right: 10,
-	},
+  backgroundImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    opacity: 0.9,
+  },
+  viewTitleText: {
+    flex: 1,
+    // textAlign: "center",
+    position: "absolute",
+    // justifyContent: "center",
+    // alignItems: "center",
+    left: 10,
+    right: 10,
+  },
 
-	titleText: {
-		color: "black",
-		fontSize: 20,
-		// fontWeight: "bold",
-		top: 60,
-		alignSelf: "center",
-		justifyContent: "space-evenly",
-	},
+  titleText: {
+    color: "black",
+    fontSize: 20,
+    // fontWeight: "bold",
+    top: 60,
+    alignSelf: "center",
+    justifyContent: "space-evenly",
+  },
 
   pressableText: {
     color: "white",

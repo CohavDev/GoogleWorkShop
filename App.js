@@ -29,6 +29,7 @@ import LandPage from "./app/screens/LandPage";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+  console.log("app.js hello");
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   // the basic code to connect the firebase to the app was taken from: https://www.freecodecamp.org/news/react-native-firebase-tutorial/
