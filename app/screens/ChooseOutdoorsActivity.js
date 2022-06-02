@@ -8,7 +8,7 @@ import { IconButton, Colors } from "react-native-paper";
 
 function ChooseOutdoorsActivity(props) {
   const pressActivityHandler = (type, icon) => {
-    props.navigation.navigate("NewActivityForm", {
+    props.navigation.navigate("NewNewActivityForm", {
       activityType: type,
       activityIcon: icon,
     });
