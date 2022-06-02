@@ -13,6 +13,7 @@ import myColors from "../config/colors";
 import { Pressable, Vibration } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { IconButton } from "react-native-paper";
+import * as Linking from "expo-linking";
 
 export default function ProfileMatching(props) {
   const ONE_SEC_IN_MS = 1000;
@@ -53,6 +54,11 @@ export default function ProfileMatching(props) {
   };
   const userID = firebase.auth().currentUser.uid;
   const allActivitiesRef = firebase.firestore().collection("allActivities");
+  const openWhatsapp = () => {
+    // open whatsapp chat with partner, if supported
+    // alert("hey");
+    Linking.openURL("https://wa.me/" + otherUserData.phoneNumber);
+  };
   const renderButton = () => {
     // render 'match with' text / 'pending' text / whatsapp icon according to matchedActivityStatus
     matched_status = activityData.matchedActivityStatus;
@@ -96,7 +102,11 @@ export default function ProfileMatching(props) {
       // status_both == 1
       return (
         <View style={styles.buttonContainer}>
-          <Pressable style={styles.button} android_ripple={{ color: "white" }}>
+          <Pressable
+            style={styles.button}
+            android_ripple={{ color: "white" }}
+            onPress={openWhatsapp}
+          >
             <IconButton icon="whatsapp" color="white" size={32} />
           </Pressable>
           <Text>{otherUserData.fullName} is your Travel Partner!</Text>
