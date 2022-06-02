@@ -76,21 +76,11 @@ export default function App() {
   //     }
   //   });
   // }, []);
+  console.log("newHomeScreen : ");
   console.log(user);
-
   return (
-    // <View>
-    //     <Text>
-    //         hello
-    //     </Text>
-    // </View>
     <NavigationContainer>
       <Tab.Navigator
-        // initialRouteName={user ? "MainMenu" : "LoginScreen" }
-        // screenOptions={{
-        // 	headerShown: false,
-        // }}
-
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: "rgb(52, 175, 183)",
@@ -175,18 +165,14 @@ export default function App() {
         />
       </Tab.Navigator>
     </NavigationContainer>
-    // <NavigationContainer>
-    //     <StackNav props={user}/>
-    // </NavigationContainer>
   );
 }
 
-function StackNav(user) {
+function StackNav(props) {
   // const StackNav = () => {
-  console.log("user in stackNav:", user.showLabel);
   return (
     <Stack.Navigator
-      initialRouteName={user ? "NewHomeScreen" : "LoginScreen"}
+      initialRouteName={props.user ? "NewHomeScreen" : "LoginScreen"}
       screenOptions={{
         headerShown: false,
       }}
