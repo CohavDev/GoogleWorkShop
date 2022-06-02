@@ -19,16 +19,16 @@ function ChooseOutdoorsActivity(props) {
         {/* <BackgroundImage /> */}
 
         <View style={styles.leftBackground}>
-          <Pressable
-            onPress={() => pressActivityHandler("Beach", "beach")}
-          >
+          <Pressable onPress={() => pressActivityHandler("Beach", "beach")}>
             <Circle
               style={styles.circleButtonTop}
               text="Beach"
               iconName="beach"
             ></Circle>
           </Pressable>
-          <Pressable onPress={() => pressActivityHandler("Backpacking", "hiking")}>
+          <Pressable
+            onPress={() => pressActivityHandler("Backpacking", "hiking")}
+          >
             <Circle
               style={styles.circleButtonMiddle}
               text="Backpacking"
@@ -46,8 +46,7 @@ function ChooseOutdoorsActivity(props) {
             >
             </Circle>
           </Pressable> */}
-              {/* // iconName="noodles"> */}
-
+          {/* // iconName="noodles"> */}
         </View>
 
         <View style={styles.rightBackground}>
@@ -70,9 +69,7 @@ function ChooseOutdoorsActivity(props) {
             ></Circle>
           </Pressable>
           <Pressable
-            onPress={() =>
-              pressActivityHandler("Extreme", "airballoon")
-            }
+            onPress={() => pressActivityHandler("Extreme", "airballoon")}
           >
             <Circle
               text="Extreme"
@@ -143,7 +140,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     position: "absolute",
   },
-  
 });
 
 export default ChooseOutdoorsActivity;

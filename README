@@ -22,8 +22,14 @@ installed for NewActivity time picking:
 - npm audit fix --force
 
 installed for icons:
+
 - npm install react-native-paper
 
 installed for multiple select: (16/05)
+
 - npm install react-native-multiple-select
 - npm install react-native-select-multiple
+
+for openning whatsapp app:
+
+- expo install expo-linking
