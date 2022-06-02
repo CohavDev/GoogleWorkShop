@@ -46,241 +46,103 @@ export default function ProfileMatching(props) {
     age: params.age,
     phoneNumber: params.phoneNumber,
     nationality: params.nationality,
-
   };
   const thisUserData = {
     activityDocID: params.myActivityDocID,
   };
   const userID = firebase.auth().currentUser.uid;
   const allActivitiesRef = firebase.firestore().collection("allActivities");
-  if(activityData.matchedActivityStatus.localeCompare("accepted by both")==0){
-    // edit it to look like we want
-    return (
-      <View style={styles.container}>
-        {/* style={styles.profilePicContainer} */}
-        {/* <View> */}
-        <LinearGradient
-          // Background Linear Gradient
-          colors={[myColors.primary, myColors.secondary]}
-          locations={[0.05, 0.9]}
-          style={styles.profilePicContainer}
-        >
-          <Image
-            source={{ uri: otherUserData.profilePic }}
-            style={styles.profilePic}
-          ></Image>
-          <Text style={styles.title}>{otherUserData.fullName}</Text>
-          <Text style={styles.smallTitle}>
-            {otherUserData.nationality + " , " + otherUserData.age}
-          </Text>
-        </LinearGradient>
-        {/* </View> */}
-  
-        <Text style={styles.subTitle}>About me</Text>
-        <Text style={styles.subText}>
-          {otherUserData.aboutMe}
-        </Text>
-        <Text style={styles.subTitle}>I'm From</Text>
-        <Text style={styles.subText}>{otherUserData.nationality}</Text>
-        <View style={[styles.interstContainer, styles.shadowProp]}>
-          <Text style={[styles.subTitle, { color: "white" }]}>
-            What I'm looking for
-          </Text>
-          <Text style={[styles.subText, { color: "white" }]}>
-            {activityData.type +
-              " on " +
-              activityData.startDate +
-              " at " +
-              activityData.location}
-          </Text>
-        </View>
-      </View>
-    );
-  }
-  else if(activityData.matchedActivityStatus.localeCompare("accepted only by me")==0){
-    return (
-      <View style={styles.container}>
-        {/* style={styles.profilePicContainer} */}
-        {/* <View> */}
-        <LinearGradient
-          // Background Linear Gradient
-          colors={[myColors.primary, myColors.secondary]}
-          locations={[0.05, 0.9]}
-          style={styles.profilePicContainer}
-        >
-          <Image
-            source={{ uri: otherUserData.profilePic }}
-            style={styles.profilePic}
-          ></Image>
-          <Text style={styles.title}>{otherUserData.fullName}</Text>
-          <Text style={styles.smallTitle}>
-            {otherUserData.nationality + " , " + otherUserData.age}
-          </Text>
-        </LinearGradient>
-        {/* </View> */}
-  
-        <Text style={styles.subTitle}>About me</Text>
-        <Text style={styles.subText}>
-          {otherUserData.aboutMe}
-        </Text>
-        <Text style={styles.subTitle}>I'm From</Text>
-        <Text style={styles.subText}>{otherUserData.nationality}</Text>
-        <View style={[styles.interstContainer, styles.shadowProp]}>
-          <Text style={[styles.subTitle, { color: "white" }]}>
-            What I'm looking for
-          </Text>
-          <Text style={[styles.subText, { color: "white" }]}>
-            {activityData.type +
-              " on " +
-              activityData.startDate +
-              " at " +
-              activityData.location}
-          </Text>
-        </View>
-      </View>
-    );
-  }
-  else if(activityData.matchedActivityStatus.localeCompare("accepted only by other user")==0){
-    return (
-      <View style={styles.container}>
-        {/* style={styles.profilePicContainer} */}
-        {/* <View> */}
-        <LinearGradient
-          // Background Linear Gradient
-          colors={[myColors.primary, myColors.secondary]}
-          locations={[0.05, 0.9]}
-          style={styles.profilePicContainer}
-        >
-          <Image
-            source={{ uri: otherUserData.profilePic }}
-            style={styles.profilePic}
-          ></Image>
-          <Text style={styles.title}>{otherUserData.fullName}</Text>
-          <Text style={styles.smallTitle}>
-            {otherUserData.nationality + " , " + otherUserData.age}
-          </Text>
-        </LinearGradient>
-        {/* </View> */}
-  
-        <Text style={styles.subTitle}>About me</Text>
-        <Text style={styles.subText}>
-          {otherUserData.aboutMe}
-        </Text>
-        <Text style={styles.subTitle}>I'm From</Text>
-        <Text style={styles.subText}>{otherUserData.nationality}</Text>
-        <View style={[styles.interstContainer, styles.shadowProp]}>
-          <Text style={[styles.subTitle, { color: "white" }]}>
-            What I'm looking for
-          </Text>
-          <Text style={[styles.subText, { color: "white" }]}>
-            {activityData.type +
-              " on " +
-              activityData.startDate +
-              " at " +
-              activityData.location}
-          </Text>
-        </View>
-  
+  const renderButton = () => {
+    // render 'match with' text / 'pending' text / whatsapp icon according to matchedActivityStatus
+    matched_status = activityData.matchedActivityStatus;
+    status_both = matched_status.localeCompare("accepted by both") == 0;
+    status_other =
+      matched_status.localeCompare("accepted only by other user") == 0;
+    status_only_me = matched_status.localeCompare("accepted only by me") == 0;
+    status_none = matched_status.localeCompare("accepted by non of us") == 0;
+    if (status_none || status_other) {
+      return (
         <View style={styles.buttonContainer}>
           <Pressable
             style={styles.button}
             onLongPress={() => alert("clicked 'match'!")}
             android_ripple={{ color: "white" }}
             onPressIn={() => {
-              Vibration.vibrate(PATTERN)
-              console.log("pressed")
+              Vibration.vibrate(PATTERN);
+              console.log("pressed");
               allActivitiesRef.doc(otherUserData.activityDocID).update({
-                travelPartnersIDs: userID
-              })
-              allActivitiesRef.doc(otherUserData.activityDocID).update({
-                matchedActivityID: thisUserData.activityDocID
-              })
-              allActivitiesRef.doc(otherUserData.activityDocID).update({
-                status: "paired"
-              })
-              
-              allActivitiesRef.doc(thisUserData.activityDocID).update({
-                travelPartnersIDs: otherUserData.userID
-              })
-              allActivitiesRef.doc(thisUserData.activityDocID).update({
-                matchedActivityID: otherUserData.activityDocID
-              })
-              allActivitiesRef.doc(thisUserData.activityDocID).update({
-                status: "paired"
-              })
-            }
-          }
+                travelPartnersIDs:
+                  firebase.firestore.FieldValue.arrayUnion(userID),
+              });
+            }}
           >
             <AntDesign name="check" size={30} color="white" />
           </Pressable>
           <Text>Match with {otherUserData.fullName}</Text>
+          {status_other ? <Text> He is already In!</Text> : ""}
         </View>
-      </View>
-    );
-  }
-  else{
-    return (
-      <View style={styles.container}>
-        {/* style={styles.profilePicContainer} */}
-        {/* <View> */}
-        <LinearGradient
-          // Background Linear Gradient
-          colors={[myColors.primary, myColors.secondary]}
-          locations={[0.05, 0.9]}
-          style={styles.profilePicContainer}
-        >
-          <Image
-            source={{ uri: otherUserData.profilePic }}
-            style={styles.profilePic}
-          ></Image>
-          <Text style={styles.title}>{otherUserData.fullName}</Text>
-          <Text style={styles.smallTitle}>
-            {otherUserData.nationality + " , " + otherUserData.age}
-          </Text>
-        </LinearGradient>
-        {/* </View> */}
-  
-        <Text style={styles.subTitle}>About me</Text>
-        <Text style={styles.subText}>
-          {otherUserData.aboutMe}
-        </Text>
-        <Text style={styles.subTitle}>I'm From</Text>
-        <Text style={styles.subText}>{otherUserData.nationality}</Text>
-        <View style={[styles.interstContainer, styles.shadowProp]}>
-          <Text style={[styles.subTitle, { color: "white" }]}>
-            What I'm looking for
-          </Text>
-          <Text style={[styles.subText, { color: "white" }]}>
-            {activityData.type +
-              " on " +
-              activityData.startDate +
-              " at " +
-              activityData.location}
-          </Text>
-        </View>
-  
+      );
+    }
+    if (status_only_me) {
+      return (
         <View style={styles.buttonContainer}>
-          <Pressable
-            style={styles.button}
-            onLongPress={() => alert("clicked 'match'!")}
-            android_ripple={{ color: "white" }}
-            onPressIn={() => {
-              Vibration.vibrate(PATTERN)
-              console.log("pressed")
-              allActivitiesRef.doc(otherUserData.activityDocID).update({
-                travelPartnersIDs: firebase.firestore.FieldValue.arrayUnion(userID)
-              })
-            }
-          }
-          >
-            <AntDesign name="check" size={30} color="white" />
+          <Pressable style={styles.button} android_ripple={{ color: "white" }}>
+            <Text>Already Requested</Text>
           </Pressable>
-          <Text>Match with {otherUserData.fullName}</Text>
         </View>
+      );
+    } else {
+      // status_both == 1
+      return (
+        <View style={styles.buttonContainer}>
+          <Pressable style={styles.button} android_ripple={{ color: "white" }}>
+            <AntDesign name="WhatsAppOutlined " size={30} color="white" />
+          </Pressable>
+          <Text>{otherUserData.fullName} is your Travel Partner!</Text>
+        </View>
+      );
+    }
+  };
+  return (
+    <View style={styles.container}>
+      {/* style={styles.profilePicContainer} */}
+      {/* <View> */}
+      <LinearGradient
+        // Background Linear Gradient
+        colors={[myColors.primary, myColors.secondary]}
+        locations={[0.05, 0.9]}
+        style={styles.profilePicContainer}
+      >
+        <Image
+          source={{ uri: otherUserData.profilePic }}
+          style={styles.profilePic}
+        ></Image>
+        <Text style={styles.title}>{otherUserData.fullName}</Text>
+        <Text style={styles.smallTitle}>
+          {otherUserData.nationality + " , " + otherUserData.age}
+        </Text>
+      </LinearGradient>
+      {/* </View> */}
+
+      <Text style={styles.subTitle}>About me</Text>
+      <Text style={styles.subText}>{otherUserData.aboutMe}</Text>
+      <Text style={styles.subTitle}>I'm From</Text>
+      <Text style={styles.subText}>{otherUserData.nationality}</Text>
+      <View style={[styles.interstContainer, styles.shadowProp]}>
+        <Text style={[styles.subTitle, { color: "white" }]}>
+          What I'm looking for
+        </Text>
+        <Text style={[styles.subText, { color: "white" }]}>
+          {activityData.type +
+            " on " +
+            activityData.startDate +
+            " at " +
+            activityData.location}
+        </Text>
       </View>
-    );
-  }
-  
+      {renderButton()}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
