@@ -90,7 +90,7 @@ function ChooseIndoorsActivity(props) {
       </View>
       <View style={styles.viewTitleText}>
         {/* <Text style={styles.titleText}>What activity are you looking for?</Text> */}
-        <Text style={styles.titleText}>Choose an indoor activity</Text>
+        <Text style={styles.titleText}>Choose your activity</Text>
         {/* <Text style={styles.titleText}>are looking for</Text> */}
       </View>
     </View>

@@ -28,7 +28,7 @@ import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
 import NewHomeScreen from "./hila/NewHomeScreen";
 
 import NewActivitiesScreen from "./hila/NewActivitiesScreen";
-import NewNewActivityForm from "./hila/NewActivitiesScreen";
+import NewNewActivityForm from "./app/screens/NewNewActivityForm";
 import NewBubblesCategories from "./hila/NewBubblesCategories";
 import NewApproveActivity from "./hila/NewApproveActivity";
 import Tabs from "./app/navigation/Tabs";
