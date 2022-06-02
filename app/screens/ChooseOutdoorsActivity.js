@@ -16,7 +16,7 @@ function ChooseOutdoorsActivity(props) {
   return (
     <View>
       <View style={styles.mainBackground}>
-        <BackgroundImage />
+        {/* <BackgroundImage /> */}
 
         <View style={styles.leftBackground}>
           <Pressable
@@ -84,7 +84,7 @@ function ChooseOutdoorsActivity(props) {
       </View>
       <View style={styles.viewTitleText}>
         {/* <Text style={styles.titleText}>What activity are you looking for?</Text> */}
-        <Text style={styles.titleText}>Choose an outdoor activity</Text>
+        <Text style={styles.titleText}>Choose your activity</Text>
         {/* <Text style={styles.titleText}>are looking for</Text> */}
       </View>
     </View>
@@ -131,13 +131,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-evenly",
     position: "absolute",
-    height: "80%",
-    top: "20%",
+    height: "50%",
+    top: "21%",
     left: "12%",
   },
   rightBackground: {
-    height: "80%",
-    top: "20%",
+    height: "50%",
+    top: "21%",
     right: "12%",
     flexDirection: "column",
     justifyContent: "space-evenly",

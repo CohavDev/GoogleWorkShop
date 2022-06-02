@@ -11,18 +11,18 @@ import React, { useState, Component } from "react";
 import { Picker } from "@react-native-picker/picker";
 import colors from "../config/colors";
 // import MultiSelect from "react-native-multiple-select";
-import SelectMultiple from 'react-native-select-multiple'
+import SelectMultiple from "react-native-select-multiple";
 
-import SelectBox from 'react-native-multi-selectbox'
-import { xorBy } from 'lodash'
+import SelectBox from "react-native-multi-selectbox";
+import { xorBy } from "lodash";
 import style from "react-native-datepicker/style";
 import SelectMultiLanguages from "../../hila/SelectMultiLanguages";
 
 const LANGUAGES = [
-	{ 
-        id: "1", 
-        item: "Hebrew" 
-    },
+	{
+		id: "1",
+		item: "Hebrew",
+	},
 	{
 		id: "2",
 		item: "English",
@@ -69,11 +69,11 @@ const LANGUAGES = [
 //             />
 //       </View>
 //     )
-  
+
 //     function onMultiChange() {
 //       return (item) => setSelectedTeams(xorBy(selectedTeams, [item], 'id'))
 //     }
-  
+
 //     // function onChange() {
 //     //   return (val) => setSelectedTeam(val)
 //     // }
@@ -84,12 +84,12 @@ const LANGUAGES = [
 
 // class SelectMultiLanguages extends Component {
 //     state = STATE
-  
+
 //     onconstctionsChange = (selectedLanguages) => {
 //       // selectedFruits is array of { label, value }
 //       this.setState({ selectedLanguages })
 //     }
-  
+
 //     render () {
 //       return (
 //         <View>
@@ -109,14 +109,14 @@ export default function NewActivityForm(props) {
 	const [location, setLocation] = useState("UnKnown");
 	const [languages, setLanguages] = useState([]);
 	// const [selectedTeam, setSelectedTeam] = useState({})
-    const [selectedLanguages, setSelectedLanguages] = useState([])
-    // state = { selectedLanguages: [] }
-    const selectedItems = [];
-    const [langList, setLangList] = useState([])
-    // onSelectionsChange = (selectedLanguages) => {
-    //     // selectedFruits is array of { label, value }
-    //     this.setState({ selectedLanguages })
-    // }
+	const [selectedLanguages, setSelectedLanguages] = useState([]);
+	// state = { selectedLanguages: [] }
+	const selectedItems = [];
+	const [langList, setLangList] = useState([]);
+	// onSelectionsChange = (selectedLanguages) => {
+	//     // selectedFruits is array of { label, value }
+	//     this.setState({ selectedLanguages })
+	// }
 
     function addLanguage() {
         // console.log(LANGUAGES[1].item);
@@ -145,9 +145,10 @@ export default function NewActivityForm(props) {
 			startDate: startDate,
 			endDate: endDate,
 			time: activityTime,
-			languages: JSON.stringify(selectedLanguages, ['item']),
-            // languages: selectedLanguages
-            // languages: selectedLanguages,
+			languages: JSON.stringify(selectedLanguages, ["item"]),
+
+			// languages: selectedLanguages
+			// languages: selectedLanguages,
 
 			// please make sure that the language feild is returned as an array
 			// for example, if the user wants to hang out with people that speak
@@ -162,7 +163,6 @@ export default function NewActivityForm(props) {
 				<Text style={styles.header}>Set your Activity</Text>
 			</View>
 			<View style={styles.ovalsContainer}>
-                
 				<View style={styles.ovalShape}>
 					<Text style={styles.subtitle}>Enter your destination</Text>
 					<View style={styles.box}>
@@ -217,7 +217,9 @@ export default function NewActivityForm(props) {
 					</View>
 				</View>
 
-				<View style={[styles.ovalShape, {paddingBottom: 15}]}>
+				<View 
+                // style={[styles.ovalShape, { paddingBottom: 15 }]}
+                >
 					{/* <Text style={styles.subtitle}>Languages Preferences</Text>
 					<View style={styles.box}>
 						<Picker
@@ -231,58 +233,59 @@ export default function NewActivityForm(props) {
 							<Picker.Item label="Any Language" value="Any" />
 						</Picker>
 					</View> */}
-                    {/* <View 
+					{/* <View 
                         style = {{
                                     flex: 1,
                                     backgroundColor: 'white',
                                     padding: 10,
                                 }}
                                 > */}
-                        {/* <View style={{height: 90, width: "60%", marginLeft: "20%"}} > */}
-                        {/* <View style = {[styles.ovalShape, {top: 10}]} > */}
-                            {/* <View style={{ width: '100%', alignItems: 'center' }}>
+					{/* <View style={{height: 90, width: "60%", marginLeft: "20%"}} > */}
+					{/* <View style = {[styles.ovalShape, {top: 10}]} > */}
+					{/* <View style={{ width: '100%', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 20, paddingBottom: 20 }}>Demos</Text>
                             </View> */}
-                            {/* <Text style={{ fontSize: 20, paddingBottom: 10 }}>Select Demo</Text> */}
-                            {/* <View style={{width: 30}} /> */}
-                                {/* <Text style={{ fontSize: 20, paddingBottom: 10 }}>MultiSelect Demo</Text> */}
-                             {/* <View style={{width:"100%", marginLeft: "20%",}}>   */}
+					{/* <Text style={{ fontSize: 20, paddingBottom: 10 }}>Select Demo</Text> */}
+					{/* <View style={{width: 30}} /> */}
+					{/* <Text style={{ fontSize: 20, paddingBottom: 10 }}>MultiSelect Demo</Text> */}
+					{/* <View style={{width:"100%", marginLeft: "20%",}}>   */}
 
-                        {/* <View style={styles.ovalShape}> */}
-                        <Text style={styles.subtitle}>Select Languages</Text>
-                        <SelectBox 
-                            // style={styles.box}
-                            // selectedItemStyle = {backgroundColor = "blue"}
-                            label=""
-                            options={LANGUAGES}
-                            selectedValues={selectedLanguages}
-                            onMultiSelect={addLanguage()}
-                            onTapClose={addLanguage()}
-                            isMulti
-                            arrowIconColor = "black"
-                            searchIconColor = "black"
-                            toggleIconColor = "black"
-                            width = "70%"
-                            // height = "80%"
-                        />
-                                {/* <SelectMultiple
+					{/* <View style={styles.ovalShape}> */}
+					<Text style={styles.subtitle}>Select Languages</Text>
+					<SelectBox
+						// style={styles.box}
+						// selectedItemStyle = {backgroundColor = "blue"}
+						// label="Add"
+                        // inputPlaceholder = "Add"
+						options={LANGUAGES}
+						selectedValues={selectedLanguages}
+						onMultiSelect={addLanguage()}
+						onTapClose={addLanguage()}
+						isMulti
+						arrowIconColor="black"
+						searchIconColor="black"
+						toggleIconColor="black"
+						// width="70%"
+						// height = "80%"
+					/>
+					{/* <SelectMultiple
                                     items={LANGUAGES}
                                     selectedItems={this.state.selectedLanguages}
                                     onSelectionsChange={this.onSelectionsChange} /> */}
 
-                                    {/* <SelectMultiLanguages lang={langList} changeLang={setLangList}/> */}
-                                        
-                                    {/* </SelectMultiLanguages>  */}
-                                    {/* selectedLanguages={LANGUAGES} */}
-                        {/* </View> */}
-                                            
-                    {/* </View> */}
+					{/* <SelectMultiLanguages lang={langList} changeLang={setLangList}/> */}
+
+					{/* </SelectMultiLanguages>  */}
+					{/* selectedLanguages={LANGUAGES} */}
+					{/* </View> */}
+
+					{/* </View> */}
 				</View>
-                <View style={styles.buttonContainer}>
-                    <Pressable onPress={pressConfirm} >
-                        <Text style={{ fontWeight: "bold" }}>Confirm</Text>
-                    </Pressable>
-                </View>
+				<View style={styles.buttonContainer}>
+					<Pressable onPress={pressConfirm}>
+						<Text style={{ fontWeight: "bold" }}>Confirm</Text>
+					</Pressable>
+				</View>
 
 				{/* <View
 				//  style={{
@@ -290,35 +293,33 @@ export default function NewActivityForm(props) {
 				//    //height: '100%',
 				//    color: 'white',}}
 				> */}
-					{/* <Pressable onPress={pressConfirm} style={styles.buttonContainer}>
+				{/* <Pressable onPress={pressConfirm} style={styles.buttonContainer}>
 						<Text style={{ fontWeight: "bold" }}>Confirm</Text>
 					</Pressable> */}
 				{/* </View> */}
-                
 			</View>
 		</View>
 	);
 }
 
-
 const styles = StyleSheet.create({
 	ovalsContainer: {
-        // borderWidth: 1,
-        // borderColor: "blue",
+		// borderWidth: 1,
+		// borderColor: "blue",
 		backgroundColor: "rgba(255,255,255,0.8)",
 		height: "90%",
 		width: "100%",
 		flexDirection: "column",
 		justifyContent: "center",
 		alignItems: "center",
-        paddingBottom: 30,
+		paddingBottom: 30,
 		// alignContent: "space-between",
 		//paddingRight: 20,
 		//paddingTop: 50,
 		//top: 0,
-        // bottom: 50,
-        marginBottom: 0,
-        // 
+		// bottom: 50,
+		marginBottom: 0,
+		//
 	},
 	headerContainer: {
 		width: "100%",
@@ -333,10 +334,10 @@ const styles = StyleSheet.create({
 		//position: "absolute",
 	},
 	container: {
-        // borderWidth: 1,
-        // borderColor: "yellow",
+		// borderWidth: 1,
+		// borderColor: "yellow",
 		backgroundColor: colors.secondary,
-        
+
 		height: "100%",
 		width: "100%",
 		//flex: 1,
@@ -347,7 +348,7 @@ const styles = StyleSheet.create({
 		//alignContent: "space-between",
 		//paddingRight: 20,
 		paddingTop: 40,
-        // paddingBottom: 30,
+		// paddingBottom: 30,
 		// bottom: 50,
 	},
 	header: {
@@ -359,8 +360,8 @@ const styles = StyleSheet.create({
 		//padding: 40,
 	},
 	ovalShape: {
-        // borderWidth: 1,
-        // borderColor: "pink",
+		// borderWidth: 1,
+		// borderColor: "pink",
 		shadowColor: "#171717",
 		shadowOffset: { width: -5, height: 5 },
 		shadowOpacity: 0.9,
@@ -370,11 +371,11 @@ const styles = StyleSheet.create({
 		// backgroundColor: "rgba(255,255,255,0.9)",
 		width: 300,
 		height: "15%",
-        marginTop: 5,
+		marginTop: 5,
 		borderRadius: 10,
 		// bottom: 20,
 		flexDirection: "column",
-        // justifyContent: "space-between",
+		// justifyContent: "space-between",
 		alignItems: "center",
 		justifyContent: "center",
 		//marginTop: 50,
@@ -410,7 +411,7 @@ const styles = StyleSheet.create({
 	},
 	box: {
 		//frame shape
-        height: 35,
+		height: 35,
 		borderTopStartRadius: 10,
 		borderTopEndRadius: 10,
 		borderBottomEndRadius: 10,
@@ -424,9 +425,9 @@ const styles = StyleSheet.create({
 		paddingRight: 10,
 		top: 20,
 		bottom: 20,
-        // alignContent: "center",
-        // alignItems: "center",
-        // alignSelf:"center"
+		// alignContent: "center",
+		// alignItems: "center",
+		// alignSelf:"center"
 	},
 	buttonContainer: {
 		height: 35,
@@ -434,7 +435,7 @@ const styles = StyleSheet.create({
 		top: 40,
 		borderRadius: 20,
 		// backgroundColor: colors.primary,
-        backgroundColor: "rgb(52, 175, 183)",
+		backgroundColor: "rgb(52, 175, 183)",
 		//borderBottomLeftRadius: 10,
 		justifyContent: "center",
 		alignItems: "center",

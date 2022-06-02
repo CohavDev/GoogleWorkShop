@@ -59,9 +59,12 @@ export default function ApproveActivity(props) {
 	const allActivitiesRef = firebase.firestore().collection("allActivities");
 	const userID = firebase.auth().currentUser.uid;
 	const userRef = firebase.firestore().collection("users").doc(userID);
-	const matchesIDs = []
+	const travelPartnersIDs = []
+	const status = 'waiting'
 	const tmpArray = JSON.parse(DATA.languages)
 	const languagesArray = []
+	const matchedActivityID = ''
+
 	for(const element of tmpArray){
 		languagesArray.push(element.item)
 	}
@@ -158,12 +161,9 @@ export default function ApproveActivity(props) {
 							//setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
 							const userFormattedDateOfBirth =
 								result.data().formattedDateOfBirth;
-							const userName =
-								result.data().fullName;
 							const timestamp =
 								firebase.firestore.FieldValue.serverTimestamp();
 							const activityData = {
-								userName: userName,
 								userID: userID,
 								createdAt: timestamp,
 								type: DATA.type,
@@ -173,7 +173,9 @@ export default function ApproveActivity(props) {
 								userFormattedDateOfBirth: userFormattedDateOfBirth,
 								location: DATA.location,
 								languages: languagesArray,
-								matchesIDs: matchesIDs,
+								travelPartnersIDs: travelPartnersIDs,
+								matchedActivityID: matchedActivityID,
+								status: status,
 							};
 							allActivitiesRef
 								.add(activityData)
