@@ -58,7 +58,7 @@ export default function ActivityDetailsComponent(props) {
 				</View>
 			</View>
 			<View style={styles.activityDetailsContainer}>
-				<View style={{ top: 10, left: 45 }}>
+				<View style={{ top: 10, left: 25 }}>
 					<Text>Activity details:</Text>
 					{/*activity location*/}
 					<View style={styles.location}>
@@ -75,7 +75,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "center",
 							}}
 						>
-							<Text style={styles.titlesStyle}>From:   </Text>
+							<Text style={styles.titlesStyle}>From:  </Text>
 							<Text style={styles.activityDetailsText}>
 								{DATA.startDate}
 							</Text>
@@ -88,7 +88,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "center",
 							}}
 						>
-							<Text style={styles.titlesStyle}>To:   </Text>
+							<Text style={styles.titlesStyle}>To:  </Text>
 							<Text style={styles.activityDetailsText}>
 								{DATA.endDate}
 							</Text>
@@ -102,7 +102,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "center",
 							}}
 						>
-							<Text style={styles.titlesStyle}>When:   </Text>
+							<Text style={styles.titlesStyle}>When:  </Text>
 							<Text style={styles.activityDetailsText}>{DATA.time}</Text>
 						</View>
 					</View>
@@ -114,7 +114,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "flex-start",
 							}}
 						>
-							<Text style={styles.titlesStyle}>Languages:{"   "}</Text>
+							<Text style={styles.titlesStyle}>Languages:{"  "}</Text>
 							<View style={{ width: "60%" }}>
 								<Text style={styles.activityDetailsText}>
 									{DATA.languages}

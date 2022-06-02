@@ -18,8 +18,8 @@ import ActivitiesList from "./ActivitiesList.js";
 const DATA = [
 	{
 		key: "1",
-		activityIcon: "drink",
-		activityName: "Drink",
+		activityIcon: "drinks",
+		activityName: "Drinks",
 		location: "Tel- Aviv",
 		date: "07/05/2022",
 	},

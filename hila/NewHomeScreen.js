@@ -6,7 +6,7 @@ import ActivitiesList from "./ActivitiesList";
 // import NewBubblesCategories from "./NewBubblesCategories";
 // import SmallCircle from "../components/smallCircle";
 // import BackgroundImage from "../components/BackgroungImage";
-
+import MyActivities from "../app/screens/MyActivities";
 export default function NewHomeScreen(props) {
 	const pressNewActivityHandler = () => {
 		props.navigation.navigate("NewBubblesCategories");

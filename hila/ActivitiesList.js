@@ -17,8 +17,8 @@ import myColors from "../app/config/colors";
 const DATA = [
 	{
 		key: "1",
-		activityIcon: "drink",
-		activityName: "Drink",
+		activityIcon: "drinks",
+		activityName: "Drinks",
 		location: "Tel- Aviv",
 		date: "07/05/2022",
 	},
@@ -104,6 +104,7 @@ export default function ActivitiesList({ navigation }) {
 			{/* <ScrollView> */}
 			<View style={[styles.container, { paddingHorizontal: 15 }]}>
 				<FlatList
+                // maxToRenderPerBatch={2}
 					data={DATA}
 					keyExtractor={(item) => item.key}
 					renderItem={renderItem}

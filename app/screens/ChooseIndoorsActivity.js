@@ -20,7 +20,7 @@ function ChooseIndoorsActivity(props) {
 
 				<View style={styles.leftBackground}>
 					<Pressable
-						onPress={() => pressActivityHandler("Drink", "glass-wine")}
+						onPress={() => pressActivityHandler("Drinks", "glass-wine")}
 					>
 						<Circle
 							style={styles.circleButtonTop}
