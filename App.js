@@ -27,6 +27,8 @@ import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
 import MyPageHila from "./hila/MyPageHila";
 import LandPage from "./app/screens/LandPage";
 import NewApproveActivity from "./hila/NewApproveActivity";
+// import NewActivityPreview from "./hila/NewActivityPreview";
+
 const Stack = createNativeStackNavigator();
 export default function App() {
 	console.log("app.js hello");
@@ -114,6 +116,7 @@ export default function App() {
 				<Stack.Screen name="ApproveActivity" component={ApproveActivity} />
 				<Stack.Screen name="MatchesScreen" component={MatchesScreen} />
 				<Stack.Screen name="ProfileMatching" component={ProfileMatching} />
+                {/* <Stack.Screen name="NewActivityPreview" component={NewActivityPreview} /> */}
 				<Stack.Screen
 					name="ChooseOutdoorsActivity"
 					component={ChooseOutdoorsActivity}

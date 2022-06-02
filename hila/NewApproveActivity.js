@@ -16,6 +16,7 @@ import ApprovalItem from "../app/components/ApprovalItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../app/config/colors";
 import { firebase } from "../app/firebase/config.js";
+import ActivityDetailsComponent from "../app/components/ActivityDetailsComponent";
 
 export default function NewApproveActivity(props) {
 	const DATA = {
@@ -49,83 +50,84 @@ export default function NewApproveActivity(props) {
 	}
 	const languagesString = languagesArray.join(", ");
 	return (
-		<View style={styles.mainContainer}>
-			<View style={styles.activityTypeContainer}>
-				<Text style={styles.activityTypeText}>{DATA.type}</Text>
-				<View style={{ top: 30 }}>
-					<Circle iconName={DATA.icon} />
-				</View>
-			</View>
-			<View style={styles.activityDetailsContainer}>
-				<View style={{ top: 10, left: 20 }}>
-					<Text>Activity details</Text>
-					{/*activity location*/}
-					<View style={styles.location}>
-						<Text style={styles.activityDetailsText}>
-							{DATA.location}
-						</Text>
-					</View>
-					{/*activity date*/}
-					<View style={styles.date}>
-						<View
-							style={{
-								left: 0,
-								flexDirection: "row",
-								alignItems: "center",
-							}}
-						>
-							<Text style={styles.titlesStyle}>From:   </Text>
-							<Text style={styles.activityDetailsText}>
-								{DATA.startDate}
-							</Text>
-						</View>
+		// <View style={styles.mainContainer}>
+		// 	<View style={styles.activityTypeContainer}>
+		// 		<Text style={styles.activityTypeText}>{DATA.type}</Text>
+		// 		<View style={{ top: 30 }}>
+		// 			<Circle iconName={DATA.icon} />
+		// 		</View>
+		// 	</View>
+		// 	<View style={styles.activityDetailsContainer}>
+		// 		<View style={{ top: 10, left: 20 }}>
+		// 			<Text>Activity details</Text>
+		// 			{/*activity location*/}
+		// 			<View style={styles.location}>
+		// 				<Text style={styles.activityDetailsText}>
+		// 					{DATA.location}
+		// 				</Text>
+		// 			</View>
+		// 			{/*activity date*/}
+		// 			<View style={styles.date}>
+		// 				<View
+		// 					style={{
+		// 						left: 0,
+		// 						flexDirection: "row",
+		// 						alignItems: "center",
+		// 					}}
+		// 				>
+		// 					<Text style={styles.titlesStyle}>From:   </Text>
+		// 					<Text style={styles.activityDetailsText}>
+		// 						{DATA.startDate}
+		// 					</Text>
+		// 				</View>
 
-						<View
-							style={{
-								left: 40,
-								flexDirection: "row",
-								alignItems: "center",
-							}}
-						>
-							<Text style={styles.titlesStyle}>To:   </Text>
-							<Text style={styles.activityDetailsText}>
-								{DATA.endDate}
-							</Text>
-						</View>
-					</View>
-					{/*Activity time*/}
-					<View style={styles.time}>
-						<View
-							style={{
-								flexDirection: "row",
-								alignItems: "center",
-							}}
-						>
-							<Text style={styles.titlesStyle}>When:   </Text>
-							<Text style={styles.activityDetailsText}>{DATA.time}</Text>
-						</View>
-					</View>
-					{/*Activity languages*/}
-					<View style={styles.languages}>
-						<View
-							style={{
-								flexDirection: "row",
-								alignItems: "flex-start",
-							}}
-						>
-							<Text style={styles.titlesStyle}>
-								Languages:{"   "}
-							</Text>
-                            <View style={{width: "60%"}}>
-                                <Text style={styles.activityDetailsText}>
-                                    {languagesString}
-                                </Text>
-                            </View>
-						</View>
-					</View>
-				</View>
-			</View>
-			<View style={styles.buttonsContainer}>
+		// 				<View
+		// 					style={{
+		// 						left: 40,
+		// 						flexDirection: "row",
+		// 						alignItems: "center",
+		// 					}}
+		// 				>
+		// 					<Text style={styles.titlesStyle}>To:   </Text>
+		// 					<Text style={styles.activityDetailsText}>
+		// 						{DATA.endDate}
+		// 					</Text>
+		// 				</View>
+		// 			</View>
+		// 			{/*Activity time*/}
+		// 			<View style={styles.time}>
+		// 				<View
+		// 					style={{
+		// 						flexDirection: "row",
+		// 						alignItems: "center",
+		// 					}}
+		// 				>
+		// 					<Text style={styles.titlesStyle}>When:   </Text>
+		// 					<Text style={styles.activityDetailsText}>{DATA.time}</Text>
+		// 				</View>
+		// 			</View>
+		// 			{/*Activity languages*/}
+		// 			<View style={styles.languages}>
+		// 				<View
+		// 					style={{
+		// 						flexDirection: "row",
+		// 						alignItems: "flex-start",
+		// 					}}
+		// 				>
+		// 					<Text style={styles.titlesStyle}>
+		// 						Languages:{"   "}
+		// 					</Text>
+		//                     <View style={{width: "60%"}}>
+		//                         <Text style={styles.activityDetailsText}>
+		//                             {languagesString}
+		//                         </Text>
+		//                     </View>
+		// 				</View>
+		// 			</View>
+		// 		</View>
+		// 	</View>
+		<View>
+            <View style={styles.buttonsContainer}>
 				<Pressable
 					style={styles.buttonStyle}
 					onLongPress={() => alert("clicked 'edit'")}
@@ -134,44 +136,56 @@ export default function NewApproveActivity(props) {
 				>
 					<Text>Edit</Text>
 				</Pressable>
-				<Pressable style={styles.buttonStyle}
-                onLongPress={() => alert("clicked 'approve'")}
-                android_ripple={{ color: "white" }}
-                onPress={() => {
-                    userRef.get().then((result) => {
-                        //setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
-                        const userFormattedDateOfBirth =
-                            result.data().formattedDateOfBirth;
-                        const timestamp =
-                            firebase.firestore.FieldValue.serverTimestamp();
-                        const activityData = {
-                            userID: userID,
-                            createdAt: timestamp,
-                            type: DATA.type,
-                            startDate: DATA.startDate,
-                            endDate: DATA.endDate,
-                            time: DATA.time,
-                            userFormattedDateOfBirth: userFormattedDateOfBirth,
-                            location: DATA.location,
-                            languages: languagesArray,
-                            travelPartnersIDs: travelPartnersIDs,
-                            matchedActivityID: matchedActivityID,
-                            status: status,
-                        };
-                        allActivitiesRef
-                            .add(activityData)
-                            .then(() => {
-                                props.navigation.navigate("MyActivities");
-                            })
-                            .catch((error) => {
-                                alert(error);
-                            });
-                    });
-                    // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
-                }}>
+				<Pressable
+					style={styles.buttonStyle}
+					onLongPress={() => alert("clicked 'approve'")}
+					android_ripple={{ color: "white" }}
+					onPress={() => {
+						userRef.get().then((result) => {
+							//setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
+							const userFormattedDateOfBirth =
+								result.data().formattedDateOfBirth;
+							const timestamp =
+								firebase.firestore.FieldValue.serverTimestamp();
+							const activityData = {
+								userID: userID,
+								createdAt: timestamp,
+								type: DATA.type,
+								startDate: DATA.startDate,
+								endDate: DATA.endDate,
+								time: DATA.time,
+								userFormattedDateOfBirth: userFormattedDateOfBirth,
+								location: DATA.location,
+								languages: languagesArray,
+								travelPartnersIDs: travelPartnersIDs,
+								matchedActivityID: matchedActivityID,
+								status: status,
+							};
+							allActivitiesRef
+								.add(activityData)
+								.then(() => {
+									props.navigation.navigate("MyActivities");
+								})
+								.catch((error) => {
+									alert(error);
+								});
+						});
+						// setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
+					}}
+				>
 					<Text>Approve</Text>
 				</Pressable>
 			</View>
+			<ActivityDetailsComponent
+				type={DATA.type}
+				icon={DATA.icon}
+				location={DATA.location}
+				startDate={DATA.startDate}
+				endDate={DATA.endDate}
+				languages={languagesString}
+				time={DATA.time}
+			/>
+			
 		</View>
 	);
 }
@@ -211,11 +225,10 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "55%",
 		top: 20,
-        
 	},
-    titlesStyle:{
-        fontSize: 14,
-    },
+	titlesStyle: {
+		fontSize: 14,
+	},
 	location: {
 		top: 40,
 	},
@@ -233,15 +246,16 @@ const styles = StyleSheet.create({
 		// justifyContent: "space-evenly",
 	},
 	languages: {
-		// borderWidth: 1,
-		top: 160,
+        top: 160,
 		// right: 20,
 		// justifyContent: "space-evenly",
 	},
 	buttonsContainer: {
+        // borderWidth: 1,
 		flexDirection: "row",
 		justifyContent: "space-evenly",
-		top: 20,
+		top: "150%",
+        // position: "absolute",
 	},
 	buttonStyle: {
 		width: 100,
