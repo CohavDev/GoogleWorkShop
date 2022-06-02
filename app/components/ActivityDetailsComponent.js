@@ -59,7 +59,7 @@ export default function ActivityDetailsComponent(props) {
 			</View>
 			<View style={styles.activityDetailsContainer}>
 				<View style={{ top: 10, left: 45 }}>
-					<Text>Activity details</Text>
+					<Text>Activity details:</Text>
 					{/*activity location*/}
 					<View style={styles.location}>
 						<Text style={styles.activityDetailsText}>
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
 		// borderWidth: 1,
 		width: "100%",
 		height: "25%",
-		top: "8%",
+		top: 0,
 		flexDirection: "row",
 		justifyContent: "space-around",
 		alignItems: "baseline",
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
 		// borderColor: "red",
 		width: "100%",
 		height: "55%",
-		top: 20,
+		top: 0,
 	},
 	titlesStyle: {
 		fontSize: 14,

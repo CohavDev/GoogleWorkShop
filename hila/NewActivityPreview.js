@@ -21,34 +21,34 @@ import ActivityDetailsComponent from "../app/components/ActivityDetailsComponent
 export default function NewApproveActivity(props) {
 	const DATA = {
 		// type: props.navigation.getParam("type"),
-		type: props.route.params.type,
+		type: "type",
 		// icon: props.navigation.getParam("icon"),
-		icon: props.route.params.icon,
+		icon: "icon",
 		// location: props.navigation.getParam("location"),
-		location: props.route.params.location,
+		location: "location",
 		// startDate: props.navigation.getParam("startDate"),
-		startDate: props.route.params.startDate,
+		startDate: "startDate",
 		// endDate: props.navigation.getParam("startDate"),
-		endDate: props.route.params.endDate,
+		endDate: "endDate",
 		// time: props.navigation.getParam("time"),
-		time: props.route.params.time,
+		time: "time",
 		// languages: props.navigation.getParam("languages", "english"),
-		languages: props.route.params.languages,
+		languages: "languages",
 	};
 
-	const allActivitiesRef = firebase.firestore().collection("allActivities");
-	const userID = firebase.auth().currentUser.uid;
-	const userRef = firebase.firestore().collection("users").doc(userID);
-	const travelPartnersIDs = [];
-	const status = "waiting";
-	const tmpArray = JSON.parse(DATA.languages);
-	const languagesArray = [];
-	const matchedActivityID = "";
+	// const allActivitiesRef = firebase.firestore().collection("allActivities");
+	// const userID = firebase.auth().currentUser.uid;
+	// const userRef = firebase.firestore().collection("users").doc(userID);
+	// const travelPartnersIDs = [];
+	// const status = "waiting";
+	// const tmpArray = JSON.parse(DATA.languages);
+	// const languagesArray = [];
+	// const matchedActivityID = "";
 
-	for (const element of tmpArray) {
-		languagesArray.push(element.item);
-	}
-	const languagesString = languagesArray.join(", ");
+	// for (const element of tmpArray) {
+	// 	languagesArray.push(element.item);
+	// }
+	// const languagesString = languagesArray.join(", ");
 	return (
 		// <View style={styles.mainContainer}>
 		// 	<View style={styles.activityTypeContainer}>
@@ -130,50 +130,10 @@ export default function NewApproveActivity(props) {
             <View style={styles.buttonsContainer}>
 				<Pressable
 					style={styles.buttonStyle}
-					onLongPress={() => alert("clicked 'edit'")}
 					android_ripple={{ color: "white" }}
-					onPress={() => props.navigation.navigate("NewActivityForm")}
+					onPress={() => props.navigation.navigate("MatchesScreen")}
 				>
-					<Text>Edit</Text>
-				</Pressable>
-				<Pressable
-					style={styles.buttonStyle}
-					onLongPress={() => alert("clicked 'approve'")}
-					android_ripple={{ color: "white" }}
-					onPress={() => {
-						userRef.get().then((result) => {
-							//setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
-							const userFormattedDateOfBirth =
-								result.data().formattedDateOfBirth;
-							const timestamp =
-								firebase.firestore.FieldValue.serverTimestamp();
-							const activityData = {
-								userID: userID,
-								createdAt: timestamp,
-								type: DATA.type,
-								startDate: DATA.startDate,
-								endDate: DATA.endDate,
-								time: DATA.time,
-								userFormattedDateOfBirth: userFormattedDateOfBirth,
-								location: DATA.location,
-								languages: languagesArray,
-								travelPartnersIDs: travelPartnersIDs,
-								matchedActivityID: matchedActivityID,
-								status: status,
-							};
-							allActivitiesRef
-								.add(activityData)
-								.then(() => {
-									props.navigation.navigate("MyActivities");
-								})
-								.catch((error) => {
-									alert(error);
-								});
-						});
-						// setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
-					}}
-				>
-					<Text>Approve</Text>
+					<Text>Matches</Text>
 				</Pressable>
 			</View>
 			<ActivityDetailsComponent
@@ -182,7 +142,7 @@ export default function NewApproveActivity(props) {
 				location={DATA.location}
 				startDate={DATA.startDate}
 				endDate={DATA.endDate}
-				languages={languagesString}
+				languages={DATA.languages}
 				time={DATA.time}
 			/>
 			
@@ -258,8 +218,8 @@ const styles = StyleSheet.create({
         // position: "absolute",
 	},
 	buttonStyle: {
-		width: 100,
-		height: 40,
+		width: "40%",
+		height: 45,
 		elevation: 5,
 		backgroundColor: "white",
 		alignItems: "center",
