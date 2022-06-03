@@ -26,7 +26,7 @@ import BubblesCategories from "./app/screens/BubblesCategories";
 import ChooseOutdoorsActivity from "./app/screens/ChooseOutdoorsActivity";
 import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
 import NewHomeScreen from "./hila/NewHomeScreen";
-
+import LandPage from "./app/screens/LandPage";
 import NewActivitiesScreen from "./hila/NewActivitiesScreen";
 import NewNewActivityForm from "./hila/NewNewActivityForm";
 import NewBubblesCategories from "./hila/NewBubblesCategories";
@@ -222,11 +222,12 @@ function MainNavigation(props) {
 function InitialNavigation(user) {
   return (
     <Stack.Navigator
-      initialRouteName={user ? "Tabs" : "LoginScreen"}
+      initialRouteName={user ? "Tabs" : "LandPage"}
       screenOptions={{
         headerShown: false,
       }}
     >
+      <Stack.Screen name="LandPage" component={LandPage} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
       <Stack.Screen name="Tabs" component={TabsNav} props={user} />
