@@ -35,6 +35,7 @@ import Tabs from "./app/navigation/Tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton, Colors } from "react-native-paper";
 import { I18nManager } from "react-native"; // force left to right layout of app
+import { firebase } from "./app/firebase/config";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -76,6 +77,21 @@ export default function App() {
   //     }
   //   });
   // }, []);
+  const [authenticated, setAuthenticated] = useState(true);
+
+  //TODO: continue from here
+  useEffect(() => {
+    return firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setAuthenticated(true);
+        console.log("authenticated: ");
+        console.log(user);
+        setUser(user);
+      } else {
+        setAuthenticated(false);
+      }
+    });
+  }, []);
   console.log("newHomeScreen : ");
   console.log(user);
   return <NavigationContainer>{InitialNavigation(user)}</NavigationContainer>;
