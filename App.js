@@ -247,6 +247,8 @@ function InitialNavigation(user) {
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
       <Stack.Screen name="Tabs" component={TabsNav} props={user} />
+      <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
+      <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
     </Stack.Navigator>
   );
 }
