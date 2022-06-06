@@ -13,6 +13,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import Swiper from "react-native-swiper";
+import colors from "../app/config/colors";
 
 export default function NewBubblesCategories(props) {
   return (
@@ -33,7 +34,7 @@ export default function NewBubblesCategories(props) {
       dot={
         <View
           style={{
-            backgroundColor: "white",
+            backgroundColor: colors.grey,
             width: 8,
             height: 8,
             borderRadius: 4,
@@ -47,7 +48,7 @@ export default function NewBubblesCategories(props) {
       activeDot={
         <View
           style={{
-            backgroundColor: "rgb(52, 175, 183)",
+            backgroundColor: colors.Primary,
             width: 8,
             height: 8,
             borderRadius: 4,

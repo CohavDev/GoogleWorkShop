@@ -15,7 +15,7 @@ function Circle(props) {
          <IconButton
           icon={props.iconName}
           // color="#BFD9CD"
-          color="black"
+          color="rgb(0, 106, 130)"
           size={ICONSIZE}
         />
         <View style={{bottom: 15}}>

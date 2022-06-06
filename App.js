@@ -36,6 +36,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton, Colors } from "react-native-paper";
 import { I18nManager } from "react-native"; // force left to right layout of app
 import { firebase } from "./app/firebase/config";
+import colors from "./app/config/colors";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -102,7 +103,8 @@ function TabsNav(props) {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "rgb(52, 175, 183)",
+        tabBarStyle: { backgroundColor: colors.TabBar },
+        tabBarActiveTintColor: colors.Secondary,
         tabBarInactiveTintColor: "gray",
         showLabel: false,
         style: {
@@ -123,15 +125,15 @@ function TabsNav(props) {
         props={props.user}
         options={{
           tabBarOptions: {
-            activeTintColor: "rgb(52, 175, 183)",
-            inactiveTintColor: "#fff",
+            activeTintColor: colors.TabBarText,
+            inactiveTintColor: colors.TabBarText,
             // Colors: "red",
           },
           tabBarIcon: ({ focused }) => (
             <IconButton
               icon="home-outline"
               // color="#BFD9CD"
-              // color="rgb(52, 175, 183)"
+              color={colors.TabBarText}
               // size={12}
             />
           ),
@@ -146,7 +148,7 @@ function TabsNav(props) {
             <IconButton
               icon="format-list-checkbox"
               // color="#BFD9CD"
-              color="black"
+              color={colors.TabBarText}
               // size={12}
             />
           ),
@@ -161,7 +163,7 @@ function TabsNav(props) {
             <IconButton
               icon="account-outline"
               // color="#BFD9CD"
-              color="black"
+              color={colors.TabBarText}
               // size={12}
             />
           ),
@@ -176,7 +178,7 @@ function TabsNav(props) {
             <IconButton
               icon="cog-outline"
               // color="#BFD9CD"
-              color="black"
+              color={colors.TabBarText}
               // size={12}
             />
           ),
