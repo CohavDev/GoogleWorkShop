@@ -13,6 +13,7 @@ import {
 import ActivityItem from "../app/components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../app/config/colors";
+import colors from "../app/config/colors";
 
 const DATA = [
 	{
@@ -120,6 +121,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between",
 		alignItems: "center",
 		width: 330,
+        // backgroundColor: colors.Secondary,
 		// height: "5%",
 		// borderColor: "black",
 		// borderWidth: 1,
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: "black",
-		fontSize: 28,
+		fontSize: 18,
 		// fontWeight: "bold",
 		//paddingTop: "20%",
 		//paddingBottom: 15,

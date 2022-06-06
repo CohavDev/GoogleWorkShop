@@ -27,6 +27,7 @@ export default function NewHomeScreen(props) {
 					<OvalSquare text="New Activity" />
 				</Pressable>
 				<Pressable onPress={viewRecentActivitiesHandler}>
+                
 					<OvalSquare text="View Recent Activities" />
 				</Pressable>
 			</View>

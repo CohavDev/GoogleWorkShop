@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import colors from "../config/colors";
 import DATATWO from "../usersData.json";
+import style from "react-native-datepicker/style";
 export default (props) => {
 	const activityData = {
 		activityType: props.route.params.activityType,
@@ -156,12 +157,21 @@ export default (props) => {
 		<View
 			style={{
 				borderWidth: 1,
-				borderColor: "red",
-				backgroundColor: colors.secondary,
+				// borderColor: "red",
+				backgroundColor: "white",
 				height: "100%",
 				width: "100%",
 			}}
 		>
+            <View style={styles.activityTypeView}>
+				<Text style={{ fontSize: 12, color: "black" }}>
+					{activityData.activityType +
+						" in " +
+						activityData.location +
+						" on " +
+						activityData.startDate}
+				</Text>
+            </View>
 			<View style={styles.background}>
 				<FlatList
 					data={myMatches}
@@ -244,15 +254,9 @@ export default (props) => {
 				/>
 			</View>
 			<View style={styles.viewTitleText}>
-				<Text style={styles.titleText}>Matches</Text>
-				<Text style={[styles.titleText, { fontSize: 14 }]}>
-					{activityData.activityType +
-						" in " +
-						activityData.location +
-						" on " +
-						activityData.startDate}
-				</Text>
+				<Text style={colors.title}>Matches</Text>
 			</View>
+            
 		</View>
 	);
 };
@@ -266,14 +270,14 @@ const styles = StyleSheet.create({
 		// elevation: 5,
 	},
 	background: {
-		backgroundColor: "rgba(255,255,255,0.8)",
+		backgroundColor: "white",
 		height: "100%",
 		width: "100%",
-		top: 150,
+		top: "20%",
 		flexDirection: "column",
 		alignContent: "center",
 		justifyContent: "center",
-		position: "absolute",
+		// position: "absolute",
 		//flex: 1,
 		//alignSelf: "center",
 		//alignItems: "center",
@@ -282,9 +286,10 @@ const styles = StyleSheet.create({
 		//marginBottom: '15%',
 	},
 	matchBackground: {
-		// backgroundColor: "rgba(255,255,255,0.9)", //colors.matchBackground,
+		backgroundColor: "white", //colors.matchBackground,
 		height: 90,
 		width: "90%",
+        // top: "10%",
 		// borderRadius: 10,
         borderBottomColor: "black",
         borderBottomWidth: 1,
@@ -354,7 +359,7 @@ const styles = StyleSheet.create({
 	},
 	textBox: {
 		// borderWidth: 1,
-		borderColor: "green",
+		// borderColor: "green",
 		// height: 60,
 		width: "100%",
 		backgroundColor: "transparent",
@@ -373,16 +378,27 @@ const styles = StyleSheet.create({
 		//padding: 50,
 	},
 	viewTitleText: {
-		justifyContent: "center",
-		alignItems: "center",
-		left: 20,
-		right: 20,
-		position: "absolute",
+		// justifyContent: "center",
+		// alignItems: "center",
+		// left: 20,
+		// right: 20,
 		// top: 10,
 		//textAlign: 'center',
 		//flex: 1,
 		//flexDirection: 'row',
 		//backgroundColor: "blue",
+		position: "absolute",
+        top: "5%",
+        // bottom: "20%",
+		width: "90%",
+		height: "5%",
+		left: "5%",
+		backgroundColor: colors.Background,
+		alignItems: "flex-start",
+		justifyContent: "flex-start",
+		borderBottomWidth: 1,
+		// borderBottomColor: ,
+		// marginBottom: 15,
 	},
 	titleText: {
 		color: "black",
@@ -398,6 +414,20 @@ const styles = StyleSheet.create({
 		//borderRadius: 100
 		//alignContent: 'center',
 	},
+    activityTypeView: {
+        position: "absolute",
+        top: "15%",
+        bottom: "20%",
+		width: "90%",
+		height: "10%",
+		left: "5%",
+		backgroundColor: colors.Background,
+		alignItems: "flex-start",
+		justifyContent: "flex-start",
+		// borderBottomWidth: 1,
+		// borderBottomColor: ,
+		marginBottom: 15,
+    },
 });
 
 //{item.age} {"\n"}

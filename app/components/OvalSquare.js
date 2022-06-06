@@ -15,7 +15,7 @@ export default function OvalSquare(props) {
 const styles = StyleSheet.create({
 	textStyle: {
         // flex: 1,
-		color: "black",
+		color: "white",
 		fontSize: 16,
         alignSelf: "center",
         textAlign: "center",
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 	},
 	ovalShape: {
 		backgroundColor: "white",
+        backgroundColor: colors.Primary,
 		width: EDGE,
 		height: EDGE,
 		borderRadius: EDGE / 8,

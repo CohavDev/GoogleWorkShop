@@ -146,9 +146,9 @@ export default function NewNewActivityForm(props) {
           </View>
         </View>
 
-        <View>
+        <View >
           <Text style={styles.subtitle}>Languages:</Text>
-          <View style={{ left: 15 }}>
+          <View style={{ left: 15, }}>
             <SelectBox
               // selectedItemStyle = {backgroundColor = "blue"}
               label=""
@@ -167,7 +167,7 @@ export default function NewNewActivityForm(props) {
         </View>
         <View style={styles.buttonContainer}>
           <Pressable onPress={pressConfirm}>
-            <Text style={{ fontWeight: "bold", alignItems: "center" }}>
+            <Text style={{ fontWeight: "bold", alignItems: "center", color: "white" }}>
               Confirm
             </Text>
           </Pressable>
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   ovalsContainer: {
     // borderWidth: 1,
     // borderColor: "blue",
-    // backgroundColor: "rgba(255,255,255,0.8)",
+    backgroundColor: colors.Background,
     height: "60%",
     width: "100%",
     flexDirection: "column",
@@ -214,10 +214,13 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "yellow",
     // backgroundColor: colors.secondary,
-    top: "12%",
+    backgroundColor: colors.Background,
+    // top: "12%",
+    paddingTop: "15%",
     // bottom: "15%",
     // height: "40%",
     width: "100%",
+    height: "80%",
     // left: "3%",
     //flex: 1,
     flexDirection: "column",
@@ -364,7 +367,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     // borderWidth: 1,
     elevation: 3,
-    // backgroundColor: colors.primary,
+    backgroundColor: colors.Primary,
     // borderBottomLeftRadius: 10,
     // backgroundColor: "rgb(52, 175, 183)",
     justifyContent: "center",

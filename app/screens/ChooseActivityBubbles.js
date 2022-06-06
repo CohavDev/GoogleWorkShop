@@ -16,7 +16,7 @@ function ChooseActivityBubbles(props) {
   return (
     <View>
       <View style={styles.mainBackground}>
-        <BackgroundImage />
+        {/* <BackgroundImage /> */}
 
         <View style={styles.leftBackground}>
           <Pressable
@@ -122,11 +122,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   mainBackground: {
+    backgroundColor: "white",
     flexDirection: "row",
     justifyContent: "center",
     height: "100%",
   },
   leftBackground: {
+    backgroundColor: "white",
     flexDirection: "column",
     justifyContent: "space-between",
     position: "absolute",
@@ -135,6 +137,7 @@ const styles = StyleSheet.create({
     left: "12%",
   },
   rightBackground: {
+    backgroundColor: "white",
     height: "60%",
     top: "25%",
     right: "12%",

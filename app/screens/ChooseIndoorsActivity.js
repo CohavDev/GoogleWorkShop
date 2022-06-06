@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "center",
 		height: "100%",
+        backgroundColor: "white",
 	},
 	rightBackground: {
 		flexDirection: "column",
