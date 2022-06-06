@@ -133,7 +133,7 @@ export default function NewApproveActivity(props) {
           style={styles.buttonStyle}
           onLongPress={() => alert("clicked 'edit'")}
           android_ripple={{ color: "white" }}
-          onPress={() => props.navigation.navigate("NewActivityForm")}
+          onPress={() => props.navigation.goBack()}
         >
           <Text>Edit</Text>
         </Pressable>
@@ -190,79 +190,79 @@ export default function NewApproveActivity(props) {
 }
 
 const styles = StyleSheet.create({
-	mainContainer: {
-		width: "100%",
-		height: "100%",
-		// justifyContent: "flex-start",
-		// alignItems: "center",
-	},
-	activityTypeContainer: {
-		// borderWidth: 1,
-		width: "100%",
-		height: "25%",
-		top: 30,
-		flexDirection: "row",
-		justifyContent: "space-around",
-		alignItems: "baseline",
-		// alignContent: "space-between",
-	},
-	activityTypeTextContainer: {
-		// alignSelf: "stretch",
-		justifyContent: "flex-start",
-	},
-	activityTypeText: {
-		fontSize: 18,
-		fontWeight: "bold",
-	},
-	activityDetailsText: {
-		fontSize: 16,
-		fontWeight: "bold",
-	},
-	activityDetailsContainer: {
-		// borderWidth: 1,
-		// borderColor: "red",
-		width: "100%",
-		height: "55%",
-		top: 20,
-	},
-	titlesStyle: {
-		fontSize: 14,
-	},
-	location: {
-		top: 40,
-	},
-	date: {
-		// borderWidth: 1,
-		top: 80,
-		// right: 20,
-		flexDirection: "row",
-		// justifyContent: "space-evenly",
-	},
-	time: {
-		// borderWidth: 1,
-		top: 120,
-		// right: 20,
-		// justifyContent: "space-evenly",
-	},
-	languages: {
-        top: 160,
-		// right: 20,
-		// justifyContent: "space-evenly",
-	},
-	buttonsContainer: {
-        // borderWidth: 1,
-		flexDirection: "row",
-		justifyContent: "space-evenly",
-		top: "150%",
-        // position: "absolute",
-	},
-	buttonStyle: {
-		width: 100,
-		height: 40,
-		elevation: 5,
-		backgroundColor: "white",
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: 15,
-	},
+  mainContainer: {
+    width: "100%",
+    height: "100%",
+    // justifyContent: "flex-start",
+    // alignItems: "center",
+  },
+  activityTypeContainer: {
+    // borderWidth: 1,
+    width: "100%",
+    height: "25%",
+    top: 30,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "baseline",
+    // alignContent: "space-between",
+  },
+  activityTypeTextContainer: {
+    // alignSelf: "stretch",
+    justifyContent: "flex-start",
+  },
+  activityTypeText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  activityDetailsText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  activityDetailsContainer: {
+    // borderWidth: 1,
+    // borderColor: "red",
+    width: "100%",
+    height: "55%",
+    top: 20,
+  },
+  titlesStyle: {
+    fontSize: 14,
+  },
+  location: {
+    top: 40,
+  },
+  date: {
+    // borderWidth: 1,
+    top: 80,
+    // right: 20,
+    flexDirection: "row",
+    // justifyContent: "space-evenly",
+  },
+  time: {
+    // borderWidth: 1,
+    top: 120,
+    // right: 20,
+    // justifyContent: "space-evenly",
+  },
+  languages: {
+    top: 160,
+    // right: 20,
+    // justifyContent: "space-evenly",
+  },
+  buttonsContainer: {
+    // borderWidth: 1,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    top: "150%",
+    // position: "absolute",
+  },
+  buttonStyle: {
+    width: 100,
+    height: 40,
+    elevation: 5,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+  },
 });

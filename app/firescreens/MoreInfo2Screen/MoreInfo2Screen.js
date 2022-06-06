@@ -31,6 +31,7 @@ export default function MoreInfo2Screen({ navigation }) {
     userRef
       .update(data)
       .then(() => {
+        navigation.popToTop();
         navigation.navigate("Tabs");
       })
       .catch((error) => {

@@ -191,6 +191,7 @@ function MainNavigation(props) {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        animation: "slide_from_right",
       }}
     >
       {/* <Stack.Screen
@@ -223,6 +224,7 @@ function MainNavigation(props) {
 
       {/* <Stack.Screen name="NewHomeScreen" component={NewHomeScreen} /> */}
       <Stack.Screen
+        options={{ animation: "slide_from_bottom" }}
         name="NewBubblesCategories"
         component={NewBubblesCategories}
       />
@@ -239,9 +241,7 @@ function InitialNavigation(user) {
   return (
     <Stack.Navigator
       initialRouteName={user ? "Tabs" : "LandPage"}
-      screenOptions={{
-        headerShown: false,
-      }}
+      screenOptions={{ headerShown: false, animation: "slide_from_right" }}
     >
       <Stack.Screen name="LandPage" component={LandPage} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
