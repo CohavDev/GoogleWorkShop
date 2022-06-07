@@ -135,6 +135,7 @@ export default function NewActivityPreview(props) {
 					android_ripple={{ color: "white" }}
 					onPress={() => props.navigation.navigate("MatchesScreen", 
 						{activityType:props.activityType,
+						navigation: props.navigation,
 						location:props.location,
 						startDate:props.startDate,
 						endDate:props.endDate,
