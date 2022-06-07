@@ -17,6 +17,7 @@ import { Entypo } from "@expo/vector-icons";
 import myColors from "../app/config/colors";
 import { firebase } from "../app/firebase/config.js";
 import ActivityDetailsComponent from "../app/components/ActivityDetailsComponent";
+import colors from "../app/config/colors";
 
 export default function NewApproveActivity(props) {
   console.log(props.route.params);
@@ -130,7 +131,8 @@ export default function NewApproveActivity(props) {
     // 			</View>
     // 		</View>
     // 	</View>
-    <View>
+    <View style={{backgroundColor: colors.Secondary, height: "100%", paddingBottom: "0%", paddingTop: "-50%"}}>
+        
       <View style={styles.buttonsContainer}>
         <Pressable
           style={styles.buttonStyle}
@@ -138,7 +140,7 @@ export default function NewApproveActivity(props) {
           android_ripple={{ color: "white" }}
           onPress={() => props.navigation.goBack()}
         >
-          <Text>Edit</Text>
+          <Text style={{color: "white"}}>Edit</Text>
         </Pressable>
         <Pressable
           style={styles.buttonStyle}
@@ -187,9 +189,11 @@ export default function NewApproveActivity(props) {
             // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
           }}
         >
-          <Text>Approve</Text>
+          <Text style={{color: "white"}}>Approve</Text>
         </Pressable>
       </View>
+      <View style={{ bottom: "10%", height: "80%",}}>
+
       <ActivityDetailsComponent
         type={DATA.type}
         icon={DATA.icon}
@@ -199,84 +203,90 @@ export default function NewApproveActivity(props) {
         languages={languagesString}
         time={DATA.time}
       />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    width: "100%",
-    height: "100%",
-    // justifyContent: "flex-start",
-    // alignItems: "center",
-  },
-  activityTypeContainer: {
-    // borderWidth: 1,
-    width: "100%",
-    height: "25%",
-    top: 30,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "baseline",
-    // alignContent: "space-between",
-  },
-  activityTypeTextContainer: {
-    // alignSelf: "stretch",
-    justifyContent: "flex-start",
-  },
-  activityTypeText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  activityDetailsText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  activityDetailsContainer: {
-    // borderWidth: 1,
-    // borderColor: "red",
-    width: "100%",
-    height: "55%",
-    top: 20,
-  },
-  titlesStyle: {
-    fontSize: 14,
-  },
-  location: {
-    top: 40,
-  },
-  date: {
-    // borderWidth: 1,
-    top: 80,
-    // right: 20,
-    flexDirection: "row",
-    // justifyContent: "space-evenly",
-  },
-  time: {
-    // borderWidth: 1,
-    top: 120,
-    // right: 20,
-    // justifyContent: "space-evenly",
-  },
-  languages: {
-    top: 160,
-    // right: 20,
-    // justifyContent: "space-evenly",
-  },
-  buttonsContainer: {
-    // borderWidth: 1,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    top: "150%",
-    // position: "absolute",
-  },
-  buttonStyle: {
-    width: 100,
-    height: 40,
-    elevation: 5,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 15,
-  },
+	mainContainer: {
+		width: "100%",
+		height: "100%",
+		// justifyContent: "flex-start",
+		// alignItems: "center",
+	},
+	activityTypeContainer: {
+		// borderWidth: 1,
+		width: "100%",
+		height: "25%",
+		// top: 30,
+		flexDirection: "row",
+		justifyContent: "space-around",
+		alignItems: "baseline",
+		// alignContent: "space-between",
+	},
+	activityTypeTextContainer: {
+		// alignSelf: "stretch",
+		justifyContent: "flex-start",
+	},
+	activityTypeText: {
+		fontSize: 18,
+		fontWeight: "bold",
+	},
+	activityDetailsText: {
+		fontSize: 16,
+		fontWeight: "bold",
+	},
+	activityDetailsContainer: {
+		// borderWidth: 1,
+		// borderColor: "red",
+		width: "100%",
+		height: "55%",
+		top: 20,
+	},
+	titlesStyle: {
+		fontSize: 14,
+	},
+	location: {
+		top: 40,
+	},
+	date: {
+		// borderWidth: 1,
+		top: 80,
+		// right: 20,
+		flexDirection: "row",
+		// justifyContent: "space-evenly",
+	},
+	time: {
+		// borderWidth: 1,
+		top: 120,
+		// right: 20,
+		// justifyContent: "space-evenly",
+	},
+	languages: {
+        top: 160,
+		// right: 20,
+		// justifyContent: "space-evenly",
+	},
+	buttonsContainer: {
+        width: "100%",
+        height: "15%",
+        // borderWidth: 1,
+        // borderColor: "red",
+		flexDirection: "row",
+		justifyContent: "space-evenly",
+		top: "140%",
+        paddingTop: "5%",
+        backgroundColor: colors.Background,
+        // position: "absolute",
+	},
+	buttonStyle: {
+		width: 100,
+		height: 40,
+		elevation: 5,
+		backgroundColor: colors.Primary,
+		alignItems: "center",
+		justifyContent: "center",
+		borderRadius: 15,
+	},
 });

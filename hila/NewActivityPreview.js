@@ -18,7 +18,7 @@ import myColors from "../app/config/colors";
 import { firebase } from "../app/firebase/config.js";
 import ActivityDetailsComponent from "../app/components/ActivityDetailsComponent";
 
-export default function NewApproveActivity(props) {
+export default function NewActivityPreview(props) {
 	const DATA = {
 		// type: props.navigation.getParam("type"),
 		type: "type",

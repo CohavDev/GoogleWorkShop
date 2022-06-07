@@ -1,12 +1,25 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 
 export default StyleSheet.create({
+  backgroundImage: {
+    width: "100%",
+    height: Dimensions.get("screen").height,
+    alignItems: "center",
+    flex: 1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    // flexDirection: "row",
+    // resizeMode: "cover",
+  },
   container: {
     flex: 1,
     alignItems: "center",
     height: "100%",
+    width: "100%",
     paddingTop: "30%",
-    // backgroundColor: "white",
+    // backgroundColor: "gray",
   },
   title: {},
   logo: {
