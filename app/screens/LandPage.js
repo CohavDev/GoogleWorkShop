@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import React from "react";
 import BackgroundImage from "../components/BackgroungImage";
+import colors from "../config/colors";
+import { color } from "react-native-reanimated";
 export default function LandPage({ navigation }) {
   const onLoginPress = () => {
     navigation.navigate("LoginScreen");
@@ -87,9 +89,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
+    elevation: 7,
   },
   buttonTitle: {
-    color: "rgba(65,152,233,1)",
+    color: colors.Secondary,
     fontSize: 16,
     fontWeight: "bold",
   },
