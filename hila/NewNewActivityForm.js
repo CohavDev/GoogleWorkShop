@@ -414,9 +414,9 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   buttonContainer: {
-    height: 40,
-    width: 80,
-    top: 30,
+    height: 50,
+    width: 100,
+    top: 80,
     borderRadius: 20,
     // borderWidth: 1,
     elevation: 3,
