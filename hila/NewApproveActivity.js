@@ -54,85 +54,70 @@ export default function NewApproveActivity(props) {
     languagesArray.push(element.item);
   }
   const languagesString = languagesArray.join(", ");
+  const onClickAprrove = () => {
+    userRef.get().then((result) => {
+      //setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
+      const userFormattedDateOfBirth = result.data().formattedDateOfBirth;
+      const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+      day = DATA.startDate.slice(0, 2);
+      month = DATA.startDate.slice(3, 5);
+      year = DATA.startDate.slice(6, 10);
+      // i assume the format of the date of birth is : DD/MM/YYYY
+      const formattedStartDate = parseInt("".concat(year, month, day));
+      day = DATA.endDate.slice(0, 2);
+      month = DATA.endDate.slice(3, 5);
+      year = DATA.endDate.slice(6, 10);
+      // i assume the format of the date of birth is : DD/MM/YYYY
+      const formattedEndDate = parseInt("".concat(year, month, day));
+      const activityData = {
+        userID: userID,
+        createdAt: timestamp,
+        type: DATA.type,
+        startDate: DATA.startDate,
+        formattedStartDate: formattedStartDate,
+        endDate: DATA.endDate,
+        formattedEndDate: formattedEndDate,
+        time: DATA.time,
+        userFormattedDateOfBirth: userFormattedDateOfBirth,
+        location: DATA.location,
+        languages: languagesArray,
+        travelPartnersIDs: travelPartnersIDs,
+        matchedActivityID: matchedActivityID,
+        status: status,
+      };
+      allActivitiesRef
+        .add(activityData)
+        .then(() => {
+          props.navigation.navigate("MyActivities");
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    });
+    // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
+  };
   return (
-    // <View style={styles.mainContainer}>
-    // 	<View style={styles.activityTypeContainer}>
-    // 		<Text style={styles.activityTypeText}>{DATA.type}</Text>
-    // 		<View style={{ top: 30 }}>
-    // 			<Circle iconName={DATA.icon} />
-    // 		</View>
-    // 	</View>
-    // 	<View style={styles.activityDetailsContainer}>
-    // 		<View style={{ top: 10, left: 20 }}>
-    // 			<Text>Activity details</Text>
-    // 			{/*activity location*/}
-    // 			<View style={styles.location}>
-    // 				<Text style={styles.activityDetailsText}>
-    // 					{DATA.location}
-    // 				</Text>
-    // 			</View>
-    // 			{/*activity date*/}
-    // 			<View style={styles.date}>
-    // 				<View
-    // 					style={{
-    // 						left: 0,
-    // 						flexDirection: "row",
-    // 						alignItems: "center",
-    // 					}}
-    // 				>
-    // 					<Text style={styles.titlesStyle}>From:   </Text>
-    // 					<Text style={styles.activityDetailsText}>
-    // 						{DATA.startDate}
-    // 					</Text>
-    // 				</View>
-
-    // 				<View
-    // 					style={{
-    // 						left: 40,
-    // 						flexDirection: "row",
-    // 						alignItems: "center",
-    // 					}}
-    // 				>
-    // 					<Text style={styles.titlesStyle}>To:   </Text>
-    // 					<Text style={styles.activityDetailsText}>
-    // 						{DATA.endDate}
-    // 					</Text>
-    // 				</View>
-    // 			</View>
-    // 			{/*Activity time*/}
-    // 			<View style={styles.time}>
-    // 				<View
-    // 					style={{
-    // 						flexDirection: "row",
-    // 						alignItems: "center",
-    // 					}}
-    // 				>
-    // 					<Text style={styles.titlesStyle}>When:   </Text>
-    // 					<Text style={styles.activityDetailsText}>{DATA.time}</Text>
-    // 				</View>
-    // 			</View>
-    // 			{/*Activity languages*/}
-    // 			<View style={styles.languages}>
-    // 				<View
-    // 					style={{
-    // 						flexDirection: "row",
-    // 						alignItems: "flex-start",
-    // 					}}
-    // 				>
-    // 					<Text style={styles.titlesStyle}>
-    // 						Languages:{"   "}
-    // 					</Text>
-    //                     <View style={{width: "60%"}}>
-    //                         <Text style={styles.activityDetailsText}>
-    //                             {languagesString}
-    //                         </Text>
-    //                     </View>
-    // 				</View>
-    // 			</View>
-    // 		</View>
-    // 	</View>
-    <View style={{backgroundColor: colors.Secondary, height: "100%", paddingBottom: "0%", paddingTop: "-50%"}}>
-        
+    <View
+      style={{
+        backgroundColor: colors.Secondary,
+        height: "100%",
+        paddingBottom: "0%",
+        // borderWidth: 2,
+        // borderColor: "red",
+        // paddingTop: "-0%",
+      }}
+    >
+      <View style={{ bottom: "0%", height: "80%" }}>
+        <ActivityDetailsComponent
+          type={DATA.type}
+          icon={DATA.icon}
+          location={DATA.location}
+          startDate={DATA.startDate}
+          endDate={DATA.endDate}
+          languages={languagesString}
+          time={DATA.time}
+        />
+      </View>
       <View style={styles.buttonsContainer}>
         <Pressable
           style={styles.buttonStyle}
@@ -140,153 +125,102 @@ export default function NewApproveActivity(props) {
           android_ripple={{ color: "white" }}
           onPress={() => props.navigation.goBack()}
         >
-          <Text style={{color: "white"}}>Edit</Text>
+          <Text style={{ color: "white", fontSize: 16 }}>Edit</Text>
         </Pressable>
         <Pressable
           style={styles.buttonStyle}
           onLongPress={() => alert("clicked 'approve'")}
           android_ripple={{ color: "white" }}
-          onPress={() => {
-            userRef.get().then((result) => {
-              //setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
-              const userFormattedDateOfBirth = result.data().formattedDateOfBirth;
-              const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-              day = DATA.startDate.slice(0, 2);
-              month = DATA.startDate.slice(3, 5);
-              year = DATA.startDate.slice(6, 10);
-              // i assume the format of the date of birth is : DD/MM/YYYY
-              const formattedStartDate = parseInt("".concat(year, month, day));
-              day = DATA.endDate.slice(0, 2);
-              month = DATA.endDate.slice(3, 5);
-              year = DATA.endDate.slice(6, 10);
-              // i assume the format of the date of birth is : DD/MM/YYYY
-              const formattedEndDate = parseInt("".concat(year, month, day));
-              const activityData = {
-                userID: userID,
-                createdAt: timestamp,
-                type: DATA.type,
-                startDate: DATA.startDate,
-                formattedStartDate: formattedStartDate,
-                endDate: DATA.endDate,
-                formattedEndDate: formattedEndDate,
-                time: DATA.time,
-                userFormattedDateOfBirth: userFormattedDateOfBirth,
-                location: DATA.location,
-                languages: languagesArray,
-                travelPartnersIDs: travelPartnersIDs,
-                matchedActivityID: matchedActivityID,
-                status: status,
-              };
-              allActivitiesRef
-                .add(activityData)
-                .then(() => {
-                  props.navigation.navigate("MyActivities");
-                })
-                .catch((error) => {
-                  alert(error);
-                });
-            });
-            // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
-          }}
+          onPress={onClickAprrove}
         >
-          <Text style={{color: "white"}}>Approve</Text>
+          <Text style={{ color: "white", fontSize: 16 }}>Approve</Text>
         </Pressable>
-      </View>
-      <View style={{ bottom: "10%", height: "80%",}}>
-
-      <ActivityDetailsComponent
-        type={DATA.type}
-        icon={DATA.icon}
-        location={DATA.location}
-        startDate={DATA.startDate}
-        endDate={DATA.endDate}
-        languages={languagesString}
-        time={DATA.time}
-      />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-	mainContainer: {
-		width: "100%",
-		height: "100%",
-		// justifyContent: "flex-start",
-		// alignItems: "center",
-	},
-	activityTypeContainer: {
-		// borderWidth: 1,
-		width: "100%",
-		height: "25%",
-		// top: 30,
-		flexDirection: "row",
-		justifyContent: "space-around",
-		alignItems: "baseline",
-		// alignContent: "space-between",
-	},
-	activityTypeTextContainer: {
-		// alignSelf: "stretch",
-		justifyContent: "flex-start",
-	},
-	activityTypeText: {
-		fontSize: 18,
-		fontWeight: "bold",
-	},
-	activityDetailsText: {
-		fontSize: 16,
-		fontWeight: "bold",
-	},
-	activityDetailsContainer: {
-		// borderWidth: 1,
-		// borderColor: "red",
-		width: "100%",
-		height: "55%",
-		top: 20,
-	},
-	titlesStyle: {
-		fontSize: 14,
-	},
-	location: {
-		top: 40,
-	},
-	date: {
-		// borderWidth: 1,
-		top: 80,
-		// right: 20,
-		flexDirection: "row",
-		// justifyContent: "space-evenly",
-	},
-	time: {
-		// borderWidth: 1,
-		top: 120,
-		// right: 20,
-		// justifyContent: "space-evenly",
-	},
-	languages: {
-        top: 160,
-		// right: 20,
-		// justifyContent: "space-evenly",
-	},
-	buttonsContainer: {
-        width: "100%",
-        height: "15%",
-        // borderWidth: 1,
-        // borderColor: "red",
-		flexDirection: "row",
-		justifyContent: "space-evenly",
-		top: "140%",
-        paddingTop: "5%",
-        backgroundColor: colors.Background,
-        // position: "absolute",
-	},
-	buttonStyle: {
-		width: 100,
-		height: 40,
-		elevation: 5,
-		backgroundColor: colors.Primary,
-		alignItems: "center",
-		justifyContent: "center",
-		borderRadius: 15,
-	},
+  buttonsContainer: {
+    width: "100%",
+    height: "20%",
+    // borderWidth: 1,
+    // borderColor: "red",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    bottom: 0,
+    paddingTop: "5%",
+    backgroundColor: colors.Background,
+    // borderWidth: 3,
+    // borderColor: "yellow",
+    // position: "absolute",
+  },
+  buttonStyle: {
+    width: 120,
+    height: 50,
+    elevation: 5,
+    backgroundColor: colors.Primary,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+  },
+  mainContainer: {
+    width: "100%",
+    height: "100%",
+    // justifyContent: "flex-start",
+    // alignItems: "center",
+  },
+  activityTypeContainer: {
+    // borderWidth: 1,
+    width: "100%",
+    height: "25%",
+    // top: 30,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "baseline",
+    // alignContent: "space-between",
+  },
+  activityTypeTextContainer: {
+    // alignSelf: "stretch",
+    justifyContent: "flex-start",
+  },
+  activityTypeText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  activityDetailsText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  activityDetailsContainer: {
+    // borderWidth: 1,
+    // borderColor: "red",
+    width: "100%",
+    height: "55%",
+    top: 20,
+  },
+  titlesStyle: {
+    fontSize: 14,
+  },
+  location: {
+    top: 40,
+  },
+  date: {
+    // borderWidth: 1,
+    top: 80,
+    // right: 20,
+    flexDirection: "row",
+    // justifyContent: "space-evenly",
+  },
+  time: {
+    // borderWidth: 1,
+    top: 120,
+    // right: 20,
+    // justifyContent: "space-evenly",
+  },
+  languages: {
+    top: 160,
+    // right: 20,
+    // justifyContent: "space-evenly",
+  },
 });
