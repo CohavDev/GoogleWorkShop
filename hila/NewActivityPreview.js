@@ -133,7 +133,16 @@ export default function NewActivityPreview(props) {
 				<Pressable
 					style={styles.buttonStyle}
 					android_ripple={{ color: "white" }}
-					onPress={() => props.navigation.navigate("MatchesScreen", {activityType:props.activityType, location:props.location, startDate:props.startDate, endDate:props.endDate, time:props.time, languages:props.languages, userFormattedDateOfBirth:props.userFormattedDateOfBirth, activityID: props.activityID, tarvelPartnersIDs: props.tarvelPartnersIDs})}
+					onPress={() => props.navigation.navigate("MatchesScreen", 
+						{activityType:props.activityType,
+						location:props.location,
+						startDate:props.startDate,
+						endDate:props.endDate,
+						time:props.time,
+						languages:props.languages,
+						userFormattedDateOfBirth:props.userFormattedDateOfBirth,
+						activityID: props.activityID,
+						tarvelPartnersIDs: props.tarvelPartnersIDs})}
 				>
 					<Text>Matches</Text>
 				</Pressable>
