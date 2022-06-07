@@ -83,7 +83,7 @@ function ChooseIndoorsActivity(props) {
 					</Pressable>
 					<Pressable
 						onPress={() =>
-							pressActivityHandler("Place_to_sleep", "bunk-bed-outline")
+							pressActivityHandler("Place to sleep", "bunk-bed-outline")
 						}
 					>
 						<Circle
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "center",
 		height: "100%",
+        backgroundColor: "white",
 	},
 	rightBackground: {
 		flexDirection: "column",

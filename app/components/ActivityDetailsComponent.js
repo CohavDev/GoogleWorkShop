@@ -11,11 +11,13 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Circle from "./Circle";
+import BigCircle from "./BigCircle";
 import { AntDesign } from "@expo/vector-icons";
 import ApprovalItem from "./ApprovalItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 import { firebase } from "../firebase/config.js";
+import colors from "../config/colors";
 
 export default function ActivityDetailsComponent(props) {
 	const DATA = {
@@ -53,8 +55,8 @@ export default function ActivityDetailsComponent(props) {
 		<View style={styles.mainContainer}>
 			<View style={styles.activityTypeContainer}>
 				<Text style={styles.activityTypeText}>{DATA.type}</Text>
-				<View style={{ top: 30 }}>
-					<Circle iconName={DATA.icon} />
+				<View style={{ top: 0 }}>
+					<BigCircle iconName={DATA.icon} />
 				</View>
 			</View>
 			<View style={styles.activityDetailsContainer}>
@@ -75,7 +77,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "center",
 							}}
 						>
-							<Text style={styles.titlesStyle}>From:  </Text>
+							<Text style={styles.titlesStyle}>From: </Text>
 							<Text style={styles.activityDetailsText}>
 								{DATA.startDate}
 							</Text>
@@ -88,7 +90,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "center",
 							}}
 						>
-							<Text style={styles.titlesStyle}>To:  </Text>
+							<Text style={styles.titlesStyle}>To: </Text>
 							<Text style={styles.activityDetailsText}>
 								{DATA.endDate}
 							</Text>
@@ -102,7 +104,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "center",
 							}}
 						>
-							<Text style={styles.titlesStyle}>When:  </Text>
+							<Text style={styles.titlesStyle}>When: </Text>
 							<Text style={styles.activityDetailsText}>{DATA.time}</Text>
 						</View>
 					</View>
@@ -130,28 +132,37 @@ export default function ActivityDetailsComponent(props) {
 
 const styles = StyleSheet.create({
 	mainContainer: {
+        // borderWidth:1,
+        // borderColor: "pink",
 		width: "100%",
-		height: "100%",
-		// justifyContent: "flex-start",
-		// alignItems: "center",
+		height: "70%",
+        // bottom: "30%",
+        // top: "10%",
+        // backgroundColor: colors.Background,
+		// justifyContent: "space-evenly",
+		// alignItems: "flex-start",
 	},
 	activityTypeContainer: {
 		// borderWidth: 1,
+        // borderColor: "red",
 		width: "100%",
-		height: "25%",
-		top: 0,
+		height: "45%",
+		// paddingBottom: "15%",
+        backgroundColor: colors.Secondary,
 		flexDirection: "row",
 		justifyContent: "space-around",
-		alignItems: "baseline",
+		alignItems: "flex-start",
 		// alignContent: "space-between",
 	},
 	activityTypeTextContainer: {
 		// alignSelf: "stretch",
 		justifyContent: "flex-start",
+        // alignItems: "flex-start",
 	},
 	activityTypeText: {
 		fontSize: 18,
 		fontWeight: "bold",
+        color: "white",
 	},
 	activityDetailsText: {
 		fontSize: 16,
@@ -160,9 +171,15 @@ const styles = StyleSheet.create({
 	activityDetailsContainer: {
 		// borderWidth: 1,
 		// borderColor: "red",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        // borderTopColor: "red",
+        backgroundColor: colors.Background,
 		width: "100%",
-		height: "55%",
-		top: 0,
+		height: "100%",
+		paddingTop: "5%",
+        // paddingBottom: "10%",
+        // top: "10%",
 	},
 	titlesStyle: {
 		fontSize: 14,
@@ -193,12 +210,13 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-evenly",
 		top: 20,
+        // backgroundColor: colors.Background,
 	},
 	buttonStyle: {
 		width: 100,
 		height: 30,
 		elevation: 5,
-		backgroundColor: "white",
+		// backgroundColor: "white",
 		alignItems: "center",
 		justifyContent: "center",
 		borderRadius: 12,

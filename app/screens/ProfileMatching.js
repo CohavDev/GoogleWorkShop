@@ -72,7 +72,7 @@ export default function ProfileMatching(props) {
         <View style={styles.buttonContainer}>
           <Pressable
             style={styles.button}
-            onLongPress={() => alert("clicked 'match'!")}
+            // onLongPress={() => alert("clicked 'match'!")}
             android_ripple={{ color: "white" }}
             onPressIn={() => {
               Vibration.vibrate(PATTERN);
@@ -120,7 +120,7 @@ export default function ProfileMatching(props) {
       {/* <View> */}
       <LinearGradient
         // Background Linear Gradient
-        colors={[myColors.primary, myColors.secondary]}
+        colors={[myColors.Primary, myColors.Secondary]}
         locations={[0.05, 0.9]}
         style={styles.profilePicContainer}
       >
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   interstContainer: {
     borderRadius: 10,
     // shadowColor: "black",
-    backgroundColor: myColors.primary,
+    backgroundColor: myColors.Primary,
     marginLeft: 15,
     marginRight: 15,
     marginBottom: 15,
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: myColors.primary,
+    backgroundColor: myColors.Primary,
   },
   buttonContainer: {
     display: "flex",

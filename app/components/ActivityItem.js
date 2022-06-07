@@ -3,6 +3,7 @@ import React from "react";
 import { Entypo } from "@expo/vector-icons";
 import { IconButton } from "react-native-paper";
 import myColors from "../config/colors";
+import colors from "../config/colors";
 export default function ActivityItem(props) {
 	const iconsMap = {
 		Drinks: "glass-wine",
@@ -48,8 +49,9 @@ export default function ActivityItem(props) {
 					{/* <Entypo name={iconsMap.hiking} size={32} color="white" /> */}
 					<IconButton
 						icon={iconsMap[props.activityType]}
-						color="black"
-						size={32}
+						color={colors.Secondary}
+                        rippleColor="blue"
+						size={35}
 					/>
 				</View>
 				{/* </View> */}
@@ -63,7 +65,7 @@ export default function ActivityItem(props) {
 				</View>
 				<View style={styles.matchCountContainer}>
 					<Text>Matches</Text>
-					<Text>10</Text>
+					<Text>{props.travelPartnersIDs.length.toString()}</Text>
 				</View>
 			</View>
 			{/* </View> */}
@@ -77,15 +79,16 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "flex-start",
 		height: 100,
+        // backgroundColor: colors.Secondary,
 		// direction: "rtl",
 	},
 	imageContainer: {
 		// alignItems: "center",
 		// justifyContent: "center",
-		paddingHorizontal: 15,
+		// paddingHorizontal: 10,
 	},
 	circularImage: {
-		left: 15,
+		// left: 15,
 		height: 70,
 		width: 70,
 		borderRadius: 35,
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
 	dataContainer: {
 		// marginVertical: 15,
 		width: "60%",
-		paddingHorizontal: 25,
+		paddingHorizontal: 15,
         // alignItems: "center",
 		// bottom: 10,
 		// justifyContent: "center",

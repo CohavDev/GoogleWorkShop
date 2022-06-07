@@ -8,20 +8,20 @@ var SIZE=120
 var RADIUS=SIZE/2
 var ICONSIZE=SIZE/2
 
-function Circle(props) {
+function BigCircle(props) {
    return (
       <View  style={styles.circle}>
          {/* <Entypo name={props.iconName} size={40} color="black"></Entypo> */}
          <IconButton
           icon={props.iconName}
           // color="#BFD9CD"
-          color="black"
+          color={colors.Secondary}
           size={ICONSIZE}
         />
-        <View style={{bottom: 15}}>
+        {/* <View style={{bottom: 15}}>
 
          <Text style={styles.pressableText}>{props.text}</Text>
-        </View>
+        </View> */}
       </View>
    );
 }
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default Circle;
+export default BigCircle;

@@ -20,7 +20,7 @@ import ActivityDetailsComponent from "../app/components/ActivityDetailsComponent
 import { NavigationContainer } from '@react-navigation/native';
 
 
-export default function NewApproveActivity(props) {
+export default function NewActivityPreview(props) {
 	const DATA = {
 		// type: props.navigation.getParam("type"),
 		type: "type",

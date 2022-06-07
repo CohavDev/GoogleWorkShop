@@ -29,14 +29,19 @@ import NewHomeScreen from "./hila/NewHomeScreen";
 
 import NewActivityPreview from "./hila/NewActivityPreview";
 
+
+import LandPage from "./app/screens/LandPage";
 import NewActivitiesScreen from "./hila/NewActivitiesScreen";
 import NewNewActivityForm from "./hila/NewNewActivityForm";
 import NewBubblesCategories from "./hila/NewBubblesCategories";
 import NewApproveActivity from "./hila/NewApproveActivity";
+import NewActivityPreview from "./hila/NewActivityPreview";
 import Tabs from "./app/navigation/Tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton, Colors } from "react-native-paper";
 import { I18nManager } from "react-native"; // force left to right layout of app
+import { firebase } from "./app/firebase/config";
+import colors from "./app/config/colors";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -78,6 +83,21 @@ export default function App() {
   //     }
   //   });
   // }, []);
+  const [authenticated, setAuthenticated] = useState(true);
+
+  //TODO: continue from here
+  useEffect(() => {
+    return firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setAuthenticated(true);
+        console.log("authenticated: ");
+        console.log(user);
+        setUser(user);
+      } else {
+        setAuthenticated(false);
+      }
+    });
+  }, []);
   console.log("newHomeScreen : ");
   console.log(user);
   return <NavigationContainer>{InitialNavigation(user)}</NavigationContainer>;
@@ -88,7 +108,8 @@ function TabsNav(props) {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "rgb(52, 175, 183)",
+        tabBarStyle: { backgroundColor: colors.TabBar },
+        tabBarActiveTintColor: colors.Secondary,
         tabBarInactiveTintColor: "gray",
         showLabel: false,
         style: {
@@ -109,15 +130,15 @@ function TabsNav(props) {
         props={props.user}
         options={{
           tabBarOptions: {
-            activeTintColor: "rgb(52, 175, 183)",
-            inactiveTintColor: "#fff",
+            activeTintColor: colors.TabBarText,
+            inactiveTintColor: colors.TabBarText,
             // Colors: "red",
           },
           tabBarIcon: ({ focused }) => (
             <IconButton
               icon="home-outline"
               // color="#BFD9CD"
-              // color="rgb(52, 175, 183)"
+              color={colors.TabBarText}
               // size={12}
             />
           ),
@@ -132,7 +153,7 @@ function TabsNav(props) {
             <IconButton
               icon="format-list-checkbox"
               // color="#BFD9CD"
-              color="black"
+              color={colors.TabBarText}
               // size={12}
             />
           ),
@@ -147,7 +168,7 @@ function TabsNav(props) {
             <IconButton
               icon="account-outline"
               // color="#BFD9CD"
-              color="black"
+              color={colors.TabBarText}
               // size={12}
             />
           ),
@@ -162,7 +183,7 @@ function TabsNav(props) {
             <IconButton
               icon="cog-outline"
               // color="#BFD9CD"
-              color="black"
+              color={colors.TabBarText}
               // size={12}
             />
           ),
@@ -177,6 +198,7 @@ function MainNavigation(props) {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        animation: "slide_from_right",
       }}
     >
       {/* <Stack.Screen
@@ -210,6 +232,7 @@ function MainNavigation(props) {
 
       {/* <Stack.Screen name="NewHomeScreen" component={NewHomeScreen} /> */}
       <Stack.Screen
+        options={{ animation: "slide_from_bottom" }}
         name="NewBubblesCategories"
         component={NewBubblesCategories}
       />
@@ -225,14 +248,15 @@ function MainNavigation(props) {
 function InitialNavigation(user) {
   return (
     <Stack.Navigator
-      initialRouteName={user ? "Tabs" : "LoginScreen"}
-      screenOptions={{
-        headerShown: false,
-      }}
+      initialRouteName={user ? "Tabs" : "LandPage"}
+      screenOptions={{ headerShown: false, animation: "slide_from_right" }}
     >
+      <Stack.Screen name="LandPage" component={LandPage} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
       <Stack.Screen name="Tabs" component={TabsNav} props={user} />
+      <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
+      <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
     </Stack.Navigator>
   );
 }

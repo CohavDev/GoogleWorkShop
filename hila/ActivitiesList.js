@@ -13,6 +13,7 @@ import {
 import ActivityItem from "../app/components/ActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../app/config/colors";
+import colors from "../app/config/colors";
 
 const DATA = [
 	{
@@ -61,39 +62,49 @@ const DATA = [
 
 export default function ActivitiesList(props) {
 	const [myActivities, setMyActivities] = useState([]);
-	//   const allActivitiesRef = firebase.firestore().collection('allActivities')
-	//   const userID=firebase.auth().currentUser.uid;
-	//   const userRef = firebase.firestore().collection('users').doc(userID)
+	const allActivitiesRef = firebase.firestore().collection('allActivities')
+	const userID=firebase.auth().currentUser.uid;
+	const userRef = firebase.firestore().collection('users').doc(userID)
 
-	//   useEffect(() => {
-	//     allActivitiesRef
-	//         .where("userID", "==", userID)
-	//         .orderBy('createdAt', 'desc')
-	//         .onSnapshot(
-	//             querySnapshot => {
-	//                 const newMyActivities = []
-	//                 querySnapshot.forEach(doc => {
-	//                     const activity = doc.data()
-	//                     activity.id = doc.id
-	//                     newMyActivities.push(entity)
-	//                 });
-	//                 setEntities(newMyActivities)
-	//             },
-	//             error => {
-	//                 console.log(error)
-	//             }
-	//         )
-	// }, [])
+	useEffect(() => {
+		allActivitiesRef
+			.where("userID", "==", userID)
+			.orderBy("formattedStartDate", "asc")
+			.limit(2)
+			.onSnapshot(
+				(querySnapshot) => {
+					const newMyActivities = [];
+					querySnapshot.forEach((doc) => {
+						const activity = doc.data();
+						activity.id = doc.id;
+						newMyActivities.push(activity);						
+					});
+					setMyActivities(newMyActivities);
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
+		}, []);
+
+
+	// 
 
 	const renderItem = ({ item }) => (
 		<ActivityItem
-			activityIcon={item.activityIcon}
-			activityType={item.activityName}
-			date={item.date}
-			//   endDate={item.endDate}
+			activityID={item.id}
+			activityIcon={item.type}
+			activityType={item.type}
+			startDate={item.startDate}
+			endDate={item.endDate}
 			location={item.location}
-			//   time={item.time}
+
+			time={item.time}
+			languages={item.languages}
+			userFormattedDateOfBirth={item.userFormattedDateOfBirth}
+			travelPartnersIDs={item.travelPartnersIDs}
 			navigation={props.navigation}
+
 		/>
 	);
 	return (
@@ -105,7 +116,7 @@ export default function ActivitiesList(props) {
 			<View style={[styles.container, { paddingHorizontal: 15 }]}>
 				<FlatList
                 // maxToRenderPerBatch={2}
-					data={DATA}
+					data={myActivities}
 					keyExtractor={(item) => item.key}
 					renderItem={renderItem}
 				/>
@@ -120,6 +131,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between",
 		alignItems: "center",
 		width: 330,
+        // backgroundColor: colors.Secondary,
 		// height: "5%",
 		// borderColor: "black",
 		// borderWidth: 1,
@@ -134,7 +146,7 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: "black",
-		fontSize: 28,
+		fontSize: 18,
 		// fontWeight: "bold",
 		//paddingTop: "20%",
 		//paddingBottom: 15,
