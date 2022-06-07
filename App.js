@@ -31,6 +31,7 @@ import NewActivitiesScreen from "./hila/NewActivitiesScreen";
 import NewNewActivityForm from "./hila/NewNewActivityForm";
 import NewBubblesCategories from "./hila/NewBubblesCategories";
 import NewApproveActivity from "./hila/NewApproveActivity";
+import NewActivityPreview from "./hila/NewActivityPreview";
 import Tabs from "./app/navigation/Tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton, Colors } from "react-native-paper";
