@@ -46,6 +46,9 @@ export default function NewApproveActivity(props) {
   const tmpArray = JSON.parse(DATA.languages);
   const languagesArray = [];
   const matchedActivityID = "";
+  var day = "";
+  var month = "";
+  var year = "";
 
   for (const element of tmpArray) {
     languagesArray.push(element.item);
@@ -128,7 +131,8 @@ export default function NewApproveActivity(props) {
     // 			</View>
     // 		</View>
     // 	</View>
-    <View style={{backgroundColor: colors.Secondary}}>
+    <View style={{backgroundColor: colors.Secondary, height: "100%", paddingBottom: "0%", paddingTop: "-50%"}}>
+        
       <View style={styles.buttonsContainer}>
         <Pressable
           style={styles.buttonStyle}
@@ -145,15 +149,26 @@ export default function NewApproveActivity(props) {
           onPress={() => {
             userRef.get().then((result) => {
               //setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
-              const userFormattedDateOfBirth =
-                result.data().formattedDateOfBirth;
+              const userFormattedDateOfBirth = result.data().formattedDateOfBirth;
               const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+              day = DATA.startDate.slice(0, 2);
+              month = DATA.startDate.slice(3, 5);
+              year = DATA.startDate.slice(6, 10);
+              // i assume the format of the date of birth is : DD/MM/YYYY
+              const formattedStartDate = parseInt("".concat(year, month, day));
+              day = DATA.endDate.slice(0, 2);
+              month = DATA.endDate.slice(3, 5);
+              year = DATA.endDate.slice(6, 10);
+              // i assume the format of the date of birth is : DD/MM/YYYY
+              const formattedEndDate = parseInt("".concat(year, month, day));
               const activityData = {
                 userID: userID,
                 createdAt: timestamp,
                 type: DATA.type,
                 startDate: DATA.startDate,
+                formattedStartDate: formattedStartDate,
                 endDate: DATA.endDate,
+                formattedEndDate: formattedEndDate,
                 time: DATA.time,
                 userFormattedDateOfBirth: userFormattedDateOfBirth,
                 location: DATA.location,
@@ -177,6 +192,8 @@ export default function NewApproveActivity(props) {
           <Text style={{color: "white"}}>Approve</Text>
         </Pressable>
       </View>
+      <View style={{ bottom: "10%", height: "80%",}}>
+
       <ActivityDetailsComponent
         type={DATA.type}
         icon={DATA.icon}
@@ -186,6 +203,7 @@ export default function NewApproveActivity(props) {
         languages={languagesString}
         time={DATA.time}
       />
+      </View>
     </View>
   );
 }
@@ -251,10 +269,15 @@ const styles = StyleSheet.create({
 		// justifyContent: "space-evenly",
 	},
 	buttonsContainer: {
+        width: "100%",
+        height: "15%",
         // borderWidth: 1,
+        // borderColor: "red",
 		flexDirection: "row",
 		justifyContent: "space-evenly",
-		top: "150%",
+		top: "140%",
+        paddingTop: "5%",
+        backgroundColor: colors.Background,
         // position: "absolute",
 	},
 	buttonStyle: {

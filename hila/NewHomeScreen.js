@@ -16,28 +16,29 @@ export default function NewHomeScreen(props) {
     props.navigation.navigate("MyActivities");
   };
 
-  return (
-    <View style={styles.mainBackground}>
-      <Text style={styles.header}>Welcome back</Text>
-      <View style={styles.viewButtons}>
-        <Pressable
-          onPress={pressNewActivityHandler}
-          // android_ripple={{ color: "white" }}
-        >
-          <OvalSquare text="New Activity" />
-        </Pressable>
-        <Pressable onPress={viewRecentActivitiesHandler}>
-          <OvalSquare text="View Recent Activities" />
-        </Pressable>
-      </View>
-      <View style={styles.myActivities}>
-        <View style={{ alignSelf: "flex-start", left: 40 }}>
-          <Text style={styles.textStyle}>Upcoming activities</Text>
-        </View>
-        <ActivitiesList />
-      </View>
-    </View>
-  );
+	return (
+		<View style={styles.mainBackground}>
+                <Text style={styles.header}>Welcome Back</Text>
+			<View style={styles.viewButtons}>
+				<Pressable
+					onPress={pressNewActivityHandler}
+					// android_ripple={{ color: "white" }}
+				>
+					<OvalSquare text="New Activity" />
+				</Pressable>
+				<Pressable onPress={viewRecentActivitiesHandler}>
+                
+					<OvalSquare text="View Recent Activities" />
+				</Pressable>
+			</View>
+            <View style={styles.myActivities}>
+                <View style={{ alignSelf: "flex-start", left: 40}}>
+                    <Text style={styles.textStyle}>Upcoming activities</Text>
+                </View>
+                <ActivitiesList/>
+            </View>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({

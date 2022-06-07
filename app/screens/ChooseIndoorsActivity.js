@@ -83,7 +83,7 @@ function ChooseIndoorsActivity(props) {
 					</Pressable>
 					<Pressable
 						onPress={() =>
-							pressActivityHandler("Place_to_sleep", "bunk-bed-outline")
+							pressActivityHandler("Place to sleep", "bunk-bed-outline")
 						}
 					>
 						<Circle

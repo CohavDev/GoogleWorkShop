@@ -65,7 +65,7 @@ export default function ActivityItem(props) {
 				</View>
 				<View style={styles.matchCountContainer}>
 					<Text>Matches</Text>
-					<Text>10</Text>
+					<Text>{props.travelPartnersIDs.length.toString()}</Text>
 				</View>
 			</View>
 			{/* </View> */}

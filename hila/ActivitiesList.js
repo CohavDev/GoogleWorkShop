@@ -62,38 +62,46 @@ const DATA = [
 
 export default function ActivitiesList({ navigation }) {
 	const [myActivities, setMyActivities] = useState([]);
-	//   const allActivitiesRef = firebase.firestore().collection('allActivities')
-	//   const userID=firebase.auth().currentUser.uid;
-	//   const userRef = firebase.firestore().collection('users').doc(userID)
+	const allActivitiesRef = firebase.firestore().collection('allActivities')
+	const userID=firebase.auth().currentUser.uid;
+	const userRef = firebase.firestore().collection('users').doc(userID)
 
-	//   useEffect(() => {
-	//     allActivitiesRef
-	//         .where("userID", "==", userID)
-	//         .orderBy('createdAt', 'desc')
-	//         .onSnapshot(
-	//             querySnapshot => {
-	//                 const newMyActivities = []
-	//                 querySnapshot.forEach(doc => {
-	//                     const activity = doc.data()
-	//                     activity.id = doc.id
-	//                     newMyActivities.push(entity)
-	//                 });
-	//                 setEntities(newMyActivities)
-	//             },
-	//             error => {
-	//                 console.log(error)
-	//             }
-	//         )
-	// }, [])
+	useEffect(() => {
+		allActivitiesRef
+			.where("userID", "==", userID)
+			.orderBy("formattedStartDate", "asc")
+			.limit(2)
+			.onSnapshot(
+				(querySnapshot) => {
+					const newMyActivities = [];
+					querySnapshot.forEach((doc) => {
+						const activity = doc.data();
+						activity.id = doc.id;
+						newMyActivities.push(activity);						
+					});
+					setMyActivities(newMyActivities);
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
+		}, []);
+
+
+	// 
 
 	const renderItem = ({ item }) => (
 		<ActivityItem
-			activityIcon={item.activityIcon}
-			activityType={item.activityName}
-			date={item.date}
-			//   endDate={item.endDate}
+			activityID={item.id}
+			activityIcon={item.type}
+			activityType={item.type}
+			startDate={item.startDate}
+			endDate={item.endDate}
 			location={item.location}
-			//   time={item.time}
+			time={item.time}
+			languages={item.languages}
+			userFormattedDateOfBirth={item.userFormattedDateOfBirth}
+			travelPartnersIDs={item.travelPartnersIDs}
 			navigation={navigation}
 		/>
 	);
@@ -106,7 +114,7 @@ export default function ActivitiesList({ navigation }) {
 			<View style={[styles.container, { paddingHorizontal: 15 }]}>
 				<FlatList
                 // maxToRenderPerBatch={2}
-					data={DATA}
+					data={myActivities}
 					keyExtractor={(item) => item.key}
 					renderItem={renderItem}
 				/>

@@ -24,18 +24,15 @@ export default function MyActivities({ navigation }) {
 	useEffect(() => {
 		allActivitiesRef
 			.where("userID", "==", userID)
-			.orderBy("createdAt", "desc")
+			.orderBy("formattedStartDate", "asc")
 			.onSnapshot(
 				(querySnapshot) => {
 					const newMyActivities = [];
-					// console.log("------------------myactivity before foreach");
 					querySnapshot.forEach((doc) => {
-						// console.log("my activity inside foreach");
 						const activity = doc.data();
 						activity.id = doc.id;
 						newMyActivities.push(activity);
 					});
-					// console.log("updated state my activiy");
 					setMyActivities(newMyActivities);
 				},
 				(error) => {
