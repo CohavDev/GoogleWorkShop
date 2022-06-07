@@ -128,7 +128,7 @@ export default function NewApproveActivity(props) {
     // 			</View>
     // 		</View>
     // 	</View>
-    <View style={{backgroundColor: colors.Background}}>
+    <View style={{backgroundColor: colors.Secondary}}>
       <View style={styles.buttonsContainer}>
         <Pressable
           style={styles.buttonStyle}

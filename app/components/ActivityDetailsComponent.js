@@ -55,7 +55,7 @@ export default function ActivityDetailsComponent(props) {
 		<View style={styles.mainContainer}>
 			<View style={styles.activityTypeContainer}>
 				<Text style={styles.activityTypeText}>{DATA.type}</Text>
-				<View style={{ top: 30 }}>
+				<View style={{ top: 0 }}>
 					<BigCircle iconName={DATA.icon} />
 				</View>
 			</View>
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
         // top: "0",
-        backgroundColor: colors.Background,
+        // backgroundColor: colors.Background,
 		// justifyContent: "flex-start",
 		// alignItems: "center",
 	},
@@ -145,19 +145,21 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "25%",
 		// top: "0%",
-        
+        backgroundColor: colors.Secondary,
 		flexDirection: "row",
 		justifyContent: "space-around",
-		alignItems: "baseline",
+		alignItems: "flex-start",
 		// alignContent: "space-between",
 	},
 	activityTypeTextContainer: {
 		// alignSelf: "stretch",
 		justifyContent: "flex-start",
+        // alignItems: "flex-start",
 	},
 	activityTypeText: {
 		fontSize: 18,
 		fontWeight: "bold",
+        color: "white",
 	},
 	activityDetailsText: {
 		fontSize: 16,
@@ -166,9 +168,13 @@ const styles = StyleSheet.create({
 	activityDetailsContainer: {
 		// borderWidth: 1,
 		// borderColor: "red",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        // borderTopColor: "red",
+        backgroundColor: colors.Background,
 		width: "100%",
-		height: "55%",
-		top: 0,
+		height: "75%",
+		// marginTop: 10,
 	},
 	titlesStyle: {
 		fontSize: 14,
@@ -199,12 +205,13 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-evenly",
 		top: 20,
+        // backgroundColor: colors.Background,
 	},
 	buttonStyle: {
 		width: 100,
 		height: 30,
 		elevation: 5,
-		backgroundColor: "white",
+		// backgroundColor: "white",
 		alignItems: "center",
 		justifyContent: "center",
 		borderRadius: 12,
