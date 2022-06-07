@@ -17,6 +17,7 @@ import { Entypo } from "@expo/vector-icons";
 import myColors from "../app/config/colors";
 import { firebase } from "../app/firebase/config.js";
 import ActivityDetailsComponent from "../app/components/ActivityDetailsComponent";
+import colors from "../app/config/colors";
 
 export default function NewApproveActivity(props) {
   console.log(props.route.params);
@@ -127,7 +128,7 @@ export default function NewApproveActivity(props) {
     // 			</View>
     // 		</View>
     // 	</View>
-    <View>
+    <View style={{backgroundColor: colors.Background}}>
       <View style={styles.buttonsContainer}>
         <Pressable
           style={styles.buttonStyle}
@@ -135,7 +136,7 @@ export default function NewApproveActivity(props) {
           android_ripple={{ color: "white" }}
           onPress={() => props.navigation.navigate("NewActivityForm")}
         >
-          <Text>Edit</Text>
+          <Text style={{color: "white"}}>Edit</Text>
         </Pressable>
         <Pressable
           style={styles.buttonStyle}
@@ -173,7 +174,7 @@ export default function NewApproveActivity(props) {
             // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
           }}
         >
-          <Text>Approve</Text>
+          <Text style={{color: "white"}}>Approve</Text>
         </Pressable>
       </View>
       <ActivityDetailsComponent
@@ -200,7 +201,7 @@ const styles = StyleSheet.create({
 		// borderWidth: 1,
 		width: "100%",
 		height: "25%",
-		top: 30,
+		// top: 30,
 		flexDirection: "row",
 		justifyContent: "space-around",
 		alignItems: "baseline",
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
 		width: 100,
 		height: 40,
 		elevation: 5,
-		backgroundColor: "white",
+		backgroundColor: colors.Primary,
 		alignItems: "center",
 		justifyContent: "center",
 		borderRadius: 15,

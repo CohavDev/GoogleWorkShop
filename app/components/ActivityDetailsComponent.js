@@ -11,11 +11,13 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Circle from "./Circle";
+import BigCircle from "./BigCircle";
 import { AntDesign } from "@expo/vector-icons";
 import ApprovalItem from "./ApprovalItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 import { firebase } from "../firebase/config.js";
+import colors from "../config/colors";
 
 export default function ActivityDetailsComponent(props) {
 	const DATA = {
@@ -54,7 +56,7 @@ export default function ActivityDetailsComponent(props) {
 			<View style={styles.activityTypeContainer}>
 				<Text style={styles.activityTypeText}>{DATA.type}</Text>
 				<View style={{ top: 30 }}>
-					<Circle iconName={DATA.icon} />
+					<BigCircle iconName={DATA.icon} />
 				</View>
 			</View>
 			<View style={styles.activityDetailsContainer}>
@@ -75,7 +77,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "center",
 							}}
 						>
-							<Text style={styles.titlesStyle}>From:  </Text>
+							<Text style={styles.titlesStyle}>From: </Text>
 							<Text style={styles.activityDetailsText}>
 								{DATA.startDate}
 							</Text>
@@ -88,7 +90,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "center",
 							}}
 						>
-							<Text style={styles.titlesStyle}>To:  </Text>
+							<Text style={styles.titlesStyle}>To: </Text>
 							<Text style={styles.activityDetailsText}>
 								{DATA.endDate}
 							</Text>
@@ -102,7 +104,7 @@ export default function ActivityDetailsComponent(props) {
 								alignItems: "center",
 							}}
 						>
-							<Text style={styles.titlesStyle}>When:  </Text>
+							<Text style={styles.titlesStyle}>When: </Text>
 							<Text style={styles.activityDetailsText}>{DATA.time}</Text>
 						</View>
 					</View>
@@ -130,8 +132,11 @@ export default function ActivityDetailsComponent(props) {
 
 const styles = StyleSheet.create({
 	mainContainer: {
+        // borderWidth:1,
 		width: "100%",
 		height: "100%",
+        // top: "0",
+        backgroundColor: colors.Background,
 		// justifyContent: "flex-start",
 		// alignItems: "center",
 	},
@@ -139,7 +144,8 @@ const styles = StyleSheet.create({
 		// borderWidth: 1,
 		width: "100%",
 		height: "25%",
-		top: 0,
+		// top: "0%",
+        
 		flexDirection: "row",
 		justifyContent: "space-around",
 		alignItems: "baseline",

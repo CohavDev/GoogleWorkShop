@@ -28,15 +28,15 @@ function Circle(props) {
 
 const styles = StyleSheet.create({
    circle: {
-      backgroundColor: colors.shapeBackground,
+      backgroundColor: colors.Background,
       // backgroundColor: "white",
       // opacity: 0.9,
       width: SIZE,
       height: SIZE,
       borderRadius: RADIUS,
       alignItems: "center",
-      justifyContent: "center",
-      elevation: 10,
+    //   justifyContent: "center",
+      elevation: 5,
    },
    pressableText: {
       color: "black",
