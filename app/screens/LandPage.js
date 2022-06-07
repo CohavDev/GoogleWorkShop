@@ -27,13 +27,13 @@ export default function LandPage({ navigation }) {
         />
       </View>
       <View style={styles.textBox}>
-        <Text style={styles.text1}>Find, Connect, Travel</Text>
+        <Text style={styles.text1}>Find yourself travel partners, and make life-time frienships</Text>
         <Text style={styles.text2}>
-          TravelPartner is designated for people who are currently traveling
+          TravelPartner can help you find the perfect travel buddy to share expriences with
         </Text>
         <Text style={styles.text2}>Find your Travel Partner now!</Text>
         <TouchableOpacity style={styles.button} onPress={() => onLoginPress()}>
-          <Text style={styles.buttonTitle}>Log in</Text>
+          <Text style={styles.buttonTitle}>Lest go!</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
