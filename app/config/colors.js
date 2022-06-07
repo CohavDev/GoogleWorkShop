@@ -60,8 +60,9 @@ export default {
 	deviceWidth: Dimensions.get("window").width,
 	// delete later , doesnt belong to colors:
     title: {
-		color: "rgb(192,192,192)",
-		fontSize: 15,
+		// color: "rgb(192,192,192)",
+        color: "black",
+		fontSize: 14,
 	},
 
 	circularImage: {

@@ -64,7 +64,7 @@ export default function MyActivities({ navigation }) {
 
 		<View style={styles.container}>
 			<View style={styles.header}>
-				<Text style={styles.title}>Occurring Activities</Text>
+				<Text style={colors.title}>Occurring Activities</Text>
 			</View>
 
 			<ScrollView style={{top: "5%",}}>
@@ -123,11 +123,12 @@ const styles = StyleSheet.create({
 		alignItems: "flex-start",
 		justifyContent: "flex-start",
 		borderBottomWidth: 1,
-		borderBottomColor: colors.grey,
+		borderBottomColor: "black",
 		marginBottom: 15,
 	},
-	title: {
-		color: colors.grey,
-		fontSize: 15,
-	},
+	// title: {
+	// 	// color: colors.grey,
+    //     color: "black",
+	// 	fontSize: 15,
+	// },
 });

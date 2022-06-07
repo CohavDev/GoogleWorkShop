@@ -163,15 +163,15 @@ export default (props) => {
 				width: "100%",
 			}}
 		>
-            <View style={styles.activityTypeView}>
-				<Text style={{ fontSize: 12, color: "black" }}>
+			<View style={styles.activityTypeView}>
+				<Text style={{ fontSize: 14, color: "black" }}>
 					{activityData.activityType +
 						" in " +
 						activityData.location +
 						" on " +
 						activityData.startDate}
 				</Text>
-            </View>
+			</View>
 			<View style={styles.background}>
 				<FlatList
 					data={myMatches}
@@ -180,8 +180,10 @@ export default (props) => {
 						var profilePic = item.profilePic;
 						//render UI only after data came from server
 						if (profilePic == undefined) {
+							// console.log("in if");
 							profilePic = "../assets/genericProfilePicture.jpg";
 						}
+						// profilePic = "../assets/genericProfilePicture.jpg";
 						return (
 							<Pressable
 								// style={[styles.shadowProp, styles.matchBackground]}
@@ -201,7 +203,7 @@ export default (props) => {
 										fullName: item.fullName,
 										dateOfBirth: item.dateOfBirth,
 										aboutMe: item.aboutMe,
-										profilePic: item.profilePic,
+										profilePic: profilePic,
 										nativeLanguage: item.nativeLanguage,
 										secondLanguage: item.secondLanguage,
 										age: item.age,
@@ -214,27 +216,28 @@ export default (props) => {
 								}
 							>
 								<View
-									style={[
-										styles.shadowProp,
-										styles.matchBackground,
-									
-									]}
+									style={[styles.shadowProp, styles.matchBackground]}
 								>
 									<Image
-										source={{ uri: profilePic }}
+										source={require("../assets/genericProfilePictureEdited.jpg")}
 										style={styles.profilePicture}
 									/>
 									<View style={styles.nameTagContainer}>
 										<View style={styles.nameTag}>
-                                            <Text style={[styles.text, {fontWeight: "bold",}]}>
+											<Text
+												style={[
+													styles.text,
+													{ fontWeight: "bold" },
+												]}
+											>
 												{item.fullName} {", "}
 												{item.age}
-                                            </Text>
+											</Text>
 											<Text style={styles.text}>
 												{/* {item.dateOfBirth} {"\n"} */}
 												{item.nativeLanguage} {", "}
 												{item.secondLanguage} {"\n"}
-                                                {item.aboutMe}
+												{item.aboutMe}
 											</Text>
 										</View>
 										{/* <View style={styles.textBox}>
@@ -256,7 +259,6 @@ export default (props) => {
 			<View style={styles.viewTitleText}>
 				<Text style={colors.title}>Matches</Text>
 			</View>
-            
 		</View>
 	);
 };
@@ -289,10 +291,10 @@ const styles = StyleSheet.create({
 		backgroundColor: "white", //colors.matchBackground,
 		height: 90,
 		width: "90%",
-        // top: "10%",
+		// top: "10%",
 		// borderRadius: 10,
-        borderBottomColor: "black",
-        borderBottomWidth: 1,
+		borderBottomColor: "black",
+		borderBottomWidth: 1,
 		flexDirection: "row",
 		// paddingLeft: 40,
 		alignSelf: "center",
@@ -317,7 +319,7 @@ const styles = StyleSheet.create({
 		// elevation:1,
 	},
 	profilePicture: {
-        // borderWidth: 1,
+		// borderWidth: 1,
 		height: 70,
 		width: 70,
 		borderRadius: 35,
@@ -339,7 +341,7 @@ const styles = StyleSheet.create({
 		// backgroundColor: "transparent",
 		textAlign: "left",
 		alignItems: "center",
-        justifyContent: "space-evenly",
+		justifyContent: "space-evenly",
 		// alignContent: "center",
 		// left: 50,
 		//    top: 10,
@@ -355,7 +357,7 @@ const styles = StyleSheet.create({
 		height: 60,
 		// left: 40,
 		alignItems: "center",
-        left: 5,
+		left: 5,
 	},
 	textBox: {
 		// borderWidth: 1,
@@ -388,8 +390,8 @@ const styles = StyleSheet.create({
 		//flexDirection: 'row',
 		//backgroundColor: "blue",
 		position: "absolute",
-        top: "5%",
-        // bottom: "20%",
+		top: "5%",
+		// bottom: "20%",
 		width: "90%",
 		height: "5%",
 		left: "5%",
@@ -414,10 +416,10 @@ const styles = StyleSheet.create({
 		//borderRadius: 100
 		//alignContent: 'center',
 	},
-    activityTypeView: {
-        position: "absolute",
-        top: "15%",
-        bottom: "20%",
+	activityTypeView: {
+		position: "absolute",
+		top: "15%",
+		bottom: "20%",
 		width: "90%",
 		height: "10%",
 		left: "5%",
@@ -427,7 +429,7 @@ const styles = StyleSheet.create({
 		// borderBottomWidth: 1,
 		// borderBottomColor: ,
 		marginBottom: 15,
-    },
+	},
 });
 
 //{item.age} {"\n"}
