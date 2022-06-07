@@ -134,7 +134,7 @@ export default function NewApproveActivity(props) {
           style={styles.buttonStyle}
           onLongPress={() => alert("clicked 'edit'")}
           android_ripple={{ color: "white" }}
-          onPress={() => props.navigation.navigate("NewActivityForm")}
+          onPress={() => props.navigation.goBack()}
         >
           <Text style={{color: "white"}}>Edit</Text>
         </Pressable>
