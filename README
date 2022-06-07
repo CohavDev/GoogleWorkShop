@@ -33,3 +33,7 @@ installed for multiple select: (16/05)
 for openning whatsapp app:
 
 - expo install expo-linking
+
+date picker:
+
+- npm install @react-native-community/datetimepicker --save

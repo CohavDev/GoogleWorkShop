@@ -25,7 +25,7 @@ export default function ActivityItem(props) {
 			]}
 			android_ripple={{ color: "#C9CBD7" }}
 			onPress={() =>
-				props.navigation.navigate("MatchesScreen", {
+				props.navigation.navigate("NewActivityPreview", {
 					navigation: props.navigation, // TODO: pass navigation in a differnent way(setOptions)
 					activityType: props.activityType,
 					location: props.location,
@@ -65,7 +65,7 @@ export default function ActivityItem(props) {
 				</View>
 				<View style={styles.matchCountContainer}>
 					<Text>Matches</Text>
-					<Text>10</Text>
+					<Text>{props.travelPartnersIDs.length.toString()}</Text>
 				</View>
 			</View>
 			{/* </View> */}
