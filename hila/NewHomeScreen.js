@@ -18,7 +18,7 @@ export default function NewHomeScreen(props) {
 
 	return (
 		<View style={styles.mainBackground}>
-                <Text style={styles.header}>Welcome back</Text>
+                <Text style={styles.header}>Welcome Back</Text>
 			<View style={styles.viewButtons}>
 				<Pressable
 					onPress={pressNewActivityHandler}

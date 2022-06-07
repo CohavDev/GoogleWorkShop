@@ -81,100 +81,202 @@ export default function NewNewActivityForm(props) {
       // an array of the desired languages
     });
   };
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.header}>Set the details of your Activity</Text>
-      </View>
-      <View style={styles.ovalsContainer}>
-        <View style={styles.ovalShape}>
-          <Text style={styles.subtitle}>Destination:</Text>
-          <View style={styles.box}>
-            <TextInput
-              style={styles.input}
-              onChangeText={(newText) => setLocation(newText)}
-              placeholder="Destination: City, Country"
-              maxLength={20}
-            ></TextInput>
-          </View>
-          <StatusBar style="auto" />
+  if(props.route.params.activityType.localeCompare("Backpacking")){
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Set the details of your Activity</Text>
         </View>
-        <View style={styles.dateContainer}>
-          <View>
-            <Text style={styles.subtitle}>Activity start date:</Text>
+        <View style={styles.ovalsContainer}>
+          <View style={styles.ovalShape}>
+            <Text style={styles.subtitle}>Destination:</Text>
             <View style={styles.box}>
               <TextInput
                 style={styles.input}
-                placeholder="DD/MM/YYYY"
-                maxLength={10}
-                onChangeText={(newText) => setStartDate(newText)}
+                onChangeText={(newText) => setLocation(newText)}
+                placeholder="Destination: City, Country"
+                maxLength={20}
               ></TextInput>
             </View>
+            <StatusBar style="auto" />
           </View>
-          <View style={{ left: 35 }}>
-            <Text style={styles.subtitle}>Activity End date:</Text>
+          <View style={styles.dateContainer}>
+            <View>
+              <Text style={styles.subtitle}>Date:</Text>
+              <View style={styles.box}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="DD/MM/YYYY"
+                  maxLength={10}
+                  onChangeText={(newText) => {
+                    setStartDate(newText)
+                    setEndDate(newText)
+                    }
+                  }
+                ></TextInput>
+              </View>
+            </View>
+            {/* <View style={{ left: 35 }}>
+              <Text style={styles.subtitle}>Activity End date:</Text>
+              <View style={styles.box}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="DD/MM/YYYY"
+                  maxLength={10}
+                  onChangeText={(newText) => setEndDate(newText)}
+                ></TextInput>
+              </View>
+            </View> */}
+          </View>
+  
+          <View style={styles.ovalShape}>
+            <Text style={styles.subtitle}>Time:</Text>
             <View style={styles.box}>
-              <TextInput
-                style={styles.input}
-                placeholder="DD/MM/YYYY"
-                maxLength={10}
-                onChangeText={(newText) => setEndDate(newText)}
-              ></TextInput>
+              <Picker
+                selectedValue={activityTime}
+                onValueChange={(value, index) => setActivityTime(value)}
+                mode="dropdown"
+                style={styles.picker}
+              >
+                <Picker.Item
+                  label="Select"
+                  value="-"
+                  color="rgba(60, 60, 67, 0.5)"
+                />
+                <Picker.Item label="Morning" value="Morning" />
+                <Picker.Item label="Noon" value="Noon" />
+                <Picker.Item label="Evening/Night" value="Evening/Night" />
+              </Picker>
             </View>
           </View>
-        </View>
-
-        <View style={styles.ovalShape}>
-          <Text style={styles.subtitle}>Activity time:</Text>
-          <View style={styles.box}>
-            <Picker
-              selectedValue={activityTime}
-              onValueChange={(value, index) => setActivityTime(value)}
-              mode="dropdown"
-              style={styles.picker}
-            >
-              <Picker.Item
-                label="Select"
-                value="-"
-                color="rgba(60, 60, 67, 0.5)"
+  
+          <View >
+            <Text style={styles.subtitle}>Languages:</Text>
+            <View style={{ left: 15, }}>
+              <SelectBox
+                // selectedItemStyle = {backgroundColor = "blue"}
+                label=""
+                options={LANGUAGES}
+                selectedValues={selectedLanguages}
+                onMultiSelect={addLanguage()}
+                onTapClose={addLanguage()}
+                isMulti
+                arrowIconColor="gray"
+                searchIconColor="black"
+                toggleIconColor="black"
+                width="90%"
+                // height = "30%"
               />
-              <Picker.Item label="Morning" value="Morning" />
-              <Picker.Item label="Noon" value="Noon" />
-              <Picker.Item label="Evening/Night" value="Evening/Night" />
-            </Picker>
+            </View>
           </View>
-        </View>
-
-        <View >
-          <Text style={styles.subtitle}>Languages:</Text>
-          <View style={{ left: 15, }}>
-            <SelectBox
-              // selectedItemStyle = {backgroundColor = "blue"}
-              label=""
-              options={LANGUAGES}
-              selectedValues={selectedLanguages}
-              onMultiSelect={addLanguage()}
-              onTapClose={addLanguage()}
-              isMulti
-              arrowIconColor="gray"
-              searchIconColor="black"
-              toggleIconColor="black"
-              width="90%"
-              // height = "30%"
-            />
+          <View style={styles.buttonContainer}>
+            <Pressable onPress={pressConfirm}>
+              <Text style={{ fontWeight: "bold", alignItems: "center", color: "white" }}>
+                Confirm
+              </Text>
+            </Pressable>
           </View>
-        </View>
-        <View style={styles.buttonContainer}>
-          <Pressable onPress={pressConfirm}>
-            <Text style={{ fontWeight: "bold", alignItems: "center", color: "white" }}>
-              Confirm
-            </Text>
-          </Pressable>
         </View>
       </View>
-    </View>
-  );
+    );
+  }
+
+  else{
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Set the details of your Activity</Text>
+        </View>
+        <View style={styles.ovalsContainer}>
+          <View style={styles.ovalShape}>
+            <Text style={styles.subtitle}>Destination:</Text>
+            <View style={styles.box}>
+              <TextInput
+                style={styles.input}
+                onChangeText={(newText) => setLocation(newText)}
+                placeholder="Destination: City, Country"
+                maxLength={20}
+              ></TextInput>
+            </View>
+            <StatusBar style="auto" />
+          </View>
+          <View style={styles.dateContainer}>
+            <View>
+              <Text style={styles.subtitle}>Start date:</Text>
+              <View style={styles.box}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="DD/MM/YYYY"
+                  maxLength={10}
+                  onChangeText={(newText) => setStartDate(newText)}
+                ></TextInput>
+              </View>
+            </View>
+            <View style={{ left: 35 }}>
+              <Text style={styles.subtitle}>End date:</Text>
+              <View style={styles.box}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="DD/MM/YYYY"
+                  maxLength={10}
+                  onChangeText={(newText) => setEndDate(newText)}
+                ></TextInput>
+              </View>
+            </View>
+          </View>
+  
+          {/* <View style={styles.ovalShape}>
+            <Text style={styles.subtitle}>Activity time:</Text>
+            <View style={styles.box}>
+              <Picker
+                selectedValue={activityTime}
+                onValueChange={(value, index) => setActivityTime(value)}
+                mode="dropdown"
+                style={styles.picker}
+              >
+                <Picker.Item
+                  label="Select"
+                  value="-"
+                  color="rgba(60, 60, 67, 0.5)"
+                />
+                <Picker.Item label="Morning" value="Morning" />
+                <Picker.Item label="Noon" value="Noon" />
+                <Picker.Item label="Evening/Night" value="Evening/Night" />
+              </Picker>
+            </View>
+          </View> */}
+  
+          <View >
+            <Text style={styles.subtitle}>Languages:</Text>
+            <View style={{ left: 15, }}>
+              <SelectBox
+                // selectedItemStyle = {backgroundColor = "blue"}
+                label=""
+                options={LANGUAGES}
+                selectedValues={selectedLanguages}
+                onMultiSelect={addLanguage()}
+                onTapClose={addLanguage()}
+                isMulti
+                arrowIconColor="gray"
+                searchIconColor="black"
+                toggleIconColor="black"
+                width="90%"
+                // height = "30%"
+              />
+            </View>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Pressable onPress={pressConfirm}>
+              <Text style={{ fontWeight: "bold", alignItems: "center", color: "white" }}>
+                Confirm
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    );
+  }
+  
 }
 
 const styles = StyleSheet.create({
