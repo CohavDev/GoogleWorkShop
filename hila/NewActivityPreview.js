@@ -17,6 +17,8 @@ import { Entypo } from "@expo/vector-icons";
 import myColors from "../app/config/colors";
 import { firebase } from "../app/firebase/config.js";
 import ActivityDetailsComponent from "../app/components/ActivityDetailsComponent";
+import { NavigationContainer } from '@react-navigation/native';
+
 
 export default function NewApproveActivity(props) {
 	const DATA = {
@@ -131,7 +133,7 @@ export default function NewApproveActivity(props) {
 				<Pressable
 					style={styles.buttonStyle}
 					android_ripple={{ color: "white" }}
-					onPress={() => props.navigation.navigate("MatchesScreen")}
+					onPress={() => props.navigation.navigate("MatchesScreen", {activityType:props.activityType, location:props.location, startDate:props.startDate, endDate:props.endDate, time:props.time, languages:props.languages, userFormattedDateOfBirth:props.userFormattedDateOfBirth, activityID: props.activityID, tarvelPartnersIDs: props.tarvelPartnersIDs})}
 				>
 					<Text>Matches</Text>
 				</Pressable>

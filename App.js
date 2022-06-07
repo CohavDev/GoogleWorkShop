@@ -27,6 +27,8 @@ import ChooseOutdoorsActivity from "./app/screens/ChooseOutdoorsActivity";
 import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
 import NewHomeScreen from "./hila/NewHomeScreen";
 
+import NewActivityPreview from "./hila/NewActivityPreview";
+
 import NewActivitiesScreen from "./hila/NewActivitiesScreen";
 import NewNewActivityForm from "./hila/NewNewActivityForm";
 import NewBubblesCategories from "./hila/NewBubblesCategories";
@@ -189,6 +191,7 @@ function MainNavigation(props) {
       {/* <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} /> */}
       <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
       <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
+      <Stack.Screen name="NewActivityPreview" component={NewActivityPreview}/>
 
       {/* <Stack.Screen name="BubblesCategories" component={BubblesCategories} /> */}
       <Stack.Screen name="MyActivities" component={MyActivities} />

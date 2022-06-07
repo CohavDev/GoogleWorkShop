@@ -59,7 +59,7 @@ const DATA = [
 	// },
 ];
 
-export default function ActivitiesList({ navigation }) {
+export default function ActivitiesList(props) {
 	const [myActivities, setMyActivities] = useState([]);
 	//   const allActivitiesRef = firebase.firestore().collection('allActivities')
 	//   const userID=firebase.auth().currentUser.uid;
@@ -93,7 +93,7 @@ export default function ActivitiesList({ navigation }) {
 			//   endDate={item.endDate}
 			location={item.location}
 			//   time={item.time}
-			navigation={navigation}
+			navigation={props.navigation}
 		/>
 	);
 	return (
