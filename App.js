@@ -27,8 +27,6 @@ import ChooseOutdoorsActivity from "./app/screens/ChooseOutdoorsActivity";
 import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
 import NewHomeScreen from "./hila/NewHomeScreen";
 
-import NewActivityPreview from "./hila/NewActivityPreview";
-
 
 import LandPage from "./app/screens/LandPage";
 import NewActivitiesScreen from "./hila/NewActivitiesScreen";
