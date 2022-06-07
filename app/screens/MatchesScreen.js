@@ -162,7 +162,7 @@ export default (props) => {
       }}
     >
       <View style={styles.activityTypeView}>
-        <Text style={{ fontSize: 12, color: "black" }}>
+        <Text style={{ fontSize: 14, color: "black" }}>
           {activityData.activityType +
             " in " +
             activityData.location +
@@ -178,8 +178,10 @@ export default (props) => {
             var profilePic = item.profilePic;
             //render UI only after data came from server
             if (profilePic == undefined) {
+              // console.log("in if");
               profilePic = "../assets/genericProfilePicture.jpg";
             }
+            // profilePic = "../assets/genericProfilePicture.jpg";
             return (
               <Pressable
                 // style={[styles.shadowProp, styles.matchBackground]}
@@ -199,7 +201,7 @@ export default (props) => {
                     fullName: item.fullName,
                     dateOfBirth: item.dateOfBirth,
                     aboutMe: item.aboutMe,
-                    profilePic: item.profilePic,
+                    profilePic: profilePic,
                     nativeLanguage: item.nativeLanguage,
                     secondLanguage: item.secondLanguage,
                     age: item.age,
@@ -213,7 +215,7 @@ export default (props) => {
               >
                 <View style={[styles.shadowProp, styles.matchBackground]}>
                   <Image
-                    source={{ uri: profilePic }}
+                    source={require("../assets/genericProfilePictureEdited.jpg")}
                     style={styles.profilePicture}
                   />
                   <View style={styles.nameTagContainer}>
