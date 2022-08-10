@@ -25,7 +25,7 @@ export default function ActivityItem(props) {
       ]}
       android_ripple={{ color: "#C9CBD7" }}
       onPress={() =>
-        props.navigation.navigate("NewActivityPreview", {
+        props.navigation.navigate("ActivityPreview", {
           navigation: props.navigation, // TODO: pass navigation in a differnent way(setOptions)
           activityType: props.activityType,
           activityIcon: iconsMap[props.activityIcon],
