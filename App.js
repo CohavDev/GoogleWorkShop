@@ -9,7 +9,6 @@ import Navigator from "./app/routes/WelcomeBackScreenStack";
 import { decode, encode } from "base-64";
 import {
   LoginScreen,
-  HomeScreen,
   RegistrationScreen,
   MoreInfo1Screen,
   MoreInfo2Screen,
@@ -25,15 +24,12 @@ import ApproveActivity from "./app/screens/ApproveActivity";
 import BubblesCategories from "./app/screens/BubblesCategories";
 import ChooseOutdoorsActivity from "./app/screens/ChooseOutdoorsActivity";
 import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
-import NewHomeScreen from "./hila/NewHomeScreen";
+import HomeScreen from "./app/screens/HomeScreen";
 
 
 import LandPage from "./app/screens/LandPage";
-import NewActivitiesScreen from "./hila/NewActivitiesScreen";
-import NewNewActivityForm from "./hila/NewNewActivityForm";
-import NewBubblesCategories from "./hila/NewBubblesCategories";
-import NewApproveActivity from "./hila/NewApproveActivity";
-import NewActivityPreview from "./hila/NewActivityPreview";
+import ActivitiesScreen from "./app/screens/ActivitiesScreen";
+import ActivityPreview from "./app/screens/ActivityPreview";
 import Tabs from "./app/navigation/Tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton, Colors } from "react-native-paper";
@@ -205,18 +201,18 @@ function MainNavigation(props) {
 					options={{ headerShown: false }}
 				/> */}
       <Stack.Screen name="MainMenu">
-        {(props) => <NewHomeScreen {...props} extraData={props.user} />}
+        {(props) => <HomeScreen {...props} extraData={props.user} />}
       </Stack.Screen>
       {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
       {/* <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} /> */}
       <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
       <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
-      <Stack.Screen name="NewActivityPreview" component={NewActivityPreview}/>
+      <Stack.Screen name="ActivityPreview" component={ActivityPreview}/>
 
       {/* <Stack.Screen name="BubblesCategories" component={BubblesCategories} /> */}
       <Stack.Screen name="MyActivities" component={MyActivities} />
       {/* <Stack.Screen name="NewActivityForm" component={NewActivityForm} /> */}
-      {/* <Stack.Screen name="NewApproveActivity" component={NewApproveActivity} /> */}
+      {/* <Stack.Screen name="ApproveActivity" component={ApproveActivity} /> */}
       <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
       <Stack.Screen name="ProfileMatching" component={ProfileMatching} />
       <Stack.Screen
@@ -228,18 +224,18 @@ function MainNavigation(props) {
         component={ChooseIndoorsActivity}
       />
 
-      {/* <Stack.Screen name="NewHomeScreen" component={NewHomeScreen} /> */}
+      {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
       <Stack.Screen
         options={{ animation: "slide_from_bottom" }}
-        name="NewBubblesCategories"
-        component={NewBubblesCategories}
+        name="BubblesCategories"
+        component={BubblesCategories}
       />
-      <Stack.Screen name="NewApproveActivity" component={NewApproveActivity} />
+      <Stack.Screen name="ApproveActivity" component={ApproveActivity} />
       <Stack.Screen
-        name="NewActivitiesScreen"
-        component={NewActivitiesScreen}
+        name="ActivitiesScreen"
+        component={ActivitiesScreen}
       />
-      <Stack.Screen name="NewNewActivityForm" component={NewNewActivityForm} />
+      <Stack.Screen name="NewActivityForm" component={NewActivityForm} />
     </Stack.Navigator>
   );
 }
