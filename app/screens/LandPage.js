@@ -27,9 +27,9 @@ export default function LandPage({ navigation }) {
         />
       </View>
       <View style={styles.textBox}>
-        <Text style={styles.text1}>Find, Connect, Travel</Text>
+        <Text style={styles.text1}>Find travel partners, and make life-time friendships</Text>
         <Text style={styles.text2}>
-          Travel Partner can help you find the perfect partner for your travels.
+          Travel Partner helps you to find the perfect partner for your travels.
         </Text>
         <Text style={styles.text2}>Find your Travel Partner now!</Text>
         <TouchableOpacity style={styles.button} onPress={() => onLoginPress()}>

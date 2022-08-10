@@ -68,6 +68,17 @@ export default function NewActivityForm(props) {
     }
     return day + "/" + month + "/" + dateObject.getFullYear();
   };
+
+  const stringFormatDateForWeb = (dateObject) => {
+    var day = dateObject.slice(0,2);
+    var month = dateObject.slice(3,5);
+    var year = dateObject.slice(6,10);
+    return day + "/" + month + "/" + year;
+  };
+
+
+
+
   const pressConfirm = () => {
     // console.log(SelectMultiLanguages.selectedItems)
     // console.log(typeOf(JSON.stringify(selectedLanguages, ['item'])))
@@ -77,8 +88,16 @@ export default function NewActivityForm(props) {
       // icon: props.navigation.getParam("activityIcon"),
       icon: props.route.params.activityIcon,
       location: location,
-      startDate: stringFormatDate(startDate),
-      endDate: stringFormatDate(endDate),
+
+      // if working on emulator, uncomment the following two lines, and comment the other two designated for web
+      // startDate: stringFormatDate(startDate),
+      // endDate: stringFormatDate(endDate),
+
+      // if working on web, uncomment the following two lines, and comment the other two designated for Androing/Enulator
+      startDate: stringFormatDateForWeb(startDate),
+      endDate: stringFormatDateForWeb(endDate),
+
+
       time: activityTime,
       languages: JSON.stringify(selectedLanguages, ["item"]),
 
@@ -101,15 +120,22 @@ export default function NewActivityForm(props) {
     console.log("date changed = " + stringFormatDate(currentDate));
   };
   //   formats date object to string
-  const openDatePicker = (is_start, dateObject) => {
-    console.log("called openDatePicker()");
-    DateTimePickerAndroid.open({
-      value: dateObject,
-      onChange: (event, selectedDate) => onChangeDate(is_start, selectedDate),
-      mode: "date",
-      is24Hour: true,
-    });
-  };
+
+  // when you work om emulator/Android, uncomment the next few lines! (from const to return, take out of comment)
+  // but when working on web, comment them out (but dont delete, cause its needed!!!)
+  // const openDatePicker = (is_start, dateObject) => {
+  //   console.log("called openDatePicker()");
+    
+    
+  //   DateTimePickerAndroid.open({
+  //     value: dateObject,
+  //     onChange: (event, selectedDate) => onChangeDate(is_start, selectedDate),
+  //     mode: "date",
+  //     is24Hour: true,
+  //   });
+  // };
+
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -132,35 +158,54 @@ export default function NewActivityForm(props) {
           <View>
             <Text style={styles.subtitle}>Activity start date:</Text>
             <View style={styles.box}>
-              <Text
-                style={styles.input}
-                onPress={() => openDatePicker(1, startDate)}
-              >
-                {stringFormatDate(startDate)}
-              </Text>
-              {/* <TextInput
+              {/* this code is for working on the web: */}
+              {/* if you want to use it, comment out the code designated for the emulator
+              but dont delete it! because Omer needs it!
+              only before submitting the project we will delete the
+              web code and will leave the emulator (Androind) code! */}
+              <TextInput
 								style={styles.input}
 								placeholder="DD/MM/YYYY"
 								maxLength={10}
 								onChangeText={(newText) => setStartDate(newText)}
-							></TextInput> */}
+							></TextInput>
+
+              {/* this code is for working on Emulator: */}
+              {/* if you want to use it, comment out the code designated for the web
+              but dont delete it! because everyone else needs it! */}
+              {/* <Text
+                style={styles.input}
+                onPress={() => openDatePicker(1, startDate)}
+              >
+                {stringFormatDate(startDate)}
+              </Text> */}
             </View>
           </View>
           <View style={{ left: 35 }}>
             <Text style={styles.subtitle}>Activity End date:</Text>
             <View style={styles.box}>
-              <Text
-                style={styles.input}
-                onPress={() => openDatePicker(0, endDate)}
-              >
-                {stringFormatDate(endDate)}
-              </Text>
-              {/* <TextInput
+              {/* this code is for working on the web: */}
+              {/* if you want to use it, comment out the code designated for the emulator
+              but dont delete it! because Omer needs it!
+              only before submitting the project we will delete the
+              web code and will leave the emulator (Androind) code! */}
+              <TextInput
                 style={styles.input}
                 placeholder="DD/MM/YYYY"
                 maxLength={10}
                 onChangeText={(newText) => setEndDate(newText)}
-              ></TextInput> */}
+              ></TextInput>
+
+              {/* this code is for working on Emulator: */}
+              {/* if you want to use it, comment out the code designated for the web
+              but dont delete it! because everyone else needs it! */}
+              {/* <Text
+                style={styles.input}
+                onPress={() => openDatePicker(0, endDate)}
+              >
+                {stringFormatDate(endDate)}
+              </Text> */}
+              
             </View>
           </View>
         </View>
