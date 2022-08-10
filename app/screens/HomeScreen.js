@@ -10,7 +10,7 @@ import ActivitiesList from "./ActivitiesList";
 import MyActivities from "./MyActivities";
 export default function HomeScreen(props) {
   const pressNewActivityHandler = () => {
-    props.navigation.navigate("NewBubblesCategories");
+    props.navigation.navigate("BubblesCategories");
   };
 
   const viewRecentActivitiesHandler = () => {

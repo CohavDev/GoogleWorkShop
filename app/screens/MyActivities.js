@@ -79,7 +79,7 @@ export default function MyActivities({ navigation }) {
 					myColors.circularImage,
 					{ marginHorizontal: 0, left: "75%", bottom: 5 },
 				]}
-				onPress={() => navigation.navigate("NewBubblesCategories")}
+				onPress={() => navigation.navigate("BubblesCategories")}
 			>
 				<Entypo name="plus" size={32} color="white"></Entypo>
 			</Pressable>

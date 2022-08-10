@@ -71,7 +71,7 @@ export default function NewActivityForm(props) {
   const pressConfirm = () => {
     // console.log(SelectMultiLanguages.selectedItems)
     // console.log(typeOf(JSON.stringify(selectedLanguages, ['item'])))
-    props.navigation.navigate("NewApproveActivity", {
+    props.navigation.navigate("ApproveActivity", {
       // type: props.navigation.getParam("activityType"),
       type: props.route.params.activityType,
       // icon: props.navigation.getParam("activityIcon"),
