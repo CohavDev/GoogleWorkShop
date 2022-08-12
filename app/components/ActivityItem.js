@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import React from "react";
-import { Entypo } from "@expo/vector-icons";
 import { IconButton } from "react-native-paper";
-import myColors from "../config/colors";
 import colors from "../config/colors";
+import React, { useEffect, useState } from "react";
+import { firebase } from "../firebase/config.js";
 export default function ActivityItem(props) {
   const iconsMap = {
     Drinks: "glass-wine",
@@ -17,7 +16,63 @@ export default function ActivityItem(props) {
     Beach: "beach",
     Extreme: "airballon",
   };
+
+  const activityData = {
+    activityType: props.activityType,
+    location: props.location,
+    startDate: props.startDate,
+    endDate: props.endDate,
+    time: props.time,
+    languages: props.languages,
+    userFormattedDateOfBirth: props.userFormattedDateOfBirth,
+    travelPartnersIDs: props.travelPartnersIDs,
+    activityID: props.activityID,
+  };
+  const [counter, setCounter] = useState([]);
+  const allActivitiesRef = firebase.firestore().collection("allActivities");
+  const userID = firebase.auth().currentUser.uid;
+  const usersRef = firebase.firestore().collection("users");
+  var matchesCounter = 0;
+  allActivitiesRef
+  .where("type", "==", activityData.activityType)
+  .where("time", "==", activityData.time)
+  .where("location", "==", activityData.location)
+  .where("startDate", "==", activityData.startDate)
+  .where("endDate", "==", activityData.endDate)
+  .where("status", "==", "waiting")
+  .where(
+    "userFormattedDateOfBirth",
+    "<=",
+    activityData.userFormattedDateOfBirth + 50000
+  )
+  .where(
+    "userFormattedDateOfBirth",
+    ">=",
+    activityData.userFormattedDateOfBirth - 50000
+  )
+  .where("languages", "array-contains-any", activityData.languages)
+  .onSnapshot(
+    (querySnapshot) => {
+      function fetchData() {
+        querySnapshot.forEach((doc) => {
+          const match = doc.data();
+          if (match.userID != userID) {
+            matchesCounter++;
+          }
+        });
+      }
+      fetchData();
+      setCounter(matchesCounter);
+    }
+    
+  );
+  
+  
+
+ 
+
   return (
+    
     <Pressable
       style={[
         styles.shadowProp,
@@ -42,6 +97,7 @@ export default function ActivityItem(props) {
     >
       {/* <View style={{flexDirection: "row"}}> */}
       <View style={styles.container}>
+        
         {/* <View style={styles.imageContainer}> */}
         <View
           style={styles.circularImage}
@@ -63,8 +119,8 @@ export default function ActivityItem(props) {
           <Text>{props.location}</Text>
         </View>
         <View style={styles.matchCountContainer}>
-          <Text>Matches</Text>
-          <Text>{props.travelPartnersIDs.length.toString()}</Text>
+          <Text>Potential Travel Mates</Text>
+          <Text>{counter}</Text>
         </View>
       </View>
       {/* </View> */}

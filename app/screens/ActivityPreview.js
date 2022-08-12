@@ -41,6 +41,7 @@ import {
       userFormattedDateOfBirth: props.route.params.userFormattedDateOfBirth,
       activityID: props.route.params.activityID,
     };
+    
   
     //   const allActivitiesRef = firebase.firestore().collection("allActivities");
     //   const userID = firebase.auth().currentUser.uid;
@@ -109,6 +110,47 @@ import {
     //     });
     //     // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
     //   };
+    
+  const [counter, setCounter] = useState([]);
+  const allActivitiesRef = firebase.firestore().collection("allActivities");
+  const userID = firebase.auth().currentUser.uid;
+  const usersRef = firebase.firestore().collection("users");
+  var matchesCounter = 0;
+  allActivitiesRef
+  .where("type", "==", DATA.type)
+  .where("time", "==", DATA.time)
+  .where("location", "==", DATA.location)
+  .where("startDate", "==", DATA.startDate)
+  .where("endDate", "==", DATA.endDate)
+  .where("status", "==", "waiting")
+  .where(
+    "userFormattedDateOfBirth",
+    "<=",
+    DATA.userFormattedDateOfBirth + 50000
+  )
+  .where(
+    "userFormattedDateOfBirth",
+    ">=",
+    DATA.userFormattedDateOfBirth - 50000
+  )
+  .where("languages", "array-contains-any", DATA.languages)
+  .onSnapshot(
+    (querySnapshot) => {
+      function fetchData() {
+        querySnapshot.forEach((doc) => {
+          const match = doc.data();
+          if (match.userID != userID) {
+            matchesCounter++;
+          }
+        });
+      }
+      fetchData();
+      setCounter(matchesCounter);
+    }
+    
+  );
+  
+ 
     return (
       <View
         style={{
@@ -150,7 +192,7 @@ import {
               })
             }
           >
-            <Text style={{ color: "white", fontSize: 16 }}>Matches</Text>
+            <Text style={{ color: "white", fontSize: 16 }}>Potential travel mates ({counter})</Text>
           </Pressable>
           {/* <Pressable
             style={styles.buttonStyle}
