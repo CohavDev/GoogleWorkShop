@@ -49,6 +49,11 @@ export default function NewActivityForm(props) {
   const [location, setLocation] = useState("UnKnown");
   const [languages, setLanguages] = useState("native");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
+  // True if should display both start and end dates. false otherwise
+  const [condDate, setCondDate] = useState(
+    props.route.params.activityType == "Place to sleep" ||
+      props.route.params.activityType == "Backpacking"
+  );
   const selectedItems = [];
   const [langList, setLangList] = useState([]);
   function addLanguage() {
@@ -70,14 +75,11 @@ export default function NewActivityForm(props) {
   };
 
   const stringFormatDateForWeb = (dateObject) => {
-    var day = dateObject.slice(0,2);
-    var month = dateObject.slice(3,5);
-    var year = dateObject.slice(6,10);
+    var day = dateObject.slice(0, 2);
+    var month = dateObject.slice(3, 5);
+    var year = dateObject.slice(6, 10);
     return day + "/" + month + "/" + year;
   };
-
-
-
 
   const pressConfirm = () => {
     // console.log(SelectMultiLanguages.selectedItems)
@@ -96,7 +98,6 @@ export default function NewActivityForm(props) {
       // if working on web, uncomment the following two lines, and comment the other two designated for Androing/Enulator
       startDate: stringFormatDateForWeb(startDate),
       endDate: stringFormatDateForWeb(endDate),
-
 
       time: activityTime,
       languages: JSON.stringify(selectedLanguages, ["item"]),
@@ -125,8 +126,7 @@ export default function NewActivityForm(props) {
   // but when working on web, comment them out (but dont delete, cause its needed!!!)
   // const openDatePicker = (is_start, dateObject) => {
   //   console.log("called openDatePicker()");
-    
-    
+
   //   DateTimePickerAndroid.open({
   //     value: dateObject,
   //     onChange: (event, selectedDate) => onChangeDate(is_start, selectedDate),
@@ -134,7 +134,6 @@ export default function NewActivityForm(props) {
   //     is24Hour: true,
   //   });
   // };
-
 
   return (
     <View style={styles.container}>
@@ -156,7 +155,10 @@ export default function NewActivityForm(props) {
         </View>
         <View style={styles.dateContainer}>
           <View>
-            <Text style={styles.subtitle}>Activity start date:</Text>
+            {condDate && (
+              <Text style={styles.subtitle}>Activity start date:</Text>
+            )}
+            {!condDate && <Text style={styles.subtitle}>Activity date:</Text>}
             <View style={styles.box}>
               {/* this code is for working on the web: */}
               {/* if you want to use it, comment out the code designated for the emulator
@@ -164,11 +166,11 @@ export default function NewActivityForm(props) {
               only before submitting the project we will delete the
               web code and will leave the emulator (Androind) code! */}
               <TextInput
-								style={styles.input}
-								placeholder="DD/MM/YYYY"
-								maxLength={10}
-								onChangeText={(newText) => setStartDate(newText)}
-							></TextInput>
+                style={styles.input}
+                placeholder="DD/MM/YYYY"
+                maxLength={10}
+                onChangeText={(newText) => setStartDate(newText)}
+              ></TextInput>
 
               {/* this code is for working on Emulator: */}
               {/* if you want to use it, comment out the code designated for the web
@@ -181,33 +183,34 @@ export default function NewActivityForm(props) {
               </Text> */}
             </View>
           </View>
-          <View style={{ left: 35 }}>
-            <Text style={styles.subtitle}>Activity End date:</Text>
-            <View style={styles.box}>
-              {/* this code is for working on the web: */}
-              {/* if you want to use it, comment out the code designated for the emulator
+          {condDate && (
+            <View style={{ left: 35 }}>
+              <Text style={styles.subtitle}>Activity End date:</Text>
+              <View style={styles.box}>
+                {/* this code is for working on the web: */}
+                {/* if you want to use it, comment out the code designated for the emulator
               but dont delete it! because Omer needs it!
               only before submitting the project we will delete the
               web code and will leave the emulator (Androind) code! */}
-              <TextInput
-                style={styles.input}
-                placeholder="DD/MM/YYYY"
-                maxLength={10}
-                onChangeText={(newText) => setEndDate(newText)}
-              ></TextInput>
+                <TextInput
+                  style={styles.input}
+                  placeholder="DD/MM/YYYY"
+                  maxLength={10}
+                  onChangeText={(newText) => setEndDate(newText)}
+                ></TextInput>
 
-              {/* this code is for working on Emulator: */}
-              {/* if you want to use it, comment out the code designated for the web
+                {/* this code is for working on Emulator: */}
+                {/* if you want to use it, comment out the code designated for the web
               but dont delete it! because everyone else needs it! */}
-              {/* <Text
+                {/* <Text
                 style={styles.input}
                 onPress={() => openDatePicker(0, endDate)}
               >
                 {stringFormatDate(endDate)}
               </Text> */}
-              
+              </View>
             </View>
-          </View>
+          )}
         </View>
 
         <View style={styles.ovalShape}>
@@ -478,9 +481,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
-
 // was commented out on the 10.8
 // instead of this code i copy pasted the code of NewNewActivityForm from Hilas
 // folder
@@ -615,7 +615,6 @@ const styles = StyleSheet.create({
 
 // 	}
 
-    
 //     // function onChange() {
 //     //     return (val) => setSelectedTeam(val)
 //     // }
@@ -720,7 +719,7 @@ const styles = StyleSheet.create({
 // 							<Picker.Item label="Any Language" value="Any" />
 // 						</Picker>
 // 					</View> */}
-// 					{/* <View 
+// 					{/* <View
 //                         style = {{
 //                                     flex: 1,
 //                                     backgroundColor: 'white',

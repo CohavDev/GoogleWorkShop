@@ -36,6 +36,8 @@ export default function ActivityDetailsComponent(props) {
     // languages: props.navigation.getParam("languages", "english"),
     languages: props.languages,
   };
+  // False if start date equals end date. True otherwise
+  const [condDate, setCondDate] = useState(DATA.startDate != DATA.endDate);
 
   // const allActivitiesRef = firebase.firestore().collection("allActivities");
   // const userID = firebase.auth().currentUser.uid;
@@ -75,7 +77,8 @@ export default function ActivityDetailsComponent(props) {
                 alignItems: "center",
               }}
             >
-              <Text style={styles.titlesStyle}>From: </Text>
+              {condDate && <Text style={styles.titlesStyle}>From: </Text>}
+              {!condDate && <Text style={styles.titlesStyle}>Date: </Text>}
               <Text style={styles.activityDetailsText}>{DATA.startDate}</Text>
             </View>
 
@@ -86,8 +89,12 @@ export default function ActivityDetailsComponent(props) {
                 alignItems: "center",
               }}
             >
-              <Text style={styles.titlesStyle}>To: </Text>
-              <Text style={styles.activityDetailsText}>{DATA.endDate}</Text>
+              {/* <Text style={styles.titlesStyle}>To: </Text>
+              <Text style={styles.activityDetailsText}>{DATA.endDate}</Text> */}
+              {condDate && <Text style={styles.titlesStyle}>To: </Text>}
+              {condDate && (
+                <Text style={styles.activityDetailsText}>{DATA.endDate}</Text>
+              )}
             </View>
           </View>
           {/*Activity time*/}
