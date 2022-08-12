@@ -80,11 +80,10 @@ export default function ProfileMatching(props) {
     console.log("Render button called =" + matched_status);
     // render 'match with' text / 'pending' text / whatsapp icon according to matchedActivityStatus
     // var matched_status = activityData.matchedActivityStatus;
-    status_both = matched_status.localeCompare("accepted by both") == 0;
-    status_other =
-      matched_status.localeCompare("accepted only by other user") == 0;
-    status_only_me = matched_status.localeCompare("accepted only by me") == 0;
-    status_none = matched_status.localeCompare("accepted by non of us") == 0;
+    const status_both = (matched_status.localeCompare("accepted by both") == 0);
+    const status_other = (matched_status.localeCompare("accepted only by other user") == 0);
+    const status_only_me = (matched_status.localeCompare("accepted only by me") == 0);
+    const status_none = (matched_status.localeCompare("accepted by non of us") == 0);
     if (status_none || status_other) {
       return (
         <View style={styles.buttonContainer}>
