@@ -10,7 +10,7 @@ import {
 	Keyboard,
 	TextInput,
 } from "react-native";
-import OccuringActivityItem from "../components/OccuringActivityItem";
+import OccurringActivityItem from "../components/OccurringActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 import colors from "../config/colors";
@@ -61,7 +61,7 @@ const DATA = [
 ];
 
 export default function ActivitiesList(props) {
-	const [myOccuringActivities, setMyOccuringActivities] = useState([]);
+	const [myOccurringActivities, setMyOccurringActivities] = useState([]);
 	const allActivitiesRef = firebase.firestore().collection('allActivities')
 	const userID=firebase.auth().currentUser.uid;
 	const userRef = firebase.firestore().collection('users').doc(userID)
@@ -74,13 +74,13 @@ export default function ActivitiesList(props) {
 			.limit(2)
 			.onSnapshot(
 				(querySnapshot) => {
-					const newMyOccuringActivities = [];
+					const newMyOccurringActivities = [];
 					querySnapshot.forEach((doc) => {
 						const activity = doc.data();
 						activity.id = doc.id;
-						newMyOccuringActivities.push(activity);						
+						newMyOccurringActivities.push(activity);						
 					});
-					setMyOccuringActivities(newMyOccuringActivities);
+					setMyOccurringActivities(newMyOccurringActivities);
 				},
 				(error) => {
 					console.log(error);
@@ -91,8 +91,8 @@ export default function ActivitiesList(props) {
 
 	// 
 
-	const renderOccuringActivity = ({ item }) => (
-		<OccuringActivityItem
+	const renderOccurringActivity = ({ item }) => (
+		<OccurringActivityItem
 			activityID={item.id}
 			activityIcon={item.type}
 			activityType={item.type}
@@ -117,9 +117,9 @@ export default function ActivitiesList(props) {
 			<View style={[styles.container, { paddingHorizontal: 15 }]}>
 				<FlatList
                 // maxToRenderPerBatch={2}
-					data={myOccuringActivities}
+					data={myOccurringActivities}
 					keyExtractor={(item) => item.key}
-					renderItem={renderOccuringActivity}
+					renderItem={renderOccurringActivity}
 				/>
 			</View>
 		</View>

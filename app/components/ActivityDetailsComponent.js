@@ -36,8 +36,10 @@ export default function ActivityDetailsComponent(props) {
     // languages: props.navigation.getParam("languages", "english"),
     languages: props.languages,
   };
-  // False if start date equals end date. True otherwise
-  const [condDate, setCondDate] = useState(DATA.startDate != DATA.endDate);
+  const [condDate, setCondDate] = useState(
+    props.type == "Place to sleep" ||
+      props.type == "Backpacking"
+  );
 
   // const allActivitiesRef = firebase.firestore().collection("allActivities");
   // const userID = firebase.auth().currentUser.uid;

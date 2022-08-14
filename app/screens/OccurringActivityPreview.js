@@ -20,7 +20,7 @@ import {
   import { NavigationContainer } from "@react-navigation/native";
   import colors from "../config/colors";
   
-  export default function ActivityPreview(props) {
+  export default function OccurringActivityPreview(props) {
     console.log(props.route.params);
     const DATA = {
       // type: props.navigation.getParam("type"),
@@ -38,8 +38,19 @@ import {
       // languages: props.navigation.getParam("languages", "english"),
       languages: props.route.params.languages,
       travelPartnersIDs: props.route.params.travelPartnersIDs,
+      matchedActivityID: props.route.params.matchedActivityID,
       userFormattedDateOfBirth: props.route.params.userFormattedDateOfBirth,
       activityID: props.route.params.activityID,
+      otherUserID: props.route.params.otherUserID,
+      otherFullName: props.route.params.otherFullName,
+      otherDateOfBirth: props.route.params.otherDateOfBirth,
+      otherAboutMe: props.route.params.otherAboutMe,
+      otherProfilePic: props.route.params.profilePic,
+      otherNativeLanguage: props.route.params.otherNativeLanguage,
+      otherSecondLanguage: props.route.params.otherSecondLanguage,
+      otherAge: props.route.params.otherAge,
+      otherPhoneNumber: props.route.params.otherPhoneNumber,
+      otherNationality: props.route.params.otherNationality,
     };
     
   
@@ -111,47 +122,13 @@ import {
     //     // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
     //   };
     
-  const [counter, setCounter] = useState([]);
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
   const usersRef = firebase.firestore().collection("users");
-  var matchesCounter = 0;
-  allActivitiesRef
-  .where("type", "==", DATA.type)
-  .where("time", "==", DATA.time)
-  .where("location", "==", DATA.location)
-  .where("startDate", "==", DATA.startDate)
-  .where("endDate", "==", DATA.endDate)
-  .where("status", "==", "waiting")
-  .where(
-    "userFormattedDateOfBirth",
-    "<=",
-    DATA.userFormattedDateOfBirth + 50000
-  )
-  .where(
-    "userFormattedDateOfBirth",
-    ">=",
-    DATA.userFormattedDateOfBirth - 50000
-  )
-  .where("languages", "array-contains-any", DATA.languages)
-  .onSnapshot(
-    (querySnapshot) => {
-      function fetchData() {
-        querySnapshot.forEach((doc) => {
-          const match = doc.data();
-          if (match.userID != userID) {
-            matchesCounter++;
-          }
-        });
-      }
-      fetchData();
-      setCounter(matchesCounter);
-    }
-    
-  );
-  
+
  
     return (
+      
       <View
         style={{
           backgroundColor: colors.Secondary,
@@ -178,21 +155,41 @@ import {
             style={styles.buttonStyle}
             onLongPress={() => alert("clicked 'edit'")}
             android_ripple={{ color: "white" }}
-            onPress={() =>
-              props.navigation.navigate("MatchesScreen", {
-                activityType: DATA.type,
-                location: DATA.location,
+            onPress={() => {
+              var otherProfilePic = DATA.otherProfilePic;
+              //render UI only after data came from server
+              if (otherProfilePic == undefined) {
+                // console.log("in if");
+                otherProfilePic = "../assets/genericProfilePicture.jpg";
+              }
+              props.navigation.navigate("ProfileMatching", {
+                //matched activity data
                 startDate: DATA.startDate,
                 endDate: DATA.endDate,
-                time: DATA.time,
-                languages: DATA.languages,
-                userFormattedDateOfBirth: DATA.userFormattedDateOfBirth,
-                travelPartnersIDs: DATA.travelPartnersIDs,
-                activityID: DATA.activityID,
-              })
+                type: DATA.type,
+                location: DATA.location,
+                matchedActivityStatus: "accepted by both",
+
+                //other user's data:
+                matchedActivityDocID: DATA.matchedActivityID,
+                userID: DATA.otherUserID,
+                fullName: DATA.otherFullName,
+                dateOfBirth: DATA.otherDateOfBirth,
+                aboutMe: DATA.otherAboutMe,
+                profilePic: otherProfilePic,
+                nativeLanguage: DATA.otherNativeLanguage,
+                secondLanguage: DATA.otherSecondLanguage,
+                age: DATA.otherAge,
+                phoneNumber: DATA.otherPhoneNumber,
+                nationality: DATA.otherNationality,
+
+                //this user's data:
+                myActivityDocID: DATA.activityID,
+                })
+              }
             }
           >
-            <Text style={{ color: "white", fontSize: 16 }}>Potential travel mates ({counter})</Text>
+            <Text style={{ color: "white", fontSize: 16 }}>My Travel Partner</Text>
           </Pressable>
           {/* <Pressable
             style={styles.buttonStyle}

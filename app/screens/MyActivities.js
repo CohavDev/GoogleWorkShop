@@ -10,14 +10,14 @@ import {
 	Keyboard,
 	TextInput,
 } from "react-native";
-import OccuringActivityItem from "../components/OccuringActivityItem";
-import UploadedActivityItem from "../components/OccuringActivityItem";
+import OccurringActivityItem from "../components/OccurringActivityItem";
+import UploadedActivityItem from "../components/UploadedActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 import colors from "../config/colors";
 
 export default function MyActivities({ navigation }) {
-	const [myOccuringActivities, setMyOccuringActivities] = useState([]);
+	const [myOccurringActivities, setMyOccurringActivities] = useState([]);
 	const [myUploadedActivities, setMyUploadedActivities] = useState([]);
 	const allActivitiesRef = firebase.firestore().collection("allActivities");
 	const userID = firebase.auth().currentUser.uid;
@@ -29,7 +29,7 @@ export default function MyActivities({ navigation }) {
 			.orderBy("formattedStartDate", "asc")
 			.onSnapshot(
 				(querySnapshot) => {
-					const newMyOccuringActivities = [];
+					const newMyOccurringActivities = [];
 					const newMyUploadedActivities = [];
 					querySnapshot.forEach((doc) => {
 						const activity = doc.data();
@@ -38,10 +38,10 @@ export default function MyActivities({ navigation }) {
 							newMyUploadedActivities.push(activity);
 						}
 						else{
-							newMyOccuringActivities.push(activity);
+							newMyOccurringActivities.push(activity);
 						}
 					});
-					setMyOccuringActivities(newMyOccuringActivities);
+					setMyOccurringActivities(newMyOccurringActivities);
 					setMyUploadedActivities(newMyUploadedActivities);
 				},
 				(error) => {
@@ -66,8 +66,8 @@ export default function MyActivities({ navigation }) {
 		/>
 	);
 
-	const renderOccuringActivity = ({ item }) => (
-		<OccuringActivityItem
+	const renderOccurringActivity = ({ item }) => (
+		<OccurringActivityItem
 			activityID={item.id}
 			activityIcon={item.type}
 			activityType={item.type}
@@ -78,6 +78,7 @@ export default function MyActivities({ navigation }) {
 			languages={item.languages}
 			userFormattedDateOfBirth={item.userFormattedDateOfBirth}
 			travelPartnersIDs={item.travelPartnersIDs}
+			matchedActivityID={item.matchedActivityID}
 			navigation={navigation}
 		/>
 	);
@@ -88,15 +89,15 @@ export default function MyActivities({ navigation }) {
 
 		<View style={styles.container}>
 			<View style={styles.header}>
-				<Text style={colors.title}>Occuring Activities</Text>
+				<Text style={colors.title}>Occurring Activities</Text>
 			</View>
 
 			<ScrollView style={{top: "5%",}}>
 				<View style={styles.scrollviewContainer}>
 					<FlatList
-						data={myOccuringActivities}
+						data={myOccurringActivities}
 						keyExtractor={(item) => item.id}
-						renderItem={renderOccuringActivity}
+						renderItem={renderOccurringActivity}
 					/>
 				</View>
 			</ScrollView>

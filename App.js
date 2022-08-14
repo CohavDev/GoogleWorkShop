@@ -28,7 +28,8 @@ import HomeScreen from "./app/screens/HomeScreen";
 
 import LandPage from "./app/screens/LandPage";
 import ActivitiesScreen from "./app/screens/ActivitiesScreen";
-import ActivityPreview from "./app/screens/ActivityPreview";
+import OccurringActivityPreview from "./app/screens/OccurringActivityPreview";
+import UploadedActivityPreview from "./app/screens/UploadedActivityPreview";
 import Tabs from "./app/navigation/Tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton, Colors } from "react-native-paper";
@@ -226,6 +227,14 @@ function MainNavigation(props) {
       <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
       <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
       <Stack.Screen name="ActivityPreview" component={ActivityPreview} />
+      <Stack.Screen
+        name="OccurringActivityPreview"
+        component={OccurringActivityPreview}
+      />
+      <Stack.Screen
+        name="UploadedActivityPreview"
+        component={UploadedActivityPreview}
+      />
 
       {/* <Stack.Screen name="BubblesCategories" component={BubblesCategories} /> */}
       <Stack.Screen name="MyActivities" component={MyActivities} />
