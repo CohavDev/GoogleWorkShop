@@ -19,7 +19,7 @@ import myColors from "../config/colors";
 import { firebase } from "../firebase/config.js";
 import colors from "../config/colors";
 
-export default function ActivityDetailsComponent(props) {
+export default function UploadedActivityDetailsComponent(props) {
   const DATA = {
     // type: props.navigation.getParam("type"),
     type: props.type,
@@ -68,7 +68,15 @@ export default function ActivityDetailsComponent(props) {
           <Text>Activity details:</Text>
           {/*activity location*/}
           <View style={styles.location}>
-            <Text style={styles.activityDetailsText}>{DATA.location}</Text>
+          <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.titlesStyle}>Location: </Text>
+              <Text style={styles.activityDetailsText}>{DATA.location}</Text>
+          </View>
           </View>
           {/*activity date*/}
           <View style={styles.date}>
