@@ -2,7 +2,11 @@ import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
-import { NavigationContainer, StackActions } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  StackActions,
+  useNavigation,
+} from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Navigator from "./app/routes/WelcomeBackScreenStack";
@@ -78,24 +82,27 @@ export default function App() {
   //     }
   //   });
   // }, []);
-  const [authenticated, setAuthenticated] = useState(true);
-
-  //TODO: continue from here
+  // const [authenticated, setAuthenticated] = useState(false);
   useEffect(() => {
     return firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setAuthenticated(true);
+        // setAuthenticated(true);
         console.log("authenticated: ");
         console.log(user);
         setUser(user);
       } else {
-        setAuthenticated(false);
+        // setAuthenticated(false);
       }
     });
   }, []);
   console.log("newHomeScreen : ");
   console.log(user);
-  return <NavigationContainer>{InitialNavigation(user)}</NavigationContainer>;
+  return (
+    // <NavigationContainer>{InitialNavigation({ user })}</NavigationContainer>
+    <NavigationContainer>
+      <InitialNavigation user={user} />
+    </NavigationContainer>
+  );
 }
 
 function TabsNav(props) {
@@ -226,7 +233,7 @@ function MainNavigation(props) {
       {/* <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} /> */}
       <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
       <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
-      <Stack.Screen name="ActivityPreview" component={ActivityPreview} />
+      {/* <Stack.Screen name="ActivityPreview" component={ActivityPreview} /> */}
       <Stack.Screen
         name="OccurringActivityPreview"
         component={OccurringActivityPreview}
@@ -263,16 +270,27 @@ function MainNavigation(props) {
     </Stack.Navigator>
   );
 }
-function InitialNavigation(user) {
+function InitialNavigation(props) {
+  const navigation = useNavigation();
+  const [authenticated, setAuthenticated] = useState(false);
+  useEffect(() => {
+    console.log("Checking if user is already logged in : ");
+    setAuthenticated(firebase.auth().currentUser != null);
+    if (authenticated) {
+      navigation.popToTop();
+      navigation.navigate("Tabs");
+    }
+    console.log(authenticated);
+  });
   return (
     <Stack.Navigator
-      initialRouteName={user ? "Tabs" : "LandPage"}
+      initialRouteName={authenticated ? "Tabs" : "LandPage"}
       screenOptions={{ headerShown: false, animation: "slide_from_right" }}
     >
       <Stack.Screen name="LandPage" component={LandPage} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
-      <Stack.Screen name="Tabs" component={TabsNav} props={user} />
+      <Stack.Screen name="Tabs" component={TabsNav} props={props.user} />
       <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
       <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
     </Stack.Navigator>
