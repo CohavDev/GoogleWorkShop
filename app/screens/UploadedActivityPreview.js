@@ -16,7 +16,7 @@ import {
   import { Entypo } from "@expo/vector-icons";
   import myColors from "../config/colors";
   import { firebase } from "../firebase/config.js";
-  import ActivityDetailsComponent from "../components/ActivityDetailsComponent";
+  import UploadedActivityDetailsComponent from "../components/UploadedActivityDetailsComponent";
   import { NavigationContainer } from "@react-navigation/native";
   import colors from "../config/colors";
   
@@ -163,7 +163,7 @@ import {
         }}
       >
         <View style={{ bottom: "0%", height: "80%" }}>
-          <ActivityDetailsComponent
+          <UploadedActivityDetailsComponent
             type={DATA.type}
             icon={DATA.icon}
             location={DATA.location}

@@ -16,7 +16,8 @@ import {
   import { Entypo } from "@expo/vector-icons";
   import myColors from "../config/colors";
   import { firebase } from "../firebase/config.js";
-  import ActivityDetailsComponent from "../components/ActivityDetailsComponent";
+  import UploadedActivityDetailsComponent from "../components/UploadedActivityDetailsComponent";
+  import OccurringActivityDetailsComponent from "../components/OccurringActivityDetailsComponent";
   import { NavigationContainer } from "@react-navigation/native";
   import colors from "../config/colors";
   
@@ -140,7 +141,7 @@ import {
         }}
       >
         <View style={{ bottom: "0%", height: "80%" }}>
-          <ActivityDetailsComponent
+          <OccurringActivityDetailsComponent
             type={DATA.type}
             icon={DATA.icon}
             location={DATA.location}
@@ -148,6 +149,7 @@ import {
             endDate={DATA.endDate}
             languages={languagesString}
             time={DATA.time}
+            travelPartner={DATA.otherFullName}
           />
         </View>
         <View style={styles.buttonsContainer}>
@@ -189,7 +191,7 @@ import {
               }
             }
           >
-            <Text style={{ color: "white", fontSize: 16 }}>My Travel Partner</Text>
+            <Text style={{ color: "white", fontSize: 16 }}>{DATA.otherFullName}'s profile</Text>
           </Pressable>
           {/* <Pressable
             style={styles.buttonStyle}

@@ -38,7 +38,19 @@ export default function OccurringActivityItem(props) {
     props.activityType == "Place to sleep" ||
       props.activityType == "Backpacking"
   );
+  const [travelPartner,setTravelPartner] = useState("");
 
+  useEffect(() => {
+		allActivitiesRef.doc(activityData.matchedActivityID).get().then(matchedActivityData => {
+      const otherUserID = matchedActivityData.get("userID")
+      usersRef.doc(otherUserID).get().then(otherUserData => {
+        setTravelPartner(otherUserData.get("fullName"));
+        
+      })
+    })
+    
+	}, []);
+  
   function getAge(formattedDateOfBirth) {
     let dateOfBirth = formattedDateOfBirth.toString();
 
@@ -130,7 +142,7 @@ export default function OccurringActivityItem(props) {
             </View>
             <View style={styles.travelPartnerContainer}>
               <Text>Travel Partner</Text>
-              <Text>im working on it</Text>
+              <Text>{travelPartner}</Text>
             </View>
           </View>
           {/* </View> */}

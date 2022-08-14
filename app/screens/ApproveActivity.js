@@ -16,7 +16,7 @@ import {
   import { Entypo } from "@expo/vector-icons";
   import myColors from "../config/colors";
   import { firebase } from "../firebase/config.js";
-  import ActivityDetailsComponent from "../components/ActivityDetailsComponent";
+  import ActivityDetailsComponent from "../components/UploadedActivityDetailsComponent";
   import colors from "../config/colors";
   
   export default function ApproveActivity(props) {
