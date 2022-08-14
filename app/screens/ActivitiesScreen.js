@@ -13,7 +13,7 @@ import {
 import OccuringActivityItem from "../components/OccurringActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
-import ActivitiesList from "./ActivitiesList.js";
+import ActivitiesList from "../components/ActivitiesList.js";
 
 const DATA = [
 	{

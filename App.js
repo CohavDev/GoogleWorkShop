@@ -226,7 +226,6 @@ function MainNavigation(props) {
       {/* <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} /> */}
       <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
       <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
-      <Stack.Screen name="ActivityPreview" component={ActivityPreview} />
       <Stack.Screen
         name="OccurringActivityPreview"
         component={OccurringActivityPreview}
