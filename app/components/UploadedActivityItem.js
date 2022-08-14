@@ -3,7 +3,7 @@ import { IconButton } from "react-native-paper";
 import colors from "../config/colors";
 import React, { useEffect, useState } from "react";
 import { firebase } from "../firebase/config.js";
-export default function ActivityItem(props) {
+export default function UploadedActivityItem(props) {
   const iconsMap = {
     Drinks: "glass-wine",
     Backpacking: "hiking",

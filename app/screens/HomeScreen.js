@@ -34,7 +34,7 @@ export default function HomeScreen(props) {
 			</View>
             <View style={styles.myActivities}>
                 <View style={{ alignSelf: "flex-start", left: 40}}>
-                    <Text style={styles.textStyle}>Upcoming activities</Text>
+                    <Text style={styles.textStyle}>Upcoming Occuring Activities</Text>
                 </View>
                 <ActivitiesList navigation={props.navigation}/>
             </View>

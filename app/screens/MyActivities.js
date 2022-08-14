@@ -10,13 +10,15 @@ import {
 	Keyboard,
 	TextInput,
 } from "react-native";
-import ActivityItem from "../components/ActivityItem";
+import OccuringActivityItem from "../components/OccuringActivityItem";
+import UploadedActivityItem from "../components/OccuringActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 import colors from "../config/colors";
 
 export default function MyActivities({ navigation }) {
-	const [myActivities, setMyActivities] = useState([]);
+	const [myOccuringActivities, setMyOccuringActivities] = useState([]);
+	const [myUploadedActivities, setMyUploadedActivities] = useState([]);
 	const allActivitiesRef = firebase.firestore().collection("allActivities");
 	const userID = firebase.auth().currentUser.uid;
 	const userRef = firebase.firestore().collection("users").doc(userID);
@@ -27,13 +29,20 @@ export default function MyActivities({ navigation }) {
 			.orderBy("formattedStartDate", "asc")
 			.onSnapshot(
 				(querySnapshot) => {
-					const newMyActivities = [];
+					const newMyOccuringActivities = [];
+					const newMyUploadedActivities = [];
 					querySnapshot.forEach((doc) => {
 						const activity = doc.data();
 						activity.id = doc.id;
-						newMyActivities.push(activity);
+						if(activity.status.localeCompare("waiting") == 0){
+							newMyUploadedActivities.push(activity);
+						}
+						else{
+							newMyOccuringActivities.push(activity);
+						}
 					});
-					setMyActivities(newMyActivities);
+					setMyOccuringActivities(newMyOccuringActivities);
+					setMyUploadedActivities(newMyUploadedActivities);
 				},
 				(error) => {
 					console.log(error);
@@ -41,8 +50,8 @@ export default function MyActivities({ navigation }) {
 			);
 	}, []);
 
-	const renderItem = ({ item }) => (
-		<ActivityItem
+	const renderUploadedActivity = ({ item }) => (
+		<UploadedActivityItem
 			activityID={item.id}
 			activityIcon={item.type}
 			activityType={item.type}
@@ -56,20 +65,52 @@ export default function MyActivities({ navigation }) {
 			navigation={navigation}
 		/>
 	);
+
+	const renderOccuringActivity = ({ item }) => (
+		<OccuringActivityItem
+			activityID={item.id}
+			activityIcon={item.type}
+			activityType={item.type}
+			startDate={item.startDate}
+			endDate={item.endDate}
+			location={item.location}
+			time={item.time}
+			languages={item.languages}
+			userFormattedDateOfBirth={item.userFormattedDateOfBirth}
+			travelPartnersIDs={item.travelPartnersIDs}
+			navigation={navigation}
+		/>
+	);
+
+
 	return (
 		// <View style={{backgroundColor: colors.background}}>
 
 		<View style={styles.container}>
 			<View style={styles.header}>
-				<Text style={colors.title}>Occurring Activities</Text>
+				<Text style={colors.title}>Occuring Activities</Text>
 			</View>
 
 			<ScrollView style={{top: "5%",}}>
 				<View style={styles.scrollviewContainer}>
 					<FlatList
-						data={myActivities}
+						data={myOccuringActivities}
 						keyExtractor={(item) => item.id}
-						renderItem={renderItem}
+						renderItem={renderOccuringActivity}
+					/>
+				</View>
+			</ScrollView>
+
+			<View style={styles.header}>
+				<Text style={colors.title}>Uploaded Activities</Text>
+			</View>
+
+			<ScrollView style={{top: "5%",}}>
+				<View style={styles.scrollviewContainer}>
+					<FlatList
+						data={myUploadedActivities}
+						keyExtractor={(item) => item.id}
+						renderItem={renderUploadedActivity}
 					/>
 				</View>
 			</ScrollView>
@@ -83,7 +124,11 @@ export default function MyActivities({ navigation }) {
 			>
 				<Entypo name="plus" size={32} color="white"></Entypo>
 			</Pressable>
+
+
 		</View>
+
+				
 		// </View>
 	);
 }

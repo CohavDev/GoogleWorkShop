@@ -43,7 +43,7 @@ const LANGUAGES = [
 ];
 
 export default function NewActivityForm(props) {
-  const [activityTime, setActivityTime] = useState("Unknown");
+  const [activityTime, setActivityTime] = useState("Morning");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [location, setLocation] = useState("UnKnown");
@@ -154,35 +154,72 @@ export default function NewActivityForm(props) {
           <StatusBar style="auto" />
         </View>
         <View style={styles.dateContainer}>
-          <View>
+          
             {condDate && (
-              <Text style={styles.subtitle}>Activity start date:</Text>
-            )}
-            {!condDate && <Text style={styles.subtitle}>Activity date:</Text>}
-            <View style={styles.box}>
-              {/* this code is for working on the web: */}
-              {/* if you want to use it, comment out the code designated for the emulator
-              but dont delete it! because Omer needs it!
-              only before submitting the project we will delete the
-              web code and will leave the emulator (Androind) code! */}
-              <TextInput
-                style={styles.input}
-                placeholder="DD/MM/YYYY"
-                maxLength={10}
-                onChangeText={(newText) => setStartDate(newText)}
-              ></TextInput>
+              <View>
+                <Text style={styles.subtitle}>Activity start date:</Text>
+                <View style={styles.box}>
+                {/* this code is for working on the web: */}
+                {/* if you want to use it, comment out the code designated for the emulator
+                but dont delete it! because Omer needs it!
+                only before submitting the project we will delete the
+                web code and will leave the emulator (Androind) code! */}
+                <TextInput
+                  style={styles.input}
+                  placeholder="DD/MM/YYYY"
+                  maxLength={10}
+                  onChangeText={(newText) => {
+                    setStartDate(newText)
+                    }
+                  }
+                ></TextInput>
 
-              {/* this code is for working on Emulator: */}
-              {/* if you want to use it, comment out the code designated for the web
-              but dont delete it! because everyone else needs it! */}
-              {/* <Text
-                style={styles.input}
-                onPress={() => openDatePicker(1, startDate)}
-              >
-                {stringFormatDate(startDate)}
-              </Text> */}
-            </View>
-          </View>
+                {/* this code is for working on Emulator: */}
+                {/* if you want to use it, comment out the code designated for the web
+                but dont delete it! because everyone else needs it! */}
+                {/* <Text
+                  style={styles.input}
+                  onPress={() => openDatePicker(1, startDate)}
+                >
+                  {stringFormatDate(startDate)}
+                </Text> */}
+                </View>
+              </View>
+            )}
+            {!condDate && (
+              <View>
+                <Text style={styles.subtitle}>Activity date:</Text>
+                <View style={styles.box}>
+                {/* this code is for working on the web: */}
+                {/* if you want to use it, comment out the code designated for the emulator
+                but dont delete it! because Omer needs it!
+                only before submitting the project we will delete the
+                web code and will leave the emulator (Androind) code! */}
+                <TextInput
+                  style={styles.input}
+                  placeholder="DD/MM/YYYY"
+                  maxLength={10}
+                  onChangeText={(newText) => {
+                    setStartDate(newText)
+                    setEndDate(newText)
+
+                    }
+                  }
+                ></TextInput>
+
+                {/* this code is for working on Emulator: */}
+                {/* if you want to use it, comment out the code designated for the web
+                but dont delete it! because everyone else needs it! */}
+                {/* <Text
+                  style={styles.input}
+                  onPress={() => openDatePicker(1, startDate)}
+                >
+                  {stringFormatDate(startDate)}
+                </Text> */}
+                </View>
+              </View>
+            )}
+
           {condDate && (
             <View style={{ left: 35 }}>
               <Text style={styles.subtitle}>Activity End date:</Text>
@@ -202,18 +239,21 @@ export default function NewActivityForm(props) {
                 {/* this code is for working on Emulator: */}
                 {/* if you want to use it, comment out the code designated for the web
               but dont delete it! because everyone else needs it! */}
+              
                 {/* <Text
                 style={styles.input}
                 onPress={() => openDatePicker(0, endDate)}
               >
                 {stringFormatDate(endDate)}
               </Text> */}
+              
               </View>
             </View>
           )}
         </View>
 
-        <View style={styles.ovalShape}>
+        {!condDate && (
+          <View style={styles.ovalShape}>
           <Text style={styles.subtitle}>Activity time:</Text>
           <View style={styles.box}>
             <Picker
@@ -233,6 +273,8 @@ export default function NewActivityForm(props) {
             </Picker>
           </View>
         </View>
+        )}
+        
 
         <View>
           <Text style={styles.subtitle}>Languages:</Text>

@@ -10,7 +10,7 @@ import {
 	Keyboard,
 	TextInput,
 } from "react-native";
-import ActivityItem from "../components/ActivityItem";
+import OccuringActivityItem from "../components/OccuringActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 import ActivitiesList from "./ActivitiesList.js";
@@ -61,7 +61,7 @@ const DATA = [
 ];
 
 export default function ActivitiesScreen({ navigation }) {
-	const [myActivities, setMyActivities] = useState([]);
+	const [myOccuringActivities, setMyOccuringActivities] = useState([]);
 	//   const allActivitiesRef = firebase.firestore().collection('allActivities')
 	//   const userID=firebase.auth().currentUser.uid;
 	//   const userRef = firebase.firestore().collection('users').doc(userID)
@@ -69,16 +69,17 @@ export default function ActivitiesScreen({ navigation }) {
 	//   useEffect(() => {
 	//     allActivitiesRef
 	//         .where("userID", "==", userID)
+	//		   .where("status", "==" , "paired")
 	//         .orderBy('createdAt', 'desc')
 	//         .onSnapshot(
 	//             querySnapshot => {
-	//                 const newMyActivities = []
+	//                 const newMyOccuringActivities = []
 	//                 querySnapshot.forEach(doc => {
 	//                     const activity = doc.data()
 	//                     activity.id = doc.id
-	//                     newMyActivities.push(entity)
+	//                     newMyOccuringActivities.push(activity)
 	//                 });
-	//                 setEntities(newMyActivities)
+	//                 setMyOccuringActivities(newMyOccuringActivities)
 	//             },
 	//             error => {
 	//                 console.log(error)
@@ -86,8 +87,8 @@ export default function ActivitiesScreen({ navigation }) {
 	//         )
 	// }, [])
 
-	const renderItem = ({ item }) => (
-		<ActivityItem
+	const renderOccuringActivity = ({ item }) => (
+		<OccuringActivityItem
 			activityIcon={item.activityIcon}
 			activityType={item.activityName}
 			date={item.date}
@@ -107,7 +108,7 @@ export default function ActivitiesScreen({ navigation }) {
 				<FlatList
 					data={DATA}
 					keyExtractor={(item) => item.key}
-					renderItem={renderItem}
+					renderItem={renderOccuringActivity}
 				/>
 			</View>
 			<View>

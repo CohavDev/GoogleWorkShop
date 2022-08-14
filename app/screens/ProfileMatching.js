@@ -64,7 +64,7 @@ export default function ProfileMatching(props) {
   const updatedMatchStatus = () => {
     // after clicking 'match'
     //TODO:match is undefined
-    const match = allActivitiesRef.doc(thisUserData.activityDocID).get();
+    const match = allActivitiesRef.doc(otherUserData.activityDocID).get();
     console.log("match details: \n" + JSON.stringify(match));
     console.log("match field.. \n" + match["travelPartnersIDs"]);
     if (
@@ -84,7 +84,47 @@ export default function ProfileMatching(props) {
     const status_other = (matched_status.localeCompare("accepted only by other user") == 0);
     const status_only_me = (matched_status.localeCompare("accepted only by me") == 0);
     const status_none = (matched_status.localeCompare("accepted by non of us") == 0);
-    if (status_none || status_other) {
+    if (status_other) {
+      return (
+        <View style={styles.buttonContainer}>
+          <Pressable
+            style={styles.button}
+            // onLongPress={() => alert("clicked 'match'!")}
+            android_ripple={{ color: "white" }}
+            onPressIn={() => {
+              Vibration.vibrate(PATTERN);
+              console.log("pressed");
+              allActivitiesRef.doc(otherUserData.activityDocID).update({
+                travelPartnersIDs:
+                    firebase.firestore.FieldValue.arrayUnion(userID)
+              })
+              allActivitiesRef.doc(otherUserData.activityDocID).update({
+                matchedActivityID: thisUserData.activityDocID
+              })
+              allActivitiesRef.doc(otherUserData.activityDocID).update({
+                status: "paired"
+              })
+              allActivitiesRef.doc(thisUserData.activityDocID).update({
+                travelPartnersIDs:
+                    firebase.firestore.FieldValue.arrayUnion(otherUserData.userID)
+              })
+              allActivitiesRef.doc(thisUserData.activityDocID).update({
+                matchedActivityID: otherUserData.activityDocID
+              })
+              allActivitiesRef.doc(thisUserData.activityDocID).update({
+                status: "paired"
+              })
+              .then(updatedMatchStatus());
+            }}
+          >
+            <AntDesign name="check" size={30} color="white" />
+          </Pressable>
+          <Text>Match with {otherUserData.fullName}</Text>
+          {status_other ? <Text> They are already In!</Text> : <Text></Text>}
+        </View>
+      );
+    }
+    if (status_none) {
       return (
         <View style={styles.buttonContainer}>
           <Pressable
@@ -106,7 +146,6 @@ export default function ProfileMatching(props) {
             <AntDesign name="check" size={30} color="white" />
           </Pressable>
           <Text>Match with {otherUserData.fullName}</Text>
-          {status_other ? <Text> They are already In!</Text> : <Text></Text>}
         </View>
       );
     }

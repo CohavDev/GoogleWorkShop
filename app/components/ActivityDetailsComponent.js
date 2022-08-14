@@ -98,7 +98,8 @@ export default function ActivityDetailsComponent(props) {
             </View>
           </View>
           {/*Activity time*/}
-          <View style={styles.time}>
+          {!condDate && (
+            <View style={styles.time}>
             <View
               style={{
                 flexDirection: "row",
@@ -109,6 +110,8 @@ export default function ActivityDetailsComponent(props) {
               <Text style={styles.activityDetailsText}>{DATA.time}</Text>
             </View>
           </View>
+          )}
+          
           {/*Activity languages*/}
           <View style={styles.languages}>
             <View

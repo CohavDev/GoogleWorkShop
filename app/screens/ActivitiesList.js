@@ -10,7 +10,7 @@ import {
 	Keyboard,
 	TextInput,
 } from "react-native";
-import ActivityItem from "../components/ActivityItem";
+import OccuringActivityItem from "../components/OccuringActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 import colors from "../config/colors";
@@ -61,7 +61,7 @@ const DATA = [
 ];
 
 export default function ActivitiesList(props) {
-	const [myActivities, setMyActivities] = useState([]);
+	const [myOccuringActivities, setMyOccuringActivities] = useState([]);
 	const allActivitiesRef = firebase.firestore().collection('allActivities')
 	const userID=firebase.auth().currentUser.uid;
 	const userRef = firebase.firestore().collection('users').doc(userID)
@@ -69,17 +69,18 @@ export default function ActivitiesList(props) {
 	useEffect(() => {
 		allActivitiesRef
 			.where("userID", "==", userID)
+			.where("status", "==", "paired")
 			.orderBy("formattedStartDate", "asc")
 			.limit(2)
 			.onSnapshot(
 				(querySnapshot) => {
-					const newMyActivities = [];
+					const newMyOccuringActivities = [];
 					querySnapshot.forEach((doc) => {
 						const activity = doc.data();
 						activity.id = doc.id;
-						newMyActivities.push(activity);						
+						newMyOccuringActivities.push(activity);						
 					});
-					setMyActivities(newMyActivities);
+					setMyOccuringActivities(newMyOccuringActivities);
 				},
 				(error) => {
 					console.log(error);
@@ -90,8 +91,8 @@ export default function ActivitiesList(props) {
 
 	// 
 
-	const renderItem = ({ item }) => (
-		<ActivityItem
+	const renderOccuringActivity = ({ item }) => (
+		<OccuringActivityItem
 			activityID={item.id}
 			activityIcon={item.type}
 			activityType={item.type}
@@ -116,9 +117,9 @@ export default function ActivitiesList(props) {
 			<View style={[styles.container, { paddingHorizontal: 15 }]}>
 				<FlatList
                 // maxToRenderPerBatch={2}
-					data={myActivities}
+					data={myOccuringActivities}
 					keyExtractor={(item) => item.key}
-					renderItem={renderItem}
+					renderItem={renderOccuringActivity}
 				/>
 			</View>
 		</View>
