@@ -157,7 +157,8 @@ export default function ProfileMatching(props) {
           </Pressable>
         </View>
       );
-    } else {
+    } 
+    if(status_both) {
       // status_both == 1
       return (
         <View style={styles.buttonContainer}>
@@ -168,7 +169,7 @@ export default function ProfileMatching(props) {
           >
             <IconButton icon="whatsapp" color="white" size={32} />
           </Pressable>
-          <Text>{otherUserData.fullName} is your Travel Partner!</Text>
+          <Text>contact {otherUserData.fullName} for fine-tunings :)</Text>
         </View>
       );
     }

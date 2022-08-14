@@ -32,6 +32,10 @@ export default function UploadedActivityItem(props) {
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
   const usersRef = firebase.firestore().collection("users");
+  const [condDate, setCondDate] = useState(
+    props.activityType == "Place to sleep" ||
+      props.activityType == "Backpacking"
+  );
   var matchesCounter = 0;
   allActivitiesRef
   .where("type", "==", activityData.activityType)
@@ -113,13 +117,18 @@ export default function UploadedActivityItem(props) {
         </View>
         {/* </View> */}
         <View style={styles.dataContainer}>
-          <Text>{props.activityType}</Text>
-          <Text>{"From: " + props.startDate + "\nTo: " + props.endDate}</Text>
+            <Text>{props.activityType}</Text>
+              {condDate && (
+                <Text>{"From: " + props.startDate + "\nTo: " + props.endDate}</Text>
+              )}
+              {!condDate && (
+                <Text>{"Date: " + props.startDate}</Text>
+              )}
           {/* <Text>{props.time}</Text> */}
           <Text>{props.location}</Text>
         </View>
         <View style={styles.matchCountContainer}>
-          <Text>Potential Travel Mates</Text>
+          <Text>Potential Travel Partners</Text>
           <Text>{counter}</Text>
         </View>
       </View>
