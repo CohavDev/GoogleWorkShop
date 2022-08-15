@@ -126,14 +126,12 @@ export default function ProfileMatching(props) {
                     firebase.firestore.FieldValue.arrayUnion(otherUserData.userID)
               })
               allActivitiesRef.doc(thisUserData.activityDocID).update({
-                matchedActivityID: otherUserData.activityDocID,
-              });
-              allActivitiesRef
-                .doc(thisUserData.activityDocID)
-                .update({
-                  status: "paired",
-                })
-                .then(updatedMatchStatus(1));
+                matchedActivityID: otherUserData.activityDocID
+              })
+              allActivitiesRef.doc(thisUserData.activityDocID).update({
+                status: "paired"
+              })
+              .then(updatedMatchStatus());
             }}
           >
             <AntDesign name="check" size={30} color="white" />
