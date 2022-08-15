@@ -278,16 +278,6 @@ function MainNavigation(props) {
   );
 }
 function InitialNavigation(props) {
-  // const [authenticated, setAuthenticated] = useState(false);
-  // useEffect(() => {
-  //   console.log("Checking if user is already logged in : ");
-  //   setAuthenticated(firebase.auth().currentUser != null);
-  //   console.log(authenticated);
-  //   if (authenticated) {
-  //     // navigation.popToTop();
-  //     // navigation.navigate("Tabs");
-  //   }
-  // });
   return (
     <Stack.Navigator
       initialRouteName={props.auth ? "Tabs" : "LandPage"}

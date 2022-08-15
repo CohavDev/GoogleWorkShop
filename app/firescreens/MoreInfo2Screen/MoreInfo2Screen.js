@@ -7,10 +7,10 @@ import { firebase } from "../../firebase/config.js";
 // import { getDatabase } from "firebase/database"
 // import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 
-export default function MoreInfo2Screen({ navigation }) {
+export default function MoreInfo2Screen(props) {
   const [aboutMe, setAboutMe] = useState("");
-  const userID = firebase.auth().currentUser.uid;
-  const userRef = firebase.firestore().collection("users").doc(userID);
+  // const userID = firebase.auth().currentUser.uid;
+  // const userRef = firebase.firestore().collection("users").doc(userID);
 
   // const onFooterLinkPress = () => {
   //     navigation.navigate('LoginScreen')
@@ -28,15 +28,40 @@ export default function MoreInfo2Screen({ navigation }) {
       lastLogin: timestamp,
       createdAt: timestamp,
     };
-    userRef
-      .update(data)
-      .then(() => {
-        // navigation.popToTop();
-        // navigation.navigate("Tabs");
+    var finalData = { ...JSON.parse(props.route.params.data), ...data };
+    // create user
+    console.log("FinalData" + JSON.stringify(finalData));
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(
+        finalData.email,
+        props.route.params.password
+      )
+      .then((response) => {
+        const uid = response.user.uid;
+        const userRef = firebase.firestore().collection("users").doc(uid);
+        finalData = { id: uid, ...finalData };
+        console.log("userID = " + uid);
+        userRef.set(finalData).then(() => {
+          console.log(finalData);
+          // navigation.popToTop();
+          // navigation.navigate("Tabs");
+        });
+        // navigation.navigate("MoreInfo1Screen", { data: JSON.stringify(data) });
       })
       .catch((error) => {
         alert(error);
       });
+    // userRef
+    //   .set(finalData)
+    //   .then(() => {
+    //     console.log(finalData);
+    //     // navigation.popToTop();
+    //     // navigation.navigate("Tabs");
+    //   })
+    //   .catch((error) => {
+    //     alert(error);
+    //   });
   };
 
   // if (props===null){

@@ -17,15 +17,15 @@ import { Picker } from "@react-native-picker/picker";
 // import DatePicker from 'react-native-datepicker' it seems like this import doesnt work on web
 // thus i have to comment it out until i manage to fix my emulator
 
-export default function MoreInfo1Screen({ navigation }) {
+export default function MoreInfo1Screen(props) {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [nationality, setNationality] = useState("");
   // const [nativeLanguage, setNativeLanguage] = useState('')
   // const [secondLanguage, setSecondLanguage] = useState('')
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const userID = firebase.auth().currentUser.uid;
-  const userRef = firebase.firestore().collection("users").doc(userID);
+  // const userID = firebase.auth().currentUser.uid;
+  // const userRef = firebase.firestore().collection("users").doc(userID);
   var day = "";
   var month = "";
   var year = "";
@@ -67,14 +67,13 @@ export default function MoreInfo1Screen({ navigation }) {
       secondLanguage: "",
       phoneNumber: phoneNumber,
     };
-    userRef
-      .update(data)
-      .then(() => {
-        navigation.navigate("MoreInfo2Screen");
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    props.navigation.navigate("MoreInfo2Screen", {
+      data: JSON.stringify({
+        ...JSON.parse(props.route.params.data),
+        ...data,
+      }),
+      password: props.route.params.password,
+    });
   };
 
   // if (props===null){
