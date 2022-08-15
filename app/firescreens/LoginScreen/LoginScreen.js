@@ -54,7 +54,7 @@ export default function LoginScreen({ navigation }) {
             const userRef = usersRef.doc(uid);
             userRef.update(data);
             const user = firestoreDocument.data();
-            navigation.navigate("Tabs", { user });
+            // navigation.navigate("Tabs", { user });
           })
           .catch((error) => {
             alert(error);
