@@ -26,6 +26,7 @@ import ChooseOutdoorsActivity from "./app/screens/ChooseOutdoorsActivity";
 import ChooseIndoorsActivity from "./app/screens/ChooseIndoorsActivity";
 import HomeScreen from "./app/screens/HomeScreen";
 
+
 import LandPage from "./app/screens/LandPage";
 import ActivitiesScreen from "./app/screens/ActivitiesScreen";
 import OccurringActivityPreview from "./app/screens/OccurringActivityPreview";
@@ -36,7 +37,6 @@ import { IconButton, Colors } from "react-native-paper";
 import { I18nManager } from "react-native"; // force left to right layout of app
 import { firebase } from "./app/firebase/config";
 import colors from "./app/config/colors";
-import { getAuth, signOut } from "firebase/auth";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -99,17 +99,6 @@ export default function App() {
 }
 
 function TabsNav(props) {
-  // this function logs user out, and navigates to login-screen
-  const logoutFunc = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        props.navigation.popToTop();
-        props.navigation.navigate("LoginScreen");
-        // navigate to login-screen
-      })
-      .catch((error) => alert(error));
-  };
   return (
     <Tab.Navigator
       screenOptions={{
@@ -182,19 +171,12 @@ function TabsNav(props) {
       />
 
       <Tab.Screen
-        name="logout"
+        name="settings"
         component={HomeScreen}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault();
-            // logout current user
-            logoutFunc();
-          },
-        }}
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
-              icon="logout"
+              icon="cog-outline"
               // color="#BFD9CD"
               color={colors.TabBarText}
               // size={12}
@@ -258,7 +240,10 @@ function MainNavigation(props) {
         component={BubblesCategories}
       />
       <Stack.Screen name="ApproveActivity" component={ApproveActivity} />
-      <Stack.Screen name="ActivitiesScreen" component={ActivitiesScreen} />
+      <Stack.Screen
+        name="ActivitiesScreen"
+        component={ActivitiesScreen}
+      />
       <Stack.Screen name="NewActivityForm" component={NewActivityForm} />
     </Stack.Navigator>
   );
