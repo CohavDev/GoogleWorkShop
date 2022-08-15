@@ -48,7 +48,6 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [authenticated, setAuthenticated] = useState(false);
   console.log("hello app2.js");
   // Left to right layout force
   I18nManager.forceRTL(false);
@@ -87,12 +86,12 @@ export default function App() {
   useEffect(() => {
     return firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setAuthenticated(true);
+        // setAuthenticated(true);
         console.log("authenticated: ");
         console.log(user);
         setUser(user);
       } else {
-        setAuthenticated(false);
+        // setAuthenticated(false);
       }
     });
   }, []);
@@ -101,23 +100,19 @@ export default function App() {
   return (
     // <NavigationContainer>{InitialNavigation({ user })}</NavigationContainer>
     <NavigationContainer>
-      {!authenticated ? (
-        <InitialNavigation user={user} />
-      ) : (
-        <TabsNav user={user} />
-      )}
+      <InitialNavigation user={user} />
     </NavigationContainer>
   );
 }
 
 function TabsNav(props) {
-  // this function logs user out
+  // this function logs user out, and navigates to login-screen
   const logoutFunc = () => {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        // props.navigation.popToTop();
-        // props.navigation.navigate("LoginScreen");
+        props.navigation.popToTop();
+        props.navigation.navigate("LoginScreen");
         // navigate to login-screen
       })
       .catch((error) => alert(error));
@@ -279,16 +274,16 @@ function MainNavigation(props) {
 }
 function InitialNavigation(props) {
   const navigation = useNavigation();
-  // const [authenticated, setAuthenticated] = useState(false);
-  // useEffect(() => {
-  //   console.log("Checking if user is already logged in : ");
-  //   setAuthenticated(firebase.auth().currentUser != null);
-  //   console.log(authenticated);
-  //   if (authenticated) {
-  //     // navigation.popToTop();
-  //     // navigation.navigate("Tabs");
-  //   }
-  // });
+  const [authenticated, setAuthenticated] = useState(false);
+  useEffect(() => {
+    console.log("Checking if user is already logged in : ");
+    setAuthenticated(firebase.auth().currentUser != null);
+    if (authenticated) {
+      navigation.popToTop();
+      navigation.navigate("Tabs");
+    }
+    console.log(authenticated);
+  });
   return (
     <Stack.Navigator
       initialRouteName={authenticated ? "Tabs" : "LandPage"}
@@ -297,7 +292,7 @@ function InitialNavigation(props) {
       <Stack.Screen name="LandPage" component={LandPage} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
-      {/* <Stack.Screen name="Tabs" component={TabsNav} props={props.user} /> */}
+      <Stack.Screen name="Tabs" component={TabsNav} props={props.user} />
       <Stack.Screen name="MoreInfo2Screen" component={MoreInfo2Screen} />
       <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />
     </Stack.Navigator>
