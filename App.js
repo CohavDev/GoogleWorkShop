@@ -102,7 +102,7 @@ export default function App() {
     // <NavigationContainer>{InitialNavigation({ user })}</NavigationContainer>
     <NavigationContainer>
       {!authenticated ? (
-        <InitialNavigation user={user} auth={authenticated} />
+        <InitialNavigation user={user} />
       ) : (
         <TabsNav user={user} />
       )}
@@ -278,6 +278,7 @@ function MainNavigation(props) {
   );
 }
 function InitialNavigation(props) {
+  const navigation = useNavigation();
   // const [authenticated, setAuthenticated] = useState(false);
   // useEffect(() => {
   //   console.log("Checking if user is already logged in : ");
@@ -290,7 +291,7 @@ function InitialNavigation(props) {
   // });
   return (
     <Stack.Navigator
-      initialRouteName={props.auth ? "Tabs" : "LandPage"}
+      initialRouteName={authenticated ? "Tabs" : "LandPage"}
       screenOptions={{ headerShown: false, animation: "slide_from_right" }}
     >
       <Stack.Screen name="LandPage" component={LandPage} />
