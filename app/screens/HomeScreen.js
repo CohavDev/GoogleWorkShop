@@ -1,9 +1,10 @@
 
-import React from "react";
 import { StyleSheet, Pressable, View, Text, Image, Button } from "react-native";
 import colors from "../config/colors";
 import OvalSquare from "../components/OvalSquare";
-import ActivitiesList from "./ActivitiesList";
+import ActivitiesList from "../components/ActivitiesList";
+import React, { useEffect, useState } from "react";
+import { firebase } from "../firebase/config.js";
 // import NewBubblesCategories from "./BubblesCategories";
 // import SmallCircle from "../components/smallCircle";
 // import BackgroundImage from "../components/BackgroungImage";
@@ -16,10 +17,44 @@ export default function HomeScreen(props) {
   const viewRecentActivitiesHandler = () => {
     props.navigation.navigate("MyActivities");
   };
+  const userID = firebase.auth().currentUser.uid;
+  const userRef = firebase.firestore().collection("users").doc(userID);
+  const [fullName , setFullName] = useState("");
+  const [hour, setHour] = useState('');
+
+  useEffect(() => {
+		setHour(new Date().getHours());
+    userRef.get().then(userData => {
+      setFullName(userData.get("fullName"));
+        
+      })
+	}, []);
+
+  function getGreetingTime(currentHour){
+
+    const splitAfternoon = 12; // 24hr time to split the afternoon
+    const splitEvening = 17; // 24hr time to split the evening
+    const splitNight = 22;
+    const splitMorning = 5;
+  
+    if (currentHour >= splitAfternoon && currentHour < splitEvening) {
+      // Between 12 PM and 5PM
+      return "Good afternoon";
+    } else if (currentHour >= splitEvening && currentHour < splitNight) {
+      // Between 5PM and 22PM
+      return "Good evening";
+    } else if (currentHour >= splitNight || currentHour < splitMorning) { // its on porpose with or instead of and
+    // Between 22PM and 5AM
+      return "Good Night";
+    } else if (currentHour >= splitMorning || currentHour < splitAfternoon){
+      return "Good morning";
+    }
+    
+  }
 
 	return (
 		<View style={styles.mainBackground}>
-                <Text style={styles.header}>Welcome Back</Text>
+      <Text style={styles.header}>{getGreetingTime(hour)} {fullName}</Text>
 			<View style={styles.viewButtons}>
 				<Pressable
 					onPress={pressNewActivityHandler}
@@ -35,10 +70,11 @@ export default function HomeScreen(props) {
             <View style={styles.myActivities}>
                 <View style={{ alignSelf: "flex-start", left: 40}}>
                     <Text style={styles.textStyle}>Upcoming Occuring Activities</Text>
-                </View>
-                <ActivitiesList navigation={props.navigation}/>
+                </View> 
             </View>
-		</View>
+    <ActivitiesList navigation={props.navigation}/>
+    </View>
+    
 	);
 }
 

@@ -10,7 +10,7 @@ import {
 	Keyboard,
 	TextInput,
 } from "react-native";
-import OccurringActivityItem from "../components/OccurringActivityItem";
+import OccurringActivityItem from "./OccurringActivityItem";
 import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
 import colors from "../config/colors";
