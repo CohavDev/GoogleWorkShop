@@ -125,7 +125,7 @@ export default function UploadedActivityItem(props) {
                 <Text>{"Date: " + props.startDate}</Text>
               )}
           {/* <Text>{props.time}</Text> */}
-          <Text>{props.location}</Text>
+          <Text>{"Location: " + props.location}</Text>
         </View>
         <View style={styles.matchCountContainer}>
           <Text>Potential Travel Partners</Text>

@@ -65,7 +65,7 @@ export default function UploadedActivityDetailsComponent(props) {
       </View>
       <View style={styles.activityDetailsContainer}>
         <View style={{ top: 10, left: 25 }}>
-          <Text>Activity details:</Text>
+          <Text style={styles.bigTitlesStyle}>Activity details:</Text>
           {/*activity location*/}
           <View style={styles.location}>
           <View
@@ -198,6 +198,9 @@ const styles = StyleSheet.create({
   },
   titlesStyle: {
     fontSize: 14,
+  },
+  bigTitlesStyle: {
+    fontSize: 17,
   },
   location: {
     top: 40,

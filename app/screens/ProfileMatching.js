@@ -61,21 +61,38 @@ export default function ProfileMatching(props) {
     // alert("hey");
     Linking.openURL("https://wa.me/" + otherUserData.phoneNumber);
   };
-  const updatedMatchStatus = () => {
+  const updatedMatchStatus = (identifier) => {
     // after clicking 'match'
     //TODO:match is undefined
     const match = allActivitiesRef.doc(otherUserData.activityDocID).get();
     console.log("match details: \n" + JSON.stringify(match));
     console.log("match field.. \n" + match["travelPartnersIDs"]);
-    if (
-      match.travelPartnersIDs != null &&
-      match.travelPartnersIDs.indexOf(userID) > -1
-    ) {
+    if (identifier == 1) {
       setCondElement("accepted by both");
     } else {
       setCondElement("accepted only by me");
     }
   };
+
+
+
+  // const updatedMatchStatus = () => {
+  //   // after clicking 'match'
+  //   //TODO:match is undefined
+  //   const match = allActivitiesRef.doc(otherUserData.activityDocID).get();
+  //   console.log("match details: \n" + JSON.stringify(match));
+  //   console.log("match field.. \n" + match["travelPartnersIDs"]);
+  //   if (
+  //     match.travelPartnersIDs != null &&
+  //     match.travelPartnersIDs.indexOf(userID) > -1
+  //   ) {
+  //     setCondElement("accepted by both");
+  //   } else {
+  //     setCondElement("accepted only by me");
+  //   }
+  // };
+
+
   function renderButton(matched_status) {
     console.log("Render button called =" + matched_status);
     // render 'match with' text / 'pending' text / whatsapp icon according to matchedActivityStatus
@@ -120,7 +137,7 @@ export default function ProfileMatching(props) {
                 .update({
                   status: "paired",
                 })
-                .then(updatedMatchStatus());
+                .then(updatedMatchStatus(1));
             }}
           >
             <AntDesign name="check" size={30} color="white" />
@@ -146,7 +163,7 @@ export default function ProfileMatching(props) {
                   travelPartnersIDs:
                     firebase.firestore.FieldValue.arrayUnion(userID),
                 })
-                .then(updatedMatchStatus());
+                .then(updatedMatchStatus(0));
             }}
           >
             <AntDesign name="check" size={30} color="white" />

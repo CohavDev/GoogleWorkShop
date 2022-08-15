@@ -138,7 +138,7 @@ export default function OccurringActivityItem(props) {
               )}
               
               {/* <Text>{props.time}</Text> */}
-              <Text>{props.location}</Text>
+              <Text>{"Location: " + props.location}</Text>
             </View>
             <View style={styles.travelPartnerContainer}>
               <Text>Travel Partner</Text>
