@@ -21,7 +21,6 @@ import {
 import MyActivities from "./app/screens/MyActivities";
 import ProfileMatching from "./app/screens/ProfileMatching";
 import ChooseActivityBubbles from "./app/screens/ChooseActivityBubbles";
-import MainMenu from "./app/screens/MainMenu";
 import MatchesScreen from "./app/screens/MatchesScreen";
 import NewActivityForm from "./app/screens/NewActivityForm";
 import ApproveActivity from "./app/screens/ApproveActivity";
@@ -34,7 +33,6 @@ import LandPage from "./app/screens/LandPage";
 import ActivitiesScreen from "./app/screens/ActivitiesScreen";
 import OccurringActivityPreview from "./app/screens/OccurringActivityPreview";
 import UploadedActivityPreview from "./app/screens/UploadedActivityPreview";
-import Tabs from "./app/navigation/Tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton, Colors } from "react-native-paper";
 import { I18nManager } from "react-native"; // force left to right layout of app
@@ -192,7 +190,7 @@ function TabsNav(props) {
 
       <Tab.Screen
         name="logout"
-        component={HomeScreen}
+        component={LoginScreen}
         listeners={{
           tabPress: (e) => {
             e.preventDefault();
@@ -228,7 +226,7 @@ function MainNavigation(props) {
 					component={Tabs}
 					options={{ headerShown: false }}
 				/> */}
-      <Stack.Screen name="MainMenu" component={HomeScreen} />
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
       {/* {(props) => <HomeScreen {...props} extraData={props.user} />} */}
       {/* </Stack.Screen> */}
       {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
