@@ -1,5 +1,5 @@
 
-import { StyleSheet, Pressable, View, Text, Image, Button ,  FlatList , ScrollView } from "react-native";
+import { StyleSheet, Pressable, View, Text, Image, Button } from "react-native";
 import colors from "../config/colors";
 import OvalSquare from "../components/OvalSquare";
 import ActivitiesList from "../components/ActivitiesList";
@@ -9,90 +9,26 @@ import { firebase } from "../firebase/config.js";
 // import SmallCircle from "../components/smallCircle";
 // import BackgroundImage from "../components/BackgroungImage";
 import MyActivities from "./MyActivities";
-import { Entypo } from "@expo/vector-icons";
-import myColors from "../config/colors";
-import OccurringActivityItem from "../components/OccurringActivityItem";
-
-
 export default function HomeScreen(props) {
-  
-  
-  // const pressNewActivityHandler = () => {
-  //   props.navigation.navigate("BubblesCategories");
-  // };
+  const pressNewActivityHandler = () => {
+    props.navigation.navigate("BubblesCategories");
+  };
 
-  // const viewRecentActivitiesHandler = () => {
-  //   props.navigation.navigate("MyActivities");
-  // };
-
-
+  const viewRecentActivitiesHandler = () => {
+    props.navigation.navigate("MyActivities");
+  };
   const userID = firebase.auth().currentUser.uid;
   const userRef = firebase.firestore().collection("users").doc(userID);
   const [fullName , setFullName] = useState("");
   const [hour, setHour] = useState('');
 
-
-
-
-  const [myOccurringActivities, setMyOccurringActivities] = useState([]);
-  const allActivitiesRef = firebase.firestore().collection("allActivities");
-
   useEffect(() => {
-		allActivitiesRef
-			.where("userID", "==", userID)
-			.orderBy("formattedStartDate", "asc")
-			.onSnapshot(
-				(querySnapshot) => {
-					const newMyOccurringActivities = [];
-					querySnapshot.forEach((doc) => {
-						const activity = doc.data();
-						activity.id = doc.id;
-						if(activity.status.localeCompare("waiting") != 0){
-							newMyOccurringActivities.push(activity);
-						}
-					});
-					setMyOccurringActivities(newMyOccurringActivities);
-				},
-				(error) => {
-					console.log(error);
-				}
-			);
-
-
-
-      setHour(new Date().getHours());
-      userRef.get().then(userData => {
-        setFullName(userData.get("fullName"));
-          
-        })
-
-
+		setHour(new Date().getHours());
+    userRef.get().then(userData => {
+      setFullName(userData.get("fullName"));
+        
+      })
 	}, []);
-
-
-	const renderOccurringActivity = ({ item }) => (
-		<OccurringActivityItem
-			activityID={item.id}
-			activityIcon={item.type}
-			activityType={item.type}
-			startDate={item.startDate}
-			endDate={item.endDate}
-			location={item.location}
-			time={item.time}
-			languages={item.languages}
-			userFormattedDateOfBirth={item.userFormattedDateOfBirth}
-			travelPartnersIDs={item.travelPartnersIDs}
-			matchedActivityID={item.matchedActivityID}
-			navigation={navigation}
-		/>
-	);
-
-
-
-
-  // useEffect(() => {
-		
-	// }, []);
 
   function getGreetingTime(currentHour){
 
@@ -118,63 +54,25 @@ export default function HomeScreen(props) {
 
 	return (
 		<View style={styles.mainBackground}>
-
       <Text style={styles.header}>{getGreetingTime(hour)} {fullName}</Text>
-
-
-
-
-      {/* when you comment out the next part' you see the occuring activities
-      if it is not commented out, you dont see them !!!!!!! */}
-
 			<View style={styles.viewButtons}>
 				<Pressable
-					onPress={() => props.navigation.navigate("BubblesCategories")}
+					onPress={pressNewActivityHandler}
 					// android_ripple={{ color: "white" }}
 				>
 					<OvalSquare text="New Activity" />
 				</Pressable>
-				<Pressable onPress={() => props.navigation.navigate("MyActivities")}>
+				<Pressable onPress={viewRecentActivitiesHandler}>
                 
 					<OvalSquare text="View Recent Activities" />
 				</Pressable>
 			</View>
-
-      {/* this is the end of the part that you need to comment out in order to see the occuring activities */}
-
-
-
-
-      <View style={styles.myActivities}>
-        <View style={{ alignSelf: "flex-start", left: 40}}>
-            <Text style={styles.title}>Upcoming Occuring Activities</Text>
-        </View> 
-      </View>
-
-      <ScrollView style={{top: "50%",}}>
-				<View style={styles.scrollviewContainer}>
-					<FlatList
-						data={myOccurringActivities}
-						keyExtractor={(item) => item.id}
-						renderItem={renderOccurringActivity}
-					/>
-				</View>
-			</ScrollView>
-
-			
-
-
-
-
-
-
-
-            {/* <View style={styles.myActivities}>
+            <View style={styles.myActivities}>
                 <View style={{ alignSelf: "flex-start", left: 40}}>
                     <Text style={styles.textStyle}>Upcoming Occuring Activities</Text>
                 </View> 
             </View>
-    <ActivitiesList navigation={props.navigation}/> */}
+    <ActivitiesList navigation={props.navigation}/>
     </View>
     
 	);
@@ -184,7 +82,7 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: "center",
     top: 40,
-    fontSize: 24,
+    fontSize: 20,
     // alignContent: "center",
     // textAlign: "center",
   },
@@ -192,12 +90,6 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 14,
     // fontWeight: "bold",
-    textAlign: "center",
-  },
-  title: {
-    color: "black",
-    fontSize: 16,
-    //fontWeight: "bold",
     textAlign: "center",
   },
   mainBackground: {
@@ -248,35 +140,6 @@ const styles = StyleSheet.create({
     // borderColor: "black",
     // borderWidth: 1,
   },
-
-
-
-
-  container: {
-		// top: "5%",
-		height: "100%",
-		flexDirection: "column",
-		justifyContent: "space-between",
-		// alignItems: "center",
-		backgroundColor: colors.Background,
-		width: myColors.deviceWidth,
-	},
-	scrollviewContainer: {
-        // top: "5%",
-		height: "100%",
-		flexDirection: "column",
-		justifyContent: "space-between",
-		// alignItems: "center",
-		backgroundColor: colors.Background,
-		width: myColors.deviceWidth,
-		paddingHorizontal: 10,
-        paddingTop: 10,
-		// top: "5%",
-	},
-
-
-
-
 });
 
 
