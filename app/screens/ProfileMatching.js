@@ -64,9 +64,6 @@ export default function ProfileMatching(props) {
   const updatedMatchStatus = (identifier) => {
     // after clicking 'match'
     //TODO:match is undefined
-    const match = allActivitiesRef.doc(otherUserData.activityDocID).get();
-    console.log("match details: \n" + JSON.stringify(match));
-    console.log("match field.. \n" + match["travelPartnersIDs"]);
     if (identifier == 1) {
       setCondElement("accepted by both");
     } else {
