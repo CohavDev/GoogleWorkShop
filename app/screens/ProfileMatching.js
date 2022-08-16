@@ -53,6 +53,10 @@ export default function ProfileMatching(props) {
   const thisUserData = {
     activityDocID: params.myActivityDocID,
   };
+  const [condDate, setCondDate] = useState(
+    props.activityType == "Place to sleep" ||
+      props.activityType == "Backpacking"
+  );
   const userID = firebase.auth().currentUser.uid;
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const [condElement, setCondElement] = useState(params.matchedActivityStatus);
@@ -232,13 +236,36 @@ export default function ProfileMatching(props) {
               <Text style={[styles.subTitle, { color: "white" }]}>
                 What I'm looking for
               </Text>
-              <Text style={[styles.subText, { color: "white" }]}>
+              {/* {condDate && (
+                <Text>{"From: " + props.startDate + "\nTo: " + props.endDate}</Text>
+              )}
+              {!condDate && (
+                <Text>{"Date: " + props.startDate}</Text>
+              )} */}
+              {!condDate && (
+                <Text style={[styles.subText, { color: "white" }]}>
+                             
                 {activityData.type +
                   " on " +
                   activityData.startDate +
                   " at " +
                   activityData.location}
-              </Text>
+                </Text>
+              )}
+
+              {condDate && (
+                <Text style={[styles.subText, { color: "white" }]}>
+                             
+                {activityData.type +
+                  " from " +
+                  activityData.startDate +
+                  " until " +
+                  activityData.endDate + 
+                  " at " + 
+                  activityData.location}
+                </Text>
+              )}
+              
             </View>
           </View>
         </LinearGradient>

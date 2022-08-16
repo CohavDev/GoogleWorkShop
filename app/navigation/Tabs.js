@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MainMenu from "../screens/MainMenu";
 import ProfileMatching from "../screens/ProfileMatching";
 import MyActivities from "../screens/MyActivities";
 import LoginScreen from "../firescreens/LoginScreen/LoginScreen";
