@@ -66,8 +66,8 @@ export default function HomeScreen(props) {
         </Pressable>
       </View>
       <View style={styles.myActivities}>
-        <View style={{ alignSelf: "flex-start", left: 40 }}>
-          <Text style={styles.textStyle}>Upcoming Occuring Activities</Text>
+      <View style={{ alignSelf: "flex-start", left: 40 }}>
+          <Text style={styles.title}>Upcoming Occuring Activities</Text>
         </View>
         <ActivitiesList navigation={props.navigation} />
       </View>
@@ -79,13 +79,20 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: "center",
     top: 40,
-    fontSize: 20,
+    fontSize: 22,
+    
     // alignContent: "center",
     // textAlign: "center",
   },
   textStyle: {
     color: "black",
     fontSize: 14,
+    // fontWeight: "bold",
+    textAlign: "center",
+  },
+  title: {
+    color: "black",
+    fontSize: 15,
     // fontWeight: "bold",
     textAlign: "center",
   },
