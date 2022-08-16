@@ -1,4 +1,3 @@
-
 import { StyleSheet, Pressable, View, Text, Image, Button } from "react-native";
 import colors from "../config/colors";
 import OvalSquare from "../components/OvalSquare";
@@ -19,63 +18,61 @@ export default function HomeScreen(props) {
   };
   const userID = firebase.auth().currentUser.uid;
   const userRef = firebase.firestore().collection("users").doc(userID);
-  const [fullName , setFullName] = useState("");
-  const [hour, setHour] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [hour, setHour] = useState("");
 
   useEffect(() => {
-		setHour(new Date().getHours());
-    userRef.get().then(userData => {
+    setHour(new Date().getHours());
+    userRef.get().then((userData) => {
       setFullName(userData.get("fullName"));
-        
-      })
-	}, []);
+    });
+  }, []);
 
-  function getGreetingTime(currentHour){
-
+  function getGreetingTime(currentHour) {
     const splitAfternoon = 12; // 24hr time to split the afternoon
     const splitEvening = 17; // 24hr time to split the evening
     const splitNight = 22;
     const splitMorning = 5;
-  
+
     if (currentHour >= splitAfternoon && currentHour < splitEvening) {
       // Between 12 PM and 5PM
       return "Good afternoon";
     } else if (currentHour >= splitEvening && currentHour < splitNight) {
       // Between 5PM and 22PM
       return "Good evening";
-    } else if (currentHour >= splitNight || currentHour < splitMorning) { // its on porpose with or instead of and
-    // Between 22PM and 5AM
+    } else if (currentHour >= splitNight || currentHour < splitMorning) {
+      // its on porpose with or instead of and
+      // Between 22PM and 5AM
       return "Good Night";
-    } else if (currentHour >= splitMorning || currentHour < splitAfternoon){
+    } else if (currentHour >= splitMorning || currentHour < splitAfternoon) {
       return "Good morning";
     }
-    
   }
 
-	return (
-		<View style={styles.mainBackground}>
-      <Text style={styles.header}>{getGreetingTime(hour)} {fullName}</Text>
-			<View style={styles.viewButtons}>
-				<Pressable
-					onPress={pressNewActivityHandler}
-					// android_ripple={{ color: "white" }}
-				>
-					<OvalSquare text="New Activity" />
-				</Pressable>
-				<Pressable onPress={viewRecentActivitiesHandler}>
-                
-					<OvalSquare text="View Recent Activities" />
-				</Pressable>
-			</View>
-            <View style={styles.myActivities}>
-                <View style={{ alignSelf: "flex-start", left: 40}}>
-                    <Text style={styles.textStyle}>Upcoming Occuring Activities</Text>
-                </View> 
-            </View>
-    <ActivitiesList navigation={props.navigation}/>
+  return (
+    <View style={styles.mainBackground}>
+      <Text style={styles.header}>
+        {getGreetingTime(hour)} {fullName}
+      </Text>
+      <View style={styles.viewButtons}>
+        <Pressable
+          onPress={pressNewActivityHandler}
+          // android_ripple={{ color: "white" }}
+        >
+          <OvalSquare text="New Activity" />
+        </Pressable>
+        <Pressable onPress={viewRecentActivitiesHandler}>
+          <OvalSquare text="View Recent Activities" />
+        </Pressable>
+      </View>
+      <View style={styles.myActivities}>
+        <View style={{ alignSelf: "flex-start", left: 40 }}>
+          <Text style={styles.textStyle}>Upcoming Occuring Activities</Text>
+        </View>
+        <ActivitiesList navigation={props.navigation} />
+      </View>
     </View>
-    
-	);
+  );
 }
 
 const styles = StyleSheet.create({
@@ -141,12 +138,6 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
 });
-
-
-
-
-
-
 
 // the old HomeScreen code - was commented out on 10.8.2022, replaced with the home
 // screen vode that was written in Hila/NewHomeScreen

@@ -49,7 +49,6 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
-  console.log("hello app2.js");
   // Left to right layout force
   I18nManager.forceRTL(false);
   I18nManager.allowRTL(false);
@@ -96,8 +95,6 @@ export default function App() {
       }
     });
   }, []);
-  console.log("newHomeScreen : ");
-  console.log(user);
   return (
     // <NavigationContainer>{InitialNavigation({ user })}</NavigationContainer>
     <NavigationContainer>
@@ -231,9 +228,9 @@ function MainNavigation(props) {
 					component={Tabs}
 					options={{ headerShown: false }}
 				/> */}
-      <Stack.Screen name="MainMenu">
-        {(props) => <HomeScreen {...props} extraData={props.user} />}
-      </Stack.Screen>
+      <Stack.Screen name="MainMenu" component={HomeScreen} />
+      {/* {(props) => <HomeScreen {...props} extraData={props.user} />} */}
+      {/* </Stack.Screen> */}
       {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
       {/* <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} /> */}
       <Stack.Screen name="MoreInfo1Screen" component={MoreInfo1Screen} />

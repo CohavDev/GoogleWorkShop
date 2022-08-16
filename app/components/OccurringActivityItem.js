@@ -38,19 +38,23 @@ export default function OccurringActivityItem(props) {
     props.activityType == "Place to sleep" ||
       props.activityType == "Backpacking"
   );
-  const [travelPartner,setTravelPartner] = useState("");
+  const [travelPartner, setTravelPartner] = useState("");
 
   useEffect(() => {
-		allActivitiesRef.doc(activityData.matchedActivityID).get().then(matchedActivityData => {
-      const otherUserID = matchedActivityData.get("userID")
-      usersRef.doc(otherUserID).get().then(otherUserData => {
-        setTravelPartner(otherUserData.get("fullName"));
-        
-      })
-    })
-    
-	}, []);
-  
+    allActivitiesRef
+      .doc(activityData.matchedActivityID)
+      .get()
+      .then((matchedActivityData) => {
+        const otherUserID = matchedActivityData.get("userID");
+        usersRef
+          .doc(otherUserID)
+          .get()
+          .then((otherUserData) => {
+            setTravelPartner(otherUserData.get("fullName"));
+          });
+      });
+  }, []);
+
   function getAge(formattedDateOfBirth) {
     let dateOfBirth = formattedDateOfBirth.toString();
 
@@ -63,23 +67,25 @@ export default function OccurringActivityItem(props) {
     return Math.floor(ageInMilliseconds / 1000 / 60 / 60 / 24 / 365); // convert to years
   }
 
-  
-  
-
- 
-
   return (
-    
     <Pressable
-          style={[
-            styles.shadowProp,
-            { backgroundColor: "white", marginBottom: 15, width: "100%" },
-          ]}
-          android_ripple={{ color: "#C9CBD7" }}
-          onPress={() =>
-            allActivitiesRef.doc(activityData.matchedActivityID).get().then(matchedActivityData => {
-              const otherUserID = matchedActivityData.get("userID")
-              usersRef.doc(otherUserID).get().then(otherUserData => {
+      style={[
+        styles.shadowProp,
+        { backgroundColor: "white", marginBottom: 15, width: "100%" },
+      ]}
+      android_ripple={{ color: "#C9CBD7" }}
+      onPress={() =>
+        allActivitiesRef
+          .doc(activityData.matchedActivityID)
+          .get()
+          .then((matchedActivityData) => {
+            const otherUserID = matchedActivityData.get("userID");
+            usersRef
+              .doc(otherUserID)
+              .get()
+              .then((otherUserData) => {
+                // console.log("--------!!!!!--------");
+                // console.log(otherUserData.get("fullName"));
                 props.navigation.navigate("OccurringActivityPreview", {
                   navigation: props.navigation, // TODO: pass navigation in a differnent way(setOptions)
                   activityType: props.activityType,
@@ -93,7 +99,7 @@ export default function OccurringActivityItem(props) {
                   matchedActivityID: props.matchedActivityID,
                   userFormattedDateOfBirth: props.userFormattedDateOfBirth,
                   activityID: props.activityID,
-                  
+
                   otherUserID: otherUserData.id,
                   otherFullName: otherUserData.get("fullName"),
                   otherDateOfBirth: otherUserData.get("dateOfBirth"),
@@ -104,50 +110,44 @@ export default function OccurringActivityItem(props) {
                   otherAge: getAge(otherUserData.get("formattedDateOfBirth")),
                   otherPhoneNumber: otherUserData.get("phoneNumber"),
                   otherNationality: otherUserData.get("nationality"),
-                })
-              })
-            })
-        
-            
-          }
+                });
+              });
+          })
+      }
+    >
+      {/* <View style={{flexDirection: "row"}}> */}
+      <View style={styles.container}>
+        {/* <View style={styles.imageContainer}> */}
+        <View
+          style={styles.circularImage}
+          // source={require("../assets/mountain_track_small.jpg")}
         >
-          {/* <View style={{flexDirection: "row"}}> */}
-          <View style={styles.container}>
-            
-            {/* <View style={styles.imageContainer}> */}
-            <View
-              style={styles.circularImage}
-              // source={require("../assets/mountain_track_small.jpg")}
-            >
-              {/* <Entypo name={iconsMap.hiking} size={32} color="white" /> */}
-              <IconButton
-                icon={iconsMap[props.activityType]}
-                color={colors.Secondary}
-                rippleColor="blue"
-                size={35}
-              />
-            </View>
-            {/* </View> */}
-            <View style={styles.dataContainer}>
-              <Text>{props.activityType}</Text>
-              {condDate && (
-                <Text>{"From: " + props.startDate + "\nTo: " + props.endDate}</Text>
-              )}
-              {!condDate && (
-                <Text>{"Date: " + props.startDate}</Text>
-              )}
-              
-              {/* <Text>{props.time}</Text> */}
-              <Text>{"Location: " + props.location}</Text>
-            </View>
-            <View style={styles.travelPartnerContainer}>
-              <Text>Travel Partner</Text>
-              <Text>{travelPartner}</Text>
-            </View>
-          </View>
-          {/* </View> */}
-        </Pressable>
-    
+          {/* <Entypo name={iconsMap.hiking} size={32} color="white" /> */}
+          <IconButton
+            icon={iconsMap[props.activityType]}
+            color={colors.Secondary}
+            rippleColor="blue"
+            size={35}
+          />
+        </View>
+        {/* </View> */}
+        <View style={styles.dataContainer}>
+          <Text>{props.activityType}</Text>
+          {condDate && (
+            <Text>{"From: " + props.startDate + "\nTo: " + props.endDate}</Text>
+          )}
+          {!condDate && <Text>{"Date: " + props.startDate}</Text>}
+
+          {/* <Text>{props.time}</Text> */}
+          <Text>{"Location: " + props.location}</Text>
+        </View>
+        <View style={styles.travelPartnerContainer}>
+          <Text>Travel Partner</Text>
+          <Text>{travelPartner}</Text>
+        </View>
+      </View>
+      {/* </View> */}
+    </Pressable>
   );
 }
 
