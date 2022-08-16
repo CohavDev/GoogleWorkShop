@@ -82,12 +82,12 @@ export default function App() {
   // }, []);
   // const [authenticated, setAuthenticated] = useState(false);
   useEffect(() => {
-    return firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+    return firebase.auth().onAuthStateChanged((userCallback) => {
+      if (userCallback) {
         setAuthenticated(true);
         console.log("authenticated: ");
-        console.log(user);
-        setUser(user);
+        console.log(userCallback);
+        setUser(userCallback);
       } else {
         setAuthenticated(false);
       }
@@ -275,7 +275,7 @@ function MainNavigation(props) {
 function InitialNavigation(props) {
   return (
     <Stack.Navigator
-      initialRouteName={props.auth ? "Tabs" : "LandPage"}
+      initialRouteName={"LandPage"}
       screenOptions={{ headerShown: false, animation: "slide_from_right" }}
     >
       <Stack.Screen name="LandPage" component={LandPage} />
