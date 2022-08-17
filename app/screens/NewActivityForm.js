@@ -7,7 +7,7 @@ import {
   Button,
   Pressable,
 } from "react-native";
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import colors from "../config/colors";
@@ -18,6 +18,8 @@ import SelectBox from "react-native-multi-selectbox";
 import { xorBy } from "lodash";
 import style from "react-native-datepicker/style";
 import SelectMultiLanguages from "../components/SelectMultiLanguages";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { googlePlaceAPIKey } from "../googlePlaces/config";
 
 const LANGUAGES = [
   {
@@ -182,6 +184,27 @@ export default function NewActivityForm(props) {
     }
   }
 
+  const GooglePlacesInput = () => {
+    // TODO: layout covers date, need to fix
+    return (
+      <GooglePlacesAutocomplete
+        placeholder={location === "UnKnown" ? "Destination" : location}
+        onPress={(data, details = null) => {
+          // 'details' is provided when fetchDetails = true
+          console.log(data.description);
+          setLocation(data.description);
+        }}
+        query={{
+          key: googlePlaceAPIKey.key,
+          language: "en",
+          type: "(cities)",
+        }}
+        debounce={200}
+        multiline={true}
+        numberOfLines={3}
+      />
+    );
+  };
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -190,22 +213,22 @@ export default function NewActivityForm(props) {
       <View style={styles.ovalsContainer}>
         <View style={styles.ovalShape}>
           <Text style={styles.subtitle}>Destination:</Text>
-          <View style={styles.box}>
-            <TextInput
+          <View style={[styles.box, { zIndex: 0, height: 150 }]}>
+            {/* <TextInput
               style={styles.input}
               onChangeText={(newText) => setLocation(newText)}
               placeholder="Destination: City, Country"
               maxLength={20}
-            ></TextInput>
+            ></TextInput> */}
+            <GooglePlacesInput />
           </View>
           <StatusBar style="auto" />
         </View>
         <View style={styles.dateContainer}>
-          
-            {condDate && (
-              <View>
-                <Text style={styles.subtitle}>Activity start date:</Text>
-                <View style={styles.box}>
+          {condDate && (
+            <View>
+              <Text style={styles.subtitle}>Activity start date:</Text>
+              <View style={styles.box}>
                 {/* this code is for working on the web: */}
                 {/* if you want to use it, comment out the code designated for the emulator
                 but dont delete it! because Omer needs it!
@@ -216,9 +239,8 @@ export default function NewActivityForm(props) {
                   placeholder="DD/MM/YYYY"
                   maxLength={10}
                   onChangeText={(newText) => {
-                    setStartDate(newText)
-                    }
-                  }
+                    setStartDate(newText);
+                  }}
                 ></TextInput>
 
                 {/* this code is for working on Emulator: */}
@@ -231,13 +253,13 @@ export default function NewActivityForm(props) {
                 >
                   {stringFormatDate(startDate)}
                 </Text> */}
-                </View>
               </View>
-            )}
-            {!condDate && (
-              <View>
-                <Text style={styles.subtitle}>Activity date:</Text>
-                <View style={styles.box}>
+            </View>
+          )}
+          {!condDate && (
+            <View>
+              <Text style={styles.subtitle}>Activity date:</Text>
+              <View style={styles.box}>
                 {/* this code is for working on the web: */}
                 {/* if you want to use it, comment out the code designated for the emulator
                 but dont delete it! because Omer needs it!
@@ -248,11 +270,9 @@ export default function NewActivityForm(props) {
                   placeholder="DD/MM/YYYY"
                   maxLength={10}
                   onChangeText={(newText) => {
-                    setStartDate(newText)
-                    setEndDate(newText)
-
-                    }
-                  }
+                    setStartDate(newText);
+                    setEndDate(newText);
+                  }}
                 ></TextInput>
 
                 {/* this code is for working on Emulator: */}
@@ -264,9 +284,9 @@ export default function NewActivityForm(props) {
                 >
                   {stringFormatDate(startDate)}
                 </Text> */}
-                </View>
               </View>
-            )}
+            </View>
+          )}
 
           {condDate && (
             <View style={{ left: 35 }}>
@@ -287,14 +307,13 @@ export default function NewActivityForm(props) {
                 {/* this code is for working on Emulator: */}
                 {/* if you want to use it, comment out the code designated for the web
               but dont delete it! because everyone else needs it! */}
-              
+
                 {/* <Text
                 style={styles.input}
                 onPress={() => openDatePicker(0, endDate)}
               >
                 {stringFormatDate(endDate)}
               </Text> */}
-              
               </View>
             </View>
           )}
@@ -322,7 +341,6 @@ export default function NewActivityForm(props) {
           </View>
         </View>
         )}
-        
 
         <View>
           <Text style={styles.subtitle}>Languages:</Text>
@@ -399,7 +417,7 @@ const styles = StyleSheet.create({
     // borderColor: "blue",
     // borderWidth: 1,
     // borderColor: "yellow",
-    // backgroundColor: colors.secondary,
+    // backgroundColor: "blue",
     backgroundColor: colors.Background,
     paddingTop: "15%",
     width: "100%",
