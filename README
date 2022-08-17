@@ -37,3 +37,6 @@ for openning whatsapp app:
 date picker:
 
 - npm install @react-native-community/datetimepicker --save
+
+google places :
+-npm install react-native-google-places-autocomplete --save
