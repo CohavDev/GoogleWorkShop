@@ -47,15 +47,13 @@ export default function NewActivityForm(props) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [location, setLocation] = useState("UnKnown");
-  const [languages, setLanguages] = useState("native");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   // True if should display both start and end dates. false otherwise
   const [condDate, setCondDate] = useState(
     props.route.params.activityType == "Place to sleep" ||
       props.route.params.activityType == "Backpacking"
   );
-  const selectedItems = [];
-  const [langList, setLangList] = useState([]);
+
   function addLanguage() {
     // console.log(LANGUAGES[1].item);
     // return (item) =>setSelectedLanguages(selectedLanguages.push(JSON.stringify(item)))
@@ -135,6 +133,55 @@ export default function NewActivityForm(props) {
   //   });
   // };
 
+  
+  function convertDateToFormattedDate(date){
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1; //January is 0!
+    var yyyy = date.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    yyyy = '' + yyyy;
+    var strDate =  yyyy + mm + dd
+    return parseInt(strDate);
+  }
+
+  function timeToNum(currentHour) {
+    const splitAfternoon = 12; // 24hr time to split the afternoon
+    const splitEvening = 18; // 24hr time to split the evening
+    const splitNight = 22;
+    const splitMorning = 5;
+
+    if (currentHour >= splitAfternoon && currentHour < splitEvening) {
+      // Between 12 PM and 5PM
+      return 2;
+    } else if (currentHour >= splitEvening && currentHour < splitNight) {
+      // Between 5PM and 22PM
+      return 3;
+    } else if (currentHour >= splitNight || currentHour < splitMorning) {
+      // its on porpose with or instead of and
+      // Between 22PM and 5AM
+      return 3;
+    } else if (currentHour >= splitMorning || currentHour < splitAfternoon) {
+      return 1;
+    }
+  }
+
+  function dayTimeToNum(dayTime) {
+    if(dayTime.localeCompare("Morning") == 0){
+      return 1;
+    }
+    if(dayTime.localeCompare("After noon") == 0){
+      return 2;
+    }
+    if(dayTime.localeCompare("Evening/Night") == 0){
+      return 3;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -177,6 +224,7 @@ export default function NewActivityForm(props) {
                 {/* this code is for working on Emulator: */}
                 {/* if you want to use it, comment out the code designated for the web
                 but dont delete it! because everyone else needs it! */}
+                
                 {/* <Text
                   style={styles.input}
                   onPress={() => openDatePicker(1, startDate)}
@@ -268,7 +316,7 @@ export default function NewActivityForm(props) {
                 color="rgba(60, 60, 67, 0.5)"
               />
               <Picker.Item label="Morning" value="Morning" />
-              <Picker.Item label="Noon" value="Noon" />
+              <Picker.Item label="After noon" value="After noon" />
               <Picker.Item label="Evening/Night" value="Evening/Night" />
             </Picker>
           </View>
@@ -739,7 +787,7 @@ const styles = StyleSheet.create({
 // 						>
 // 							<Picker.Item label="-" value="-" />
 // 							<Picker.Item label="Morning" value="Morning" />
-// 							<Picker.Item label="Noon" value="Noon" />
+// 							<Picker.Item label="After noon" value="After noon" />
 // 							<Picker.Item label="Evening/Night" value="Evening/Night" />
 // 						</Picker>
 // 					</View>

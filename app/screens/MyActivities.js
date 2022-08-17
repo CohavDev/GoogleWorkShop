@@ -22,8 +22,11 @@ export default function MyActivities({ navigation }) {
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
   const userRef = firebase.firestore().collection("users").doc(userID);
+  const [date, setDate] = useState(new Date());
+
 
   useEffect(() => {
+    setDate(new Date());
     allActivitiesRef
       .where("userID", "==", userID)
       .orderBy("formattedStartDate", "asc")
@@ -35,10 +38,35 @@ export default function MyActivities({ navigation }) {
             const activity = doc.data();
             activity.id = doc.id;
             if (activity.status.localeCompare("waiting") == 0) {
-              newMyUploadedActivities.push(activity);
+              if (activity.formattedStartDate < convertDateToFormattedDate(date)){
+                allActivitiesRef.doc(activity.id).delete();
+              }
+              else if((activity.formattedStartDate == convertDateToFormattedDate(date))
+              && (dayTimeToNum(activity.time) < timeToNum(date.getHours()))) {
+                allActivitiesRef.doc(activity.id).delete();
+              }
+              else{
+                newMyUploadedActivities.push(activity);
+              }
+              
             } else {
+              if (activity.formattedStartDate < convertDateToFormattedDate(date)){
+                
+                allActivitiesRef.doc(activity.id).delete();
+                allActivitiesRef.doc(activity.matchedActivityID).delete();
+              }
+              else if((activity.formattedStartDate == convertDateToFormattedDate(date))
+              && (dayTimeToNum(activity.time) < timeToNum(date.getHours()))) {
+                allActivitiesRef.doc(doc.id).delete();
+                allActivitiesRef.doc(activity.matchedActivityID).delete();
+              }
+              else{
+                newMyUploadedActivities.push(activity);
+              }
               newMyOccurringActivities.push(activity);
             }
+            
+            
           });
           setMyOccurringActivities(newMyOccurringActivities);
           setMyUploadedActivities(newMyUploadedActivities);
@@ -82,6 +110,54 @@ export default function MyActivities({ navigation }) {
     />
   );
 
+  function convertDateToFormattedDate(date){
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1; //January is 0!
+    var yyyy = date.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    yyyy = '' + yyyy;
+    var strDate =  yyyy + mm + dd
+    return parseInt(strDate);
+  }
+
+  function timeToNum(currentHour) {
+    const splitAfternoon = 12; // 24hr time to split the afternoon
+    const splitEvening = 18; // 24hr time to split the evening
+    const splitNight = 22;
+    const splitMorning = 5;
+
+    if (currentHour >= splitAfternoon && currentHour < splitEvening) {
+      // Between 12 PM and 5PM
+      return 2;
+    } else if (currentHour >= splitEvening && currentHour < splitNight) {
+      // Between 5PM and 22PM
+      return 3;
+    } else if (currentHour >= splitNight || currentHour < splitMorning) {
+      // its on porpose with or instead of and
+      // Between 22PM and 5AM
+      return 3;
+    } else if (currentHour >= splitMorning || currentHour < splitAfternoon) {
+      return 1;
+    }
+  }
+
+  function dayTimeToNum(dayTime) {
+    if(dayTime.localeCompare("Morning") == 0){
+      return 1;
+    }
+    if(dayTime.localeCompare("After noon") == 0){
+      return 2;
+    }
+    if(dayTime.localeCompare("Evening/Night") == 0){
+      return 3;
+    }
+  }
+
   return (
     // <View style={{backgroundColor: colors.background}}>
 
@@ -89,6 +165,8 @@ export default function MyActivities({ navigation }) {
       <View style={styles.header}>
         <Text style={colors.title}>Occurring Activities</Text>
       </View>
+
+      {myOccurringActivities.length == 0 && <Text style={styles.textStyle}>{"\n\n\n" + "- None -"}</Text>}
 
       <ScrollView style={{ top: "5%" }}>
         <View style={styles.scrollviewContainer}>
@@ -103,6 +181,8 @@ export default function MyActivities({ navigation }) {
       <View style={styles.header}>
         <Text style={colors.title}>Uploaded Activities</Text>
       </View>
+
+      {myUploadedActivities.length == 0 && <Text style={styles.textStyle}>{"\n\n\n" + "- None -"}</Text>}
 
       <ScrollView style={{ top: "5%" }}>
         <View style={styles.scrollviewContainer}>
@@ -163,6 +243,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "black",
     marginBottom: 15,
+  },
+  textStyle: {
+    color: "black",
+    fontSize: 14,
+    // fontWeight: "bold",
+    textAlign: "center",
   },
   // title: {
   // 	// color: colors.grey,

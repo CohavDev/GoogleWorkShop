@@ -74,7 +74,7 @@ export default function ActivitiesList(props) {
   );
   return (
     <View style={styles.container}>
-      {myOccurringActivities.length == 0 && <Text>--None</Text>}
+      {myOccurringActivities.length == 0 && <Text>{"\n" + "- None -"}</Text>}
       {/* <View style={styles.header}>
         <Text style={styles.title}>My Current Activities</Text>
       </View> */}
@@ -118,4 +118,5 @@ const styles = StyleSheet.create({
     //paddingBottom: 15,
     //top: 20,
   },
+  
 });
