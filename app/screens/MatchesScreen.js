@@ -11,7 +11,8 @@ import {
 import colors from "../config/colors";
 import DATATWO from "../usersData.json";
 import style from "react-native-datepicker/style";
-export default (props) => {
+
+export default function MatchesScreen(props){
   const activityData = {
     activityType: props.route.params.activityType,
     location: props.route.params.location,
