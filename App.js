@@ -20,6 +20,7 @@ import {
 
 import MyActivities from "./app/screens/MyActivities";
 import ProfileMatching from "./app/screens/ProfileMatching";
+import MyProfile from "./app/screens/MyProfile";
 import ChooseActivityBubbles from "./app/screens/ChooseActivityBubbles";
 import MatchesScreen from "./app/screens/MatchesScreen";
 import NewActivityForm from "./app/screens/NewActivityForm";
@@ -174,8 +175,8 @@ function TabsNav(props) {
       />
 
       <Tab.Screen
-        name="profile"
-        component={ProfileMatching}
+        name="my profile"
+        component={MyProfile}
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
@@ -190,7 +191,7 @@ function TabsNav(props) {
 
       <Tab.Screen
         name="logout"
-        component={LoginScreen}
+        component={LandPage}
         listeners={{
           tabPress: (e) => {
             e.preventDefault();
@@ -251,6 +252,7 @@ function MainNavigation(props) {
       {/* <Stack.Screen name="ApproveActivity" component={ApproveActivity} /> */}
       <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
       <Stack.Screen name="ProfileMatching" component={ProfileMatching} />
+      <Stack.Screen name="MyProfile" component={MyProfile} />
       <Stack.Screen
         name="ChooseOutdoorsActivity"
         component={ChooseOutdoorsActivity}
