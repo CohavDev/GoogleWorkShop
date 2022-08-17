@@ -16,44 +16,67 @@ import {
   import * as Linking from "expo-linking";
   import colors from "../config/colors";
   
-  export default function ProfileMatching({ navigation }) {
+  export default function MyProfile({ navigation }) {
 
     
     const userID = firebase.auth().currentUser.uid;
     const allActivitiesRef = firebase.firestore().collection("allActivities");
     const userRef = firebase.firestore().collection("users").doc(userID);
-    const [condElement, setCondElement] = useState(params.matchedActivityStatus);
-    // const [aboutMe , setAboutMe] = useState("")
-    // const [fullName , setFullName] = useState("")
-    // const [nationality , setNationality] = useState("")
-    // const [nativeLanguage , setNativeLanguage] = useState("")
-    // const [secondLanguage , setSecondLanguage] = useState("")
-    // const [phoneNumber , setPhoneNumber] = useState("")
+    const [aboutMe , setAboutMe] = useState("")
+    const [fullName , setFullName] = useState("")
+    const [nationality , setNationality] = useState("")
+    const [nativeLanguage , setNativeLanguage] = useState("")
+    const [secondLanguage , setSecondLanguage] = useState("")
+    const [phoneNumber , setPhoneNumber] = useState("")
+    const [formattedDateOfBirth , setformattedDateOfBirth] = useState("")
+    const userData = 
+        {
+            aboutMe: aboutMe,
+            fullName: fullName,
+            nationality: nationality,
+            nativeLanguage: nativeLanguage,
+            secondLanguage: secondLanguage,
+            phoneNumber: phoneNumber,
+            age: getAge(formattedDateOfBirth)
+        }
 
-    // useEffect(() => {
-    //     userRef.get().then((userData) => {
-    //         setAboutMe(userData.get("aboutMe"));
-    //         setFullName(userData.get("fullName"));
-    //         setNationality(userData.get("nationality"));
-    //         setNativeLanguage(userData.get("nativeLanguage"));
-    //         setSecondLanguage(userData.get("secondLanguage"));
-    //         setPhoneNumber(userData.get("phoneNumber"));
-    //     });
-    //   }, []);
+    useEffect(() => {
+        userRef.get().then((userData) => {
+            setAboutMe(userData.get("aboutMe"));
+            setFullName(userData.get("fullName"));
+            setNationality(userData.get("nationality"));
+            setNativeLanguage(userData.get("nativeLanguage"));
+            setSecondLanguage(userData.get("secondLanguage"));
+            setPhoneNumber(userData.get("phoneNumber"));
+            setformattedDateOfBirth(userData.get("formattedDateOfBirth"));
+        });
+      }, []);
+
+      function getAge(formattedDateOfBirth) {
+        let dateOfBirth = formattedDateOfBirth.toString();
+    
+        var day = dateOfBirth.slice(6, 8);
+        var month = dateOfBirth.slice(4, 6);
+        var year = dateOfBirth.slice(0, 4);
+        // i assume the format of the date of birth is : DD/MM/YYYY
+        dateOfBirth = "".concat(year, "-", month, "-", day);
+        var ageInMilliseconds = new Date() - new Date(dateOfBirth);
+        return Math.floor(ageInMilliseconds / 1000 / 60 / 60 / 24 / 365); // convert to years
+      }
   
     
     return (
-        userRef.get().then((data) => {
-        const userData = 
-        {
-            aboutMe: data.get("aboutMe"),
-            fullName: data.get("fullName"),
-            nationality: data.get("nationality"),
-            nativeLanguage: data.get("nativeLanguage"),
-            secondLanguage: data.get("secondLanguage"),
-            phoneNumber: data.get("phoneNumber")
+        // userRef.get().then((data) => {
+        // const userData = 
+        // {
+        //     aboutMe: data.get("aboutMe"),
+        //     fullName: data.get("fullName"),
+        //     nationality: data.get("nationality"),
+        //     nativeLanguage: data.get("nativeLanguage"),
+        //     secondLanguage: data.get("secondLanguage"),
+        //     phoneNumber: data.get("phoneNumber")
 
-        };
+        // };
         <View style={styles.container}>
             {/* style={styles.profilePicContainer} */}
             <View>
@@ -78,18 +101,17 @@ import {
                     style={styles.profilePic}
                 ></Image>
                 <Text style={styles.title}>{userData.fullName}</Text>
-                <Text style={styles.smallTitle}>
-                    {otherUserData.nationality + " , " + userData.age}
-                </Text>
                 </View>
                 <View style={styles.profileDetails}>
                 <Text style={styles.subTitle}>About me</Text>
                 <Text style={styles.subText}>{userData.aboutMe}</Text>
                 <Text style={styles.subTitle}>I'm From</Text>
                 <Text style={styles.subText}>{userData.nationality}</Text>
-                <View style={[styles.interstContainer, styles.shadowProp]}>
+                <Text style={styles.subTitle}>Phone Number</Text>
+                <Text style={styles.subText}>{userData.phoneNumber}</Text>
+                <Text style={styles.subTitle}>Spoken Languages</Text>
+                <Text style={styles.subText}>{userData.nativeLanguage + ", " + userData.secondLanguage}</Text>
                     
-                </View>
                 </View>
             </LinearGradient>
             <View style={{ paddingTop: "20%", paddingLeft: "0%" }}>
@@ -99,14 +121,14 @@ import {
                         android_ripple={{ color: "white" }}
                         // onPress={openWhatsapp}
                     >
-                        <IconButton icon="whatsapp" color="white" size={32} />
+                        <IconButton icon="account-edit" color="white" size={32} />
                     </Pressable>
                     <Text>Edit Profile</Text>
                 </View>
             </View>
             </View>
         </View>
-        })
+        //})
     );
   }
   
