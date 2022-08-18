@@ -22,6 +22,18 @@ export default function RegistrationScreen(props) {
       alert("Passwords don't match");
       return;
     }
+    if (fullName === "") {
+      alert("Please enter a full name");
+      return;
+    }
+    if (email === "") {
+      alert("Please enter an email address");
+      return;
+    }
+    if (password === "") {
+      alert("Please enter a password");
+      return;
+    }
     setEmail(email.toLowerCase());
     // check if email already exist in firestore
     const query = await firebase
