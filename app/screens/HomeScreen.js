@@ -30,7 +30,7 @@ export default function HomeScreen(props) {
 
   function getGreetingTime(currentHour) {
     const splitAfternoon = 12; // 24hr time to split the afternoon
-    const splitEvening = 17; // 24hr time to split the evening
+    const splitEvening = 18; // 24hr time to split the evening
     const splitNight = 22;
     const splitMorning = 5;
 
