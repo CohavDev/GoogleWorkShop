@@ -134,6 +134,7 @@ export default function ActivitiesList(props) {
       languages={item.languages}
       userFormattedDateOfBirth={item.userFormattedDateOfBirth}
       travelPartnersIDs={item.travelPartnersIDs}
+      matchedActivityID={item.matchedActivityID}
       navigation={props.navigation}
     />
   );
