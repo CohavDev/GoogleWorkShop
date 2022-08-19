@@ -96,7 +96,7 @@ export default function NewActivityForm(props) {
 
     // uncomment the following if when working on Android
     // if (location.localeCompare("UnKnown")){
-    //   alert("please enter activity's location");
+    //   alert("please enter one of the suggested activity's location");
     // }
 
     // add else before the following if when working on Android
@@ -181,19 +181,18 @@ export default function NewActivityForm(props) {
   //   });
   // };
 
-  
-  function convertDateToFormattedDate(date){
+  function convertDateToFormattedDate(date) {
     var dd = date.getDate();
     var mm = date.getMonth() + 1; //January is 0!
     var yyyy = date.getFullYear();
     if (dd < 10) {
-        dd = '0' + dd;
+      dd = "0" + dd;
     }
     if (mm < 10) {
-        mm = '0' + mm;
+      mm = "0" + mm;
     }
-    yyyy = '' + yyyy;
-    var strDate =  yyyy + mm + dd
+    yyyy = "" + yyyy;
+    var strDate = yyyy + mm + dd;
     return parseInt(strDate);
   }
 
@@ -221,13 +220,13 @@ export default function NewActivityForm(props) {
   }
 
   function dayTimeToNum(dayTime) {
-    if(dayTime.localeCompare("Morning") == 0){
+    if (dayTime.localeCompare("Morning") == 0) {
       return 1;
     }
-    if(dayTime.localeCompare("After noon") == 0){
+    if (dayTime.localeCompare("After noon") == 0) {
       return 2;
     }
-    if(dayTime.localeCompare("Evening/Night") == 0){
+    if (dayTime.localeCompare("Evening/Night") == 0) {
       return 3;
     }
   }
@@ -306,7 +305,7 @@ export default function NewActivityForm(props) {
                 {/* this code is for working on Emulator: */}
                 {/* if you want to use it, comment out the code designated for the web
                 but dont delete it! because everyone else needs it! */}
-                
+
                 {/* <Text
                   style={styles.input}
                   onPress={() => {
@@ -439,7 +438,7 @@ export default function NewActivityForm(props) {
               <Picker.Item label="Evening/Night" value="Evening/Night" />
             </Picker>
           </View>
-        </View>
+          </View>
         )}
 
         <View>
@@ -903,7 +902,7 @@ const styles = StyleSheet.create({
 // 							mode="dropdown"
 // 							style={styles.picker}
 // 						>
-// 							<Picker.Item label="-" value="-" />
+// 							<Picker.Item label="" value="" />
 // 							<Picker.Item label="Morning" value="Morning" />
 // 							<Picker.Item label="After noon" value="After noon" />
 // 							<Picker.Item label="Evening/Night" value="Evening/Night" />

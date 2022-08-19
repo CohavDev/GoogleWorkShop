@@ -40,6 +40,7 @@ import { I18nManager } from "react-native"; // force left to right layout of app
 import { firebase } from "./app/firebase/config";
 import colors from "./app/config/colors";
 import { getAuth, signOut } from "firebase/auth";
+import EditProfile from "./app/screens/EditProfile";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -253,6 +254,11 @@ function MainNavigation(props) {
       <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
       <Stack.Screen name="ProfileMatching" component={ProfileMatching} />
       <Stack.Screen name="MyProfile" component={MyProfile} />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{ animation: "slide_from_bottom" }}
+      />
       <Stack.Screen
         name="ChooseOutdoorsActivity"
         component={ChooseOutdoorsActivity}
