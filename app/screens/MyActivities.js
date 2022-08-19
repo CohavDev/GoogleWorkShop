@@ -61,12 +61,9 @@ export default function MyActivities({ navigation }) {
                 allActivitiesRef.doc(activity.matchedActivityID).delete();
               }
               else{
-                newMyUploadedActivities.push(activity);
+                newMyOccurringActivities.push(activity);
               }
-              newMyOccurringActivities.push(activity);
             }
-            
-            
           });
           setMyOccurringActivities(newMyOccurringActivities);
           setMyUploadedActivities(newMyUploadedActivities);

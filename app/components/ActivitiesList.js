@@ -19,6 +19,7 @@ export default function ActivitiesList(props) {
   const [myOccurringActivities, setMyOccurringActivities] = useState([]);
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
+  const [date, setDate] = useState(new Date());
   let userRef;
 
   useEffect(() => {
@@ -32,21 +33,33 @@ export default function ActivitiesList(props) {
     console.log("called use effect");
     // console.log(allActivitiesRef);
     // console.log(userID);
+    setDate(new Date());
     allActivitiesRef
       .where("userID", "==", userID)
       .where("status", "==", "paired")
       .orderBy("formattedStartDate", "asc")
-      .limit(2)
       .onSnapshot(
         (querySnapshot) => {
           const newMyOccurringActivities = [];
           querySnapshot.forEach((doc) => {
             const activity = doc.data();
+            var counter = 0;
             activity.id = doc.id;
-            newMyOccurringActivities.push(activity);
-            console.log("pushed to local array");
+            if (activity.formattedStartDate < convertDateToFormattedDate(date)){
+                
+              allActivitiesRef.doc(activity.id).delete();
+              allActivitiesRef.doc(activity.matchedActivityID).delete();
+            }
+            else if((activity.formattedStartDate == convertDateToFormattedDate(date))
+            && (dayTimeToNum(activity.time) < timeToNum(date.getHours()))) {
+              allActivitiesRef.doc(doc.id).delete();
+              allActivitiesRef.doc(activity.matchedActivityID).delete();
+            }
+            else if (counter < 2){
+              newMyOccurringActivities.push(activity);
+              counter++;
+            }
           });
-          console.log("updated activities state");
           setMyOccurringActivities(newMyOccurringActivities);
         },
         (error) => {

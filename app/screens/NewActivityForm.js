@@ -45,9 +45,21 @@ const LANGUAGES = [
 ];
 
 export default function NewActivityForm(props) {
-  const [activityTime, setActivityTime] = useState("Morning");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [activityTime, setActivityTime] = useState("");
+  
+
+  // on web mode:
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  
+  // on android mode:
+  //const [startDate, setStartDate] = useState(new Date());
+  //const [endDate, setEndDate] = useState(new Date());
+
+
+  const [formattedEndDate, setFormattedEndDate] = useState(NaN);
+  const [formattedStartDate, setFormattedStartDate] = useState(NaN);
   const [location, setLocation] = useState("UnKnown");
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   // True if should display both start and end dates. false otherwise
@@ -55,6 +67,8 @@ export default function NewActivityForm(props) {
     props.route.params.activityType == "Place to sleep" ||
       props.route.params.activityType == "Backpacking"
   );
+  
+  var currentDate = new Date();
 
   function addLanguage() {
     // console.log(LANGUAGES[1].item);
@@ -74,42 +88,74 @@ export default function NewActivityForm(props) {
     return day + "/" + month + "/" + dateObject.getFullYear();
   };
 
-  const stringFormatDateForWeb = (dateObject) => {
-    var day = dateObject.slice(0, 2);
-    var month = dateObject.slice(3, 5);
-    var year = dateObject.slice(6, 10);
-    return day + "/" + month + "/" + year;
-  };
 
   const pressConfirm = () => {
     // console.log(SelectMultiLanguages.selectedItems)
     // console.log(typeOf(JSON.stringify(selectedLanguages, ['item'])))
-    props.navigation.navigate("ApproveActivity", {
-      // type: props.navigation.getParam("activityType"),
-      type: props.route.params.activityType,
-      // icon: props.navigation.getParam("activityIcon"),
-      icon: props.route.params.activityIcon,
-      location: location,
+    currentDate = new Date();
 
-      // if working on emulator, uncomment the following two lines, and comment the other two designated for web
-      // startDate: stringFormatDate(startDate),
-      // endDate: stringFormatDate(endDate),
+    // uncomment the following if when working on Android
+    // if (location.localeCompare("UnKnown")){
+    //   alert("please enter activity's location");
+    // }
 
-      // if working on web, uncomment the following two lines, and comment the other two designated for Androing/Enulator
-      startDate: stringFormatDateForWeb(startDate),
-      endDate: stringFormatDateForWeb(endDate),
-
-      time: activityTime,
-      languages: JSON.stringify(selectedLanguages, ["item"]),
-
-      // languages: selectedLanguages
-      // languages: selectedLanguages,
-
-      // please make sure that the language feild is returned as an array
-      // for example, if the user wants to hang out with people that speak
-      // hebrew or language, so the returned languages is: [English, French]. namely,
-      // an array of the desired languages
-    });
+    // add else before the following if when working on Android
+    if (isNaN(formattedStartDate)){
+      if(!condDate){
+        alert("please enter activity's date");
+      }
+      else{
+        alert("please enter activity's start date");
+      }
+    }
+    else if (formattedStartDate < convertDateToFormattedDate(currentDate)){
+      alert("We are sorry, but the activity's start date must be at the future!");
+    }
+    else if (isNaN(formattedEndDate)){
+      alert("please enter activity's end date");
+    }
+    else if ((condDate) && (formattedEndDate <= formattedStartDate)){
+      alert("We are sorry, but the activity's end date must at least one day after start date!");
+    }
+    else if ((!condDate) && (activityTime.localeCompare("") == 0)){
+      alert("please enter activity's time");
+    }
+    else if((formattedStartDate == convertDateToFormattedDate(currentDate))
+    && (dayTimeToNum(activityTime) < timeToNum(currentDate.getHours()))) {
+      alert("We are sorry, but the activity's time must be at the future!");
+    }
+    else if(selectedLanguages.length == 0){
+      alert("please enter at least one language");
+    }
+    else{
+      props.navigation.navigate("ApproveActivity", {
+        // type: props.navigation.getParam("activityType"),
+        type: props.route.params.activityType,
+        // icon: props.navigation.getParam("activityIcon"),
+        icon: props.route.params.activityIcon,
+        location: location,
+  
+        // if working on emulator, uncomment the following two lines, and comment the other two designated for web
+        // startDate: stringFormatDate(startDate),
+        // endDate: stringFormatDate(endDate),
+  
+        // if working on web, uncomment the following two lines, and comment the other two designated for Androing/Enulator
+        startDate: startDate,
+        endDate: endDate,
+  
+        time: activityTime,
+        languages: JSON.stringify(selectedLanguages, ["item"]),
+  
+        // languages: selectedLanguages
+        // languages: selectedLanguages,
+  
+        // please make sure that the language feild is returned as an array
+        // for example, if the user wants to hang out with people that speak
+        // hebrew or language, so the returned languages is: [English, French]. namely,
+        // an array of the desired languages
+      });
+    }
+    
   };
   const onChangeDate = (is_start, selectedDate) => {
     const currentDate = selectedDate;
@@ -151,6 +197,8 @@ export default function NewActivityForm(props) {
     return parseInt(strDate);
   }
 
+
+
   function timeToNum(currentHour) {
     const splitAfternoon = 12; // 24hr time to split the afternoon
     const splitEvening = 18; // 24hr time to split the evening
@@ -182,6 +230,14 @@ export default function NewActivityForm(props) {
     if(dayTime.localeCompare("Evening/Night") == 0){
       return 3;
     }
+  }
+
+  function strDatetoFormattedDate(strDate){
+    var day = strDate.slice(0, 2);
+    var month = strDate.slice(3, 5);
+    var year = strDate.slice(6, 10);
+    // i assume the format of the date of birth is : DD/MM/YYYY
+    return parseInt("".concat(year, month, day));
   }
 
   const GooglePlacesInput = () => {
@@ -239,8 +295,12 @@ export default function NewActivityForm(props) {
                   placeholder="DD/MM/YYYY"
                   maxLength={10}
                   onChangeText={(newText) => {
-                    setStartDate(newText);
-                  }}
+                    // i assume the format of the date of birth is : DD/MM/YYYY
+                    setFormattedStartDate(strDatetoFormattedDate(newText));
+                    setStartDate(newText);                    
+                  }
+                }
+
                 ></TextInput>
 
                 {/* this code is for working on Emulator: */}
@@ -249,10 +309,17 @@ export default function NewActivityForm(props) {
                 
                 {/* <Text
                   style={styles.input}
-                  onPress={() => openDatePicker(1, startDate)}
+                  onPress={() => {
+                    openDatePicker(1, startDate)
+                    strDate = stringFormatDate(startDate);
+                    setFormattedStartDate(strDatetoFormattedDate(strDate));
+                  }
+                }
                 >
                   {stringFormatDate(startDate)}
                 </Text> */}
+
+
               </View>
             </View>
           )}
@@ -270,20 +337,34 @@ export default function NewActivityForm(props) {
                   placeholder="DD/MM/YYYY"
                   maxLength={10}
                   onChangeText={(newText) => {
+                    // i assume the format of the date of birth is : DD/MM/YYYY
                     setStartDate(newText);
+                    setFormattedStartDate(strDatetoFormattedDate(newText));
                     setEndDate(newText);
+                    setFormattedEndDate(strDatetoFormattedDate(newText));
                   }}
                 ></TextInput>
 
                 {/* this code is for working on Emulator: */}
                 {/* if you want to use it, comment out the code designated for the web
                 but dont delete it! because everyone else needs it! */}
+                
                 {/* <Text
                   style={styles.input}
-                  onPress={() => openDatePicker(1, startDate)}
+                  onPress={() => {
+                    openDatePicker(1, startDate)
+                    strDate = stringFormatDate(startDate);
+                    // i assume the format of the date of birth is : DD/MM/YYYY
+                    setFormattedStartDate(strDatetoFormattedDate(strDate))
+                    setEndDate(startDate);
+                    setFormattedEndDate(strDatetoFormattedDate(strDate));
+                  }
+                }
                 >
                   {stringFormatDate(startDate)}
                 </Text> */}
+
+
               </View>
             </View>
           )}
@@ -301,7 +382,14 @@ export default function NewActivityForm(props) {
                   style={styles.input}
                   placeholder="DD/MM/YYYY"
                   maxLength={10}
-                  onChangeText={(newText) => setEndDate(newText)}
+                  onChangeText={(newText) => {
+                    setEndDate(newText);
+                    setFormattedEndDate(strDatetoFormattedDate(newText));
+                    
+                  }
+                }
+
+
                 ></TextInput>
 
                 {/* this code is for working on Emulator: */}
@@ -310,10 +398,19 @@ export default function NewActivityForm(props) {
 
                 {/* <Text
                 style={styles.input}
-                onPress={() => openDatePicker(0, endDate)}
+                onPress={() => {
+                  openDatePicker(0, endDate)
+                  strDate = stringFormatDate(endDate);
+                  setFormattedEndDate(strDatetoFormattedDate(strDate));
+                  
+                }
+              }
               >
                 {stringFormatDate(endDate)}
               </Text> */}
+
+
+
               </View>
             </View>
           )}
@@ -325,13 +422,16 @@ export default function NewActivityForm(props) {
           <View style={styles.box}>
             <Picker
               selectedValue={activityTime}
-              onValueChange={(value, index) => setActivityTime(value)}
+              onValueChange={(value, index) => {
+                setActivityTime(value);
+                }
+              }
               mode="dropdown"
               style={styles.picker}
             >
               <Picker.Item
                 label="Select"
-                value="-"
+                value=""
                 color="rgba(60, 60, 67, 0.5)"
               />
               <Picker.Item label="Morning" value="Morning" />

@@ -28,6 +28,7 @@ export default function MatchesScreen(props){
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
   const usersRef = firebase.firestore().collection("users");
+  const [date, setDate] = useState(new Date());
 
   function getAge(formattedDateOfBirth) {
     let dateOfBirth = formattedDateOfBirth.toString();
@@ -42,8 +43,7 @@ export default function MatchesScreen(props){
   }
 
   useEffect(() => {
-    console.log("----------------");
-    console.log(activityData);
+    setDate(new Date());
     allActivitiesRef
       .where("type", "==", activityData.activityType)
       .where("time", "==", activityData.time)
@@ -69,47 +69,57 @@ export default function MatchesScreen(props){
           function fetchData() {
             querySnapshot.forEach((doc) => {
               const match = doc.data();
-              if (
-                match.travelPartnersIDs.indexOf(userID) > -1 &&
-                activityData.travelPartnersIDs.indexOf(match.userID) > -1
-              ) {
-                match.status = "accepted by both";
+              match.id = doc.id;
+              if (activity.formattedStartDate < convertDateToFormattedDate(date)){
+                allActivitiesRef.doc(match.id).delete();
               }
-              if (
-                match.travelPartnersIDs.indexOf(userID) == -1 &&
-                activityData.travelPartnersIDs.indexOf(match.userID) > -1
-              ) {
-                match.status = "accepted only by other user";
+              else if((activity.formattedStartDate == convertDateToFormattedDate(date))
+              && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
+                allActivitiesRef.doc(match.id).delete();
+              } 
+              else{
+                if (
+                  match.travelPartnersIDs.indexOf(userID) > -1 &&
+                  activityData.travelPartnersIDs.indexOf(match.userID) > -1
+                ) {
+                  match.matchedActivityStatus = "accepted by both";
+                }
+                if (
+                  match.travelPartnersIDs.indexOf(userID) == -1 &&
+                  activityData.travelPartnersIDs.indexOf(match.userID) > -1
+                ) {
+                  match.matchedActivityStatus = "accepted only by other user";
+                }
+                if (
+                  match.travelPartnersIDs.indexOf(userID) > -1 &&
+                  activityData.travelPartnersIDs.indexOf(match.userID) == -1
+                ) {
+                  match.matchedActivityStatus = "accepted only by me";
+                }
+                if (
+                  match.travelPartnersIDs.indexOf(userID) == -1 &&
+                  activityData.travelPartnersIDs.indexOf(match.userID) == -1
+                ) {
+                  match.matchedActivityStatus = "accepted by non of us";
+                }
+                if (match.userID != userID) {
+                  match.userRef = usersRef.doc(match.userID);
+                  match.userRef.get().then((result) => {
+                    match.fullName = result.data().fullName;
+                    match.dateOfBirth = result.data().dateOfBirth;
+                    match.aboutMe = result.data().aboutMe;
+                    match.profilePic = result.data().profilePic;
+                    match.nativeLanguage = result.data().nativeLanguage;
+                    match.secondLanguage = result.data().secondLanguage;
+                    match.age = getAge(match.userFormattedDateOfBirth);
+                    match.phoneNumber = result.data().phoneNumber;
+                    match.nationality = result.data().nationality;
+                    newMyMatches.push(match);
+                    setMyMatches(newMyMatches);
+                  });
+                }
               }
-              if (
-                match.travelPartnersIDs.indexOf(userID) > -1 &&
-                activityData.travelPartnersIDs.indexOf(match.userID) == -1
-              ) {
-                match.status = "accepted only by me";
-              }
-              if (
-                match.travelPartnersIDs.indexOf(userID) == -1 &&
-                activityData.travelPartnersIDs.indexOf(match.userID) == -1
-              ) {
-                match.status = "accepted by non of us";
-              }
-              if (match.userID != userID) {
-                match.id = doc.id;
-                match.userRef = usersRef.doc(match.userID);
-                match.userRef.get().then((result) => {
-                  match.fullName = result.data().fullName;
-                  match.dateOfBirth = result.data().dateOfBirth;
-                  match.aboutMe = result.data().aboutMe;
-                  match.profilePic = result.data().profilePic;
-                  match.nativeLanguage = result.data().nativeLanguage;
-                  match.secondLanguage = result.data().secondLanguage;
-                  match.age = getAge(match.userFormattedDateOfBirth);
-                  match.phoneNumber = result.data().phoneNumber;
-                  match.nationality = result.data().nationality;
-                  newMyMatches.push(match);
-                  setMyMatches(newMyMatches);
-                });
-              }
+              
             });
           }
           fetchData();
@@ -152,6 +162,46 @@ export default function MatchesScreen(props){
   //
   //
   //
+  
+  function timeToNum(currentHour) {
+    const splitAfternoon = 12; // 24hr time to split the afternoon
+    const splitEvening = 18; // 24hr time to split the evening
+    const splitNight = 22;
+    const splitMorning = 5;
+
+    if (currentHour >= splitAfternoon && currentHour < splitEvening) {
+      // Between 12 PM and 5PM
+      return 2;
+    } else if (currentHour >= splitEvening && currentHour < splitNight) {
+      // Between 5PM and 22PM
+      return 3;
+    } else if (currentHour >= splitNight || currentHour < splitMorning) {
+      // its on porpose with or instead of and
+      // Between 22PM and 5AM
+      return 3;
+    } else if (currentHour >= splitMorning || currentHour < splitAfternoon) {
+      return 1;
+    }
+  }
+
+  function dayTimeToNum(dayTime) {
+    if(dayTime.localeCompare("Morning") == 0){
+      return 1;
+    }
+    if(dayTime.localeCompare("After noon") == 0){
+      return 2;
+    }
+    if(dayTime.localeCompare("Evening/Night") == 0){
+      return 3;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
   return (
     <View
       style={{
@@ -194,7 +244,7 @@ export default function MatchesScreen(props){
                     endDate: item.endDate,
                     type: item.type,
                     location: item.location,
-                    matchedActivityStatus: item.status,
+                    matchedActivityStatus: item.matchedActivityStatus,
 
                     //other user's data:
                     matchedActivityDocID: item.id,
