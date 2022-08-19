@@ -70,10 +70,10 @@ export default function MatchesScreen(props){
             querySnapshot.forEach((doc) => {
               const match = doc.data();
               match.id = doc.id;
-              if (activity.formattedStartDate < convertDateToFormattedDate(date)){
+              if (match.formattedStartDate < convertDateToFormattedDate(date)){
                 allActivitiesRef.doc(match.id).delete();
               }
-              else if((activity.formattedStartDate == convertDateToFormattedDate(date))
+              else if((match.formattedStartDate == convertDateToFormattedDate(date))
               && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
                 allActivitiesRef.doc(match.id).delete();
               } 
@@ -167,21 +167,25 @@ export default function MatchesScreen(props){
     const splitAfternoon = 12; // 24hr time to split the afternoon
     const splitEvening = 18; // 24hr time to split the evening
     const splitNight = 22;
-    const splitMorning = 5;
+    const splitMorning = 0;
 
+    if (currentHour >= splitMorning || currentHour < splitAfternoon) {
+      return 1;
+    }
     if (currentHour >= splitAfternoon && currentHour < splitEvening) {
       // Between 12 PM and 5PM
       return 2;
-    } else if (currentHour >= splitEvening && currentHour < splitNight) {
+    }
+    if (currentHour >= splitEvening && currentHour < splitNight) {
       // Between 5PM and 22PM
       return 3;
-    } else if (currentHour >= splitNight || currentHour < splitMorning) {
+    }
+    if (currentHour >= splitNight || currentHour < splitMorning) {
       // its on porpose with or instead of and
       // Between 22PM and 5AM
       return 3;
-    } else if (currentHour >= splitMorning || currentHour < splitAfternoon) {
-      return 1;
     }
+    
   }
 
   function dayTimeToNum(dayTime) {

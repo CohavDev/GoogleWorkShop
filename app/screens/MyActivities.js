@@ -57,7 +57,7 @@ export default function MyActivities({ navigation }) {
               }
               else if((activity.formattedStartDate == convertDateToFormattedDate(date))
               && (dayTimeToNum(activity.time) < timeToNum(date.getHours()))) {
-                allActivitiesRef.doc(doc.id).delete();
+                allActivitiesRef.doc(activity.id).delete();
                 allActivitiesRef.doc(activity.matchedActivityID).delete();
               }
               else{
@@ -126,21 +126,25 @@ export default function MyActivities({ navigation }) {
     const splitAfternoon = 12; // 24hr time to split the afternoon
     const splitEvening = 18; // 24hr time to split the evening
     const splitNight = 22;
-    const splitMorning = 5;
+    const splitMorning = 0;
 
+    if (currentHour >= splitMorning || currentHour < splitAfternoon) {
+      return 1;
+    }
     if (currentHour >= splitAfternoon && currentHour < splitEvening) {
       // Between 12 PM and 5PM
       return 2;
-    } else if (currentHour >= splitEvening && currentHour < splitNight) {
+    }
+    if (currentHour >= splitEvening && currentHour < splitNight) {
       // Between 5PM and 22PM
       return 3;
-    } else if (currentHour >= splitNight || currentHour < splitMorning) {
+    }
+    if (currentHour >= splitNight || currentHour < splitMorning) {
       // its on porpose with or instead of and
       // Between 22PM and 5AM
       return 3;
-    } else if (currentHour >= splitMorning || currentHour < splitAfternoon) {
-      return 1;
     }
+    
   }
 
   function dayTimeToNum(dayTime) {

@@ -52,7 +52,7 @@ export default function ActivitiesList(props) {
             }
             else if((activity.formattedStartDate == convertDateToFormattedDate(date))
             && (dayTimeToNum(activity.time) < timeToNum(date.getHours()))) {
-              allActivitiesRef.doc(doc.id).delete();
+              allActivitiesRef.doc(activity.id).delete();
               allActivitiesRef.doc(activity.matchedActivityID).delete();
             }
             else if (counter < 2){
