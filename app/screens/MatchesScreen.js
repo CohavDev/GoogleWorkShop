@@ -163,6 +163,21 @@ export default function MatchesScreen(props){
   //
   //
   
+  function convertDateToFormattedDate(date){
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1; //January is 0!
+    var yyyy = date.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    yyyy = '' + yyyy;
+    var strDate =  yyyy + mm + dd
+    return parseInt(strDate);
+  }
+
   function timeToNum(currentHour) {
     const splitAfternoon = 12; // 24hr time to split the afternoon
     const splitEvening = 18; // 24hr time to split the evening
