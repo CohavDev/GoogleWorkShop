@@ -42,7 +42,6 @@ export default function RegistrationScreen(props) {
       .where("email", "==", email)
       .get();
     console.log("email = " + email);
-    console.log(query.docs);
     if (query.docs.length != 0) {
       alert("Email already exists");
       return;

@@ -11,6 +11,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styles from "./styles";
 import { firebase } from "../../firebase/config.js";
 import { Picker } from "@react-native-picker/picker";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 // import { initializeApp } from 'firebase/app';
 // import { getDatabase } from "firebase/database"
 // import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
@@ -18,7 +19,7 @@ import { Picker } from "@react-native-picker/picker";
 // thus i have to comment it out until i manage to fix my emulator
 
 export default function MoreInfo1Screen(props) {
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [nationality, setNationality] = useState("");
   // const [nativeLanguage, setNativeLanguage] = useState('')
   // const [secondLanguage, setSecondLanguage] = useState('')
@@ -30,6 +31,7 @@ export default function MoreInfo1Screen(props) {
   var month = "";
   var year = "";
   var formattedDateOfBirth = "";
+  var regularDate = "";
 
   // const onFooterLinkPress = () => {
   //     navigation.navigate('LoginScreen')
@@ -40,12 +42,20 @@ export default function MoreInfo1Screen(props) {
       alert("please fill in your date of birth :)");
       return;
     } else {
-      day = dateOfBirth.slice(0, 2);
-      month = dateOfBirth.slice(3, 5);
-      year = dateOfBirth.slice(6, 10);
-      // i assume the format of the date of birth is : DD/MM/YYYY
-      formattedDateOfBirth = "".concat(year, month, day);
-      setDateOfBirth(formattedDateOfBirth);
+      //if using app on web, uncomment following lines
+      // day = dateOfBirth.slice(0, 2);
+      // month = dateOfBirth.slice(3, 5);
+      // year = dateOfBirth.slice(6, 10);
+      // // i assume the format of the date of birth is : DD/MM/YYYY
+      // formattedDateOfBirth = "".concat(year, month, day);
+      // regularDate = dateOfBirth;
+      //------
+
+      // if using app on android, uncomment the following lines
+      formattedDateOfBirth = stringFormatDate(dateOfBirth, 0);
+      regularDate = stringFormatDate(dateOfBirth, 1);
+      //----
+      console.log(formattedDateOfBirth);
     }
     if (nationality.length === 0) {
       alert("please fill in your nationality (;");
@@ -60,7 +70,7 @@ export default function MoreInfo1Screen(props) {
       return;
     }
     const data = {
-      dateOfBirth: dateOfBirth,
+      dateOfBirth: regularDate,
       formattedDateOfBirth: parseInt(formattedDateOfBirth),
       nationality: nationality,
       nativeLanguage: "",
@@ -76,12 +86,40 @@ export default function MoreInfo1Screen(props) {
     });
   };
 
-  // if (props===null){
-  //      userID={};
-  // }
-  // else{
-  //     userID = props.extraData.id
-  // }
+  //------following functions are for date picker
+  const onChangeDate = (selectedDate) => {
+    const currentDate = selectedDate;
+    setDateOfBirth(currentDate);
+    console.log("date changed = " + stringFormatDate(currentDate, 1));
+  };
+
+  //format 1 = with "/" format 0 = without "/"
+  const stringFormatDate = (dateObject, format) => {
+    var day = dateObject.getDate();
+    var month = parseInt(dateObject.getMonth() + 1);
+    if (day.toString().length == 1) {
+      day = "0" + day;
+    }
+    if (month.toString().length == 1) {
+      month = "0" + month;
+    }
+    if (format == 1) {
+      return day + "/" + month + "/" + dateObject.getFullYear();
+    }
+    //else
+    return dateObject.getFullYear() + "" + month + "" + day;
+  };
+
+  const openDatePicker = (dateObject) => {
+    console.log("called openDatePicker()");
+
+    DateTimePickerAndroid.open({
+      value: dateObject,
+      onChange: (event, selectedDate) => onChangeDate(selectedDate),
+      mode: "date",
+      is24Hour: true,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -93,7 +131,12 @@ export default function MoreInfo1Screen(props) {
           style={styles.logo}
           source={require("../../../app/assets/TravelPartnerLogo1.jpg")}
         />
-        <TextInput
+        {/* this code is for working on the web: */}
+        {/* if you want to use it, comment out the code designated for the emulator
+                but dont delete it! because Omer needs it!
+                only before submitting the project we will delete the
+                web code and will leave the emulator (Androind) code! */}
+        {/* <TextInput
           style={styles.input}
           placeholder="Date Of Birth"
           placeholderTextColor="#aaaaaa"
@@ -101,7 +144,13 @@ export default function MoreInfo1Screen(props) {
           onChangeText={(text) => setDateOfBirth(text)}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-        />
+        /> */}
+        {/* this code is for working on Emulator: */}
+        {/* if you want to use it, comment out the code designated for the web
+                but dont delete it! because everyone else needs it! */}
+        <Text style={styles.input} onPress={() => openDatePicker(dateOfBirth)}>
+          {stringFormatDate(dateOfBirth, 1)}
+        </Text>
         <TextInput
           style={styles.input}
           placeholder="Nationality"
