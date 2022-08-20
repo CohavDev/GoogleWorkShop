@@ -19,12 +19,14 @@ import {
   import UploadedActivityDetailsComponent from "../components/UploadedActivityDetailsComponent";
   import { NavigationContainer } from "@react-navigation/native";
   import colors from "../config/colors";
+  import { IconButton } from "react-native-paper";
+  import {convertDateToFormattedDate , timeToNum , dayTimeToNum} from "../components/TimeConversions";
   
   export default function UploadedActivityPreview(props) {
     console.log(props.route.params);
-    const DATA = {
-      // type: props.navigation.getParam("type"),
-      type: props.route.params.activityType,
+    const activityData = {
+      // activityType: props.navigation.getParam("activityType"),
+      activityType: props.route.params.activityType,
       // icon: props.navigation.getParam("icon"),
       icon: props.route.params.activityIcon,
       // location: props.navigation.getParam("location"),
@@ -41,6 +43,8 @@ import {
       userFormattedDateOfBirth: props.route.params.userFormattedDateOfBirth,
       activityID: props.route.params.activityID,
     };
+    var index = 0;
+    const [date, setDate] = useState(new Date());
     
   
     //   const allActivitiesRef = firebase.firestore().collection("allActivities");
@@ -48,16 +52,13 @@ import {
     //   const userRef = firebase.firestore().collection("users").doc(userID);
     //   const travelPartnersIDs = [];
     //   const status = "waiting";
-    //   const tmpArray = JSON.parse(DATA.languages);
+    //   const tmpArray = JSON.parse(activityData.languages);
     //   const languagesArray = [];
     //   const matchedActivityID = "";
-    var day = "";
-    var month = "";
-    var year = "";
-    console.log(DATA.languages);
-    //   const tmpArray = JSON.parse(DATA.languages);
+    console.log(activityData.languages);
+    //   const tmpArray = JSON.parse(activityData.languages);
     const languagesArray = [];
-    for (const element of DATA.languages) {
+    for (const element of activityData.languages) {
       console.log("elem = " + element);
       languagesArray.push(element);
     }
@@ -73,27 +74,27 @@ import {
     //       //setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
     //       const userFormattedDateOfBirth = result.data().formattedDateOfBirth;
     //       const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-    //       day = DATA.startDate.slice(0, 2);
-    //       month = DATA.startDate.slice(3, 5);
-    //       year = DATA.startDate.slice(6, 10);
+    //       day = activityData.startDate.slice(0, 2);
+    //       month = activityData.startDate.slice(3, 5);
+    //       year = activityData.startDate.slice(6, 10);
     //       // i assume the format of the date of birth is : DD/MM/YYYY
     //       const formattedStartDate = parseInt("".concat(year, month, day));
-    //       day = DATA.endDate.slice(0, 2);
-    //       month = DATA.endDate.slice(3, 5);
-    //       year = DATA.endDate.slice(6, 10);
+    //       day = activityData.endDate.slice(0, 2);
+    //       month = activityData.endDate.slice(3, 5);
+    //       year = activityData.endDate.slice(6, 10);
     //       // i assume the format of the date of birth is : DD/MM/YYYY
     //       const formattedEndDate = parseInt("".concat(year, month, day));
     //       const activityData = {
     //         userID: userID,
     //         createdAt: timestamp,
-    //         type: DATA.type,
-    //         startDate: DATA.startDate,
+    //         activityType: activityData.activityType,
+    //         startDate: activityData.startDate,
     //         formattedStartDate: formattedStartDate,
-    //         endDate: DATA.endDate,
+    //         endDate: activityData.endDate,
     //         formattedEndDate: formattedEndDate,
-    //         time: DATA.time,
+    //         time: activityData.time,
     //         userFormattedDateOfBirth: userFormattedDateOfBirth,
-    //         location: DATA.location,
+    //         location: activityData.location,
     //         languages: languagesArray,
     //         travelPartnersIDs: travelPartnersIDs,
     //         matchedActivityID: matchedActivityID,
@@ -117,23 +118,23 @@ import {
   const usersRef = firebase.firestore().collection("users");
   var matchesCounter = 0;
   allActivitiesRef
-  .where("type", "==", DATA.type)
-  .where("time", "==", DATA.time)
-  .where("location", "==", DATA.location)
-  .where("startDate", "==", DATA.startDate)
-  .where("endDate", "==", DATA.endDate)
+  .where("type", "==", activityData.activityType)
+  .where("time", "==", activityData.time)
+  .where("location", "==", activityData.location)
+  .where("startDate", "==", activityData.startDate)
+  .where("endDate", "==", activityData.endDate)
   .where("status", "==", "waiting")
   .where(
     "userFormattedDateOfBirth",
     "<=",
-    DATA.userFormattedDateOfBirth + 50000
+    activityData.userFormattedDateOfBirth + 50000
   )
   .where(
     "userFormattedDateOfBirth",
     ">=",
-    DATA.userFormattedDateOfBirth - 50000
+    activityData.userFormattedDateOfBirth - 50000
   )
-  .where("languages", "array-contains-any", DATA.languages)
+  .where("languages", "array-contains-any", activityData.languages)
   .onSnapshot(
     (querySnapshot) => {
       function fetchData() {
@@ -150,6 +151,121 @@ import {
     
   );
   
+  function deleteItem() {
+    // when runnin on web uncomment the folloeing part, and comment the second part
+    allActivitiesRef
+    .where("type", "==", activityData.activityType)
+    .where("time", "==", activityData.time)
+    .where("location", "==", activityData.location)
+    .where("startDate", "==", activityData.startDate)
+    .where("endDate", "==", activityData.endDate)
+    .where("status", "==", "waiting")
+    .where(
+      "userFormattedDateOfBirth",
+      "<=",
+      activityData.userFormattedDateOfBirth + 50000
+    )
+    .where(
+      "userFormattedDateOfBirth",
+      ">=",
+      activityData.userFormattedDateOfBirth - 50000
+    )
+    .where("languages", "array-contains-any", activityData.languages)
+    .onSnapshot(
+      (querySnapshot) => {
+        function fetchData() {
+          querySnapshot.forEach((doc) => {
+            const match = doc.data();
+            match.id = doc.id;
+            index = match.travelPartnersIDs.indexOf(userID);
+            if (match.formattedStartDate < convertDateToFormattedDate(date)){
+              allActivitiesRef.doc(match.id).delete();
+            }
+            else if((match.formattedStartDate == convertDateToFormattedDate(date))
+            && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
+              allActivitiesRef.doc(match.id).delete();
+            }
+            else if (index > -1) {
+              allActivitiesRef.doc(match.id).update({
+                travelPartnersIDs:
+                    firebase.firestore.FieldValue.arrayRemove(userID),
+              })
+            }
+          });
+        }
+        fetchData();
+      }
+      
+    );
+    allActivitiesRef.doc(activityData.activityID).delete();
+    return new Promise((resolveOuter) => {resolveOuter();});
+
+    
+    // when running on Android, uncomment the next part, and comment the first part
+    // return Alert.alert(
+    //   "Are your sure?",
+    //   "Are you sure you want to delete this activity?",
+    //   [
+    //     // The "Yes" button
+    //     {
+    //       text: "Yes",
+    //       onPress: () => {
+    //         setShowBox(false);
+    //         allActivitiesRef
+    //         .where("type", "==", activityData.activityType)
+    //         .where("time", "==", activityData.time)
+    //         .where("location", "==", activityData.location)
+    //         .where("startDate", "==", activityData.startDate)
+    //         .where("endDate", "==", activityData.endDate)
+    //         .where("status", "==", "waiting")
+    //         .where(
+    //           "userFormattedDateOfBirth",
+    //           "<=",
+    //           activityData.userFormattedDateOfBirth + 50000
+    //         )
+    //         .where(
+    //           "userFormattedDateOfBirth",
+    //           ">=",
+    //           activityData.userFormattedDateOfBirth - 50000
+    //         )
+    //         .where("languages", "array-contains-any", activityData.languages)
+    //         .onSnapshot(
+    //           (querySnapshot) => {
+    //             function fetchData() {
+    //               querySnapshot.forEach((doc) => {
+    //                 const match = doc.data();
+    //                 match.id = doc.id;
+    //                 index = match.travelPartnersIDs.indexOf(userID);
+    //                 if (match.formattedStartDate < convertDateToFormattedDate(date)){
+    //                   allActivitiesRef.doc(match.id).delete();
+    //                 }
+    //                 else if((match.formattedStartDate == convertDateToFormattedDate(date))
+    //                 && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
+    //                   allActivitiesRef.doc(match.id).delete();
+    //                 }
+    //                 else if (index > -1) {
+    //                   allActivitiesRef.doc(match.id).update({
+    //                     travelPartnersIDs:
+    //                         firebase.firestore.FieldValue.arrayRemove(userID),
+    //                   })
+    //                 }
+    //               });
+    //             }
+    //             fetchData();
+    //           }
+              
+    //         );
+    //         allActivitiesRef.doc(props.activityID).delete();
+    //       },
+    //     },
+    //     // The "No" button
+    //     // Does nothing but dismiss the dialog when tapped
+    //     {
+    //       text: "No",
+    //     },
+    //   ]
+    // );
+  };
  
     return (
       <View
@@ -164,13 +280,13 @@ import {
       >
         <View style={{ bottom: "0%", height: "80%" }}>
           <UploadedActivityDetailsComponent
-            type={DATA.type}
-            icon={DATA.icon}
-            location={DATA.location}
-            startDate={DATA.startDate}
-            endDate={DATA.endDate}
+            type={activityData.activityType}
+            icon={activityData.icon}
+            location={activityData.location}
+            startDate={activityData.startDate}
+            endDate={activityData.endDate}
             languages={languagesString}
-            time={DATA.time}
+            time={activityData.time}
           />
         </View>
         <View style={styles.buttonsContainer}>
@@ -180,19 +296,31 @@ import {
             android_ripple={{ color: "white" }}
             onPress={() =>
               props.navigation.navigate("MatchesScreen", {
-                activityType: DATA.type,
-                location: DATA.location,
-                startDate: DATA.startDate,
-                endDate: DATA.endDate,
-                time: DATA.time,
-                languages: DATA.languages,
-                userFormattedDateOfBirth: DATA.userFormattedDateOfBirth,
-                travelPartnersIDs: DATA.travelPartnersIDs,
-                activityID: DATA.activityID,
+                activityType: activityData.activityType,
+                location: activityData.location,
+                startDate: activityData.startDate,
+                endDate: activityData.endDate,
+                time: activityData.time,
+                languages: activityData.languages,
+                userFormattedDateOfBirth: activityData.userFormattedDateOfBirth,
+                travelPartnersIDs: activityData.travelPartnersIDs,
+                activityID: activityData.activityID,
               })
             }
           >
             <Text style={{ color: "white", fontSize: 16 }}>Potential travel partners ({counter})</Text>
+          </Pressable>
+          <Pressable
+            style={styles.buttonStyle}
+            onLongPress={() => alert("clicked 'edit'")}
+            android_ripple={{ color: "white" }}
+            onPress={() =>
+              deleteItem().then(() => {
+                props.navigation.navigate("MyActivities");
+                })
+            }
+          >
+            <Text style={{ color: "white", fontSize: 16 }}>Delete activity</Text>
           </Pressable>
           {/* <Pressable
             style={styles.buttonStyle}

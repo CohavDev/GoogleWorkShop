@@ -3,6 +3,7 @@ import { IconButton } from "react-native-paper";
 import colors from "../config/colors";
 import React, { useEffect, useState } from "react";
 import { firebase } from "../firebase/config.js";
+import {convertDateToFormattedDate , timeToNum , dayTimeToNum} from "../components/TimeConversions";
 export default function UploadedActivityItem(props) {
   const iconsMap = {
     Drinks: "glass-wine",
@@ -35,11 +36,13 @@ export default function UploadedActivityItem(props) {
   const userID = firebase.auth().currentUser.uid;
   const usersRef = firebase.firestore().collection("users");
   const [showBox, setShowBox] = useState(true);
+  const [date, setDate] = useState(new Date());
   const [condDate, setCondDate] = useState(
     props.activityType == "Place to sleep" ||
       props.activityType == "Backpacking"
   );
   var matchesCounter = 0;
+  var index = 0;
   allActivitiesRef
   .where("type", "==", activityData.activityType)
   .where("time", "==", activityData.time)
@@ -63,7 +66,15 @@ export default function UploadedActivityItem(props) {
       function fetchData() {
         querySnapshot.forEach((doc) => {
           const match = doc.data();
-          if (match.userID != userID) {
+          match.id = doc.id;
+          if (match.formattedStartDate < convertDateToFormattedDate(date)){
+            allActivitiesRef.doc(match.id).delete();
+          }
+          else if((match.formattedStartDate == convertDateToFormattedDate(date))
+          && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
+            allActivitiesRef.doc(match.id).delete();
+          }
+          else if (match.userID != userID) {
             matchesCounter++;
           }
         });
@@ -74,28 +85,53 @@ export default function UploadedActivityItem(props) {
     
   );
   
-  const deleteItem = () => {
+  function deleteItem() {
     // when runnin on web uncomment the folloeing part, and comment the second part
-    return alert(
-      "Are your sure?",
-      "Are you sure you want to delete this activity?",
-      [
-        // The "Yes" button
-        {
-          text: "Yes",
-          onPress: () => {
-            setShowBox(false);
-            allActivitiesRef.doc(props.activityID).delete();
-          },
-        },
-        // The "No" button
-        // Does nothing but dismiss the dialog when tapped
-        {
-          text: "No",
-        },
-      ]
+    allActivitiesRef
+    .where("type", "==", activityData.activityType)
+    .where("time", "==", activityData.time)
+    .where("location", "==", activityData.location)
+    .where("startDate", "==", activityData.startDate)
+    .where("endDate", "==", activityData.endDate)
+    .where("status", "==", "waiting")
+    .where(
+      "userFormattedDateOfBirth",
+      "<=",
+      activityData.userFormattedDateOfBirth + 50000
+    )
+    .where(
+      "userFormattedDateOfBirth",
+      ">=",
+      activityData.userFormattedDateOfBirth - 50000
+    )
+    .where("languages", "array-contains-any", activityData.languages)
+    .onSnapshot(
+      (querySnapshot) => {
+        function fetchData() {
+          querySnapshot.forEach((doc) => {
+            const match = doc.data();
+            match.id = doc.id;
+            index = match.travelPartnersIDs.indexOf(userID);
+            if (match.formattedStartDate < convertDateToFormattedDate(date)){
+              allActivitiesRef.doc(match.id).delete();
+            }
+            else if((match.formattedStartDate == convertDateToFormattedDate(date))
+            && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
+              allActivitiesRef.doc(match.id).delete();
+            }
+            else if (index > -1) {
+              allActivitiesRef.doc(match.id).update({
+                travelPartnersIDs:
+                    firebase.firestore.FieldValue.arrayRemove(userID),
+              })
+            }
+          });
+        }
+        fetchData();
+      }
+      
     );
-    
+    allActivitiesRef.doc(activityData.activityID).delete(); 
     
     // when running on Android, uncomment the next part, and comment the first part
     // return Alert.alert(
@@ -107,6 +143,50 @@ export default function UploadedActivityItem(props) {
     //       text: "Yes",
     //       onPress: () => {
     //         setShowBox(false);
+    //         allActivitiesRef
+    //         .where("type", "==", activityData.activityType)
+    //         .where("time", "==", activityData.time)
+    //         .where("location", "==", activityData.location)
+    //         .where("startDate", "==", activityData.startDate)
+    //         .where("endDate", "==", activityData.endDate)
+    //         .where("status", "==", "waiting")
+    //         .where(
+    //           "userFormattedDateOfBirth",
+    //           "<=",
+    //           activityData.userFormattedDateOfBirth + 50000
+    //         )
+    //         .where(
+    //           "userFormattedDateOfBirth",
+    //           ">=",
+    //           activityData.userFormattedDateOfBirth - 50000
+    //         )
+    //         .where("languages", "array-contains-any", activityData.languages)
+    //         .onSnapshot(
+    //           (querySnapshot) => {
+    //             function fetchData() {
+    //               querySnapshot.forEach((doc) => {
+    //                 const match = doc.data();
+    //                 match.id = doc.id;
+    //                 index = match.travelPartnersIDs.indexOf(userID);
+    //                 if (match.formattedStartDate < convertDateToFormattedDate(date)){
+    //                   allActivitiesRef.doc(match.id).delete();
+    //                 }
+    //                 else if((match.formattedStartDate == convertDateToFormattedDate(date))
+    //                 && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
+    //                   allActivitiesRef.doc(match.id).delete();
+    //                 }
+    //                 else if (index > -1) {
+    //                   allActivitiesRef.doc(match.id).update({
+    //                     travelPartnersIDs:
+    //                         firebase.firestore.FieldValue.arrayRemove(userID),
+    //                   })
+    //                 }
+    //               });
+    //             }
+    //             fetchData();
+    //           }
+              
+    //         );
     //         allActivitiesRef.doc(props.activityID).delete();
     //       },
     //     },
@@ -118,8 +198,7 @@ export default function UploadedActivityItem(props) {
     //   ]
     // );
   };
-
-
+  
   return (
     
     <Pressable
@@ -177,7 +256,6 @@ export default function UploadedActivityItem(props) {
           <Text style = {{lineHeight: 19}}>{"Potential travelers: " + counter}</Text>
         </View>
         <View style={styles.deletionContainer}>
-          <Text>{"Delete\nactivity"}</Text>
           <View
           style={styles.deletionImage}
           // source={require("../assets/mountain_track_small.jpg")}
