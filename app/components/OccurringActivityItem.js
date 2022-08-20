@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     // marginVertical: 15,
     // paddingHorizontal: 15,
     // left: 20,
-    right: 20,
+    right: 40,
     alignItems: "center",
     // marginLeft: "auto",
     justifyContent: "center",

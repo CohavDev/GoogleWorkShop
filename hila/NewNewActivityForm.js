@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     height: 50,
     width: 100,
-    top: 80,
+    top: 40,
     borderRadius: 20,
     // borderWidth: 1,
     elevation: 3,

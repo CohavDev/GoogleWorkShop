@@ -272,7 +272,7 @@ export default function NewActivityForm(props) {
       <View style={styles.ovalsContainer}>
         <View style={styles.ovalShape}>
           <Text style={styles.subtitle}>Destination:</Text>
-          <View style={[styles.box, { zIndex: 0, height: 150 }]}>
+          <View style={[styles.box, { zIndex: 0, height: 50 }]}>
             {/* <TextInput
               style={styles.input}
               onChangeText={(newText) => setLocation(newText)}
