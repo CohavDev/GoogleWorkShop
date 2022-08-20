@@ -260,7 +260,22 @@ export default function NewActivityForm(props) {
         }}
         debounce={200}
         multiline={true}
-        numberOfLines={3}
+        numberOfLines={1}
+        styles={{
+            textInputContainer: {
+              backgroundColor: colors.Background,
+            //   height: 90,
+              position: "absolute",
+            },
+            // textInput: {
+            //   height: 38,
+            //   color: '#5d5d5d',
+            //   fontSize: 16,
+            // },
+            // predefinedPlacesDescription: {
+            //   color: '#1faadb',
+            // },
+          }}
       />
     );
   };
@@ -272,7 +287,7 @@ export default function NewActivityForm(props) {
       <View style={styles.ovalsContainer}>
         <View style={styles.ovalShape}>
           <Text style={styles.subtitle}>Destination:</Text>
-          <View style={[styles.box, { zIndex: 0, height: 150 }]}>
+          <View style={[styles.box, { zIndex: 0, height: 50 }]}>
             {/* <TextInput
               style={styles.input}
               onChangeText={(newText) => setLocation(newText)}
@@ -487,11 +502,11 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "green",
     backgroundColor: colors.Background,
-    height: "90%",
+    height: "75%",
     width: "100%",
     flexDirection: "column",
-    justifyContent: "center",
-    // top: "5%",
+    justifyContent: "space-evenly",
+    top: "10%",
     // alignItems: "center",
     // paddingBottom: 30,
     // alignContent: "space-around",
