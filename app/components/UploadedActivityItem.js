@@ -246,14 +246,14 @@ export default function UploadedActivityItem(props) {
                 <Text style = {{lineHeight: 19}}>{"From: " + props.startDate}</Text>                
               )}
               {condDate && (
-                <Text style = {{lineHeight: 19}}>{"To: " + props.endDate}</Text>                
+                <Text style = {{lineHeight: 19}}>{"Until: " + props.endDate}</Text>                
               )}
               {!condDate && (
                 <Text style = {{lineHeight: 19}}>{"Date: " + props.startDate}</Text>
               )}
           {/* <Text>{props.time}</Text> */}
           <Text style = {{lineHeight: 19}}>{"Location: " + props.location}</Text>
-          <Text style = {{lineHeight: 19}}>{"Potential travelers: " + counter}</Text>
+          <Text style = {{lineHeight: 19}}>{"Potential partners: " + counter}</Text>
         </View>
         <View style={styles.deletionContainer}>
           <View
