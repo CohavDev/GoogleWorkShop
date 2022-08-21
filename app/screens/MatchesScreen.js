@@ -71,55 +71,55 @@ export default function MatchesScreen(props){
             querySnapshot.forEach((doc) => {
               const match = doc.data();
               match.id = doc.id;
-              if (match.formattedStartDate < convertDateToFormattedDate(date)){
-                allActivitiesRef.doc(match.id).delete();
+              if (
+                match.travelPartnersIDs.indexOf(userID) > -1 &&
+                activityData.travelPartnersIDs.indexOf(match.userID) > -1
+              ) {
+                match.matchedActivityStatus = "accepted by both";
+                match.condOne = 0;
+                match.condTwo = 0;
               }
-              else if((match.formattedStartDate == convertDateToFormattedDate(date))
-              && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
-                allActivitiesRef.doc(match.id).delete();
-              } 
-              else{
-                if (
-                  match.travelPartnersIDs.indexOf(userID) > -1 &&
-                  activityData.travelPartnersIDs.indexOf(match.userID) > -1
-                ) {
-                  match.matchedActivityStatus = "accepted by both";
-                }
-                if (
-                  match.travelPartnersIDs.indexOf(userID) == -1 &&
-                  activityData.travelPartnersIDs.indexOf(match.userID) > -1
-                ) {
-                  match.matchedActivityStatus = "accepted only by other user";
-                }
-                if (
-                  match.travelPartnersIDs.indexOf(userID) > -1 &&
-                  activityData.travelPartnersIDs.indexOf(match.userID) == -1
-                ) {
-                  match.matchedActivityStatus = "accepted only by me";
-                }
-                if (
-                  match.travelPartnersIDs.indexOf(userID) == -1 &&
-                  activityData.travelPartnersIDs.indexOf(match.userID) == -1
-                ) {
-                  match.matchedActivityStatus = "accepted by non of us";
-                }
-                if (match.userID != userID) {
-                  match.userRef = usersRef.doc(match.userID);
-                  match.userRef.get().then((result) => {
-                    match.fullName = result.data().fullName;
-                    match.dateOfBirth = result.data().dateOfBirth;
-                    match.aboutMe = result.data().aboutMe;
-                    match.profilePic = result.data().profilePic;
-                    match.nativeLanguage = result.data().nativeLanguage;
-                    match.secondLanguage = result.data().secondLanguage;
-                    match.age = getAge(match.userFormattedDateOfBirth);
-                    match.phoneNumber = result.data().phoneNumber;
-                    match.nationality = result.data().nationality;
-                    newMyMatches.push(match);
-                    setMyMatches(newMyMatches);
-                  });
-                }
+              if (
+                match.travelPartnersIDs.indexOf(userID) == -1 &&
+                activityData.travelPartnersIDs.indexOf(match.userID) > -1
+              ) {
+                match.matchedActivityStatus = "accepted only by other user";
+                match.condOne = 0;
+                match.condTwo = 1;
               }
+              if (
+                match.travelPartnersIDs.indexOf(userID) > -1 &&
+                activityData.travelPartnersIDs.indexOf(match.userID) == -1
+              ) {
+                match.matchedActivityStatus = "accepted only by me";
+                match.condOne = 1;
+                match.condTwo = 0;
+              }
+              if (
+                match.travelPartnersIDs.indexOf(userID) == -1 &&
+                activityData.travelPartnersIDs.indexOf(match.userID) == -1
+              ) {
+                match.matchedActivityStatus = "accepted by non of us";
+                match.condOne = 0;
+                match.condTwo = 0;
+              }
+              if (match.userID != userID) {
+                match.userRef = usersRef.doc(match.userID);
+                match.userRef.get().then((result) => {
+                  match.fullName = result.data().fullName;
+                  match.dateOfBirth = result.data().dateOfBirth;
+                  match.aboutMe = result.data().aboutMe;
+                  match.profilePic = result.data().profilePic;
+                  match.nativeLanguage = result.data().nativeLanguage;
+                  match.secondLanguage = result.data().secondLanguage;
+                  match.age = getAge(match.userFormattedDateOfBirth);
+                  match.phoneNumber = result.data().phoneNumber;
+                  match.nationality = result.data().nationality;
+                  newMyMatches.push(match);
+                  setMyMatches(newMyMatches);
+                });
+              }
+
               
             });
           }
@@ -239,12 +239,26 @@ export default function MatchesScreen(props){
                         {item.fullName} {", "}
                         {item.age}
                       </Text>
+                      {item.condOne && (
                       <Text style={styles.text}>
-                        {/* {item.dateOfBirth} {"\n"} */}
                         {item.nativeLanguage} {", "}
                         {item.secondLanguage} {"\n"}
-                        {item.aboutMe}
+                        {"you have already accepted "} {item.fullName}
                       </Text>
+                      )}
+                      {item.condTwo && (
+                      <Text style={styles.text}>
+                        {item.nativeLanguage} {", "}
+                        {item.secondLanguage} {"\n"}
+                        {item.fullName} {" has already accepted you"} 
+                      </Text>
+                      )}
+                      {!item.condTwo && !item.condOne && (
+                      <Text style={styles.text}>
+                        {item.nativeLanguage} {", "}
+                        {item.secondLanguage} {"\n"}
+                      </Text>
+                      )}
                     </View>
                     {/* <View style={styles.textBox}>
 											<Text

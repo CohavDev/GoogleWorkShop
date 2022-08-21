@@ -29,7 +29,6 @@ export default function MyActivities({ navigation }) {
   useEffect(() => {
     setDate(new Date());
     allActivitiesRef
-      .where("userID", "==", userID)
       .orderBy("formattedStartDate", "asc")
       .onSnapshot(
         (querySnapshot) => {
@@ -61,7 +60,8 @@ export default function MyActivities({ navigation }) {
                 allActivitiesRef.doc(activity.id).delete();
                 allActivitiesRef.doc(activity.matchedActivityID).delete();
               }
-              else{
+              else if(activity.userID == userID)
+              {
                 newMyOccurringActivities.push(activity);
               }
             }
