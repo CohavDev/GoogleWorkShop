@@ -45,6 +45,11 @@ import {
     };
     var index = 0;
     const [date, setDate] = useState(new Date());
+    const [counter, setCounter] = useState([]);
+    const allActivitiesRef = firebase.firestore().collection("allActivities");
+    const userID = firebase.auth().currentUser.uid;
+    const usersRef = firebase.firestore().collection("users");
+    var matchesCounter = 0;
     
   
     //   const allActivitiesRef = firebase.firestore().collection("allActivities");
@@ -112,11 +117,7 @@ import {
     //     // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
     //   };
     
-  const [counter, setCounter] = useState([]);
-  const allActivitiesRef = firebase.firestore().collection("allActivities");
-  const userID = firebase.auth().currentUser.uid;
-  const usersRef = firebase.firestore().collection("users");
-  var matchesCounter = 0;
+  
   allActivitiesRef
   .where("type", "==", activityData.activityType)
   .where("time", "==", activityData.time)
@@ -153,118 +154,105 @@ import {
   
   function deleteItem() {
     // when runnin on web uncomment the folloeing part, and comment the second part
-    allActivitiesRef
-    .where("type", "==", activityData.activityType)
-    .where("time", "==", activityData.time)
-    .where("location", "==", activityData.location)
-    .where("startDate", "==", activityData.startDate)
-    .where("endDate", "==", activityData.endDate)
-    .where("status", "==", "waiting")
-    .where(
-      "userFormattedDateOfBirth",
-      "<=",
-      activityData.userFormattedDateOfBirth + 50000
-    )
-    .where(
-      "userFormattedDateOfBirth",
-      ">=",
-      activityData.userFormattedDateOfBirth - 50000
-    )
-    .where("languages", "array-contains-any", activityData.languages)
-    .onSnapshot(
-      (querySnapshot) => {
-        function fetchData() {
-          querySnapshot.forEach((doc) => {
-            const match = doc.data();
-            match.id = doc.id;
-            index = match.travelPartnersIDs.indexOf(userID);
-            if (match.formattedStartDate < convertDateToFormattedDate(date)){
-              allActivitiesRef.doc(match.id).delete();
-            }
-            else if((match.formattedStartDate == convertDateToFormattedDate(date))
-            && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
-              allActivitiesRef.doc(match.id).delete();
-            }
-            else if (index > -1) {
-              allActivitiesRef.doc(match.id).update({
-                travelPartnersIDs:
-                    firebase.firestore.FieldValue.arrayRemove(userID),
-              })
-            }
-          });
-        }
-        fetchData();
-      }
+    // allActivitiesRef
+    // .where("type", "==", activityData.activityType)
+    // .where("time", "==", activityData.time)
+    // .where("location", "==", activityData.location)
+    // .where("startDate", "==", activityData.startDate)
+    // .where("endDate", "==", activityData.endDate)
+    // .where(
+    //   "userFormattedDateOfBirth",
+    //   "<=",
+    //   activityData.userFormattedDateOfBirth + 50000
+    // )
+    // .where(
+    //   "userFormattedDateOfBirth",
+    //   ">=",
+    //   activityData.userFormattedDateOfBirth - 50000
+    // )
+    // .where("languages", "array-contains-any", activityData.languages)
+    // .onSnapshot(
+    //   (querySnapshot) => {
+    //     function fetchData() {
+    //       querySnapshot.forEach((doc) => {
+    //         const match = doc.data();
+    //         match.id = doc.id;
+    //         index = match.travelPartnersIDs.indexOf(userID);
+    //         if (index > -1) {
+    //           allActivitiesRef.doc(match.id).update({
+    //             travelPartnersIDs:
+    //                 firebase.firestore.FieldValue.arrayRemove(userID),
+    //           })
+    //         }
+    //       });
+    //     }
+    //     fetchData();
+    //   }
       
-    );
-    allActivitiesRef.doc(activityData.activityID).delete();
-    return new Promise((resolveOuter) => {resolveOuter();});
+    // );
+    // allActivitiesRef.doc(activityData.activityID).delete();
+    // return Promise.resolve(1);
 
     
     // when running on Android, uncomment the next part, and comment the first part
-    // return Alert.alert(
-    //   "Are your sure?",
-    //   "Are you sure you want to delete this activity?",
-    //   [
-    //     // The "Yes" button
-    //     {
-    //       text: "Yes",
-    //       onPress: () => {
-    //         setShowBox(false);
-    //         allActivitiesRef
-    //         .where("type", "==", activityData.activityType)
-    //         .where("time", "==", activityData.time)
-    //         .where("location", "==", activityData.location)
-    //         .where("startDate", "==", activityData.startDate)
-    //         .where("endDate", "==", activityData.endDate)
-    //         .where("status", "==", "waiting")
-    //         .where(
-    //           "userFormattedDateOfBirth",
-    //           "<=",
-    //           activityData.userFormattedDateOfBirth + 50000
-    //         )
-    //         .where(
-    //           "userFormattedDateOfBirth",
-    //           ">=",
-    //           activityData.userFormattedDateOfBirth - 50000
-    //         )
-    //         .where("languages", "array-contains-any", activityData.languages)
-    //         .onSnapshot(
-    //           (querySnapshot) => {
-    //             function fetchData() {
-    //               querySnapshot.forEach((doc) => {
-    //                 const match = doc.data();
-    //                 match.id = doc.id;
-    //                 index = match.travelPartnersIDs.indexOf(userID);
-    //                 if (match.formattedStartDate < convertDateToFormattedDate(date)){
-    //                   allActivitiesRef.doc(match.id).delete();
-    //                 }
-    //                 else if((match.formattedStartDate == convertDateToFormattedDate(date))
-    //                 && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
-    //                   allActivitiesRef.doc(match.id).delete();
-    //                 }
-    //                 else if (index > -1) {
-    //                   allActivitiesRef.doc(match.id).update({
-    //                     travelPartnersIDs:
-    //                         firebase.firestore.FieldValue.arrayRemove(userID),
-    //                   })
-    //                 }
-    //               });
-    //             }
-    //             fetchData();
-    //           }
+    Alert.alert(
+      "Are your sure?",
+      "Are you sure you want to delete this activity?",
+      [
+        // The "Yes" button
+        {
+          text: "Yes",
+          onPress: () => {
+            allActivitiesRef
+            .where("type", "==", activityData.activityType)
+            .where("time", "==", activityData.time)
+            .where("location", "==", activityData.location)
+            .where("startDate", "==", activityData.startDate)
+            .where("endDate", "==", activityData.endDate)
+            .where(
+              "userFormattedDateOfBirth",
+              "<=",
+              activityData.userFormattedDateOfBirth + 50000
+            )
+            .where(
+              "userFormattedDateOfBirth",
+              ">=",
+              activityData.userFormattedDateOfBirth - 50000
+            )
+            .where("languages", "array-contains-any", activityData.languages)
+            .onSnapshot(
+              (querySnapshot) => {
+                function fetchData() {
+                  querySnapshot.forEach((doc) => {
+                    const match = doc.data();
+                    match.id = doc.id;
+                    index = match.travelPartnersIDs.indexOf(userID);
+                    if (index > -1) {
+                      allActivitiesRef.doc(match.id).update({
+                        travelPartnersIDs:
+                            firebase.firestore.FieldValue.arrayRemove(userID),
+                      })
+                    }
+                  });
+                }
+                fetchData();
+              }
               
-    //         );
-    //         allActivitiesRef.doc(props.activityID).delete();
-    //       },
-    //     },
-    //     // The "No" button
-    //     // Does nothing but dismiss the dialog when tapped
-    //     {
-    //       text: "No",
-    //     },
-    //   ]
-    // );
+            );
+            allActivitiesRef.doc(activityData.activityID).delete();
+            return Promise.resolve(1);
+          },
+        },
+        // The "No" button
+        // Does nothing but dismiss the dialog when tapped
+        {
+          text: "No",
+          onPress: () => {            
+            return Promise.resolve(0);
+          }
+        },
+      ]
+    );
   };
  
     return (
@@ -315,8 +303,10 @@ import {
             onLongPress={() => alert("clicked 'edit'")}
             android_ripple={{ color: "white" }}
             onPress={() =>
-              deleteItem().then(() => {
-                props.navigation.navigate("MyActivities");
+              deleteItem().then((resolve) => {
+                if(resolve){
+                  props.navigation.goBack();
+                }
                 })
             }
           >
