@@ -11,9 +11,13 @@ import {
 import colors from "../config/colors";
 import DATATWO from "../usersData.json";
 import style from "react-native-datepicker/style";
-import {convertDateToFormattedDate , timeToNum , dayTimeToNum} from "../components/TimeConversions";
+import {
+  convertDateToFormattedDate,
+  timeToNum,
+  dayTimeToNum,
+} from "../components/TimeConversions";
 
-export default function MatchesScreen(props){
+export default function MatchesScreen(props) {
   const activityData = {
     activityType: props.route.params.activityType,
     location: props.route.params.location,
@@ -76,32 +80,32 @@ export default function MatchesScreen(props){
                 activityData.travelPartnersIDs.indexOf(match.userID) > -1
               ) {
                 match.matchedActivityStatus = "accepted by both";
-                match.condOne = 0;
-                match.condTwo = 0;
+                match.condOne = true;
+                match.condTwo = true;
               }
               if (
                 match.travelPartnersIDs.indexOf(userID) == -1 &&
                 activityData.travelPartnersIDs.indexOf(match.userID) > -1
               ) {
                 match.matchedActivityStatus = "accepted only by other user";
-                match.condOne = 0;
-                match.condTwo = 1;
+                match.condOne = false;
+                match.condTwo = true;
               }
               if (
                 match.travelPartnersIDs.indexOf(userID) > -1 &&
                 activityData.travelPartnersIDs.indexOf(match.userID) == -1
               ) {
                 match.matchedActivityStatus = "accepted only by me";
-                match.condOne = 1;
-                match.condTwo = 0;
+                match.condOne = true;
+                match.condTwo = false;
               }
               if (
                 match.travelPartnersIDs.indexOf(userID) == -1 &&
                 activityData.travelPartnersIDs.indexOf(match.userID) == -1
               ) {
                 match.matchedActivityStatus = "accepted by non of us";
-                match.condOne = 0;
-                match.condTwo = 0;
+                match.condOne = false;
+                match.condTwo = false;
               }
               if (match.userID != userID) {
                 match.userRef = usersRef.doc(match.userID);
@@ -119,8 +123,6 @@ export default function MatchesScreen(props){
                   setMyMatches(newMyMatches);
                 });
               }
-
-              
             });
           }
           fetchData();
@@ -163,9 +165,7 @@ export default function MatchesScreen(props){
   //
   //
   //
-  
-  
-  
+
   return (
     <View
       style={{
@@ -240,24 +240,24 @@ export default function MatchesScreen(props){
                         {item.age}
                       </Text>
                       {item.condOne && (
-                      <Text style={styles.text}>
-                        {item.nativeLanguage} {", "}
-                        {item.secondLanguage} {"\n"}
-                        {"you have already accepted "} {item.fullName}
-                      </Text>
+                        <Text style={styles.text}>
+                          {item.nativeLanguage} {", "}
+                          {item.secondLanguage} {"\n"}
+                          {"you have already accepted "} {item.fullName}
+                        </Text>
                       )}
                       {item.condTwo && (
-                      <Text style={styles.text}>
-                        {item.nativeLanguage} {", "}
-                        {item.secondLanguage} {"\n"}
-                        {item.fullName} {" has already accepted you"} 
-                      </Text>
+                        <Text style={styles.text}>
+                          {item.nativeLanguage} {", "}
+                          {item.secondLanguage} {"\n"}
+                          {item.fullName} {" has already accepted you"}
+                        </Text>
                       )}
                       {!item.condTwo && !item.condOne && (
-                      <Text style={styles.text}>
-                        {item.nativeLanguage} {", "}
-                        {item.secondLanguage} {"\n"}
-                      </Text>
+                        <Text style={styles.text}>
+                          {item.nativeLanguage} {", "}
+                          {item.secondLanguage} {"\n"}
+                        </Text>
                       )}
                     </View>
                     {/* <View style={styles.textBox}>
@@ -281,7 +281,7 @@ export default function MatchesScreen(props){
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   shadowProp: {
