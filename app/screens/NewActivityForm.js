@@ -49,13 +49,13 @@ export default function NewActivityForm(props) {
   
 
   // on web mode:
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+//   const [startDate, setStartDate] = useState("");
+//   const [endDate, setEndDate] = useState("");
 
   
   // on android mode:
-  //const [startDate, setStartDate] = useState(new Date());
-  //const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
 
   const [formattedEndDate, setFormattedEndDate] = useState(NaN);
@@ -95,65 +95,67 @@ export default function NewActivityForm(props) {
     currentDate = new Date();
 
     // uncomment the following if when working on Android
-    // if (location.localeCompare("UnKnown")){
-    //   alert("please enter one of the suggested activity's location");
-    // }
-
-    // add else before the following if when working on Android
-    if (isNaN(formattedStartDate)){
-      if(!condDate){
-        alert("please enter activity's date");
-      }
-      else{
-        alert("please enter activity's start date");
-      }
-    }
-    else if (formattedStartDate < convertDateToFormattedDate(currentDate)){
-      alert("We are sorry, but the activity's start date must be at the future!");
-    }
-    else if (isNaN(formattedEndDate)){
-      alert("please enter activity's end date");
-    }
-    else if ((condDate) && (formattedEndDate <= formattedStartDate)){
-      alert("We are sorry, but the activity's end date must at least one day after start date!");
-    }
-    else if ((!condDate) && (activityTime.localeCompare("") == 0)){
-      alert("please enter activity's time");
-    }
-    else if((formattedStartDate == convertDateToFormattedDate(currentDate))
-    && (dayTimeToNum(activityTime) < timeToNum(currentDate.getHours()))) {
-      alert("We are sorry, but the activity's time must be at the future!");
-    }
-    else if(selectedLanguages.length == 0){
-      alert("please enter at least one language");
+    if (location.localeCompare("UnKnown")){
+      alert("please enter one of the suggested activity's location");
     }
     else{
-      props.navigation.navigate("ApproveActivity", {
-        // type: props.navigation.getParam("activityType"),
-        type: props.route.params.activityType,
-        // icon: props.navigation.getParam("activityIcon"),
-        icon: props.route.params.activityIcon,
-        location: location,
-  
-        // if working on emulator, uncomment the following two lines, and comment the other two designated for web
-        // startDate: stringFormatDate(startDate),
-        // endDate: stringFormatDate(endDate),
-  
-        // if working on web, uncomment the following two lines, and comment the other two designated for Androing/Enulator
-        startDate: startDate,
-        endDate: endDate,
-  
-        time: activityTime,
-        languages: JSON.stringify(selectedLanguages, ["item"]),
-  
-        // languages: selectedLanguages
-        // languages: selectedLanguages,
-  
-        // please make sure that the language feild is returned as an array
-        // for example, if the user wants to hang out with people that speak
-        // hebrew or language, so the returned languages is: [English, French]. namely,
-        // an array of the desired languages
-      });
+
+        // add else before the following if when working on Android
+        if (isNaN(formattedStartDate)){
+          if(!condDate){
+            alert("please enter activity's date");
+          }
+          else{
+            alert("please enter activity's start date");
+          }
+        }
+        else if (formattedStartDate < convertDateToFormattedDate(currentDate)){
+          alert("We are sorry, but the activity's start date must be at the future!");
+        }
+        else if (isNaN(formattedEndDate)){
+          alert("please enter activity's end date");
+        }
+        else if ((condDate) && (formattedEndDate <= formattedStartDate)){
+          alert("We are sorry, but the activity's end date must at least one day after start date!");
+        }
+        else if ((!condDate) && (activityTime.localeCompare("") == 0)){
+          alert("please enter activity's time");
+        }
+        else if((formattedStartDate == convertDateToFormattedDate(currentDate))
+        && (dayTimeToNum(activityTime) < timeToNum(currentDate.getHours()))) {
+          alert("We are sorry, but the activity's time must be at the future!");
+        }
+        else if(selectedLanguages.length == 0){
+          alert("please enter at least one language");
+        }
+        else{
+          props.navigation.navigate("ApproveActivity", {
+            // type: props.navigation.getParam("activityType"),
+            type: props.route.params.activityType,
+            // icon: props.navigation.getParam("activityIcon"),
+            icon: props.route.params.activityIcon,
+            location: location,
+      
+            // if working on emulator, uncomment the following two lines, and comment the other two designated for web
+            // startDate: stringFormatDate(startDate),
+            // endDate: stringFormatDate(endDate),
+      
+            // if working on web, uncomment the following two lines, and comment the other two designated for Androing/Enulator
+            startDate: startDate,
+            endDate: endDate,
+      
+            time: activityTime,
+            languages: JSON.stringify(selectedLanguages, ["item"]),
+      
+            // languages: selectedLanguages
+            // languages: selectedLanguages,
+      
+            // please make sure that the language feild is returned as an array
+            // for example, if the user wants to hang out with people that speak
+            // hebrew or language, so the returned languages is: [English, French]. namely,
+            // an array of the desired languages
+          });
+        }
     }
     
   };
@@ -170,16 +172,16 @@ export default function NewActivityForm(props) {
 
   // when you work om emulator/Android, uncomment the next few lines! (from const to return, take out of comment)
   // but when working on web, comment them out (but dont delete, cause its needed!!!)
-  // const openDatePicker = (is_start, dateObject) => {
-  //   console.log("called openDatePicker()");
+  const openDatePicker = (is_start, dateObject) => {
+    console.log("called openDatePicker()");
 
-  //   DateTimePickerAndroid.open({
-  //     value: dateObject,
-  //     onChange: (event, selectedDate) => onChangeDate(is_start, selectedDate),
-  //     mode: "date",
-  //     is24Hour: true,
-  //   });
-  // };
+    DateTimePickerAndroid.open({
+      value: dateObject,
+      onChange: (event, selectedDate) => onChangeDate(is_start, selectedDate),
+      mode: "date",
+      is24Hour: true,
+    });
+  };
 
   function convertDateToFormattedDate(date) {
     var dd = date.getDate();
