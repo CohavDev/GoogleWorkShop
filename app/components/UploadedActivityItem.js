@@ -1,9 +1,13 @@
-import { StyleSheet, Text, View, Image, Pressable, Alert } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { IconButton } from "react-native-paper";
 import colors from "../config/colors";
 import React, { useEffect, useState } from "react";
 import { firebase } from "../firebase/config.js";
-import {convertDateToFormattedDate , timeToNum , dayTimeToNum} from "../components/TimeConversions";
+import {
+  convertDateToFormattedDate,
+  timeToNum,
+  dayTimeToNum,
+} from "../components/TimeConversions";
 export default function UploadedActivityItem(props) {
   const iconsMap = {
     Drinks: "glass-wine",
@@ -11,7 +15,7 @@ export default function UploadedActivityItem(props) {
     Restaurant: "silverware",
     Party: "party-popper",
     Driving: "car-hatchback",
-    Place_to_sleep: "bunk-bed-outline",
+    "Place to sleep": "bunk-bed-outline",
     Concert: "music-clef-treble",
     Museum: "bank",
     Beach: "beach",
@@ -43,47 +47,44 @@ export default function UploadedActivityItem(props) {
   var matchesCounter = 0;
   var index = 0;
   allActivitiesRef
-  .where("type", "==", activityData.activityType)
-  .where("time", "==", activityData.time)
-  .where("location", "==", activityData.location)
-  .where("startDate", "==", activityData.startDate)
-  .where("endDate", "==", activityData.endDate)
-  .where("status", "==", "waiting")
-  .where(
-    "userFormattedDateOfBirth",
-    "<=",
-    activityData.userFormattedDateOfBirth + 50000
-  )
-  .where(
-    "userFormattedDateOfBirth",
-    ">=",
-    activityData.userFormattedDateOfBirth - 50000
-  )
-  .where("languages", "array-contains-any", activityData.languages)
-  .onSnapshot(
-    (querySnapshot) => {
+    .where("type", "==", activityData.activityType)
+    .where("time", "==", activityData.time)
+    .where("location", "==", activityData.location)
+    .where("startDate", "==", activityData.startDate)
+    .where("endDate", "==", activityData.endDate)
+    .where("status", "==", "waiting")
+    .where(
+      "userFormattedDateOfBirth",
+      "<=",
+      activityData.userFormattedDateOfBirth + 50000
+    )
+    .where(
+      "userFormattedDateOfBirth",
+      ">=",
+      activityData.userFormattedDateOfBirth - 50000
+    )
+    .where("languages", "array-contains-any", activityData.languages)
+    .onSnapshot((querySnapshot) => {
       function fetchData() {
         querySnapshot.forEach((doc) => {
           const match = doc.data();
           match.id = doc.id;
-          if (match.formattedStartDate < convertDateToFormattedDate(date)){
+          if (match.formattedStartDate < convertDateToFormattedDate(date)) {
             allActivitiesRef.doc(match.id).delete();
-          }
-          else if((match.formattedStartDate == convertDateToFormattedDate(date))
-          && (dayTimeToNum(match.time) < timeToNum(date.getHours()))) {
+          } else if (
+            match.formattedStartDate == convertDateToFormattedDate(date) &&
+            dayTimeToNum(match.time) < timeToNum(date.getHours())
+          ) {
             allActivitiesRef.doc(match.id).delete();
-          }
-          else if (match.userID != userID) {
+          } else if (match.userID != userID) {
             matchesCounter++;
           }
         });
       }
       fetchData();
       setCounter(matchesCounter);
-    }
-    
-  );
-  
+    });
+
   function deleteItem() {
     // when runnin on web uncomment the folloeing part, and comment the second part
     // allActivitiesRef
@@ -120,12 +121,12 @@ export default function UploadedActivityItem(props) {
     //     }
     //     fetchData();
     //   }
-      
+
     // );
-    // allActivitiesRef.doc(activityData.activityID).delete(); 
-    
+    // allActivitiesRef.doc(activityData.activityID).delete();
+
     // when running on Android, uncomment the next part, and comment the first part
-    return Alert.alert(
+    return alert(
       "Are your sure?",
       "Are you sure you want to delete this activity?",
       [
@@ -134,24 +135,23 @@ export default function UploadedActivityItem(props) {
           text: "Yes",
           onPress: () => {
             allActivitiesRef
-            .where("type", "==", activityData.activityType)
-            .where("time", "==", activityData.time)
-            .where("location", "==", activityData.location)
-            .where("startDate", "==", activityData.startDate)
-            .where("endDate", "==", activityData.endDate)
-            .where(
-              "userFormattedDateOfBirth",
-              "<=",
-              activityData.userFormattedDateOfBirth + 50000
-            )
-            .where(
-              "userFormattedDateOfBirth",
-              ">=",
-              activityData.userFormattedDateOfBirth - 50000
-            )
-            .where("languages", "array-contains-any", activityData.languages)
-            .onSnapshot(
-              (querySnapshot) => {
+              .where("type", "==", activityData.activityType)
+              .where("time", "==", activityData.time)
+              .where("location", "==", activityData.location)
+              .where("startDate", "==", activityData.startDate)
+              .where("endDate", "==", activityData.endDate)
+              .where(
+                "userFormattedDateOfBirth",
+                "<=",
+                activityData.userFormattedDateOfBirth + 50000
+              )
+              .where(
+                "userFormattedDateOfBirth",
+                ">=",
+                activityData.userFormattedDateOfBirth - 50000
+              )
+              .where("languages", "array-contains-any", activityData.languages)
+              .onSnapshot((querySnapshot) => {
                 function fetchData() {
                   querySnapshot.forEach((doc) => {
                     const match = doc.data();
@@ -160,15 +160,13 @@ export default function UploadedActivityItem(props) {
                     if (index > -1) {
                       allActivitiesRef.doc(match.id).update({
                         travelPartnersIDs:
-                            firebase.firestore.FieldValue.arrayRemove(userID),
-                      })
+                          firebase.firestore.FieldValue.arrayRemove(userID),
+                      });
                     }
                   });
                 }
                 fetchData();
-              }
-              
-            );
+              });
             allActivitiesRef.doc(props.activityID).delete();
           },
         },
@@ -179,10 +177,9 @@ export default function UploadedActivityItem(props) {
         },
       ]
     );
-  };
-  
+  }
+
   return (
-    
     <Pressable
       style={[
         styles.shadowProp,
@@ -207,7 +204,6 @@ export default function UploadedActivityItem(props) {
     >
       {/* <View style={{flexDirection: "row"}}> */}
       <View style={styles.container}>
-        
         {/* <View style={styles.imageContainer}> */}
         <View
           style={styles.circularImage}
@@ -223,33 +219,37 @@ export default function UploadedActivityItem(props) {
         </View>
         {/* </View> */}
         <View style={styles.dataContainer}>
-            <Text style = {{lineHeight: 19}}>{props.activityType}</Text>
-              {condDate && (
-                <Text style = {{lineHeight: 19}}>{"From: " + props.startDate}</Text>                
-              )}
-              {condDate && (
-                <Text style = {{lineHeight: 19}}>{"Until: " + props.endDate}</Text>                
-              )}
-              {!condDate && (
-                <Text style = {{lineHeight: 19}}>{"Date: " + props.startDate}</Text>
-              )}
+          <Text style={{ lineHeight: 19 }}>{props.activityType}</Text>
+          {condDate && (
+            <Text style={{ lineHeight: 19 }}>{"From: " + props.startDate}</Text>
+          )}
+          {condDate && (
+            <Text style={{ lineHeight: 19 }}>{"Until: " + props.endDate}</Text>
+          )}
+          {!condDate && (
+            <Text style={{ lineHeight: 19 }}>{"Date: " + props.startDate}</Text>
+          )}
           {/* <Text>{props.time}</Text> */}
-          <Text style = {{lineHeight: 19}}>{"Location: " + props.location}</Text>
-          <Text style = {{lineHeight: 19}}>{"Potential partners: " + counter}</Text>
+          <Text style={{ lineHeight: 19 }}>
+            {"Location: " + props.location}
+          </Text>
+          <Text style={{ lineHeight: 19 }}>
+            {"Potential partners: " + counter}
+          </Text>
         </View>
         <View style={styles.deletionContainer}>
           <View
-          style={styles.deletionImage}
-          // source={require("../assets/mountain_track_small.jpg")}
-        >
-          {/* <Entypo name={iconsMap.hiking} size={32} color="white" /> */}
-          <IconButton
-            icon={iconsMap["Trash"]}
-            color={colors.Secondary}
-            rippleColor="grey"
-            size={16}
-            onPress={() => deleteItem()}
-          />
+            style={styles.deletionImage}
+            // source={require("../assets/mountain_track_small.jpg")}
+          >
+            {/* <Entypo name={iconsMap.hiking} size={32} color="white" /> */}
+            <IconButton
+              icon={iconsMap["Trash"]}
+              color={colors.Secondary}
+              rippleColor="grey"
+              size={16}
+              onPress={() => deleteItem()}
+            />
           </View>
         </View>
       </View>
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     // alignContent: "center",
   },
-  deletionContainer: { 
+  deletionContainer: {
     // marginVertical: 15,
     // paddingHorizontal: 15,
     // left: 20,
