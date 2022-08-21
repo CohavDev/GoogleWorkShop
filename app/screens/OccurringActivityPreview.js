@@ -175,7 +175,7 @@ import {
   
       
       // when running on Android, uncomment the next part, and comment the first part
-      Alert.alert(
+      alert(
         "Are your sure?",
         "Are you sure you want to delete this activity?",
         [
