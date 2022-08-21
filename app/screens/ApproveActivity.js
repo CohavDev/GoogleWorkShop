@@ -21,7 +21,7 @@ import {
   
   export default function ApproveActivity(props) {
 	console.log(props.route.params);
-	const DATA = {
+	const activityData = {
 	  // type: props.navigation.getParam("type"),
 	  type: props.route.params.type,
 	  // icon: props.navigation.getParam("icon"),
@@ -43,56 +43,93 @@ import {
 	const userRef = firebase.firestore().collection("users").doc(userID);
 	const travelPartnersIDs = [];
 	const status = "waiting";
-	const tmpArray = JSON.parse(DATA.languages);
+	const tmpArray = JSON.parse(activityData.languages);
 	const languagesArray = [];
 	const matchedActivityID = "";
+	const [cond, setCond] = useState(false);
 	var day = "";
 	var month = "";
 	var year = "";
+	day = activityData.startDate.slice(0, 2);
+	month = activityData.startDate.slice(3, 5);
+	year = activityData.startDate.slice(6, 10);
+	// i assume the format of the date of birth is : DD/MM/YYYY
+	const formattedStartDate = parseInt("".concat(year, month, day));
+	day = activityData.endDate.slice(0, 2);
+	month = activityData.endDate.slice(3, 5);
+	year = activityData.endDate.slice(6, 10);
+	// i assume the format of the date of birth is : DD/MM/YYYY
+	const formattedEndDate = parseInt("".concat(year, month, day));
+	const [date, setDate] = useState(new Date());
   
 	for (const element of tmpArray) {
 	  languagesArray.push(element.item);
 	}
-	const languagesString = languagesArray.join(", ");
+	const languagesString = languagesArray.sort().join(", ");
+	const languagesStringForComparison = languagesArray.sort().join(",");
+
+	useEffect(() => {
+		setDate(new Date());
+		allActivitiesRef
+		  .where("userID", "==", userID)
+		  .orderBy("formattedStartDate", "asc")
+		  .onSnapshot(
+			(querySnapshot) => {
+			  querySnapshot.forEach((doc) => {
+				const activity = doc.data();
+				activity.id = doc.id;
+				if((activity.formattedEndDate == formattedEndDate)
+				&& (activity.formattedStartDate == formattedStartDate)
+				&& (activity.location == activityData.location)
+				&& (activity.time == activityData.time)){
+					setCond(true);
+				}
+				
+			  });
+			},
+			(error) => {
+			  console.log(error);
+			}
+		  );
+	  }, []);
+
+
+
 	const onClickAprrove = () => {
 	  userRef.get().then((result) => {
-		//setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
+		if(!cond){
+			//setUserFormattedDateOfBirth(result.data().formattedDateOfBirth)
 		const userFormattedDateOfBirth = result.data().formattedDateOfBirth;
 		const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-		day = DATA.startDate.slice(0, 2);
-		month = DATA.startDate.slice(3, 5);
-		year = DATA.startDate.slice(6, 10);
-		// i assume the format of the date of birth is : DD/MM/YYYY
-		const formattedStartDate = parseInt("".concat(year, month, day));
-		day = DATA.endDate.slice(0, 2);
-		month = DATA.endDate.slice(3, 5);
-		year = DATA.endDate.slice(6, 10);
-		// i assume the format of the date of birth is : DD/MM/YYYY
-		const formattedEndDate = parseInt("".concat(year, month, day));
-		const activityData = {
+		const DATA = {
 		  userID: userID,
 		  createdAt: timestamp,
-		  type: DATA.type,
-		  startDate: DATA.startDate,
+		  type: activityData.type,
+		  startDate: activityData.startDate,
 		  formattedStartDate: formattedStartDate,
-		  endDate: DATA.endDate,
+		  endDate: activityData.endDate,
 		  formattedEndDate: formattedEndDate,
-		  time: DATA.time,
+		  time: activityData.time,
 		  userFormattedDateOfBirth: userFormattedDateOfBirth,
-		  location: DATA.location,
-		  languages: languagesArray,
+		  location: activityData.location,
+		  languages: languagesArray.sort(),
 		  travelPartnersIDs: travelPartnersIDs,
 		  matchedActivityID: matchedActivityID,
 		  status: status,
 		};
 		allActivitiesRef
-		  .add(activityData)
+		  .add(DATA)
 		  .then(() => {
 			props.navigation.navigate("MyActivities");
 		  })
 		  .catch((error) => {
 			alert(error);
 		  });
+		}
+		else{
+			alert("You have already uploaded a similar activity");
+		}
+		
 	  });
 	  // setUserFormattedDateOfBirth(userRef.get('formattedDateOfBirth'))
 	};
@@ -109,13 +146,13 @@ import {
 	  >
 		<View style={{ bottom: "0%", height: "80%" }}>
 		  <ActivityDetailsComponent
-			type={DATA.type}
-			icon={DATA.icon}
-			location={DATA.location}
-			startDate={DATA.startDate}
-			endDate={DATA.endDate}
+			type={activityData.type}
+			icon={activityData.icon}
+			location={activityData.location}
+			startDate={activityData.startDate}
+			endDate={activityData.endDate}
 			languages={languagesString}
-			time={DATA.time}
+			time={activityData.time}
 		  />
 		</View>
 		<View style={styles.buttonsContainer}>
@@ -263,7 +300,7 @@ import {
 //             }}
 //           />
 //  */
-// 	const DATA = {
+// 	const activityData = {
 // 		// type: props.navigation.getParam("type"),
 // 		type: props.route.params.type,
 // 		// icon: props.navigation.getParam("icon"),
@@ -279,16 +316,16 @@ import {
 // 		// languages: props.navigation.getParam("languages", "english"),
 // 		languages: props.route.params.languages,
 // 	};
-//     // console.log(JSON.stringify(DATA.languages))
-//     // const arrLang = DATA.languages.map((language) => language.item);
+//     // console.log(JSON.stringify(activityData.languages))
+//     // const arrLang = activityData.languages.map((language) => language.item);
 //     // console.log(arrLang)
 
 
-// 	// console.log(DATA.languages.map((item, i) => {
+// 	// console.log(activityData.languages.map((item, i) => {
 //     //     return item.language
 //     //   }));
 
-// 	// console.log(DATA.languages.map((item, index)=>{'$item.item'}))
+// 	// console.log(activityData.languages.map((item, index)=>{'$item.item'}))
 // 	//const [userFormattedDateOfBirth, setUserFormattedDateOfBirth] = useState('')
 // 	//const [entities, setEntities] = useState([])
 // 	const allActivitiesRef = firebase.firestore().collection("allActivities");
@@ -296,7 +333,7 @@ import {
 // 	const userRef = firebase.firestore().collection("users").doc(userID);
 // 	const travelPartnersIDs = []
 // 	const status = 'waiting'
-// 	const tmpArray = JSON.parse(DATA.languages)
+// 	const tmpArray = JSON.parse(activityData.languages)
 // 	const languagesArray = []
 // 	const matchedActivityID = ''
 
@@ -348,38 +385,38 @@ import {
 // 				<View style={[styles.container, { paddingHorizontal: 15 }]}>
 // 					<ApprovalItem
 // 						{...{
-// 							activityIcon: DATA.icon,
+// 							activityIcon: activityData.icon,
 // 							approvedInfo: "Activity\nType",
-// 							data: DATA.type,
+// 							data: activityData.type,
 // 						}}
 // 					/>
 // 					<ApprovalItem
 // 						{...{
 // 							activityIcon: "calendar",
 // 							approvedInfo: "Date",
-// 							data: DATA.date,
+// 							data: activityData.date,
 // 						}}
 // 					/>
 // 					<ApprovalItem
 // 						{...{
 // 							activityIcon: "clock",
 // 							approvedInfo: "Time",
-// 							data: DATA.time,
+// 							data: activityData.time,
 // 						}}
 // 					/>
 // 					<ApprovalItem
 // 						{...{
 // 							activityIcon: "map-marker",
 // 							approvedInfo: "Location",
-// 							data: DATA.location,
+// 							data: activityData.location,
 // 						}}
 // 					/>
 // 					<ApprovalItem
 // 						{...{
 // 							activityIcon: "translate",
 // 							approvedInfo: "Languages",
-// 							//   data: Array(DATA.languages).forEach((item)=>{item})
-// 							//   data: DATA.languages
+// 							//   data: Array(activityData.languages).forEach((item)=>{item})
+// 							//   data: activityData.languages
 //                             data: languagesString
 // 						}}
 // 					/>
@@ -400,12 +437,12 @@ import {
 // 							const activityData = {
 // 								userID: userID,
 // 								createdAt: timestamp,
-// 								type: DATA.type,
-// 								startDate: DATA.startDate,
-// 								endDate: DATA.endDate,
-// 								time: DATA.time,
+// 								type: activityData.type,
+// 								startDate: activityData.startDate,
+// 								endDate: activityData.endDate,
+// 								time: activityData.time,
 // 								userFormattedDateOfBirth: userFormattedDateOfBirth,
-// 								location: DATA.location,
+// 								location: activityData.location,
 // 								languages: languagesArray,
 // 								travelPartnersIDs: travelPartnersIDs,
 // 								matchedActivityID: matchedActivityID,
