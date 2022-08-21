@@ -80,7 +80,6 @@ import {
 				activity.id = doc.id;
 				if((activity.formattedEndDate == formattedEndDate)
 				&& (activity.formattedStartDate == formattedStartDate)
-				&& (activity.languages.toString() == languagesStringForComparison)
 				&& (activity.location == activityData.location)
 				&& (activity.time == activityData.time)){
 					setCond(true);
@@ -128,7 +127,7 @@ import {
 		  });
 		}
 		else{
-			alert("You have already uploaded exactly the same activity");
+			alert("You have already uploaded a similar activity");
 		}
 		
 	  });
