@@ -158,10 +158,18 @@ export default function NewActivityForm(props) {
   };
   const onChangeDate = (is_start, selectedDate) => {
     const currentDate = selectedDate;
+    const formatedDate = strDatetoFormattedDate(stringFormatDate(currentDate));
     if (is_start) {
+      if (!condDate) {
+        //only 1 single date for activity
+        setEndDate(currentDate); // because end date should be the same as start
+        setFormattedEndDate(formatedDate); //likewise
+      }
       setStartDate(currentDate);
+      setFormattedStartDate(formatedDate);
     } else {
       setEndDate(currentDate);
+      setFormattedEndDate(formatedDate);
     }
     console.log("date changed = " + stringFormatDate(currentDate));
   };
@@ -282,8 +290,6 @@ export default function NewActivityForm(props) {
                   style={styles.input}
                   onPress={() => {
                     openDatePicker(1, startDate);
-                    const strDate = stringFormatDate(startDate);
-                    setFormattedStartDate(strDatetoFormattedDate(strDate));
                   }}
                 >
                   {stringFormatDate(startDate)}
@@ -322,11 +328,6 @@ export default function NewActivityForm(props) {
                   style={styles.input}
                   onPress={() => {
                     openDatePicker(1, startDate);
-                    const strDate = stringFormatDate(startDate);
-                    // i assume the format of the date of birth is : DD/MM/YYYY
-                    setFormattedStartDate(strDatetoFormattedDate(strDate));
-                    setEndDate(startDate);
-                    setFormattedEndDate(strDatetoFormattedDate(strDate));
                   }}
                 >
                   {stringFormatDate(startDate)}
@@ -367,8 +368,6 @@ export default function NewActivityForm(props) {
                   style={styles.input}
                   onPress={() => {
                     openDatePicker(0, endDate);
-                    const strDate = stringFormatDate(endDate);
-                    setFormattedEndDate(strDatetoFormattedDate(strDate));
                   }}
                 >
                   {stringFormatDate(endDate)}
