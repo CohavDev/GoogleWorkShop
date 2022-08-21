@@ -11,6 +11,7 @@ import React, { useState, Component, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import colors from "../config/colors";
+import {convertDateToFormattedDate , timeToNum , dayTimeToNum} from "../components/TimeConversions";
 // import MultiSelect from "react-native-multiple-select";
 import SelectMultiple from "react-native-select-multiple";
 
@@ -49,13 +50,13 @@ export default function NewActivityForm(props) {
   
 
   // on web mode:
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  // const [startDate, setStartDate] = useState("");
+  // const [endDate, setEndDate] = useState("");
 
   
   // on android mode:
-  //const [startDate, setStartDate] = useState(new Date());
-  //const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
 
   const [formattedEndDate, setFormattedEndDate] = useState(NaN);
@@ -95,12 +96,12 @@ export default function NewActivityForm(props) {
     currentDate = new Date();
 
     // uncomment the following if when working on Android
-    // if (location.localeCompare("UnKnown")){
-    //   alert("please enter one of the suggested activity's location");
-    // }
+    if (location.localeCompare("UnKnown")){
+      alert("please enter one of the suggested activity's location");
+    }
 
     // add else before the following if when working on Android
-    if (isNaN(formattedStartDate)){
+    else if (isNaN(formattedStartDate)){
       if(!condDate){
         alert("please enter activity's date");
       }
@@ -136,12 +137,12 @@ export default function NewActivityForm(props) {
         location: location,
   
         // if working on emulator, uncomment the following two lines, and comment the other two designated for web
-        // startDate: stringFormatDate(startDate),
-        // endDate: stringFormatDate(endDate),
+        startDate: stringFormatDate(startDate),
+        endDate: stringFormatDate(endDate),
   
         // if working on web, uncomment the following two lines, and comment the other two designated for Androing/Enulator
-        startDate: startDate,
-        endDate: endDate,
+        // startDate: startDate,
+        // endDate: endDate,
   
         time: activityTime,
         languages: JSON.stringify(selectedLanguages, ["item"]),
@@ -168,73 +169,7 @@ export default function NewActivityForm(props) {
   };
   //   formats date object to string
 
-  // when you work om emulator/Android, uncomment the next few lines! (from const to return, take out of comment)
-  // but when working on web, comment them out (but dont delete, cause its needed!!!)
-  // const openDatePicker = (is_start, dateObject) => {
-  //   console.log("called openDatePicker()");
-
-  //   DateTimePickerAndroid.open({
-  //     value: dateObject,
-  //     onChange: (event, selectedDate) => onChangeDate(is_start, selectedDate),
-  //     mode: "date",
-  //     is24Hour: true,
-  //   });
-  // };
-
-  function convertDateToFormattedDate(date) {
-    var dd = date.getDate();
-    var mm = date.getMonth() + 1; //January is 0!
-    var yyyy = date.getFullYear();
-    if (dd < 10) {
-      dd = "0" + dd;
-    }
-    if (mm < 10) {
-      mm = "0" + mm;
-    }
-    yyyy = "" + yyyy;
-    var strDate = yyyy + mm + dd;
-    return parseInt(strDate);
-  }
-
-
-
-  function timeToNum(currentHour) {
-    const splitAfternoon = 12; // 24hr time to split the afternoon
-    const splitEvening = 18; // 24hr time to split the evening
-    const splitNight = 22;
-    const splitMorning = 0;
-
-    if (currentHour >= splitMorning || currentHour < splitAfternoon) {
-      return 1;
-    }
-    if (currentHour >= splitAfternoon && currentHour < splitEvening) {
-      // Between 12 PM and 5PM
-      return 2;
-    }
-    if (currentHour >= splitEvening && currentHour < splitNight) {
-      // Between 5PM and 22PM
-      return 3;
-    }
-    if (currentHour >= splitNight || currentHour < splitMorning) {
-      // its on porpose with or instead of and
-      // Between 22PM and 5AM
-      return 3;
-    }
-    
-  }
-
-  function dayTimeToNum(dayTime) {
-    if (dayTime.localeCompare("Morning") == 0) {
-      return 1;
-    }
-    if (dayTime.localeCompare("After noon") == 0) {
-      return 2;
-    }
-    if (dayTime.localeCompare("Evening/Night") == 0) {
-      return 3;
-    }
-  }
-
+  
   function strDatetoFormattedDate(strDate){
     var day = strDate.slice(0, 2);
     var month = strDate.slice(3, 5);
@@ -279,6 +214,21 @@ export default function NewActivityForm(props) {
       />
     );
   };
+
+  // when you work om emulator/Android, uncomment the next few lines! (from const to return, take out of comment)
+  // but when working on web, comment them out (but dont delete, cause its needed!!!)
+  const openDatePicker = (is_start, dateObject) => {
+    console.log("called openDatePicker()");
+
+    DateTimePickerAndroid.open({
+      value: dateObject,
+      onChange: (event, selectedDate) => onChangeDate(is_start, selectedDate),
+      mode: "date",
+      is24Hour: true,
+    });
+  };
+
+  
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -308,7 +258,8 @@ export default function NewActivityForm(props) {
                 but dont delete it! because Omer needs it!
                 only before submitting the project we will delete the
                 web code and will leave the emulator (Androind) code! */}
-                <TextInput
+
+                {/* <TextInput
                   style={styles.input}
                   placeholder="DD/MM/YYYY"
                   maxLength={10}
@@ -319,13 +270,14 @@ export default function NewActivityForm(props) {
                   }
                 }
 
-                ></TextInput>
+                ></TextInput> */}
+
 
                 {/* this code is for working on Emulator: */}
                 {/* if you want to use it, comment out the code designated for the web
                 but dont delete it! because everyone else needs it! */}
 
-                {/* <Text
+                <Text
                   style={styles.input}
                   onPress={() => {
                     openDatePicker(1, startDate)
@@ -335,7 +287,7 @@ export default function NewActivityForm(props) {
                 }
                 >
                   {stringFormatDate(startDate)}
-                </Text> */}
+                </Text>
 
 
               </View>
@@ -350,7 +302,8 @@ export default function NewActivityForm(props) {
                 but dont delete it! because Omer needs it!
                 only before submitting the project we will delete the
                 web code and will leave the emulator (Androind) code! */}
-                <TextInput
+
+                {/* <TextInput
                   style={styles.input}
                   placeholder="DD/MM/YYYY"
                   maxLength={10}
@@ -361,13 +314,13 @@ export default function NewActivityForm(props) {
                     setEndDate(newText);
                     setFormattedEndDate(strDatetoFormattedDate(newText));
                   }}
-                ></TextInput>
+                ></TextInput> */}
 
                 {/* this code is for working on Emulator: */}
                 {/* if you want to use it, comment out the code designated for the web
                 but dont delete it! because everyone else needs it! */}
                 
-                {/* <Text
+                <Text
                   style={styles.input}
                   onPress={() => {
                     openDatePicker(1, startDate)
@@ -380,7 +333,7 @@ export default function NewActivityForm(props) {
                 }
                 >
                   {stringFormatDate(startDate)}
-                </Text> */}
+                </Text>
 
 
               </View>
@@ -396,7 +349,8 @@ export default function NewActivityForm(props) {
               but dont delete it! because Omer needs it!
               only before submitting the project we will delete the
               web code and will leave the emulator (Androind) code! */}
-                <TextInput
+                
+                {/* <TextInput
                   style={styles.input}
                   placeholder="DD/MM/YYYY"
                   maxLength={10}
@@ -408,13 +362,14 @@ export default function NewActivityForm(props) {
                 }
 
 
-                ></TextInput>
+                ></TextInput> */}
+
 
                 {/* this code is for working on Emulator: */}
                 {/* if you want to use it, comment out the code designated for the web
               but dont delete it! because everyone else needs it! */}
 
-                {/* <Text
+                <Text
                 style={styles.input}
                 onPress={() => {
                   openDatePicker(0, endDate)
@@ -425,7 +380,7 @@ export default function NewActivityForm(props) {
               }
               >
                 {stringFormatDate(endDate)}
-              </Text> */}
+              </Text>
 
 
 
