@@ -40,3 +40,6 @@ date picker:
 
 google places :
 -npm install react-native-google-places-autocomplete --save
+
+country phone code picker:
+-npm i react-native-country-codes-picker

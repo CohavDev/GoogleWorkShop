@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   Text,
@@ -6,12 +6,15 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  BackHandler,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config.js";
 import { Picker } from "@react-native-picker/picker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import CountryPicker from "react-native-country-codes-picker";
+
 // import { initializeApp } from 'firebase/app';
 // import { getDatabase } from "firebase/database"
 // import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
@@ -24,6 +27,8 @@ export default function MoreInfo1Screen(props) {
   // const [nativeLanguage, setNativeLanguage] = useState('')
   // const [secondLanguage, setSecondLanguage] = useState('')
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [regionCode, setRegionCode] = useState("+972");
+  const [show, setShow] = useState(false);
 
   // const userID = firebase.auth().currentUser.uid;
   // const userRef = firebase.firestore().collection("users").doc(userID);
@@ -36,7 +41,19 @@ export default function MoreInfo1Screen(props) {
   // const onFooterLinkPress = () => {
   //     navigation.navigate('LoginScreen')
   // }
-
+  useEffect(() => {
+    const backAction = () => {
+      console.log("backAction");
+      if (show) {
+        //country picker is open
+        setShow(false);
+        return true; // prevent default "goBack"
+      }
+    };
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  });
   const onMoveOnPress = async () => {
     if (dateOfBirth.length === 0) {
       alert("please fill in your date of birth :)");
@@ -75,7 +92,7 @@ export default function MoreInfo1Screen(props) {
       nationality: nationality,
       nativeLanguage: "",
       secondLanguage: "",
-      phoneNumber: phoneNumber,
+      phoneNumber: regionCode + "" + phoneNumber,
     };
     props.navigation.navigate("MoreInfo2Screen", {
       data: JSON.stringify({
@@ -228,15 +245,41 @@ export default function MoreInfo1Screen(props) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 /> */}
-        <TextInput
-          style={styles.input}
-          placeholder="Phone number"
-          placeholderTextColor="#aaaaaa"
-          value={phoneNumber}
-          onChangeText={(text) => setPhoneNumber(text)}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
+        <CountryPicker
+          show={show}
+          // when picker button press you will get the country object with dial code
+          pickerButtonOnPress={(item) => {
+            setRegionCode(item.dial_code);
+            setShow(false);
+          }}
+          onBackdropPress={() => setShow(false)}
         />
+        <View style={{ flexDirection: "row", width: "100%" }}>
+          <TouchableOpacity
+            style={{
+              alignSelf: "center",
+              marginLeft: 10,
+              padding: 3,
+              borderRadius: 7,
+              backgroundColor: "#DCDCDC",
+            }}
+            onPress={() => setShow(true)}
+          >
+            <Text style={{ color: "blue" }}>({regionCode})</Text>
+          </TouchableOpacity>
+
+          <TextInput
+            style={styles.phoneNumberInput}
+            placeholder="Phone number"
+            placeholderTextColor="#aaaaaa"
+            value={phoneNumber}
+            keyboardType="numeric"
+            onChangeText={(text) => setPhoneNumber(text)}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+        </View>
+
         <TouchableOpacity style={styles.button} onPress={() => onMoveOnPress()}>
           <Text style={styles.buttonTitle}>Lets Move On !</Text>
         </TouchableOpacity>
