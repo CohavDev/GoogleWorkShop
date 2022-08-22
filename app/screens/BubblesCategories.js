@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
 // import colors from "../config/colors";
 import BigCircle from "../components/BigCircle";
 import Circle from "../components/Circle";
-import BackgroundImage from "../components/BackgroungImage";
 // import CirclesBackground from '../components/CirclesBackground';
 import { IconButton, Colors } from "react-native-paper";
 import ChooseOutdoorsActivity from "./ChooseOutdoorsActivity";
@@ -150,7 +149,6 @@ const styles = StyleSheet.create({
 // import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
 // import colors from "../config/colors";
 // import BigCircle from "../components/BigCircle";
-// import BackgroundImage from "../components/BackgroungImage";
 // //import CirclesBackground from '../components/CirclesBackground';
 // import { IconButton, Colors } from "react-native-paper";
 // import ChooseOutdoorsActivity from "./ChooseOutdoorsActivity";

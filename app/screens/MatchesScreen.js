@@ -194,9 +194,9 @@ export default function MatchesScreen(props) {
             //render UI only after data came from server
             if (profilePic == undefined) {
               // console.log("in if");
-              profilePic = "../assets/genericProfilePicture.jpg";
+              profilePic = "../assets/genericProfilePictureEdited.jpg";
             }
-            // profilePic = "../assets/genericProfilePicture.jpg";
+            // profilePic = "../assets/genericProfilePictureEdited.jpg";
             return (
               <Pressable
                 // style={[styles.shadowProp, styles.matchBackground]}

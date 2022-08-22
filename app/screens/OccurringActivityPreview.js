@@ -282,7 +282,7 @@ import {
               //render UI only after data came from server
               if (otherProfilePic == undefined) {
                 // console.log("in if");
-                otherProfilePic = "../assets/genericProfilePicture.jpg";
+                otherProfilePic = "../assets/genericProfilePictureEdited.jpg";
               }
               props.navigation.navigate("ProfileMatching", {
                 //matched activity data
