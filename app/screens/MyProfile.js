@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 15,
+    alignSelf: "flex-start",
     top: 4,
   },
   profilePic: {
