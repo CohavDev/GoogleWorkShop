@@ -66,7 +66,7 @@ export default function HomeScreen(props) {
         </Pressable>
       </View>
       <View style={styles.myActivities}>
-      <View style={{ alignSelf: "flex-start", left: 40 }}>
+        <View style={{ alignSelf: "flex-start", left: 40 }}>
           <Text style={styles.title}>Upcoming Occuring Activities:</Text>
         </View>
         <ActivitiesList navigation={props.navigation} />
@@ -80,7 +80,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     top: 40,
     fontSize: 22,
-    
+    // flex: 1,
+    height: "20%",
+    // backgroundColor: "gray",
+
     // alignContent: "center",
     // textAlign: "center",
   },
@@ -100,16 +103,16 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     backgroundColor: "white",
-    // flexDirection: 'row',
+    flexDirection: "column",
     //alignItems: 'center',
     //justifyContent: 'space-around',
   },
   viewButtons: {
     width: "100%",
-    height: "100%",
+    height: 120,
     flexDirection: "row",
     // alignItems: "flex-start",
-    top: "25%",
+    // top: "25%",
     justifyContent: "space-evenly",
     // position: "absolute",
   },
@@ -133,14 +136,18 @@ const styles = StyleSheet.create({
   },
   myActivities: {
     width: "100%",
-    height: "70%",
+    height: "50%",
+    bottom: 0,
+    position: "absolute",
     // flexDirection: "row",
     alignItems: "center",
-    top: "50%",
+    // top: "50%",
+    // flex: 1,
+    // backgroundColor: "green",
     // right: "10%",
     // left: "5%",
     // justifyContent: "center",
-    position: "absolute",
+    // position: "absolute",
     // borderColor: "black",
     // borderWidth: 1,
   },
