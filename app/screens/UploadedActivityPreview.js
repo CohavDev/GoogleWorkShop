@@ -8,6 +8,7 @@ import {
   ScrollView,
   Pressable,
   Button,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Circle from "../components/Circle";
@@ -151,7 +152,7 @@ export default function UploadedActivityPreview(props) {
       setCounter(matchesCounter);
     });
 
-  function deleteItem() {
+  const deleteItem = () => {
     // when runnin on web uncomment the folloeing part, and comment the second part
     // allActivitiesRef
     // .where("type", "==", activityData.activityType)
@@ -193,7 +194,10 @@ export default function UploadedActivityPreview(props) {
     // return Promise.resolve(1);
 
     // when running on Android, uncomment the next part, and comment the first part
-    alert("Are your sure?", "Are you sure you want to delete this activity?", [
+    Alert.alert(
+      "Are your sure?",
+      "Are you sure you want to delete this activity?",
+      [
       // The "Yes" button
       {
         text: "Yes",

@@ -8,6 +8,7 @@ import {
     ScrollView,
     Pressable,
     Button,
+    Alert,
   } from "react-native";
   import React, { useEffect, useState } from "react";
   import Circle from "../components/Circle";
@@ -126,7 +127,7 @@ import {
     //   };
 
 
-    function deleteItem() {
+    const deleteItem = () => {
       // when runnin on web uncomment the folloeing part, and comment the second part
       // allActivitiesRef
       // .where("type", "==", activityData.activityType)
@@ -175,7 +176,7 @@ import {
   
       
       // when running on Android, uncomment the next part, and comment the first part
-      alert(
+      Alert.alert(
         "Are your sure?",
         "Are you sure you want to delete this activity?",
         [
