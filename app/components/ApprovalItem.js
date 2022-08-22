@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
-import { Entypo } from "@expo/vector-icons";
-import { IconButton, Colors } from "react-native-paper";
+import { IconButton } from "react-native-paper";
 import myColors from "../config/colors";
 var SIZE = 70;
-var RADIUS = SIZE / 2;
 var ICONSIZE = SIZE / 2;
 export default function ActivityItem(props) {
   return (
@@ -19,9 +17,7 @@ export default function ActivityItem(props) {
         <View style={styles.imageContainer}>
           <View
             style={styles.circularImage}
-            // source={require("../assets/mountain_track_small.jpg")}
           >
-            {/* <Entypo name={props.activityIcon} size={32} color="black" /> */}
             <IconButton
               icon={props.activityIcon}
               color="black"
@@ -64,7 +60,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   ApproveActivityInfo: {
-    // marginVertical: 15,
     width: 130,
     alignItems: "center",
     marginLeft: "auto",
@@ -72,8 +67,6 @@ const styles = StyleSheet.create({
     backgroundColor: myColors.secondary,
   },
   data: {
-    //marginVertical: 15,
-    //height: 30,
     paddingHorizontal: 0,
     alignItems: "center",
     marginLeft: 50,

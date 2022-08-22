@@ -237,7 +237,7 @@ export default function ProfileMatching(props) {
                 What I'm looking for
               </Text>
               {/* {condDate && (
-                <Text>{"From: " + props.startDate + "\nTo: " + props.endDate}</Text>
+                <Text>{"From: " + props.startDate + "\nUntil: " + props.endDate}</Text>
               )}
               {!condDate && (
                 <Text>{"Date: " + props.startDate}</Text>

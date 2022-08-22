@@ -162,6 +162,8 @@ export default function MoreInfo1Screen(props) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         /> */}
+
+        
         {/* this code is for working on Emulator: */}
         {/* if you want to use it, comment out the code designated for the web
                 but dont delete it! because everyone else needs it! */}

@@ -4,16 +4,11 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
-  Pressable,
   FlatList,
-  Keyboard,
-  TextInput,
+
 } from "react-native";
 import OccurringActivityItem from "./OccurringActivityItem";
-import { Entypo } from "@expo/vector-icons";
 import myColors from "../config/colors";
-import colors from "../config/colors";
 
 export default function ActivitiesList(props) {
   const [myOccurringActivities, setMyOccurringActivities] = useState([]);
@@ -30,9 +25,6 @@ export default function ActivitiesList(props) {
         return;
       }
     });
-    console.log("called use effect");
-    // console.log(allActivitiesRef);
-    // console.log(userID);
     setDate(new Date());
     allActivitiesRef
       .where("userID", "==", userID)
@@ -141,10 +133,6 @@ export default function ActivitiesList(props) {
   return (
     <View style={styles.container}>
       {myOccurringActivities.length == 0 && <Text>{"\n" + "- None -"}</Text>}
-      {/* <View style={styles.header}>
-        <Text style={styles.title}>My Current Activities</Text>
-      </View> */}
-      {/* <ScrollView> */}
       <View style={[styles.container, { paddingHorizontal: 15 }]}>
         <FlatList
           // maxToRenderPerBatch={2}
@@ -163,10 +151,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    // backgroundColor: colors.Secondary,
-    // height: "5%",
-    // borderColor: "black",
-    // borderWidth: 1,
   },
   header: {
     width: "25%",
@@ -179,10 +163,5 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 18,
-    // fontWeight: "bold",
-    //paddingTop: "20%",
-    //paddingBottom: 15,
-    //top: 20,
   },
-  
 });

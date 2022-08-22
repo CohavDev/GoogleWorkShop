@@ -1,8 +1,3 @@
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import { IconButton } from "react-native-paper";
-import colors from "../config/colors";
-import React, { useEffect, useState } from "react";
-import { firebase } from "../firebase/config.js";
 
 export function convertDateToFormattedDate(date) {
   var dd = date.getDate();
@@ -25,7 +20,7 @@ export function timeToNum(currentHour) {
   const splitNight = 22;
   const splitMorning = 0;
 
-  if (currentHour >= splitMorning || currentHour < splitAfternoon) {
+  if (currentHour >= splitMorning && currentHour < splitAfternoon) {
     return 1;
   }
   if (currentHour >= splitAfternoon && currentHour < splitEvening) {
@@ -36,9 +31,8 @@ export function timeToNum(currentHour) {
     // Between 5PM and 22PM
     return 3;
   }
-  if (currentHour >= splitNight || currentHour < splitMorning) {
-    // its on porpose with or instead of and
-    // Between 22PM and 5AM
+  if (currentHour >= splitNight) {
+    // Between 22PM and midnight
     return 3;
   }
 }

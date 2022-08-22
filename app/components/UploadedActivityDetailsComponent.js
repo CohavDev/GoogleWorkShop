@@ -10,13 +10,7 @@ import {
 	Button,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import Circle from "./Circle";
 import BigCircle from "./BigCircle";
-import { AntDesign } from "@expo/vector-icons";
-import ApprovalItem from "./ApprovalItem";
-import { Entypo } from "@expo/vector-icons";
-import myColors from "../config/colors";
-import { firebase } from "../firebase/config.js";
 import colors from "../config/colors";
 
 export default function UploadedActivityDetailsComponent(props) {
