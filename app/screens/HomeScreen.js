@@ -1,4 +1,12 @@
-import { StyleSheet, Pressable, View, Text, Image, Button } from "react-native";
+import {
+  StyleSheet,
+  Pressable,
+  View,
+  Text,
+  Image,
+  Button,
+  ImageBackground,
+} from "react-native";
 import colors from "../config/colors";
 import OvalSquare from "../components/OvalSquare";
 import ActivitiesList from "../components/ActivitiesList";
@@ -50,38 +58,53 @@ export default function HomeScreen(props) {
   }
 
   return (
-    <View style={styles.mainBackground}>
-      <Text style={styles.header}>
-        {getGreetingTime(hour)} {fullName}
-      </Text>
-      <View style={styles.viewButtons}>
-        <Pressable
-          onPress={pressNewActivityHandler}
-          // android_ripple={{ color: "white" }}
-        >
-          <OvalSquare text="New Activity" />
-        </Pressable>
-        <Pressable onPress={viewRecentActivitiesHandler}>
-          <OvalSquare text="View Recent Activities" />
-        </Pressable>
-      </View>
-      <View style={styles.myActivities}>
-        <View style={{ alignSelf: "flex-start", left: 40 }}>
-          <Text style={styles.title}>Upcoming Occuring Activities:</Text>
+    <ImageBackground
+      style={styles.backgroundImage}
+      resizeMode="cover"
+      source={require("../assets/homeScreenWallpaper.jpg")}
+    >
+      <View style={styles.mainBackground}>
+        <Text style={styles.header}>
+          {getGreetingTime(hour)} {fullName}
+        </Text>
+        <View style={styles.viewButtons}>
+          <Pressable
+            onPress={pressNewActivityHandler}
+            // android_ripple={{ color: "white" }}
+          >
+            <OvalSquare text="New Activity" />
+          </Pressable>
+          <Pressable onPress={viewRecentActivitiesHandler}>
+            <OvalSquare text="View Recent Activities" />
+          </Pressable>
         </View>
-        <ActivitiesList navigation={props.navigation} />
+        <View style={styles.myActivities}>
+          <View style={{ alignSelf: "flex-start", left: 40 }}>
+            <Text style={styles.title}>Upcoming Occuring Activities:</Text>
+          </View>
+          <ActivitiesList navigation={props.navigation} />
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    flex: 1,
+    // flexDirection: "row",
+    // resizeMode: "cover",
+  },
   header: {
     alignSelf: "center",
     top: 40,
     fontSize: 22,
     // flex: 1,
     height: "20%",
+    color: "white",
     // backgroundColor: "gray",
 
     // alignContent: "center",
@@ -102,7 +125,7 @@ const styles = StyleSheet.create({
   mainBackground: {
     height: "100%",
     width: "100%",
-    backgroundColor: "white",
+    // backgroundColor: "white",
     flexDirection: "column",
     //alignItems: 'center',
     //justifyContent: 'space-around',
