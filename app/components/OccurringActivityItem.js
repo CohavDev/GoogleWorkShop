@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, Alert } from "react-native";
 import { IconButton } from "react-native-paper";
 import colors from "../config/colors";
 import React, { useEffect, useState } from "react";
@@ -67,7 +67,7 @@ export default function OccurringActivityItem(props) {
     return Math.floor(ageInMilliseconds / 1000 / 60 / 60 / 24 / 365); // convert to years
   }
 
-  function deleteItem() {
+  const deleteItem = () => {
     // when runnin on web uncomment the folloeing part, and comment the second part
     // allActivitiesRef
     // .where("type", "==", activityData.activityType)
@@ -114,7 +114,7 @@ export default function OccurringActivityItem(props) {
     // allActivitiesRef.doc(activityData.activityID).delete();
 
     // when running on Android, uncomment the next part, and comment the first part
-    return alert(
+    return Alert.alert(
       "Are your sure?",
       "Are you sure you want to delete this activity?",
       [
