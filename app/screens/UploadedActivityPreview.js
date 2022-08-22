@@ -341,8 +341,9 @@ export default function UploadedActivityPreview(props) {
                       }
                       fetchData();
                     });
-                  allActivitiesRef.doc(activityData.activityID).delete();
-                  props.navigation.goBack()
+                  allActivitiesRef.doc(activityData.activityID).delete().then(() => {
+                    props.navigation.goBack()
+                  })
                 },
               },
               // The "No" button
