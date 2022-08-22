@@ -162,9 +162,7 @@ export default function OccurringActivityItem(props) {
                 }
                 fetchData();
               });
-              allActivitiesRef.doc(activityData.activityID).delete().then(() => {
-                props.navigation.goBack()
-              })
+            allActivitiesRef.doc(props.activityID).delete();
           },
         },
         // The "No" button
