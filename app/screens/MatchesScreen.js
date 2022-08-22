@@ -114,8 +114,8 @@ export default function MatchesScreen(props) {
                   match.dateOfBirth = result.data().dateOfBirth;
                   match.aboutMe = result.data().aboutMe;
                   match.profilePic = result.data().profilePic;
-                  match.nativeLanguage = result.data().nativeLanguage;
-                  match.secondLanguage = result.data().secondLanguage;
+                  // match.nativeLanguage = result.data().nativeLanguage;
+                  // match.secondLanguage = result.data().secondLanguage;
                   match.age = getAge(match.userFormattedDateOfBirth);
                   match.phoneNumber = result.data().phoneNumber;
                   match.nationality = result.data().nationality;
@@ -217,7 +217,7 @@ export default function MatchesScreen(props) {
                     dateOfBirth: item.dateOfBirth,
                     aboutMe: item.aboutMe,
                     profilePic: profilePic,
-                    nativeLanguage: item.nativeLanguage,
+                    // nativeLanguage: item.nativeLanguage,
                     secondLanguage: item.secondLanguage,
                     age: item.age,
                     phoneNumber: item.phoneNumber,
@@ -241,22 +241,22 @@ export default function MatchesScreen(props) {
                       </Text>
                       {item.condOne && (
                         <Text style={styles.text}>
-                          {item.nativeLanguage} {", "}
-                          {item.secondLanguage} {"\n"}
+                          {/* {item.nativeLanguage} {item.secondLanguage}
+                           {"\n"} */}
                           {"you have already accepted "} {item.fullName}
                         </Text>
                       )}
                       {item.condTwo && (
                         <Text style={styles.text}>
-                          {item.nativeLanguage} {", "}
-                          {item.secondLanguage} {"\n"}
+                          {/* {item.nativeLanguage}
+                          {item.secondLanguage} {"\n"} */}
                           {item.fullName} {" has already accepted you"}
                         </Text>
                       )}
                       {!item.condTwo && !item.condOne && (
                         <Text style={styles.text}>
-                          {item.nativeLanguage} {", "}
-                          {item.secondLanguage} {"\n"}
+                          {/* {item.nativeLanguage}
+                          {item.secondLanguage} {"\n"} */}
                         </Text>
                       )}
                     </View>
