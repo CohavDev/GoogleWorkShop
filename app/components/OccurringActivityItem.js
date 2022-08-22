@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import { IconButton } from "react-native-paper";
 import colors from "../config/colors";
 import React, { useEffect, useState } from "react";
 import { firebase } from "../firebase/config.js";
-import { cond } from "react-native-reanimated";
 export default function OccurringActivityItem(props) {
   const iconsMap = {
     Drinks: "glass-wine",
@@ -62,7 +61,7 @@ export default function OccurringActivityItem(props) {
     var day = dateOfBirth.slice(6, 8);
     var month = dateOfBirth.slice(4, 6);
     var year = dateOfBirth.slice(0, 4);
-    // i assume the format of the date of birth is : DD/MM/YYYY
+    // the format of the date of birth is : DD/MM/YYYY
     dateOfBirth = "".concat(year, "-", month, "-", day);
     var ageInMilliseconds = new Date() - new Date(dateOfBirth);
     return Math.floor(ageInMilliseconds / 1000 / 60 / 60 / 24 / 365); // convert to years
@@ -191,10 +190,8 @@ export default function OccurringActivityItem(props) {
               .doc(otherUserID)
               .get()
               .then((otherUserData) => {
-                // console.log("--------!!!!!--------");
-                // console.log(otherUserData.get("fullName"));
                 props.navigation.navigate("OccurringActivityPreview", {
-                  navigation: props.navigation, // TODO: pass navigation in a differnent way(setOptions)
+                  navigation: props.navigation,
                   activityType: props.activityType,
                   activityIcon: iconsMap[props.activityIcon],
                   location: props.location,
@@ -211,7 +208,7 @@ export default function OccurringActivityItem(props) {
                   otherFullName: otherUserData.get("fullName"),
                   otherDateOfBirth: otherUserData.get("dateOfBirth"),
                   otherAboutMe: otherUserData.get("aboutMe"),
-                  otherProfilePic: undefined, // needs to be changed when we actually have profile pics
+                  otherProfilePic: undefined,
                   otherNativeLanguage: otherUserData.get("nativeLanguage"),
                   otherSecondLanguage: otherUserData.get("secondLanguage"),
                   otherAge: getAge(otherUserData.get("formattedDateOfBirth")),
@@ -222,14 +219,10 @@ export default function OccurringActivityItem(props) {
           })
       }
     >
-      {/* <View style={{flexDirection: "row"}}> */}
       <View style={styles.container}>
-        {/* <View style={styles.imageContainer}> */}
         <View
           style={styles.circularImage}
-          // source={require("../assets/mountain_track_small.jpg")}
         >
-          {/* <Entypo name={iconsMap.hiking} size={32} color="white" /> */}
           <IconButton
             icon={iconsMap[props.activityType]}
             color={colors.Secondary}
@@ -237,7 +230,6 @@ export default function OccurringActivityItem(props) {
             size={35}
           />
         </View>
-        {/* </View> */}
         <View style={styles.dataContainer}>
           <Text style={{ lineHeight: 19 }}>{props.activityType}</Text>
           {condDate && (
@@ -249,7 +241,6 @@ export default function OccurringActivityItem(props) {
           {!condDate && (
             <Text style={{ lineHeight: 19 }}>{"Date: " + props.startDate}</Text>
           )}
-          {/* <Text>{props.time}</Text> */}
           <Text style={{ lineHeight: 19 }}>
             {"Location: " + props.location}
           </Text>
@@ -260,9 +251,7 @@ export default function OccurringActivityItem(props) {
         <View style={styles.deletionContainer}>
           <View
             style={styles.deletionImage}
-            // source={require("../assets/mountain_track_small.jpg")}
           >
-            {/* <Entypo name={iconsMap.hiking} size={32} color="white" /> */}
             <IconButton
               icon={iconsMap["Trash"]}
               color={colors.Secondary}
@@ -273,7 +262,6 @@ export default function OccurringActivityItem(props) {
           </View>
         </View>
       </View>
-      {/* </View> */}
     </Pressable>
   );
 }
@@ -284,16 +272,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     height: 100,
-    // backgroundColor: colors.Secondary,
-    // direction: "rtl",
-  },
-  imageContainer: {
-    // alignItems: "center",
-    // justifyContent: "center",
-    // paddingHorizontal: 10,
   },
   circularImage: {
-    // left: 15,
     height: 70,
     width: 70,
     borderRadius: 35,
@@ -302,7 +282,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   deletionImage: {
-    // left: 15,
     height: 25,
     width: 25,
     borderRadius: 35,
@@ -311,29 +290,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   dataContainer: {
-    // marginVertical: 15,
     width: "60%",
     paddingHorizontal: 0,
-    // alignItems: "center",
-    // bottom: 10,
-    // justifyContent: "center",
-    // alignContent: "center",
   },
   deletionContainer: {
-    // marginVertical: 15,
-    // paddingHorizontal: 15,
-    // left: 20,
     right: 2,
     alignItems: "center",
-    // marginLeft: "auto",
     justifyContent: "center",
-    // backgroundColor: "gray",
   },
   shadowProp: {
     shadowColor: "#171717",
-    // shadowOffset: { width: -2, height: 4 },
-    // shadowOpacity: 0.2,
-    // shadowRadius: 3,
     elevation: 5,
   },
 });

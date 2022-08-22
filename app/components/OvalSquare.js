@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import colors from "../config/colors";
 
 const EDGE = 120;
@@ -14,13 +14,10 @@ export default function OvalSquare(props) {
 
 const styles = StyleSheet.create({
 	textStyle: {
-        // flex: 1,
 		color: "white",
 		fontSize: 16,
         alignSelf: "center",
         textAlign: "center",
-        // justifyContent: "center",
-		// fontWeight: "bold",
 	},
 	ovalShape: {
 		backgroundColor: "white",
@@ -32,14 +29,6 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
-		// shadowColor: "black",
-		// shadowOffset: { width: EDGE, height: EDGE },
-		// shadowOpacity: 0.2,
-		// shadowRadius: EDGE,
 		elevation: 10,
-		//top: 50,
-		//margin: -10,
-		//alignContent: 'center',
-		// position: 'absolute',
 	},
 });
