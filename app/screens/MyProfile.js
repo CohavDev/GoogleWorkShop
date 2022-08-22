@@ -23,8 +23,8 @@ export default function MyProfile(props) {
   const [aboutMe, setAboutMe] = useState("");
   const [fullName, setFullName] = useState("");
   const [nationality, setNationality] = useState("");
-  const [nativeLanguage, setNativeLanguage] = useState("");
-  const [secondLanguage, setSecondLanguage] = useState("");
+  // const [nativeLanguage, setNativeLanguage] = useState("");
+  // const [secondLanguage, setSecondLanguage] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [formattedDateOfBirth, setformattedDateOfBirth] = useState("");
   const [renderAgain, setRenderAgain] = useState(false);
@@ -32,8 +32,8 @@ export default function MyProfile(props) {
     aboutMe: aboutMe,
     fullName: fullName,
     nationality: nationality,
-    nativeLanguage: nativeLanguage,
-    secondLanguage: secondLanguage,
+    // nativeLanguage: nativeLanguage,
+    // secondLanguage: secondLanguage,
     phoneNumber: phoneNumber,
     age: getAge(formattedDateOfBirth),
   };
@@ -47,8 +47,8 @@ export default function MyProfile(props) {
       setAboutMe(data.get("aboutMe"));
       setFullName(data.get("fullName"));
       setNationality(data.get("nationality"));
-      setNativeLanguage(data.get("nativeLanguage"));
-      setSecondLanguage(data.get("secondLanguage"));
+      // setNativeLanguage(data.get("nativeLanguage"));
+      // setSecondLanguage(data.get("secondLanguage"));
       setPhoneNumber(data.get("phoneNumber"));
       setformattedDateOfBirth(data.get("formattedDateOfBirth"));
     });
@@ -114,10 +114,10 @@ export default function MyProfile(props) {
             <Text style={styles.subText}>{userData.nationality}</Text>
             <Text style={styles.subTitle}>Phone Number</Text>
             <Text style={styles.subText}>{userData.phoneNumber}</Text>
-            <Text style={styles.subTitle}>Spoken Languages</Text>
-            <Text style={styles.subText}>
+            {/* <Text style={styles.subTitle}>Spoken Languages</Text> */}
+            {/* <Text style={styles.subText}>
               {userData.nativeLanguage + ", " + userData.secondLanguage}
-            </Text>
+            </Text> */}
           </View>
         </LinearGradient>
         <View style={{ paddingTop: "20%", paddingLeft: "0%" }}>
