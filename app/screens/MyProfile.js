@@ -27,6 +27,7 @@ export default function MyProfile(props) {
   // const [secondLanguage, setSecondLanguage] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [formattedDateOfBirth, setformattedDateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [renderAgain, setRenderAgain] = useState(false);
   const userData = {
     aboutMe: aboutMe,
@@ -51,6 +52,7 @@ export default function MyProfile(props) {
       // setSecondLanguage(data.get("secondLanguage"));
       setPhoneNumber(data.get("phoneNumber"));
       setformattedDateOfBirth(data.get("formattedDateOfBirth"));
+      setDateOfBirth(data.get("dateOfBirth"));
     });
   }, [renderAgain]);
   const onPressEdit = () => {
@@ -114,6 +116,9 @@ export default function MyProfile(props) {
             <Text style={styles.subText}>{userData.nationality}</Text>
             <Text style={styles.subTitle}>Phone Number</Text>
             <Text style={styles.subText}>{userData.phoneNumber}</Text>
+            <Text style={styles.subTitle}>Date Of Birth</Text>
+            <Text style={styles.subText}>{dateOfBirth}</Text>
+            {/* <Text>style={styles.subText}{userData.age}</Text> */}
             {/* <Text style={styles.subTitle}>Spoken Languages</Text> */}
             {/* <Text style={styles.subText}>
               {userData.nativeLanguage + ", " + userData.secondLanguage}
