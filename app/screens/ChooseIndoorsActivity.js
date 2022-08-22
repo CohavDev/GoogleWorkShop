@@ -1,10 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
-import colors from "../config/colors";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import Circle from "../components/Circle";
-import BackgroundImage from "../components/BackgroungImage";
-//import CirclesBackground from '../components/CirclesBackground';
-import { IconButton, Colors } from "react-native-paper";
 
 function ChooseIndoorsActivity(props) {
 	const pressActivityHandler = (type, icon) => {
@@ -28,13 +24,6 @@ function ChooseIndoorsActivity(props) {
 							iconName="glass-wine"
 						></Circle>
 					</Pressable>
-					{/* <Pressable onPress={() => pressActivityHandler("Hiking", "hiking")}>
-            <Circle
-              style={styles.circleButtonMiddle}
-              text="Backpacking"
-              iconName="hiking"
-            ></Circle>
-          </Pressable> */}
 					<Pressable
 						onPress={() =>
 							pressActivityHandler("Restaurant", "silverware")
@@ -46,7 +35,6 @@ function ChooseIndoorsActivity(props) {
 							iconName="silverware"
 						></Circle>
 					</Pressable>
-					{/* // iconName="noodles"> */}
 
 					<Pressable
 						onPress={() => pressActivityHandler("Party", "party-popper")}
@@ -95,9 +83,7 @@ function ChooseIndoorsActivity(props) {
 				</View>
 			</View>
 			<View style={styles.viewTitleText}>
-				{/* <Text style={styles.titleText}>What activity are you looking for?</Text> */}
 				<Text style={styles.titleText}>Choose your activity</Text>
-				{/* <Text style={styles.titleText}>are looking for</Text> */}
 			</View>
 		</View>
 	);
@@ -112,10 +98,7 @@ const styles = StyleSheet.create({
 	},
 	viewTitleText: {
 		flex: 1,
-		// textAlign: "center",
 		position: "absolute",
-		// justifyContent: "center",
-		// alignItems: "center",
 		left: 10,
 		right: 10,
 	},
@@ -123,7 +106,6 @@ const styles = StyleSheet.create({
 	titleText: {
 		color: "black",
 		fontSize: 20,
-		// fontWeight: "bold",
 		top: 60,
 		alignSelf: "center",
 		justifyContent: "space-evenly",

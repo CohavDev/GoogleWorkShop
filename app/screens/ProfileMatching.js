@@ -3,11 +3,9 @@ import {
   Text,
   View,
   Image,
-  Button,
-  TouchableOpacity,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { firebase } from "../firebase/config.js";
 import myColors from "../config/colors";
 import { Pressable, Vibration } from "react-native";
@@ -32,10 +30,6 @@ export default function ProfileMatching(props) {
     type: params.type,
     location: params.location,
     matchedActivityStatus: params.matchedActivityStatus,
-    // matchedActivityStatus = "accepted by both"
-    // or "accepted only by me"
-    // or "accepted only by other user"
-    // or "accepted by non of us"
   };
   const otherUserData = {
     activityDocID: params.matchedActivityDocID,
@@ -44,8 +38,6 @@ export default function ProfileMatching(props) {
     dateOfBirth: params.dateOfBirth,
     aboutMe: params.aboutMe,
     profilePic: params.profilePic,
-    // nativeLanguage: params.nativeLanguage,
-    // secondLanguage: params.secondLanguage,
     age: params.age,
     phoneNumber: params.phoneNumber,
     nationality: params.nationality,
@@ -62,12 +54,10 @@ export default function ProfileMatching(props) {
   const [condElement, setCondElement] = useState(params.matchedActivityStatus);
   const openWhatsapp = () => {
     // open whatsapp chat with partner, if supported
-    // alert("hey");
     Linking.openURL("https://wa.me/" + otherUserData.phoneNumber);
   };
   const updatedMatchStatus = (identifier) => {
     // after clicking 'match'
-    //TODO:match is undefined
     if (identifier == 1) {
       setCondElement("accepted by both");
     } else {
@@ -75,29 +65,7 @@ export default function ProfileMatching(props) {
     }
   };
 
-
-
-  // const updatedMatchStatus = () => {
-  //   // after clicking 'match'
-  //   //TODO:match is undefined
-  //   const match = allActivitiesRef.doc(otherUserData.activityDocID).get();
-  //   console.log("match details: \n" + JSON.stringify(match));
-  //   console.log("match field.. \n" + match["travelPartnersIDs"]);
-  //   if (
-  //     match.travelPartnersIDs != null &&
-  //     match.travelPartnersIDs.indexOf(userID) > -1
-  //   ) {
-  //     setCondElement("accepted by both");
-  //   } else {
-  //     setCondElement("accepted only by me");
-  //   }
-  // };
-
-
   function renderButton(matched_status) {
-    console.log("Render button called =" + matched_status);
-    // render 'match with' text / 'pending' text / whatsapp icon according to matchedActivityStatus
-    // var matched_status = activityData.matchedActivityStatus;
     const status_both = matched_status.localeCompare("accepted by both") == 0;
     const status_other =
       matched_status.localeCompare("accepted only by other user") == 0;
@@ -110,11 +78,9 @@ export default function ProfileMatching(props) {
         <View style={styles.buttonContainer}>
           <Pressable
             style={styles.button}
-            // onLongPress={() => alert("clicked 'match'!")}
             android_ripple={{ color: "white" }}
             onPressIn={() => {
               Vibration.vibrate(PATTERN);
-              console.log("pressed");
               allActivitiesRef.doc(otherUserData.activityDocID).update({
                 travelPartnersIDs:
                   firebase.firestore.FieldValue.arrayUnion(userID),
@@ -153,11 +119,9 @@ export default function ProfileMatching(props) {
         <View style={styles.buttonContainer}>
           <Pressable
             style={styles.button}
-            // onLongPress={() => alert("clicked 'match'!")}
             android_ripple={{ color: "white" }}
             onPressIn={() => {
               Vibration.vibrate(PATTERN);
-              console.log("pressed");
               allActivitiesRef
                 .doc(otherUserData.activityDocID)
                 .update({
@@ -200,7 +164,6 @@ export default function ProfileMatching(props) {
   }
   return (
     <View style={styles.container}>
-      {/* style={styles.profilePicContainer} */}
       <View>
         <LinearGradient
           // Background Linear Gradient
@@ -215,7 +178,6 @@ export default function ProfileMatching(props) {
               justifyContent: "center",
               alignItems: "center",
               paddingTop: "10%",
-              // top: "5%",
             }}
           >
             <Image
@@ -236,12 +198,6 @@ export default function ProfileMatching(props) {
               <Text style={[styles.subTitle, { color: "white" }]}>
                 What I'm looking for
               </Text>
-              {/* {condDate && (
-                <Text>{"From: " + props.startDate + "\nUntil: " + props.endDate}</Text>
-              )}
-              {!condDate && (
-                <Text>{"Date: " + props.startDate}</Text>
-              )} */}
               {!condDate && (
                 <Text style={[styles.subText, { color: "white" }]}>
                              
@@ -281,9 +237,6 @@ const styles = StyleSheet.create({
   profileDetails: {
     width: "100%",
     height: "60%",
-    // borderWidth: 1,
-    // borderColor: "red",
-    // bottom: "6%",
     top: "50%",
     paddingTop: "5%",
     backgroundColor: "white",
@@ -298,15 +251,12 @@ const styles = StyleSheet.create({
     height: 300,
   },
   container: {
-    // borderWidth: 2,
-    // borderColor: "red",
     backgroundColor: colors.Background,
     width: "100%",
     height: "100%",
   },
   title: {
     color: "white",
-    // fontWeight: "bold",
     fontSize: 24,
   },
   smallTitle: {
@@ -334,33 +284,23 @@ const styles = StyleSheet.create({
     height: 128,
     borderRadius: 64,
     margin: "5%",
-    // top: "30%",
   },
   profilePicContainer: {
-    // borderWidth: 5,
-    // borderColor: "red",
     width: "100%",
     height: "40%",
-    // borderWidth: 1,
-    // borderColor: "pink",
     justifyContent: "center",
     alignItems: "center",
     paddingTop: "15%",
-    // top: "10%",
     marginBottom: "10%",
   },
   interstContainer: {
-    // borderWidth: 2,
-    // borderColor: "red",
     borderRadius: 10,
-    // shadowColor: "black",
     backgroundColor: myColors.Primary,
     marginLeft: 15,
     marginRight: 15,
     marginBottom: 15,
     paddingVertical: 10,
     top: "30%",
-    // height: "50%",
   },
   button: {
     width: 60,
@@ -372,16 +312,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "100%",
-    // height: "20%",
-    // borderWidth: 1,
-    // borderColor: "blue",
-    // display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    // flexGrow: 1,
-    // top: "200%",
     paddingTop: "50%",
-    // position: "absolute",
   },
   shadowProp: {
     shadowColor: "#171717",

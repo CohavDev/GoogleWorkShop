@@ -7,9 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-import BackgroundImage from "../components/BackgroungImage";
 import colors from "../config/colors";
-import { color } from "react-native-reanimated";
 export default function LandPage({ navigation }) {
   const onLoginPress = () => {
     navigation.navigate("LoginScreen");
@@ -47,8 +45,6 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     flex: 1,
-    // flexDirection: "row",
-    // resizeMode: "cover",
   },
   logoContainer: {
     flexDirection: "column",
@@ -57,15 +53,12 @@ const styles = StyleSheet.create({
     height: undefined,
     alignItems: "center",
     alignSelf: "center",
-    // marginTop: "15%",
-    // padding: 20,
   },
   logoImage: {
     height: "60%",
     width: "100%",
     alignSelf: "center",
     resizeMode: "contain",
-    // marginTop: "5%",
   },
   text1: {
     fontSize: 20,
@@ -80,7 +73,6 @@ const styles = StyleSheet.create({
     paddingLeft: "5%",
     paddingRight: "5%",
     width: "100%",
-    // height: "10%",
     bottom: "5%",
     flex: 1,
   },

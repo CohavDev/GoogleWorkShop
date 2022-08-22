@@ -7,8 +7,6 @@ import {
   ScrollView,
   Pressable,
   FlatList,
-  Keyboard,
-  TextInput,
 } from "react-native";
 import OccurringActivityItem from "../components/OccurringActivityItem";
 import UploadedActivityItem from "../components/UploadedActivityItem";
@@ -22,7 +20,6 @@ export default function MyActivities({ navigation }) {
   const [myUploadedActivities, setMyUploadedActivities] = useState([]);
   const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userID = firebase.auth().currentUser.uid;
-  const userRef = firebase.firestore().collection("users").doc(userID);
   const [date, setDate] = useState(new Date());
 
 
@@ -111,7 +108,6 @@ export default function MyActivities({ navigation }) {
   
 
   return (
-    // <View style={{backgroundColor: colors.background}}>
 
     <View style={styles.container}>
       <View style={styles.header}>
@@ -157,31 +153,25 @@ export default function MyActivities({ navigation }) {
       </Pressable>
     </View>
 
-    // </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // top: "5%",
     height: "100%",
     flexDirection: "column",
     justifyContent: "space-between",
-    // alignItems: "center",
     backgroundColor: colors.Background,
     width: myColors.deviceWidth,
   },
   scrollviewContainer: {
-    // top: "5%",
     height: "100%",
     flexDirection: "column",
     justifyContent: "space-between",
-    // alignItems: "center",
     backgroundColor: colors.Background,
     width: myColors.deviceWidth,
     paddingHorizontal: 10,
     paddingTop: 10,
-    // top: "5%",
   },
   header: {
     top: "5%",
@@ -199,12 +189,6 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "black",
     fontSize: 14,
-    // fontWeight: "bold",
     textAlign: "center",
   },
-  // title: {
-  // 	// color: colors.grey,
-  //     color: "black",
-  // 	fontSize: 15,
-  // },
 });

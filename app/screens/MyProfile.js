@@ -3,28 +3,21 @@ import {
   Text,
   View,
   Image,
-  Button,
-  TouchableOpacity,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { firebase } from "../firebase/config.js";
 import myColors from "../config/colors";
-import { Pressable, Vibration } from "react-native";
+import { Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { IconButton } from "react-native-paper";
-import * as Linking from "expo-linking";
 import colors from "../config/colors";
 
 export default function MyProfile(props) {
   const userID = firebase.auth().currentUser.uid;
-  const allActivitiesRef = firebase.firestore().collection("allActivities");
   const userRef = firebase.firestore().collection("users").doc(userID);
   const [aboutMe, setAboutMe] = useState("");
   const [fullName, setFullName] = useState("");
   const [nationality, setNationality] = useState("");
-  // const [nativeLanguage, setNativeLanguage] = useState("");
-  // const [secondLanguage, setSecondLanguage] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [formattedDateOfBirth, setformattedDateOfBirth] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
@@ -33,23 +26,17 @@ export default function MyProfile(props) {
     aboutMe: aboutMe,
     fullName: fullName,
     nationality: nationality,
-    // nativeLanguage: nativeLanguage,
-    // secondLanguage: secondLanguage,
     phoneNumber: phoneNumber,
     age: getAge(formattedDateOfBirth),
   };
   const refresh = () => {
-    console.log("refresh my profile");
     setRenderAgain(!renderAgain);
   };
   useEffect(() => {
-    console.log("fetched data for my profile view");
     userRef.get().then((data) => {
       setAboutMe(data.get("aboutMe"));
       setFullName(data.get("fullName"));
       setNationality(data.get("nationality"));
-      // setNativeLanguage(data.get("nativeLanguage"));
-      // setSecondLanguage(data.get("secondLanguage"));
       setPhoneNumber(data.get("phoneNumber"));
       setformattedDateOfBirth(data.get("formattedDateOfBirth"));
       setDateOfBirth(data.get("dateOfBirth"));
@@ -66,26 +53,14 @@ export default function MyProfile(props) {
     var day = dateOfBirth.slice(6, 8);
     var month = dateOfBirth.slice(4, 6);
     var year = dateOfBirth.slice(0, 4);
-    // i assume the format of the date of birth is : DD/MM/YYYY
+    // assuming the format of the date of birth is : DD/MM/YYYY
     dateOfBirth = "".concat(year, "-", month, "-", day);
     var ageInMilliseconds = new Date() - new Date(dateOfBirth);
     return Math.floor(ageInMilliseconds / 1000 / 60 / 60 / 24 / 365); // convert to years
   }
 
   return (
-    // userRef.get().then((data) => {
-    // const userData =
-    // {
-    //     aboutMe: data.get("aboutMe"),
-    //     fullName: data.get("fullName"),
-    //     nationality: data.get("nationality"),
-    //     nativeLanguage: data.get("nativeLanguage"),
-    //     secondLanguage: data.get("secondLanguage"),
-    //     phoneNumber: data.get("phoneNumber")
-
-    // };
     <View style={styles.container}>
-      {/* style={styles.profilePicContainer} */}
       <View>
         <LinearGradient
           // Background Linear Gradient
@@ -100,7 +75,6 @@ export default function MyProfile(props) {
               justifyContent: "center",
               alignItems: "center",
               paddingTop: "10%",
-              // top: "5%",
             }}
           >
             <Image
@@ -118,11 +92,6 @@ export default function MyProfile(props) {
             <Text style={styles.subText}>{userData.phoneNumber}</Text>
             <Text style={styles.subTitle}>Date Of Birth</Text>
             <Text style={styles.subText}>{dateOfBirth}</Text>
-            {/* <Text>style={styles.subText}{userData.age}</Text> */}
-            {/* <Text style={styles.subTitle}>Spoken Languages</Text> */}
-            {/* <Text style={styles.subText}>
-              {userData.nativeLanguage + ", " + userData.secondLanguage}
-            </Text> */}
           </View>
         </LinearGradient>
         <View style={{ paddingTop: "20%", paddingLeft: "0%" }}>
@@ -140,7 +109,6 @@ export default function MyProfile(props) {
         </View>
       </View>
     </View>
-    //})
   );
 }
 
@@ -148,9 +116,6 @@ const styles = StyleSheet.create({
   profileDetails: {
     width: "100%",
     height: "60%",
-    // borderWidth: 1,
-    // borderColor: "red",
-    // bottom: "6%",
     top: "45%",
     padding: "7%",
     
@@ -166,8 +131,6 @@ const styles = StyleSheet.create({
     height: 300,
   },
   container: {
-    // borderWidth: 2,
-    // borderColor: "red",
     backgroundColor: colors.Background,
     width: "100%",
     height: "100%",
@@ -203,33 +166,23 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 64,
     margin: "3%",
-    // top: "30%",
   },
   profilePicContainer: {
-    // borderWidth: 5,
-    // borderColor: "red",
     width: "100%",
     height: "40%",
-    // borderWidth: 1,
-    // borderColor: "pink",
     justifyContent: "center",
     alignItems: "center",
     paddingTop: "15%",
-    // top: "10%",
     marginBottom: "10%",
   },
   interstContainer: {
-    // borderWidth: 2,
-    // borderColor: "red",
     borderRadius: 10,
-    // shadowColor: "black",
     backgroundColor: myColors.Primary,
     marginLeft: 15,
     marginRight: 15,
     marginBottom: 15,
     paddingVertical: 10,
     top: "30%",
-    // height: "50%",
   },
   button: {
     width: 60,
@@ -241,16 +194,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "100%",
-    // height: "20%",
-    // borderWidth: 1,
-    // borderColor: "blue",
-    // display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    // flexGrow: 1,
-    // top: "200%",
     paddingTop: "43%",
-    // position: "absolute",
   },
   shadowProp: {
     shadowColor: "#171717",

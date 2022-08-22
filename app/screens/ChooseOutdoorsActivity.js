@@ -1,10 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
-import colors from "../config/colors";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import Circle from "../components/Circle";
-import BackgroundImage from "../components/BackgroungImage";
-//import CirclesBackground from '../components/CirclesBackground';
-import { IconButton, Colors } from "react-native-paper";
 
 function ChooseOutdoorsActivity(props) {
 	const pressActivityHandler = (type, icon) => {
@@ -37,30 +33,9 @@ function ChooseOutdoorsActivity(props) {
 							iconName="hiking"
 						></Circle>
 					</Pressable>
-
-					{/* <Pressable
-            onPress={() => pressActivityHandler("Restaurant", "silverware")}
-          >
-            <Circle
-              style={styles.circleButtonBottom}
-              text="Restaurant"
-              iconName="silverware"
-            >
-            </Circle>
-          </Pressable> */}
-					{/* // iconName="noodles"> */}
 				</View>
 
 				<View style={styles.rightBackground}>
-					{/* <Pressable
-            onPress={() => pressActivityHandler("Party", "party-popper")}
-          >
-            <Circle
-              style={styles.circleButtonTop}
-              text="Party"
-              iconName="party-popper"
-            ></Circle>
-          </Pressable> */}
 					<Pressable
 						onPress={() =>
 							pressActivityHandler("Driving", "car-hatchback")
@@ -84,9 +59,7 @@ function ChooseOutdoorsActivity(props) {
 				</View>
 			</View>
 			<View style={styles.viewTitleText}>
-				{/* <Text style={styles.titleText}>What activity are you looking for?</Text> */}
 				<Text style={styles.titleText}>Choose your activity</Text>
-				{/* <Text style={styles.titleText}>are looking for</Text> */}
 			</View>
 		</View>
 	);
@@ -101,10 +74,7 @@ const styles = StyleSheet.create({
 	},
 	viewTitleText: {
 		flex: 1,
-		// textAlign: "center",
 		position: "absolute",
-		// justifyContent: "center",
-		// alignItems: "center",
 		left: 10,
 		right: 10,
 	},
@@ -112,7 +82,6 @@ const styles = StyleSheet.create({
 	titleText: {
 		color: "black",
 		fontSize: 20,
-		// fontWeight: "bold",
 		top: 60,
 		alignSelf: "center",
 		justifyContent: "space-evenly",

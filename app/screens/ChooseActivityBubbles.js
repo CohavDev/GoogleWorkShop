@@ -1,10 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
-import colors from "../config/colors";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import Circle from "../components/Circle";
-import BackgroundImage from "../components/BackgroungImage";
-//import CirclesBackground from '../components/CirclesBackground';
-import { IconButton, Colors } from "react-native-paper";
 
 function ChooseActivityBubbles(props) {
   const pressActivityHandler = (type, icon) => {
@@ -44,7 +40,6 @@ function ChooseActivityBubbles(props) {
               text="Restaurant"
               iconName="silverware"
             >
-              {/* // iconName="noodles"> */}
             </Circle>
           </Pressable>
         </View>
@@ -82,7 +77,6 @@ function ChooseActivityBubbles(props) {
         </View>
       </View>
       <View style={styles.viewTitleText}>
-        {/* <Text style={styles.titleText}>What activity are you looking for?</Text> */}
         <Text style={styles.titleText}>Choose the activity you</Text>
         <Text style={styles.titleText}>are looking for</Text>
       </View>
@@ -99,10 +93,7 @@ const styles = StyleSheet.create({
   },
   viewTitleText: {
     flex: 1,
-    // textAlign: "center",
     position: "absolute",
-    // justifyContent: "center",
-    // alignItems: "center",
     left: 10,
     right: 10,
   },
@@ -110,7 +101,6 @@ const styles = StyleSheet.create({
   titleText: {
     color: "black",
     fontSize: 20,
-    // fontWeight: "bold",
     top: 60,
     alignSelf: "center",
     justifyContent: "space-evenly",
