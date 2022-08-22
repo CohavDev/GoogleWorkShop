@@ -287,7 +287,7 @@ export default function UploadedActivityPreview(props) {
             })
           }
         >
-          <Text style={{ color: "white", fontSize: 16 }}>
+          <Text style={{ color: "white", fontSize: 16, textAlign: "center", }}>
             Potential travel partners ({counter})
           </Text>
         </Pressable>
