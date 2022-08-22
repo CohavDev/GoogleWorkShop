@@ -226,8 +226,9 @@ import {
                 }
                 
               );
-              allActivitiesRef.doc(activityData.activityID).delete();
-              return Promise.resolve(1);
+              allActivitiesRef.doc(activityData.activityID).delete().then(() => {
+                props.navigation.goBack()
+              })
             },
           },
           // The "No" button

@@ -235,10 +235,11 @@ export default function NewActivityForm(props) {
 
   useEffect(() => {
     //if on android, should be uncommented
+    console.log("useEffect on new form called");
     const strDate = stringFormatDate(startDate);
     setFormattedStartDate(strDatetoFormattedDate(strDate));
     setFormattedEndDate(strDatetoFormattedDate(strDate));
-  });
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>

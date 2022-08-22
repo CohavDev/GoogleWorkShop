@@ -15,6 +15,7 @@ export default function OccurringActivityItem(props) {
     Museum: "bank",
     Beach: "beach",
     Extreme: "airballoon",
+    Trash: "trash-can-outline",
   };
 
   const activityData = {
@@ -171,7 +172,7 @@ export default function OccurringActivityItem(props) {
         },
       ]
     );
-  }
+  };
 
   return (
     <Pressable
@@ -220,9 +221,7 @@ export default function OccurringActivityItem(props) {
       }
     >
       <View style={styles.container}>
-        <View
-          style={styles.circularImage}
-        >
+        <View style={styles.circularImage}>
           <IconButton
             icon={iconsMap[props.activityType]}
             color={colors.Secondary}
@@ -249,9 +248,7 @@ export default function OccurringActivityItem(props) {
           </Text>
         </View>
         <View style={styles.deletionContainer}>
-          <View
-            style={styles.deletionImage}
-          >
+          <View style={styles.deletionImage}>
             <IconButton
               icon={iconsMap["Trash"]}
               color={colors.Secondary}
