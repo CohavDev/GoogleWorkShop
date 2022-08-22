@@ -29,6 +29,7 @@ export default function MoreInfo1Screen(props) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [regionCode, setRegionCode] = useState("+972");
   const [show, setShow] = useState(false);
+  const [todaysDate, setTodaysDate] = useState(new Date());
 
   // const userID = firebase.auth().currentUser.uid;
   // const userRef = firebase.firestore().collection("users").doc(userID);
@@ -71,6 +72,10 @@ export default function MoreInfo1Screen(props) {
       // if using app on android, uncomment the following lines
       formattedDateOfBirth = stringFormatDate(dateOfBirth, 0);
       regularDate = stringFormatDate(dateOfBirth, 1);
+      if(parseInt(stringFormatDate(todaysDate, 0))-parseInt(formattedDateOfBirth)<180000){
+        alert("the app is designated only for users older than 18 :/");
+        return;
+      }
       //----
       console.log(formattedDateOfBirth);
     }
@@ -163,7 +168,7 @@ export default function MoreInfo1Screen(props) {
           autoCapitalize="none"
         /> */}
 
-        
+
         {/* this code is for working on Emulator: */}
         {/* if you want to use it, comment out the code designated for the web
                 but dont delete it! because everyone else needs it! */}
