@@ -5,15 +5,15 @@ import colors from "../../config/colors";
 export default StyleSheet.create({
   backgroundImage: {
     width: "100%",
-    height: "100%",
+    // height: "100%",
     alignItems: "center",
     flex: 1,
 
     // width: "100%",
-    // height: Dimensions.get("screen").height,
+    height: Dimensions.get("screen").height,
     // alignItems: "center",
     // flex: 1,
-    // position: "absolute",
+    position: "absolute",
     // top: 0,
     // left: 0,
     // flexDirection: "row",
@@ -27,6 +27,7 @@ export default StyleSheet.create({
     width: "100%",
     height: "300%",
     bottom: "0%",
+    
     // paddingTop: "30%",
     // backgroundColor: "gray",
   },
@@ -40,6 +41,7 @@ export default StyleSheet.create({
     alignSelf: "center",
     marginTop: "15%",
     resizeMode: "contain",
+    
   },
   inputBox:{
 
@@ -56,6 +58,7 @@ export default StyleSheet.create({
     paddingLeft: "3%",
     borderBottomWidth: 1,
     borderBottomColor: "rgb(192, 192, 192)",
+    
   },
   button: {
     backgroundColor: "white",
@@ -67,6 +70,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     elevation: 7,
+    
   },
   buttonTitle: {
     color: colors.Secondary,
@@ -81,6 +85,7 @@ export default StyleSheet.create({
     // flex: 1,
     alignItems: "center",
     marginTop: "5%",
+    
     // bottom: "5%",
   },
   footerText: {
