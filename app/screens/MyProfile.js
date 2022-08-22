@@ -23,17 +23,18 @@ export default function MyProfile(props) {
   const [aboutMe, setAboutMe] = useState("");
   const [fullName, setFullName] = useState("");
   const [nationality, setNationality] = useState("");
-  const [nativeLanguage, setNativeLanguage] = useState("");
-  const [secondLanguage, setSecondLanguage] = useState("");
+  // const [nativeLanguage, setNativeLanguage] = useState("");
+  // const [secondLanguage, setSecondLanguage] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [formattedDateOfBirth, setformattedDateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [renderAgain, setRenderAgain] = useState(false);
   const userData = {
     aboutMe: aboutMe,
     fullName: fullName,
     nationality: nationality,
-    nativeLanguage: nativeLanguage,
-    secondLanguage: secondLanguage,
+    // nativeLanguage: nativeLanguage,
+    // secondLanguage: secondLanguage,
     phoneNumber: phoneNumber,
     age: getAge(formattedDateOfBirth),
   };
@@ -47,10 +48,11 @@ export default function MyProfile(props) {
       setAboutMe(data.get("aboutMe"));
       setFullName(data.get("fullName"));
       setNationality(data.get("nationality"));
-      setNativeLanguage(data.get("nativeLanguage"));
-      setSecondLanguage(data.get("secondLanguage"));
+      // setNativeLanguage(data.get("nativeLanguage"));
+      // setSecondLanguage(data.get("secondLanguage"));
       setPhoneNumber(data.get("phoneNumber"));
       setformattedDateOfBirth(data.get("formattedDateOfBirth"));
+      setDateOfBirth(data.get("dateOfBirth"));
     });
   }, [renderAgain]);
   const onPressEdit = () => {
@@ -114,10 +116,13 @@ export default function MyProfile(props) {
             <Text style={styles.subText}>{userData.nationality}</Text>
             <Text style={styles.subTitle}>Phone Number</Text>
             <Text style={styles.subText}>{userData.phoneNumber}</Text>
-            <Text style={styles.subTitle}>Spoken Languages</Text>
-            <Text style={styles.subText}>
+            <Text style={styles.subTitle}>Date Of Birth</Text>
+            <Text style={styles.subText}>{dateOfBirth}</Text>
+            {/* <Text>style={styles.subText}{userData.age}</Text> */}
+            {/* <Text style={styles.subTitle}>Spoken Languages</Text> */}
+            {/* <Text style={styles.subText}>
               {userData.nativeLanguage + ", " + userData.secondLanguage}
-            </Text>
+            </Text> */}
           </View>
         </LinearGradient>
         <View style={{ paddingTop: "20%", paddingLeft: "0%" }}>
@@ -189,6 +194,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 15,
+    alignSelf: "flex-start",
     top: 4,
   },
   profilePic: {

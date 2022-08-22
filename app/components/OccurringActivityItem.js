@@ -14,7 +14,7 @@ export default function OccurringActivityItem(props) {
     Concert: "music-clef-treble",
     Museum: "bank",
     Beach: "beach",
-    Extreme: "airballon",
+    Extreme: "airballoon",
   };
 
   const activityData = {

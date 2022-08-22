@@ -90,8 +90,8 @@ export default function MoreInfo1Screen(props) {
       dateOfBirth: regularDate,
       formattedDateOfBirth: parseInt(formattedDateOfBirth),
       nationality: nationality,
-      nativeLanguage: "",
-      secondLanguage: "",
+      // nativeLanguage: "",
+      // secondLanguage: "",
       phoneNumber: regionCode + "" + phoneNumber,
     };
     props.navigation.navigate("MoreInfo2Screen", {

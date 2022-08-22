@@ -27,9 +27,11 @@ export default function LandPage({ navigation }) {
         />
       </View>
       <View style={styles.textBox}>
-        <Text style={styles.text1}>Find travel partners, and make life-time friendships</Text>
+        <Text style={styles.text1}>Find travel partners</Text>
+        <Text style={styles.text1}>Make life-time friendships</Text>
+
         <Text style={styles.text2}>
-          Travel Partner helps you to find the perfect partner for your travels.
+          Travel Partner helps you find the perfect partner for your travels.
         </Text>
         <Text style={styles.text2}>Find your Travel Partner now!</Text>
         <TouchableOpacity style={styles.button} onPress={() => onLoginPress()}>
@@ -55,36 +57,38 @@ const styles = StyleSheet.create({
     height: undefined,
     alignItems: "center",
     alignSelf: "center",
-    marginTop: 50,
+    // marginTop: "15%",
     // padding: 20,
   },
   logoImage: {
-    height: 140,
+    height: "60%",
     width: "100%",
     alignSelf: "center",
     resizeMode: "contain",
-    marginTop: "5%",
+    // marginTop: "5%",
   },
   text1: {
-    fontSize: 24,
+    fontSize: 20,
     color: "white",
   },
   text2: {
     fontSize: 16,
     color: "white",
-    paddingTop: 10,
+    paddingTop: "3%",
   },
   textBox: {
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: "5%",
+    paddingRight: "5%",
     width: "100%",
+    // height: "10%",
+    bottom: "5%",
     flex: 1,
   },
   button: {
     backgroundColor: "white",
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 40,
+    marginLeft: "10%",
+    marginRight: "10%",
+    marginTop: "5%",
     height: 48,
     borderRadius: 5,
     alignItems: "center",
