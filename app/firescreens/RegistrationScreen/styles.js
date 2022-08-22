@@ -6,6 +6,7 @@ export default StyleSheet.create({
     alignItems: "center",
     height: "100%",
     paddingTop: "30%",
+    
   },
   title: {},
   logo: {

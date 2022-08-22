@@ -239,21 +239,27 @@ export default function MatchesScreen(props) {
                         {item.fullName} {", "}
                         {item.age}
                       </Text>
-                      {item.condOne && (
+                      {item.condOne && !item.condTwo && (
                         <Text style={styles.text}>
-                          {item.languages.join(', ')} {"\n"}
-                          {"you have already accepted "} {item.fullName}
+                          {item.languages.join(", ")} {"\n"}
+                          {"you have already requested "} {item.fullName}
                         </Text>
                       )}
-                      {item.condTwo && (
+                      {!item.condOne && item.condTwo && (
                         <Text style={styles.text}>
-                          {item.languages.join(', ')} {"\n"}
-                          {item.fullName} {" has already accepted you"}
+                          {item.languages.join(", ")} {"\n"}
+                          {item.fullName} {" has already requested you"}
                         </Text>
                       )}
                       {!item.condTwo && !item.condOne && (
                         <Text style={styles.text}>
-                          {item.languages.join(', ')} {"\n"}
+                          {item.languages.join(", ")} {"\n"}
+                        </Text>
+                      )}
+                      {item.condTwo && item.condOne && (
+                        <Text style={styles.text}>
+                          {item.languages.join(", ")} {"\n"}
+                          {" It's a match ! -- You both accepted"}
                         </Text>
                       )}
                     </View>

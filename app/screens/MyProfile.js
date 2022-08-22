@@ -134,7 +134,7 @@ export default function MyProfile(props) {
             >
               <IconButton icon="account-edit" color="white" size={32} />
             </Pressable>
-            <Text>Edit Profile</Text>
+            <Text style={{color: myColors.Primary}}>Edit</Text>
             <Text>{renderAgain}</Text>
           </View>
         </View>
@@ -151,8 +151,9 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
     // bottom: "6%",
-    top: "50%",
-    paddingTop: "5%",
+    top: "45%",
+    padding: "7%",
+    
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    // fontWeight: "bold",
+    fontWeight: "bold",
     fontSize: 24,
   },
   smallTitle: {
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
   subTitle: {
     color: "#49454F",
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
     paddingLeft: 15,
   },
   subText: {
@@ -198,10 +199,10 @@ const styles = StyleSheet.create({
     top: 4,
   },
   profilePic: {
-    width: 128,
-    height: 128,
+    width: 120,
+    height: 120,
     borderRadius: 64,
-    margin: "5%",
+    margin: "3%",
     // top: "30%",
   },
   profilePicContainer: {
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // flexGrow: 1,
     // top: "200%",
-    paddingTop: "50%",
+    paddingTop: "43%",
     // position: "absolute",
   },
   shadowProp: {
