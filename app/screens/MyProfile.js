@@ -114,7 +114,7 @@ export default function MyProfile(props) {
             <Text style={styles.subText}>{userData.nationality}</Text>
             <Text style={styles.subTitle}>Phone Number</Text>
             <Text style={styles.subText}>{userData.phoneNumber}</Text>
-            <Text style={styles.subTitle}>Spoken Languages</Text>
+            {/* <Text style={styles.subTitle}>Spoken Languages</Text> */}
             {/* <Text style={styles.subText}>
               {userData.nativeLanguage + ", " + userData.secondLanguage}
             </Text> */}
