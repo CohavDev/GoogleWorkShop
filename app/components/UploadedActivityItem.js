@@ -19,7 +19,7 @@ export default function UploadedActivityItem(props) {
     Concert: "music-clef-treble",
     Museum: "bank",
     Beach: "beach",
-    Extreme: "airballon",
+    Extreme: "airballoon",
     Trash: "trash-can-outline",
   };
 
