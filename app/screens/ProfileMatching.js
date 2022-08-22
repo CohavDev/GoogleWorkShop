@@ -177,7 +177,7 @@ export default function ProfileMatching(props) {
       return (
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button} android_ripple={{ color: "white" }}>
-            <Text>Already Requested</Text>
+            <Text style={styles.alrReqText}>Already Requested</Text>
           </Pressable>
         </View>
       );
@@ -390,4 +390,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 5,
   },
+  alrReqText:{
+    color: "white",
+    fontSize: 12,
+    textAlign: "center",
+  }
 });
