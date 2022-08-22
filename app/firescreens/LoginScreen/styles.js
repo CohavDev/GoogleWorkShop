@@ -20,15 +20,19 @@ export default StyleSheet.create({
     // resizeMode: "cover",
   },
   container: {
-    flex: 2,
+    // flex: 2,
     alignItems: "center",
     alignSelf: "center",
     height: undefined,
     width: "100%",
+    height: "300%",
+    bottom: "0%",
     // paddingTop: "30%",
     // backgroundColor: "gray",
   },
-  title: {},
+  title: {
+
+  },
   logo: {
     // flex: 2,
     // height: "50%",
@@ -37,13 +41,16 @@ export default StyleSheet.create({
     marginTop: "15%",
     resizeMode: "contain",
   },
+  inputBox:{
+
+  },
   input: {
     height: 48,
     borderRadius: 5,
     overflow: "hidden",
     // backgroundColor: "white",
     marginTop: "5%",
-    marginBottom: "5%",
+    // marginBottom: "5%",
     marginLeft: "10%",
     marginRight: "10%",
     paddingLeft: "3%",
@@ -54,7 +61,7 @@ export default StyleSheet.create({
     backgroundColor: "white",
     marginLeft: "15%",
     marginRight: "15%",
-    marginTop: "30%",
+    marginTop: "50%",
     height: 48,
     borderRadius: 5,
     alignItems: "center",
@@ -66,10 +73,15 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  loginBox:{
+    bottom: "0%",
+    // position: "relative",
+  },
   footerView: {
-    flex: 1,
+    // flex: 1,
     alignItems: "center",
     marginTop: "5%",
+    // bottom: "5%",
   },
   footerText: {
     fontSize: 16,

@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     paddingRight: "5%",
     width: "100%",
     // height: "10%",
+    bottom: "5%",
     flex: 1,
   },
   button: {
