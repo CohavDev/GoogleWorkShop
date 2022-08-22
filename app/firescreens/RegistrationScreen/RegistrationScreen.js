@@ -3,9 +3,6 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config.js";
-// import { initializeApp } from 'firebase/app';
-// import { getDatabase } from "firebase/database"
-// import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 
 export default function RegistrationScreen(props) {
   const [fullName, setFullName] = useState("");
@@ -41,7 +38,6 @@ export default function RegistrationScreen(props) {
       .collection("users")
       .where("email", "==", email)
       .get();
-    console.log("email = " + email);
     if (query.docs.length != 0) {
       alert("Email already exists");
       return;
@@ -55,21 +51,6 @@ export default function RegistrationScreen(props) {
       data: JSON.stringify(data),
       password: password,
     });
-    // firebase
-    //   .auth()
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then((response) => {
-    //     const uid = response.user.uid;
-    //     const data = {
-    //       id: uid,
-    //       email,
-    //       fullName,
-    //     };
-    //     navigation.navigate("MoreInfo1Screen", { data: JSON.stringify(data) });
-    //   })
-    //   .catch((error) => {
-    //     alert(error);
-    //   });
   };
 
   return (
@@ -142,7 +123,3 @@ export default function RegistrationScreen(props) {
     </View>
   );
 }
-
-// const app = initializeApp(firebaseConfig);
-// const database = getDatabase(app);
-// const auth = getAuth();

@@ -5,37 +5,20 @@ import colors from "../../config/colors";
 export default StyleSheet.create({
   backgroundImage: {
     width: "100%",
-    // height: "100%",
     alignItems: "center",
     flex: 1,
-
-    // width: "100%",
     height: Dimensions.get("screen").height,
-    // alignItems: "center",
-    // flex: 1,
     position: "absolute",
-    // top: 0,
-    // left: 0,
-    // flexDirection: "row",
-    // resizeMode: "cover",
   },
   container: {
-    // flex: 2,
     alignItems: "center",
     alignSelf: "center",
     flexDirection: "column",
-    // height: undefined,
     width: "100%",
     height: "100%",
-    // bottom: "0%",
-
-    // paddingTop: "30%",
-    // backgroundColor: "gray",
   },
   title: {},
   logo: {
-    // flex: 2,
-    // height: "50%",
     width: "100%",
     alignSelf: "center",
     marginTop: "15%",
@@ -46,9 +29,7 @@ export default StyleSheet.create({
     height: 48,
     borderRadius: 5,
     overflow: "hidden",
-    // backgroundColor: "white",
     marginTop: "5%",
-    // marginBottom: "5%",
     marginLeft: "10%",
     marginRight: "10%",
     paddingLeft: "3%",
@@ -59,7 +40,6 @@ export default StyleSheet.create({
     backgroundColor: "white",
     marginLeft: "15%",
     marginRight: "15%",
-    // marginTop: "50%",
     height: 48,
     borderRadius: 5,
     alignItems: "center",
@@ -72,17 +52,12 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   loginBox: {
-    // backgroundColor: "green",
     width: "100%",
     flex: 1,
-    // position: "absolute",
   },
   footerView: {
-    // flex: 1,
     alignItems: "center",
     marginTop: "5%",
-
-    // bottom: "5%",
   },
   footerText: {
     fontSize: 16,

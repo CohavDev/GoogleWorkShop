@@ -9,8 +9,7 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
-import { firebase, auth } from "../../firebase/config.js";
-import { onAuthStateChanged } from "firebase/auth";
+import { firebase } from "../../firebase/config.js";
 
 import { LogBox } from "react-native";
 import _ from "lodash";
@@ -54,7 +53,6 @@ export default function LoginScreen({ navigation }) {
             const userRef = usersRef.doc(uid);
             userRef.update(data);
             const user = firestoreDocument.data();
-            // navigation.navigate("Tabs", { user });
           })
           .catch((error) => {
             alert(error);
@@ -108,7 +106,6 @@ export default function LoginScreen({ navigation }) {
           <View
             style={{
               marginTop: "60%",
-              //   backgroundColor: "red",
             }}
           >
             <TouchableOpacity

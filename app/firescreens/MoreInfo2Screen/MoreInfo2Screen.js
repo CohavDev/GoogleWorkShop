@@ -3,19 +3,9 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config.js";
-// import { initializeApp } from 'firebase/app';
-// import { getDatabase } from "firebase/database"
-// import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 
 export default function MoreInfo2Screen(props) {
   const [aboutMe, setAboutMe] = useState("");
-  // const userID = firebase.auth().currentUser.uid;
-  // const userRef = firebase.firestore().collection("users").doc(userID);
-
-  // const onFooterLinkPress = () => {
-  //     navigation.navigate('LoginScreen')
-  // }
-
   const onMoveOnPress = async () => {
     if (aboutMe.length === 0) {
       alert("please fill in 'about me' field :)");
@@ -29,8 +19,6 @@ export default function MoreInfo2Screen(props) {
       createdAt: timestamp,
     };
     var finalData = { ...JSON.parse(props.route.params.data), ...data };
-    // create user
-    console.log("FinalData" + JSON.stringify(finalData));
     firebase
       .auth()
       .createUserWithEmailAndPassword(
@@ -41,35 +29,13 @@ export default function MoreInfo2Screen(props) {
         const uid = response.user.uid;
         const userRef = firebase.firestore().collection("users").doc(uid);
         finalData = { id: uid, ...finalData };
-        console.log("userID = " + uid);
         userRef.set(finalData).then(() => {
-          console.log(finalData);
-          // navigation.popToTop();
-          // navigation.navigate("Tabs");
         });
-        // navigation.navigate("MoreInfo1Screen", { data: JSON.stringify(data) });
       })
       .catch((error) => {
         alert(error);
       });
-    // userRef
-    //   .set(finalData)
-    //   .then(() => {
-    //     console.log(finalData);
-    //     // navigation.popToTop();
-    //     // navigation.navigate("Tabs");
-    //   })
-    //   .catch((error) => {
-    //     alert(error);
-    //   });
   };
-
-  // if (props===null){
-  //      userID={};
-  // }
-  // else{
-  //     userID = props.extraData.id
-  // }
 
   return (
     <View style={styles.container}>
@@ -100,7 +66,3 @@ export default function MoreInfo2Screen(props) {
     </View>
   );
 }
-
-//const app = initializeApp(firebaseConfig);
-//const database = getDatabase(app);
-//const auth = getAuth();
