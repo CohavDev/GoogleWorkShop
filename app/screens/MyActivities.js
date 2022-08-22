@@ -45,7 +45,7 @@ export default function MyActivities({ navigation }) {
               && (dayTimeToNum(activity.time) < timeToNum(date.getHours()))) {
                 allActivitiesRef.doc(activity.id).delete();
               }
-              else{
+              else if(activity.userID == userID){
                 newMyUploadedActivities.push(activity);
               }
               
