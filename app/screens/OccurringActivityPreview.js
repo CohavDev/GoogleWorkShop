@@ -317,11 +317,70 @@ import {
             onLongPress={() => alert("clicked 'edit'")}
             android_ripple={{ color: "white" }}
             onPress={() =>
-              deleteItem().then((resolve) => {
-                if(resolve){
-                  props.navigation.goBack();
-                }
-              })
+              Alert.alert(
+                "Are your sure?",
+                "Are you sure you want to delete this activity?",
+                [
+                  // The "Yes" button
+                  {
+                    text: "Yes",
+                    onPress: () => {
+                      allActivitiesRef
+                      .where("type", "==", activityData.activityType)
+                      .where("time", "==", activityData.time)
+                      .where("location", "==", activityData.location)
+                      .where("startDate", "==", activityData.startDate)
+                      .where("endDate", "==", activityData.endDate)
+                      .where(
+                        "userFormattedDateOfBirth",
+                        "<=",
+                        activityData.userFormattedDateOfBirth + 50000
+                      )
+                      .where(
+                        "userFormattedDateOfBirth",
+                        ">=",
+                        activityData.userFormattedDateOfBirth - 50000
+                      )
+                      .where("languages", "array-contains-any", activityData.languages)
+                      .onSnapshot(
+                        (querySnapshot) => {
+                          function fetchData() {
+                            querySnapshot.forEach((doc) => {
+                              const match = doc.data();
+                              match.id = doc.id;
+                              index = match.travelPartnersIDs.indexOf(userID);
+                              if (index > -1) {
+                                allActivitiesRef.doc(match.id).update({
+                                  travelPartnersIDs:
+                                      firebase.firestore.FieldValue.arrayRemove(userID),
+                                })
+                              }
+                              if (match.matchedActivityID == activityData.activityID){
+                                allActivitiesRef.doc(match.id).update({
+                                  "status" : "waiting",
+                                  "matchedActivityID" : ""
+                                })
+                              }
+                            });
+                          }
+                          fetchData();
+                        }
+                        
+                      );
+                      allActivitiesRef.doc(activityData.activityID).delete();
+                      return Promise.resolve(1);
+                    },
+                  },
+                  // The "No" button
+                  // Does nothing but dismiss the dialog when tapped
+                  {
+                    text: "No",
+                    onPress: () => {            
+                      return Promise.resolve(0);
+                    }
+                  },
+                ]
+              )
             }
           >
             <Text style={{ color: "white", fontSize: 16 }}>Delete activity</Text>
