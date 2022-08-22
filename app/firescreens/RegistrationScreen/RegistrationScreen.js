@@ -14,7 +14,7 @@ export default function RegistrationScreen(props) {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const onFooterLinkPress = () => {
-    navigation.navigate("LoginScreen");
+    props.navigation.navigate("LoginScreen");
   };
 
   const onRegisterPress = async () => {
@@ -82,58 +82,61 @@ export default function RegistrationScreen(props) {
           style={styles.logo}
           source={require("../../../app/assets/TravelPartnerLogo1.jpg")}
         />
-
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          placeholderTextColor="#aaaaaa"
-          value={fullName}
-          onChangeText={(text) => setFullName(text)}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
-          placeholderTextColor="#aaaaaa"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => onRegisterPress()}
-        >
-          <Text style={styles.buttonTitle}>Let's move on!</Text>
-        </TouchableOpacity>
-        <View style={styles.footerView}>
-          <Text style={styles.footerText}>
-            Already got an account?{" "}
-            <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-              Log in
-            </Text>
-          </Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Full Name"
+            placeholderTextColor="#aaaaaa"
+            value={fullName}
+            onChangeText={(text) => setFullName(text)}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            placeholderTextColor="#aaaaaa"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Password"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChangeText={(text) => setConfirmPassword(text)}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <View style={styles.footerView}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => onRegisterPress()}
+            >
+              <Text style={styles.buttonTitle}>Let's move on!</Text>
+            </TouchableOpacity>
+            <View style={{ padding: "5%" }}>
+              <Text style={styles.footerText}>
+                Already got an account?{" "}
+                <Text onPress={onFooterLinkPress} style={styles.footerLink}>
+                  Log in
+                </Text>
+              </Text>
+            </View>
+          </View>
         </View>
       </KeyboardAwareScrollView>
     </View>

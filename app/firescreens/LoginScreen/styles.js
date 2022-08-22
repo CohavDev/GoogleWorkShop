@@ -23,17 +23,16 @@ export default StyleSheet.create({
     // flex: 2,
     alignItems: "center",
     alignSelf: "center",
-    height: undefined,
+    flexDirection: "column",
+    // height: undefined,
     width: "100%",
-    height: "300%",
-    bottom: "0%",
-    
+    height: "100%",
+    // bottom: "0%",
+
     // paddingTop: "30%",
     // backgroundColor: "gray",
   },
-  title: {
-
-  },
+  title: {},
   logo: {
     // flex: 2,
     // height: "50%",
@@ -41,11 +40,8 @@ export default StyleSheet.create({
     alignSelf: "center",
     marginTop: "15%",
     resizeMode: "contain",
-    
   },
-  inputBox:{
-
-  },
+  inputBox: {},
   input: {
     height: 48,
     borderRadius: 5,
@@ -58,34 +54,34 @@ export default StyleSheet.create({
     paddingLeft: "3%",
     borderBottomWidth: 1,
     borderBottomColor: "rgb(192, 192, 192)",
-    
   },
   button: {
     backgroundColor: "white",
     marginLeft: "15%",
     marginRight: "15%",
-    marginTop: "50%",
+    // marginTop: "50%",
     height: 48,
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
     elevation: 7,
-    
   },
   buttonTitle: {
     color: colors.Secondary,
     fontSize: 16,
     fontWeight: "bold",
   },
-  loginBox:{
-    bottom: "0%",
-    // position: "relative",
+  loginBox: {
+    // backgroundColor: "green",
+    width: "100%",
+    flex: 1,
+    // position: "absolute",
   },
   footerView: {
     // flex: 1,
     alignItems: "center",
     marginTop: "5%",
-    
+
     // bottom: "5%",
   },
   footerText: {
