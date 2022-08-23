@@ -54,7 +54,7 @@ export default function HomeScreen(props) {
     <ImageBackground
       style={styles.backgroundImage}
       resizeMode="cover"
-      source={require("../assets/homeScreenWallpaper.jpg")}
+      source={require("../assets/homescreen-new.jpg")}
     >
       <View style={styles.mainBackground}>
         <Text style={styles.header}>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   viewButtons: {
     width: "100%",
-    height: 120,
+    // height: 120,
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
