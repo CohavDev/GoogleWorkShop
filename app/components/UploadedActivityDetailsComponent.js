@@ -86,13 +86,17 @@ export default function UploadedActivityDetailsComponent(props) {
 							<View
 								style={{
 									flexDirection: "row",
-									alignItems: "center",
+									// alignItems: "center",
+									flexDirection: "row",
+									alignItems: "flex-start",
 								}}
 							>
 								<Text style={styles.titlesStyle}>Location: </Text>
-								<Text style={styles.activityDetailsText}>
-									{DATA.location}
-								</Text>
+								<View style={{ width: "65%" }}>
+									<Text style={styles.activityDetailsText}>
+										{DATA.location}
+									</Text>
+								</View>
 							</View>
 						</View>
 						{/*activity date*/}
@@ -159,7 +163,7 @@ export default function UploadedActivityDetailsComponent(props) {
 								}}
 							>
 								<Text style={styles.titlesStyle}>Languages:{"  "}</Text>
-								<View style={{ width: "60%" }}>
+								<View style={{ width: "65%" }}>
 									<Text style={styles.activityDetailsText}>
 										{DATA.languages}
 									</Text>
@@ -237,7 +241,7 @@ const styles = StyleSheet.create({
 	},
 	location: {
 		// top: "10%",
-		marginRight: "15%",
+		// marginRight: "15%",
 	},
 	date: {
 		// borderWidth: 1,
