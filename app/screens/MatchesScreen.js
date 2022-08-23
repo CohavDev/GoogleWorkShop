@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: "100%",
     width: "100%",
-    top: "20%",
+    top: "22%",
     flexDirection: "column",
     alignContent: "center",
     justifyContent: "center",
