@@ -94,7 +94,7 @@ export default function MyProfile(props) {
             <Text style={styles.subText}>{dateOfBirth}</Text>
           </View>
         </LinearGradient>
-        <View style={{ paddingTop: "20%", paddingLeft: "0%" }}>
+        <View style={{ paddingTop: "20%", }}>
           <View style={styles.buttonContainer}>
             <Pressable
               style={styles.button}
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "60%",
     top: "45%",
-    padding: "7%",
+    padding: "5%",
     
     backgroundColor: "white",
     borderTopLeftRadius: 20,
