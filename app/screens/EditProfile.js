@@ -30,7 +30,7 @@ export default function EditProfile(props) {
 			})
 			.then(() => {
 				props.route.params.onGoBack();
-				props.navigation.goBack();
+				props.navigation.nevigate("MyProfile");
 			});
 	};
 	useEffect(() => {
