@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
 		paddingLeft: 16,
 		borderBottomWidth: 1,
 		borderBottomColor: "rgb(192, 192, 192)",
+		textAlign: "left",
 	},
 	button: {
 		backgroundColor: "rgb(52, 175, 183)",
