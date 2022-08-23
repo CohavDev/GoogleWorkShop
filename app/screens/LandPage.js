@@ -32,6 +32,8 @@ export default function LandPage({ navigation }) {
           Travel Partner helps you find the perfect partner for your travels.
         </Text>
         <Text style={styles.text2}>Find your Travel Partner now!</Text>
+      </View>
+      <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={() => onLoginPress()}>
           <Text style={styles.buttonTitle}>Let's go!</Text>
         </TouchableOpacity>
@@ -48,14 +50,17 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     flexDirection: "column",
-    flex: 2,
+    // flex: 2,
     width: "100%",
-    height: undefined,
+    height: "20%",
+    marginTop: "15%",
     alignItems: "center",
     alignSelf: "center",
+    // borderColor: "yellow",
+    // borderWidth: 3,
   },
   logoImage: {
-    height: "60%",
+    // height: "60%",
     width: "100%",
     alignSelf: "center",
     resizeMode: "contain",
@@ -70,22 +75,32 @@ const styles = StyleSheet.create({
     paddingTop: "3%",
   },
   textBox: {
-    borderWidth: 3,
-    borderColor: "red",
+    // borderWidth: 3,
+    // borderColor: "red",
     paddingLeft: "5%",
     paddingRight: "5%",
     width: "100%",
-    bottom: "5%",
-    flex: 1,
+    position: "absolute",
+    // height:"100%",
+    bottom: "20%",
+    // flex: 1,
+  },
+  buttonContainer: {
+    width: "100%",
+    height: 48,
+    // borderWidth: 3,
+    // borderColor: "blue",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    marginBottom: "20%",
   },
   button: {
     backgroundColor: "white",
-    marginLeft: "10%",
-    marginRight: "10%",
-    // marginBottom: "5%",
-    bottom: 0,
-    position: "absolute",
-    width: "100%",
+    // marginBottom: "10%",
+    // bottom: 0,
+    // position: "absolute",
+    width: "75%",
     height: 48,
     borderRadius: 5,
     alignItems: "center",
