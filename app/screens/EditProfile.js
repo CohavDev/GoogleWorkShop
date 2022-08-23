@@ -45,10 +45,11 @@ export default function EditProfile(props) {
   });
   return (
     <View style={styles.container}>
-        <Text style={{ top:"15%", fontSize: 18, alignSelf: "center" }}>
+        <Text style={{ top:"10%", fontSize: 18, alignSelf: "center" }}>
           Edit your profile
         </Text>
         <View style={styles.inputContainer}>
+            <Text  style={styles.subTitle}>Full name:</Text>
             <TextInput
             style={styles.input}
             placeholder="Full Name"
@@ -58,6 +59,7 @@ export default function EditProfile(props) {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
             />
+            <Text  style={styles.subTitle}>Country:</Text>
             <TextInput
             style={styles.input}
             placeholder="Where are you from?"
@@ -67,6 +69,7 @@ export default function EditProfile(props) {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
             />
+            <Text  style={styles.subTitle}>Phone Number:</Text>
             <TextInput
             style={styles.input}
             placeholderTextColor="#aaaaaa"
@@ -76,6 +79,7 @@ export default function EditProfile(props) {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
             />
+            <Text  style={styles.subTitle}>About:</Text>
             <TextInput
             style={styles.input}
             placeholderTextColor="#aaaaaa"
@@ -86,7 +90,7 @@ export default function EditProfile(props) {
             autoCapitalize="none"
             />
         </View>
-        <View style={{top: "20%", height: "80%",}}>
+        <View style={{top: "15%", height: "80%",}}>
             <TouchableOpacity style={styles.button} onPress={() => onPressSave()}>
             <Text style={styles.buttonTitle}>Save changes</Text>
             </TouchableOpacity>
@@ -96,6 +100,12 @@ export default function EditProfile(props) {
 }
 
 const styles = StyleSheet.create({
+    subTitle: {
+        color: "#49454F",
+        fontWeight: "bold",
+        fontSize: 14,
+        paddingLeft: "10%",
+      },
     container: {
         backgroundColor: "white",
         width: "100%",
@@ -104,14 +114,14 @@ const styles = StyleSheet.create({
   },
   inputContainer:{
     height: "60%",
-    top: "20%",
+    top: "15%",
   },
   input: {
-    height: 48,
+    height: 40,
     borderRadius: 5,
     overflow: "hidden",
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 20,
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 16,
