@@ -22,7 +22,6 @@ export default function MoreInfo1Screen(props) {
   var formattedDateOfBirth = "";
   var regularDate = "";
 
-
   useEffect(() => {
     const backAction = () => {
       if (show) {
@@ -42,7 +41,11 @@ export default function MoreInfo1Screen(props) {
     } else {
       formattedDateOfBirth = stringFormatDate(dateOfBirth, 0);
       regularDate = stringFormatDate(dateOfBirth, 1);
-      if(parseInt(stringFormatDate(todaysDate, 0))-parseInt(formattedDateOfBirth)<180000){
+      if (
+        parseInt(stringFormatDate(todaysDate, 0)) -
+          parseInt(formattedDateOfBirth) <
+        180000
+      ) {
         alert("the app is designated only for users older than 18 :/");
         return;
       }
@@ -52,7 +55,7 @@ export default function MoreInfo1Screen(props) {
       return;
     }
     if (phoneNumber.length === 0) {
-      alert("please fill in 'phone numebr' field :)");
+      alert("please fill in 'phone number' field :)");
       return;
     }
     const data = {
