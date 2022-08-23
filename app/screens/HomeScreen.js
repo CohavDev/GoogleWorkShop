@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: "center",
     top: 40,
-    fontSize: 22,
+    fontSize: 20,
     height: "20%",
     color: "white",
   },
