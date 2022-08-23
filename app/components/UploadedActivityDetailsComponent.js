@@ -92,7 +92,7 @@ export default function UploadedActivityDetailsComponent(props) {
 								}}
 							>
 								<Text style={styles.titlesStyle}>Location: </Text>
-								<View style={{ width: "60%" }}>
+								<View style={{ width: "65%" }}>
 									<Text style={styles.activityDetailsText}>
 										{DATA.location}
 									</Text>
@@ -163,7 +163,7 @@ export default function UploadedActivityDetailsComponent(props) {
 								}}
 							>
 								<Text style={styles.titlesStyle}>Languages:{"  "}</Text>
-								<View style={{ width: "60%" }}>
+								<View style={{ width: "65%" }}>
 									<Text style={styles.activityDetailsText}>
 										{DATA.languages}
 									</Text>
