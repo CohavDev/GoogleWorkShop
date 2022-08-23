@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { firebase } from "../firebase/config.js";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-
-} from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import OccurringActivityItem from "./OccurringActivityItem";
 import myColors from "../config/colors";
 import {
@@ -38,23 +32,26 @@ export default function ActivitiesList(props) {
       .onSnapshot(
         (querySnapshot) => {
           const newMyOccurringActivities = [];
+          var counter = 0;
           querySnapshot.forEach((doc) => {
             const activity = doc.data();
-            var counter = 0;
             activity.id = doc.id;
-            if (activity.formattedStartDate < convertDateToFormattedDate(date)){
-                
+            if (
+              activity.formattedStartDate < convertDateToFormattedDate(date)
+            ) {
               allActivitiesRef.doc(activity.id).delete();
               allActivitiesRef.doc(activity.matchedActivityID).delete();
-            }
-            else if((activity.formattedStartDate == convertDateToFormattedDate(date))
-            && (dayTimeToNum(activity.time) < timeToNum(date.getHours()))) {
+            } else if (
+              activity.formattedStartDate == convertDateToFormattedDate(date) &&
+              dayTimeToNum(activity.time) < timeToNum(date.getHours())
+            ) {
               allActivitiesRef.doc(activity.id).delete();
               allActivitiesRef.doc(activity.matchedActivityID).delete();
-            }
-            else if (counter < 2){
+            } else if (counter < 2) {
+              console.log("logging counter of homescreen activities:");
+              console.log(counter);
               newMyOccurringActivities.push(activity);
-              counter++;
+              counter = counter + 1;
             }
           });
           setMyOccurringActivities(newMyOccurringActivities);
