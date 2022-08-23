@@ -186,7 +186,7 @@ export default function ProfileMatching(props) {
             ></Image>
             <Text style={styles.title}>{otherUserData.fullName}</Text>
             <Text style={styles.smallTitle}>
-              {otherUserData.nationality + " , " + otherUserData.age}
+              {otherUserData.nationality + ", " + otherUserData.age}
             </Text>
           </View>
           <View style={styles.profileDetails}>
