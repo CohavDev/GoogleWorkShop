@@ -58,6 +58,10 @@ export default function MoreInfo1Screen(props) {
       alert("please fill in 'phone number' field :)");
       return;
     }
+    if (phoneNumber.length > 20) {
+      alert("Phone Number length must be at most 20 digits");
+      return;
+    }
     const data = {
       dateOfBirth: regularDate,
       formattedDateOfBirth: parseInt(formattedDateOfBirth),

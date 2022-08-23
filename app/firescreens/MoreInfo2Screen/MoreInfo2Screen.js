@@ -11,6 +11,10 @@ export default function MoreInfo2Screen(props) {
       alert("please fill in 'about me' field :)");
       return;
     }
+    if (aboutMe.length > 135) {
+      alert("About Me length must be at most 135 characters");
+      return;
+    }
 
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     const data = {
