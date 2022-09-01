@@ -1,9 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { firebase } from "../firebase/config.js";
@@ -80,31 +75,29 @@ export default function ProfileMatching(props) {
             style={styles.button}
             android_ripple={{ color: "white" }}
             onPressIn={() => {
-              Vibration.vibrate(PATTERN);
-              allActivitiesRef.doc(otherUserData.activityDocID).update({
-                travelPartnersIDs:
-                  firebase.firestore.FieldValue.arrayUnion(userID),
-              });
-              allActivitiesRef.doc(otherUserData.activityDocID).update({
-                matchedActivityID: thisUserData.activityDocID,
-              });
-              allActivitiesRef.doc(otherUserData.activityDocID).update({
-                status: "paired",
-              });
-              allActivitiesRef.doc(thisUserData.activityDocID).update({
-                travelPartnersIDs: firebase.firestore.FieldValue.arrayUnion(
-                  otherUserData.userID
-                ),
-              });
-              allActivitiesRef.doc(thisUserData.activityDocID).update({
-                matchedActivityID: otherUserData.activityDocID,
-              });
+              // Vibration.vibrate(PATTERN);
               allActivitiesRef
-                .doc(thisUserData.activityDocID)
+                .doc(otherUserData.activityDocID)
                 .update({
+                  travelPartnersIDs:
+                    firebase.firestore.FieldValue.arrayUnion(userID),
+                  matchedActivityID: thisUserData.activityDocID,
                   status: "paired",
                 })
-                .then(updatedMatchStatus(1));
+                .then(
+                  allActivitiesRef
+                    .doc(thisUserData.activityDocID)
+                    .update({
+                      travelPartnersIDs:
+                        firebase.firestore.FieldValue.arrayUnion(
+                          otherUserData.userID
+                        ),
+                      matchedActivityID: otherUserData.activityDocID,
+                      status: "paired",
+                    })
+                    .then(updatedMatchStatus(1))
+                )
+                .catch((error) => alert(error));
             }}
           >
             <AntDesign name="check" size={30} color="white" />
@@ -121,14 +114,15 @@ export default function ProfileMatching(props) {
             style={styles.button}
             android_ripple={{ color: "white" }}
             onPressIn={() => {
-              Vibration.vibrate(PATTERN);
+              // Vibration.vibrate(PATTERN);
               allActivitiesRef
                 .doc(otherUserData.activityDocID)
                 .update({
                   travelPartnersIDs:
                     firebase.firestore.FieldValue.arrayUnion(userID),
                 })
-                .then(updatedMatchStatus(0));
+                .then(updatedMatchStatus(0))
+                .catch((error) => alert(error));
             }}
           >
             <AntDesign name="check" size={30} color="white" />
@@ -145,8 +139,8 @@ export default function ProfileMatching(props) {
           </Pressable>
         </View>
       );
-    } 
-    if(status_both) {
+    }
+    if (status_both) {
       // status_both == 1
       return (
         <View style={styles.buttonContainer}>
@@ -200,34 +194,29 @@ export default function ProfileMatching(props) {
               </Text>
               {!condDate && (
                 <Text style={[styles.subText, { color: "white" }]}>
-                             
-                {activityData.type +
-                  " on " +
-                  activityData.startDate +
-                  " at " +
-                  activityData.location}
+                  {activityData.type +
+                    " on " +
+                    activityData.startDate +
+                    " at " +
+                    activityData.location}
                 </Text>
               )}
 
               {condDate && (
                 <Text style={[styles.subText, { color: "white" }]}>
-                             
-                {activityData.type +
-                  " from " +
-                  activityData.startDate +
-                  " until " +
-                  activityData.endDate + 
-                  " at " + 
-                  activityData.location}
+                  {activityData.type +
+                    " from " +
+                    activityData.startDate +
+                    " until " +
+                    activityData.endDate +
+                    " at " +
+                    activityData.location}
                 </Text>
               )}
-              
             </View>
           </View>
         </LinearGradient>
-        <View style={{ paddingTop: "15%" }}>
-          {renderButton(condElement)}
-        </View>
+        <View style={{ paddingTop: "15%" }}>{renderButton(condElement)}</View>
       </View>
     </View>
   );
@@ -323,9 +312,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 5,
   },
-  alrReqText:{
+  alrReqText: {
     color: "white",
     fontSize: 12,
     textAlign: "center",
-  }
+  },
 });
