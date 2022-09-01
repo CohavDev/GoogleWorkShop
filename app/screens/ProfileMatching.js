@@ -135,7 +135,7 @@ export default function ProfileMatching(props) {
       return (
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button} android_ripple={{ color: "white" }}>
-            <Text style={styles.alrReqText}>Already Requested</Text>
+            <Text style={styles.alrReqText}>Requested</Text>
           </Pressable>
         </View>
       );
